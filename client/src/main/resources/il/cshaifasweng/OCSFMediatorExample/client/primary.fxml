@@ -1,16 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.PrimaryController">
+<AnchorPane prefHeight="488.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Boundaries.PrimaryController">
    <children>
-      <Label text="Welcome" />
-      <Button mnemonicParsing="false" onAction="#sendWarning" text="Send me a warning!" />
+      <ImageView fitHeight="488.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image-from-rawpixel-id-516093-jpeg.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="240.0" layoutY="38.0" text="Welcome" textAlignment="CENTER" textFill="#253f84">
+         <font>
+            <Font name="Script MT Bold" size="48.0" />
+         </font>
+      </Label>
+      <Button layoutX="230.0" layoutY="217.0" mnemonicParsing="false" onAction="#MainSystemBTR" prefHeight="26.0" prefWidth="165.0" text="the main system" />
+      <Label layoutX="101.0" layoutY="122.0" text="choose the system that you would like to use: " textAlignment="CENTER" textFill="#253f84">
+         <font>
+            <Font name="Nirmala UI" size="22.0" />
+         </font>
+      </Label>
+      <Button layoutX="230.0" layoutY="270.0" mnemonicParsing="false" onAction="#QueueManageBTR" text="Queue management system" />
+      <Label layoutX="46.0" layoutY="407.0" text="health is wealth!" textAlignment="CENTER" textFill="#191296">
+         <font>
+            <Font name="Script MT Bold" size="28.0" />
+         </font>
+      </Label>
    </children>
-   <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-   </padding>
-</VBox>
+</AnchorPane>

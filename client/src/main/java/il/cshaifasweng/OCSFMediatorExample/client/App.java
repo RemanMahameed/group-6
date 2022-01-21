@@ -32,7 +32,7 @@ public class App extends Application {
         stage.show();
     }
 
-    static void setRoot(String fxml) throws IOException {
+    public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
 
@@ -61,6 +61,21 @@ public class App extends Application {
         	alert.show();
     	});
     	
+    }
+    @Subscribe
+    /* hon bdna nf7s sho el success
+    * 0= failed
+    * 1=patient
+    * 2..
+    *  */
+    public void onLoginEvent(LoginEvent event) {
+        Platform.runLater(() -> {
+            Alert alert = new Alert(AlertType.WARNING,
+                    String.format("Message: %s\n",event.getLogin().getUsername())
+            );
+            alert.show();
+        });
+
     }
 
 	public static void main(String[] args) {
