@@ -4,9 +4,8 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Optional;
 
-import il.cshaifasweng.OCSFMediatorExample.client.App;
+
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.Login;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.util.Pair;

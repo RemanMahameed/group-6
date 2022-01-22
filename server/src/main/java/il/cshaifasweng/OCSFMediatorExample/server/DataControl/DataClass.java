@@ -1,13 +1,10 @@
-package il.cshaifasweng.OCSFMediatorExample.server;
+package il.cshaifasweng.OCSFMediatorExample.server.DataControl;
 
-import java.beans.Statement;
-import java.time.LocalDateTime;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
+
 
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import org.hibernate.HibernateException;
@@ -129,26 +126,26 @@ public class DataClass {
         //HmoManager hmoManager=new HmoManager("hmoManager","hmoManager","0503104837","hmoManager@gmail.com","hmoManager","1111");
 
         //manager of clinic
-        ClinicManager clinicManager1= new ClinicManager("Salsabeel","Saleh","0503104837","salehsalsabeel99@gmail.com","SalehSalsabeel","123456789");
-        ClinicManager clinicManager2= new ClinicManager("Sara","Zreke","0526589829","sarazreke@gmail.com","ZrekeSara","1234");
-        ClinicManager clinicManager3= new ClinicManager("Marah","Bhoooty","0532252582","marah.bhoty@gmail.com","BhotyMarah","56789");
+        ClinicManager clinicManager1= new ClinicManager("Salsabeel","Saleh","0503104837","salehsalsabeel99@gmail.com","CM-SalehSalsabeel","123456789");
+        ClinicManager clinicManager2= new ClinicManager("Sara","Zreke","0526589829","sarazreke@gmail.com","CM-ZrekeSara","1234");
+        ClinicManager clinicManager3= new ClinicManager("Marah","Bhoooty","0532252582","marah.bhoty@gmail.com","CM-BhotyMarah","56789");
         //doctors
-        Doctor doctor1=new Doctor("doctor1","doctor","0503104837","Doctor11@gmail.com","Doctor1","1111","FamilyDoctor");
-        Doctor doctor2=new Doctor("doctor2","doctor","0503104837","Doctor22@gmail.com","Doctor2","2222","FamilyDoctor");
-        Doctor doctor3=new Doctor("doctor1","doctor","0503104837","Doctor33@gmail.com","Doctor3","3333","OtolaryngologyDoctor");
+        Doctor doctor1=new Doctor("doctor1","doctor","0503104837","Doctor11@gmail.com","D-Doctor1","1111","FamilyDoctor");
+        Doctor doctor2=new Doctor("doctor2","doctor","0503104837","Doctor22@gmail.com","D-Doctor2","2222","FamilyDoctor");
+        Doctor doctor3=new Doctor("doctor1","doctor","0503104837","Doctor33@gmail.com","D-Doctor3","3333","OtolaryngologyDoctor");
         //Nurse
-        Nurse nurse1=new Nurse("nurse1","nurse","0503104837","nurse111@gmail.com","nurse1","1111");
-        Nurse nurse2=new Nurse("nurse2","nurse","0503104837","nurse222@gmail.com","nurse2","2222");
-        Nurse nurse3=new Nurse("nurse3","nurse","0503104837","nurse333@gmail.com","nurse3","3333");
+        Nurse nurse1=new Nurse("nurse1","nurse","0503104837","nurse111@gmail.com","N-nurse1","1111");
+        Nurse nurse2=new Nurse("nurse2","nurse","0503104837","nurse222@gmail.com","N-nurse2","2222");
+        Nurse nurse3=new Nurse("nurse3","nurse","0503104837","nurse333@gmail.com","N-nurse3","3333");
         //LaboratoryFacts
-        LaboratoryFacts laboratoryFacts1=new LaboratoryFacts("laboratoryFacts1","laboratoryFacts","0503104837","laboratoryFacts1111@gmail.com","laboratoryFacts1","1111");
-        LaboratoryFacts laboratoryFacts2=new LaboratoryFacts("laboratoryFacts2","laboratoryFacts","0503104837","laboratoryFacts2222@gmail.com","laboratoryFacts1","2222");
-        LaboratoryFacts laboratoryFacts3=new LaboratoryFacts("laboratoryFacts3","laboratoryFacts","0503104837","laboratoryFacts3333@gmail.com","laboratoryFacts1","3333");
+        LaboratoryFacts laboratoryFacts1=new LaboratoryFacts("laboratoryFacts1","laboratoryFacts","0503104837","laboratoryFacts1111@gmail.com","L-laboratoryFacts1","1111");
+        LaboratoryFacts laboratoryFacts2=new LaboratoryFacts("laboratoryFacts2","laboratoryFacts","0503104837","laboratoryFacts2222@gmail.com","L-laboratoryFacts1","2222");
+        LaboratoryFacts laboratoryFacts3=new LaboratoryFacts("laboratoryFacts3","laboratoryFacts","0503104837","laboratoryFacts3333@gmail.com","L-laboratoryFacts1","3333");
         //Patient
-        Patient patient1=new Patient("patient1","patient","0503104837","patient111@gmail.com","patient1","1111",34,false);
-        Patient patient2=new Patient("patient2","patient","0503104837","patient222@gmail.com","patient2","2222",18,false);
-        Patient patient3=new Patient("patient3","patient","0503104837","patient333@gmail.com","patient3","3333",10,false);
-        Patient patient4=new Patient("patient4","patient","0503104837","patient444@gmail.com","patient4","4444",20,false);
+        Patient patient1=new Patient("patient1","patient","0503104837","patient111@gmail.com","P-patient1","1111",34,false);
+        Patient patient2=new Patient("patient2","patient","0503104837","patient222@gmail.com","P-patient2","2222",18,false);
+        Patient patient3=new Patient("patient3","patient","0503104837","patient333@gmail.com","P-patient3","3333",10,false);
+        Patient patient4=new Patient("patient4","patient","0503104837","patient444@gmail.com","P-patient4","4444",20,false);
         //List of doctor nurse laboratory
         List<Doctor> doctors=new ArrayList<>();
         doctors.add(doctor1);

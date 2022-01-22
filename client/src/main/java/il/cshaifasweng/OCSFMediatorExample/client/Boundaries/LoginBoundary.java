@@ -1,6 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.client.Boundaries;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -30,7 +31,8 @@ public class LoginBoundary extends MessageBoundary{
         // Set the button types
         ButtonType loginButtonType = new ButtonType("Login", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
-
+        //create choiceBox
+        //ChoiceBox<String> choiceBox=new ChoiceBox(FXCollections.observableArrayList("First", "Second", "Third"));
         // Create the username and password labels and fields.
         GridPane grid = new GridPane();
         grid.setHgap(10);
@@ -42,6 +44,7 @@ public class LoginBoundary extends MessageBoundary{
         PasswordField password = new PasswordField();
         password.setPromptText("Password");
 
+        //grid.add(choiceBox,4,0);
         grid.add(new Label("Username:"), 0, 0);
         grid.add(username, 1, 0);
         grid.add(new Label("Password:"), 0, 1);

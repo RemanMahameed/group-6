@@ -1,6 +1,8 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.Login;
+import il.cshaifasweng.OCSFMediatorExample.server.DataControl.DataClass;
+import il.cshaifasweng.OCSFMediatorExample.server.DataControl.LoginData;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.AbstractServer;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
 
@@ -18,11 +20,11 @@ public class SimpleServer extends AbstractServer {
 
 	@Override
 	protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
-		try {
-			DataClass.generateNewData();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		//try {
+		//	DataClass.generateNewData();
+		//} catch (Exception e) {
+		//	e.printStackTrace();
+		//}
 		String msgString = msg.toString();
 		//System.out.format("%s\n",msgString);*/
 		LinkedList<Object> message = (LinkedList<Object>) (msg);
@@ -38,9 +40,14 @@ public class SimpleServer extends AbstractServer {
 		}
 		if (message.get(0).equals("#Login")) {
 			System.out.format("I am in the else \n");
-			Login hi = new Login( (String) message.get(1),"0",0);
+			Login login= null;
 			try {
-				client.sendToClient(hi);
+				login = LoginData.CheckExcision((String) message.get(1),(String) message.get(2));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				client.sendToClient(login);
 				System.out.format("Sent login to client %s\n", client.getInetAddress().getHostAddress());
 			} catch (IOException e) {
 				e.printStackTrace();

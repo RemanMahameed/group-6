@@ -18,7 +18,8 @@ public class Login implements Serializable {
     }
 
 
-
+    public Login() {
+    }
 
     public int getSuccess() {
         return success;

@@ -1,5 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import il.cshaifasweng.OCSFMediatorExample.client.Boundaries.MessageBoundary;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -70,11 +71,12 @@ public class App extends Application {
     *  */
     public void onLoginEvent(LoginEvent event) {
         Platform.runLater(() -> {
-            Alert alert = new Alert(AlertType.WARNING,
-                    String.format("Message: %s\n",event.getLogin().getUsername())
-            );
-            alert.show();
+            if(event.getLogin().getSuccess()==-1 )
+                MessageBoundary.displayError("Wrong username or password\n");
+            else if(event.getLogin().getSuccess()==-2)
+                MessageBoundary.displayError("User already logged in!\n");
         });
+
 
     }
 
