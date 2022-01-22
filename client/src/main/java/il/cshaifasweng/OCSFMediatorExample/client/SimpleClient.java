@@ -1,5 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import il.cshaifasweng.OCSFMediatorExample.entities.Login;
 import org.greenrobot.eventbus.EventBus;
 
 import il.cshaifasweng.OCSFMediatorExample.client.ocsf.AbstractClient;
@@ -18,7 +19,10 @@ public class SimpleClient extends AbstractClient {
 		if (msg.getClass().equals(Warning.class)) {
 			EventBus.getDefault().post(new WarningEvent((Warning) msg));
 		}
-
+		if (msg.getClass().equals(Login.class)) {
+			EventBus.getDefault().post(new LoginEvent((Login) msg));
+			System.out.println("this is my life my choices");
+		}
 	}
 	
 	public static SimpleClient getClient() {
