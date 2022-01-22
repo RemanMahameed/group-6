@@ -16,6 +16,11 @@ public class SimpleServer extends AbstractServer {
 
 	@Override
 	protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
+		try {
+			DataClass.generateNewData();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		String msgString = msg.toString();
 		if (msgString.startsWith("#warning")) {
 			Warning warning = new Warning("Warning from server!");
