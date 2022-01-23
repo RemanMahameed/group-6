@@ -1,7 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.Login;
-import il.cshaifasweng.OCSFMediatorExample.server.DataControl.DataClass;
 import il.cshaifasweng.OCSFMediatorExample.server.DataControl.LoginData;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.AbstractServer;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;

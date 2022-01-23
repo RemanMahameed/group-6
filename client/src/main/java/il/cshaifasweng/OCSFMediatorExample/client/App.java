@@ -69,12 +69,21 @@ public class App extends Application {
     * 1=patient
     * 2..
     *  */
-    public void onLoginEvent(LoginEvent event) {
+    public void onLoginEvent(LoginEvent event) throws IOException {
         Platform.runLater(() -> {
             if(event.getLogin().getSuccess()==-1 )
                 MessageBoundary.displayError("Wrong username or password\n");
             else if(event.getLogin().getSuccess()==-2)
                 MessageBoundary.displayError("User already logged in!\n");
+            else if(event.getLogin().getSuccess()== 1 )     //Is a doctor
+            {
+                //List<Object> params = new LinkedList<>();
+                try {
+                    setRoot("doctormain");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         });
 
 

@@ -13,12 +13,14 @@ public class HMO {
     @Column(name = "HMO_ID")
     private Long Id;
     private String name;
+
+    @OneToOne
+    //@JoinColumns({@JoinColumn(name = "HMmoManager_ID")})
+    @JoinColumn(name = "HMmoManager_ID")
+    private HmoManager hmoManager;
+
     @OneToMany(mappedBy = "hmo")
     private List<Clinic> clinics = new ArrayList<>();
-
-    //@OneToOne
-    ///@JoinColumns({@JoinColumn(name = "HMmoManager_ID")})
-    //private HmoManager hmoManager;
 
     public HMO(String name) {
         this.name = name;
@@ -47,11 +49,11 @@ public class HMO {
         this.clinics = clinics;
     }
 
-   //public HmoManager getHmoManager() {
-   //    return hmoManager;
-   //}
+   public HmoManager getHmoManager() {
+       return hmoManager;
+   }
 
-   //public void setHmoManager(HmoManager hmoManager) {
-   //    this.hmoManager = hmoManager;
-   //}
+   public void setHmoManager(HmoManager hmoManager) {
+       this.hmoManager = hmoManager;
+   }
 }

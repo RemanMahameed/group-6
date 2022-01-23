@@ -2,6 +2,7 @@ package il.cshaifasweng.OCSFMediatorExample.server.DataControl;
 
 import java.util.List;
 
+
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -74,6 +75,11 @@ public class LoginData {
     private static List<Doctor> getAllDoctor() throws Exception {
         String query = "FROM Doctor";
         List<Doctor> result = session.createQuery(query).list();
+        return result;
+    }
+    private static List<HmoManager> getAllHmoManger() throws Exception {
+        String query = "FROM HmoManger";
+        List<HmoManager> result = session.createQuery(query).list();
         return result;
     }
 
@@ -171,6 +177,23 @@ public class LoginData {
         }
         return login = new Login(userName, passWord, NOTFOUND);
     }
+    private static Login CheckLogHM(String userName, String passWord) throws Exception {
+        Login login;
+        List<HmoManager> hmoManagers = getAllHmoManger();
+        for (HmoManager hmoManager : hmoManagers) {
+            if (hmoManager.getPassWord().equals(passWord) && hmoManager.getUserName().equalsIgnoreCase(userName)) {
+                if (hmoManager.getActive() == true)
+                    return login = new Login(userName, passWord, ISACTIVE);
+                else {
+                    hmoManager.setActive(true);
+                    session.saveOrUpdate(hmoManager);
+                    session.flush();
+                    return login = new Login(userName, passWord, ISHM);
+                }
+            }
+        }
+        return login = new Login(userName, passWord, NOTFOUND);
+    }
 
     // input : userName & PassWord and check if is already found in User table
     public static Login CheckExcision(String userName, String passWord) throws Exception {
@@ -196,6 +219,10 @@ public class LoginData {
                 break;
             case ("CM"):
                 login = CheckLogCM(userName, passWord);
+                break;
+
+            case ("HM"):
+                login = CheckLogHM(userName, passWord);
                 break;
             default:
                 return login;

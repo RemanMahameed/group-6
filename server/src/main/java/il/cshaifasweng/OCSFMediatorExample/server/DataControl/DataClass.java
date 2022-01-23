@@ -123,7 +123,7 @@ public class DataClass {
         session = sessionFactory.openSession();
         session.beginTransaction();
         //manager of HMO
-        //HmoManager hmoManager=new HmoManager("hmoManager","hmoManager","0503104837","hmoManager@gmail.com","hmoManager","1111");
+        HmoManager hmoManager=new HmoManager("hmoManager","hmoManager","0503104837","hmoManager@gmail.com","HM-hmoManager","1111");
 
         //manager of clinic
         ClinicManager clinicManager1= new ClinicManager("Salsabeel","Saleh","0503104837","salehsalsabeel99@gmail.com","CM-SalehSalsabeel","123456789");
@@ -179,7 +179,7 @@ public class DataClass {
         HMO1.getClinics().add(clinic1);
         HMO1.getClinics().add(clinic2);
         HMO1.getClinics().add(clinic3);
-        //HMO1.setHmoManager(hmoManager);
+        HMO1.setHmoManager(hmoManager);
         //connect list of doctor nurse laboratory to clinic
         clinic1.setDoctors(doctors);
         clinic1.setNurses(nurses);
@@ -192,7 +192,7 @@ public class DataClass {
 
 
         System.err.println("Generated starts ...");
-        //session.saveOrUpdate(hmoManager);
+        session.saveOrUpdate(hmoManager);
         session.saveOrUpdate(patient1);
         session.saveOrUpdate(patient2);
         session.saveOrUpdate(patient3);
