@@ -25,6 +25,8 @@ public class SimpleClient extends AbstractClient {
 			EventBus.getDefault().post(new WarningEvent((Warning) msg));
 
 		}else if (msg.getClass().equals(Login.class)) {
+			System.out.println("I am at simpleclient login!");
+			System.out.println("success is:" + ((Login) msg).getSuccess());
 			EventBus.getDefault().post(new LoginEvent((Login) msg));
 
 		}else if (msg.getClass().equals(LogOut.class)) {

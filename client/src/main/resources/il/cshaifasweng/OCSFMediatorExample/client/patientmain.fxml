@@ -7,20 +7,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="481.0" prefWidth="607.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Boundaries.PatientMainBoundary">
+<AnchorPane prefHeight="488.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Boundaries.PatientMainBoundary">
    <children>
-      <ImageView fitHeight="488.0" fitWidth="700.0" layoutX="-3.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="488.0" fitWidth="800.0" layoutX="-11.0" layoutY="-19.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@image-from-rawpixel-id-516093-jpeg.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="29.0" layoutY="23.0" text="PatientMainBoundary">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label layoutX="249.0" layoutY="98.0" text="P-Patient" textFill="#1010c9">
+      <Label fx:id="Plabel" layoutX="249.0" layoutY="98.0" text="P-Patient" textFill="#1010c9">
          <font>
             <Font size="36.0" />
          </font>
@@ -35,5 +29,6 @@
       <Button layoutX="96.0" layoutY="280.0" mnemonicParsing="false" text="Button" />
       <Button layoutX="96.0" layoutY="352.0" mnemonicParsing="false" text="Button" />
       <Button layoutX="96.0" layoutY="424.0" mnemonicParsing="false" text="Button" />
+      <Button fx:id="LogoutBTR" layoutX="551.0" layoutY="412.0" mnemonicParsing="false" onAction="#LogOut" text="log out" />
    </children>
 </AnchorPane>

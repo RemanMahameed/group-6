@@ -13,7 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 
-public class DoctorMainBoundary {
+public class DoctorMainBoundary extends Boundary {
     Doctor doctor;
 
     public Doctor getDoctor() {
@@ -36,20 +36,11 @@ public class DoctorMainBoundary {
     @FXML
     private ImageView label;
 
-    @FXML
-    void LogOut(ActionEvent event) throws IOException{
-        System.out.println("buttom log out");
-        Doctor doctor= (Doctor) SimpleClient.getParams().get(0);
-        LinkedList<Object> message = new LinkedList<Object>();
-        message.add("#Logout");
-        message.add(doctor);
-        System.out.println("sending Logout from client to server");
-        SimpleClient.getClient().sendToServer(message);
-    }
+
 
     @FXML
     void initialize() {
-        Doctor doctor= (Doctor) SimpleClient.getParams().get(0);
+        Doctor doctor= (Doctor) params.get(0);
         System.out.println(" After Doctor doctor:"+ doctor.getFirstName());
         Dlabel.setText(doctor.getUserName());
     }

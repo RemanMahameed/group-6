@@ -96,7 +96,7 @@ public class LoginData {
                     session.saveOrUpdate(patient);
                     session.flush();
                     Object object=patient;
-                    return login = new Login(userName, passWord, ISPATIENT,object);
+                    return login = new Login(userName, passWord, ISPATIENT,patient);
                 }
             }
         }

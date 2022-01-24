@@ -40,11 +40,16 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 		} else if (message.get(0).equals("#Login")) {
-			//try {
-			//	LoginData.NotActive();
-			//} catch (Exception e) {
-			//	e.printStackTrace();
-			//}
+//			try {
+//				LoginData.NotActive();
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			try {
+//			DataClass.generateNewData();
+//		    } catch (Exception e) {
+//			e.printStackTrace();
+//		}
 			System.out.format("I am in the else \n");
 			Login login = null;
 			try {

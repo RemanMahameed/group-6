@@ -87,8 +87,8 @@ public class App extends Application {
     }
     @Subscribe
     /* hon bdna nf7s sho el success
-    * 0= failed
-    * 1=patient
+    * -1/-2= failed
+    * 0=patient
     * 2..
     *  */
     public void onLoginEvent(LoginEvent event) throws IOException {
@@ -113,6 +113,20 @@ public class App extends Application {
                 //System.out.println("object is:"+event.login.getObject().getClass());
                 //Stage stage=null;
             }
+            else if(event.getLogin().getSuccess()== 0 )     //Is a patient
+            {
+                System.out.println("i am at app patient");
+                List<Object> params = new LinkedList<>();
+                params.add(event.login.getObject());
+                SimpleClient.setParams(params);
+                try {
+                    setRoot("patientmain");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
         });
     }
     @Subscribe
