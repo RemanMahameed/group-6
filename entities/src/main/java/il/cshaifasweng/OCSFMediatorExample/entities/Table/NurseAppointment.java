@@ -1,19 +1,20 @@
-package il.cshaifasweng.OCSFMediatorExample.entities;
+package il.cshaifasweng.OCSFMediatorExample.entities.Table;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
-@Table(name ="DoctorAppointment")
-public class DoctorAppointment extends Appointment {
+@Table(name ="NurseAppointment")
+public class NurseAppointment extends Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Appointment_ID")
     protected Long Id;
+
     @ManyToOne
-    @JoinColumn(name = "Doctor_ID")
-    private Doctor doctor;
+    @JoinColumn(name = "Nurse_ID")
+    private Nurse nurse;
 
     @ManyToOne
     @JoinColumn(name = "Patient_ID")
@@ -23,35 +24,29 @@ public class DoctorAppointment extends Appointment {
     @JoinColumn(name = "Clinic_ID")
     protected Clinic clinic;
 
-    public DoctorAppointment(Doctor doctor, Patient patient, Clinic clinic) {
-        this.doctor = doctor;
-        this.patient = patient;
-        this.clinic = clinic;
-    }
-
-    public DoctorAppointment(int appNum, String appointmentType, LocalDateTime date, LocalTime realTime, boolean available, boolean done, Doctor doctor, Patient patient, Clinic clinic) {
+    public NurseAppointment(int appNum, String appointmentType, LocalDateTime date, LocalTime realTime, boolean available, boolean done, Nurse nurse, Patient patient, Clinic clinic) {
         super(appNum, appointmentType, date, realTime, available, done);
-        this.doctor = doctor;
+        this.nurse = nurse;
         this.patient = patient;
         this.clinic = clinic;
     }
 
-    public DoctorAppointment() {
+    public NurseAppointment() {
         super();
     }
 
-    public Doctor getDoctor() {
-        return doctor;
+    public Nurse getNurse() {
+        return nurse;
     }
 
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
+    public void setNurse(Nurse nurse) {
+        this.nurse = nurse;
     }
-
 
     public Patient getPatient() {
         return patient;
     }
+
 
     public void setPatient(Patient patient) {
         this.patient = patient;

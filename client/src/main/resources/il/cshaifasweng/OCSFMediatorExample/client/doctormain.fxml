@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Boundaries.DoctorMainSystem">
+<AnchorPane prefHeight="488.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Boundaries.DoctorMainBoundary">
    <children>
       <ImageView fx:id="label" fitHeight="488.0" fitWidth="800.0" layoutX="-11.0" layoutY="-19.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -20,5 +20,6 @@
          </font>
       </Label>
       <Button layoutX="551.0" layoutY="412.0" mnemonicParsing="false" onAction="#LogOut" text="log out" />
+      <Label layoutX="21.0" layoutY="14.0" prefHeight="17.0" prefWidth="120.0" text="DoctorMainBoundary" />
    </children>
 </AnchorPane>

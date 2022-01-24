@@ -1,11 +1,11 @@
-package il.cshaifasweng.OCSFMediatorExample.entities;
+package il.cshaifasweng.OCSFMediatorExample.entities.Table;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name ="LaboratoryFacts",uniqueConstraints= @UniqueConstraint(columnNames={"PassWord"}))
-public class LaboratoryFacts extends Person{
+public class LaboratoryFacts extends Person {
 
     @ManyToMany(mappedBy = "laboratoryFacts", cascade = CascadeType.ALL)
     private List<Clinic> clinicList;

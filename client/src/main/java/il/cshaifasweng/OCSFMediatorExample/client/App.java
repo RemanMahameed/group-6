@@ -11,6 +11,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -22,6 +24,10 @@ public class App extends Application {
 
     private static Scene scene;
     private SimpleClient client;
+
+    static List<Object> p;
+    //static List<Show> shows;
+
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -37,12 +43,28 @@ public class App extends Application {
         scene.setRoot(loadFXML(fxml));
     }
 
+    @SuppressWarnings("exports")
+//    public static void setRoot(String fxml, List<Object> params) throws IOException {
+//        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+//        Parent root = fxmlLoader.load();
+//        // System.out.println(stage.getUserData());
+//
+//        Boundary boundary = fxmlLoader.<Boundary>getController();
+//        boundary.setParams(params);
+//        System.out.println("BBBBBBBBBBBBBBBBBBBB");
+//        System.out.println(" boundary.setParams(params); +   " +  boundary.getParams().size());
+//        //boundary.setStage(stage);
+//        scene.setRoot(root);
+//    }
+    public static void setParams(List<Object> params) {
+        p = params;
+    }
+
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
-    
-    
+
 
     @Override
 	public void stop() throws Exception {
@@ -77,16 +99,31 @@ public class App extends Application {
                 MessageBoundary.displayError("User already logged in!\n");
             else if(event.getLogin().getSuccess()== 1 )     //Is a doctor
             {
-                //List<Object> params = new LinkedList<>();
+                List<Object> params=new LinkedList<>();
+                params.add(event.login.getObject());
+                SimpleClient.setParams(params);
                 try {
                     setRoot("doctormain");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                //List<Object> list=new LinkedList<>();
+                //list.add(event.login.getObject());
+                //System.out.println("list Size: "+ list.size());
+                //System.out.println("object is:"+event.login.getObject().getClass());
+                //Stage stage=null;
             }
         });
-
-
+    }
+    @Subscribe
+    public void onLogOutEvent(LogOutEvent event) throws IOException {
+        Platform.runLater(() -> {
+            try {
+                setRoot("Primary");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
 	public static void main(String[] args) {

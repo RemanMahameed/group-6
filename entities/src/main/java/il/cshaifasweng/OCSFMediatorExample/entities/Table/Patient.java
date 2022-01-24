@@ -1,4 +1,4 @@
-package il.cshaifasweng.OCSFMediatorExample.entities;
+package il.cshaifasweng.OCSFMediatorExample.entities.Table;
 
 import javax.persistence.*;
 import java.util.List;

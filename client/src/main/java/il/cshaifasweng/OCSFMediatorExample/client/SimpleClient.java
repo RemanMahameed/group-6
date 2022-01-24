@@ -1,14 +1,19 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
-import il.cshaifasweng.OCSFMediatorExample.entities.Login;
+import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.LogOut;
+import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.Login;
 import org.greenrobot.eventbus.EventBus;
 
 import il.cshaifasweng.OCSFMediatorExample.client.ocsf.AbstractClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.Warning;
+import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.Warning;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class SimpleClient extends AbstractClient {
 	
 	private static SimpleClient client = null;
+	private  static List<Object>  params=new LinkedList<>();
 
 	private SimpleClient(String host, int port) {
 		super(host, port);
@@ -18,10 +23,13 @@ public class SimpleClient extends AbstractClient {
 	protected void handleMessageFromServer(Object msg) {
 		if (msg.getClass().equals(Warning.class)) {
 			EventBus.getDefault().post(new WarningEvent((Warning) msg));
-		}
-		if (msg.getClass().equals(Login.class)) {
+
+		}else if (msg.getClass().equals(Login.class)) {
 			EventBus.getDefault().post(new LoginEvent((Login) msg));
-			System.out.println("this is my life my choices");
+
+		}else if (msg.getClass().equals(LogOut.class)) {
+			EventBus.getDefault().post(new LogOutEvent((LogOut)msg));
+
 		}
 	}
 	
@@ -32,4 +40,11 @@ public class SimpleClient extends AbstractClient {
 		return client;
 	}
 
+	public static List<Object> getParams() {
+		return params;
+	}
+
+	public static void setParams(List<Object> params) {
+		SimpleClient.params = params;
+	}
 }

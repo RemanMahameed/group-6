@@ -2,8 +2,8 @@ package il.cshaifasweng.OCSFMediatorExample.server.DataControl;
 
 import java.util.List;
 
-
-import il.cshaifasweng.OCSFMediatorExample.entities.*;
+import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.Login;
+import il.cshaifasweng.OCSFMediatorExample.entities.Table.*;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -83,6 +83,7 @@ public class LoginData {
         return result;
     }
 
+
     private static Login CheckLogPatient(String userName, String passWord) throws Exception {
         Login login;
         List<Patient> Patients = getAllPatients();
@@ -94,7 +95,8 @@ public class LoginData {
                     patient.setActive(true);
                     session.saveOrUpdate(patient);
                     session.flush();
-                    return login = new Login(userName, passWord, ISPATIENT);
+                    Object object=patient;
+                    return login = new Login(userName, passWord, ISPATIENT,object);
                 }
             }
         }
@@ -116,7 +118,7 @@ public class LoginData {
                     doctor.setActive(true);
                     session.saveOrUpdate(doctor);
                     session.flush();
-                    return login = new Login(userName, passWord, ISDOCTOR);
+                    return login = new Login(userName, passWord, ISDOCTOR,doctor);
                 }
             }
         }
@@ -135,7 +137,7 @@ public class LoginData {
                     nurse.setActive(true);
                     session.saveOrUpdate(nurse);
                     session.flush();
-                    return login = new Login(userName, passWord, ISNURSE);
+                    return login = new Login(userName, passWord, ISNURSE,nurse);
                 }
             }
         }
@@ -153,7 +155,7 @@ public class LoginData {
                     laboratoryFacts1.setActive(true);
                     session.saveOrUpdate(laboratoryFacts1);
                     session.flush();
-                    return login = new Login(userName, passWord, ISLAB);
+                    return login = new Login(userName, passWord, ISLAB,laboratoryFacts);
                 }
             }
         }
@@ -171,7 +173,7 @@ public class LoginData {
                     clinicManager.setActive(true);
                     session.saveOrUpdate(clinicManager);
                     session.flush();
-                    return login = new Login(userName, passWord, ISCM);
+                    return login = new Login(userName, passWord, ISCM,clinicManager);
                 }
             }
         }
@@ -188,7 +190,7 @@ public class LoginData {
                     hmoManager.setActive(true);
                     session.saveOrUpdate(hmoManager);
                     session.flush();
-                    return login = new Login(userName, passWord, ISHM);
+                    return login = new Login(userName, passWord, ISHM,hmoManager);
                 }
             }
         }
@@ -231,6 +233,50 @@ public class LoginData {
         if (session != null)
            session.close();
         return login;
+    }
+    public static void logOutUser(Object object){
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        if(object.getClass().equals(Doctor.class)){
+            Doctor user=(Doctor) object;
+            user.setActive(false);
+            session.saveOrUpdate(user);
+        }else if(object.getClass().equals(Nurse.class)) {
+            Nurse user = (Nurse) object;
+            user.setActive(false);
+            session.saveOrUpdate(user);
+        }else if(object.getClass().equals(LaboratoryFacts.class)) {
+            LaboratoryFacts user = (LaboratoryFacts) object;
+            user.setActive(false);
+            session.saveOrUpdate(user);
+        }else if(object.getClass().equals(HmoManager.class)) {
+            HmoManager user = (HmoManager) object;
+            user.setActive(false);
+            session.saveOrUpdate(user);
+        }else if(object.getClass().equals(ClinicManager.class)) {
+            ClinicManager user = (ClinicManager) object;
+            user.setActive(false);
+            session.saveOrUpdate(user);
+        }else if(object.getClass().equals(Patient.class)) {
+            Patient user = (Patient) object;
+            user.setActive(false);
+            session.saveOrUpdate(user);
+        }
+        session.flush();
+        session.close();
+    }
+    public static void NotActive() throws Exception {
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<Doctor> doctors = getAllDoctor();
+        for (Doctor doctor : doctors) {
+            doctor.setActive(false);
+            session.saveOrUpdate(doctor);
+            session.flush();
+        }
+        session.close();
     }
 }
 

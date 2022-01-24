@@ -1,6 +1,7 @@
-package il.cshaifasweng.OCSFMediatorExample.entities;
+package il.cshaifasweng.OCSFMediatorExample.entities.Table;
 
 import javax.persistence.*;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -21,10 +22,16 @@ public class Doctor extends Person {
     public Doctor(String firstName, String lastName, String phoneNum, String email, String userName, String passWord, String role) {
         super(firstName, lastName, phoneNum, email, userName, passWord);
         Role = role;
+        clinicList=new LinkedList<>();
+        patients=new LinkedList<>();
+        appointments=new LinkedList<>();
     }
 
     public Doctor() {
         super();
+        clinicList=new LinkedList<>();
+        patients=new LinkedList<>();
+        appointments=new LinkedList<>();
     }
 
     public void setClinicList(List<Clinic> clinicList) {

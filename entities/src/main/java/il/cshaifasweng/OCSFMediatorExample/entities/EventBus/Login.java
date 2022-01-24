@@ -1,4 +1,4 @@
-package il.cshaifasweng.OCSFMediatorExample.entities;
+package il.cshaifasweng.OCSFMediatorExample.entities.EventBus;
 
 import java.io.Serializable;
 
@@ -6,10 +6,10 @@ public class Login implements Serializable {
 
     //private static final long serialVersionUID = -8224097662914849956L;
 
-
     private String username;
     private String password;
     private int success ;
+    private Object object;
 
     public Login( String username, String password, int success) {
         this.username = username;
@@ -17,6 +17,12 @@ public class Login implements Serializable {
         this.success = success;
     }
 
+    public Login(String username, String password, int success, Object object) {
+        this.username = username;
+        this.password = password;
+        this.success = success;
+        this.object = object;
+    }
 
     public Login() {
     }
@@ -44,5 +50,13 @@ public class Login implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Object getObject() {
+        return object;
+    }
+
+    public void setObject(Object object) {
+        this.object = object;
     }
 }
