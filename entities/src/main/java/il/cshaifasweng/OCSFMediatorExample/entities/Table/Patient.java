@@ -32,6 +32,10 @@ public class Patient extends Person {
     @OneToMany(mappedBy = "patient")
     private List<DoctorAppointment> doctorAppointments;
 
+    @ManyToOne
+    @JoinColumn(name = "Clinic_ID")
+    protected Clinic clinic;
+
     public Patient(String firstName, String lastName, String phoneNum, String email, String userName, String passWord, int age,boolean greenPass) {
         super(firstName, lastName, phoneNum, email, userName, passWord);
         this.age = age;
@@ -104,6 +108,14 @@ public class Patient extends Person {
 
     public void setDoctorAppointments(List<DoctorAppointment> doctorAppointments) {
         this.doctorAppointments = doctorAppointments;
+    }
+
+    public Clinic getClinic() {
+        return clinic;
+    }
+
+    public void setClinic(Clinic clinic) {
+        this.clinic = clinic;
     }
 }
 

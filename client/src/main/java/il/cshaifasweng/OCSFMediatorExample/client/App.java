@@ -87,8 +87,8 @@ public class App extends Application {
     }
     @Subscribe
     /* hon bdna nf7s sho el success
-    * -1/-2= failed
-    * 0=patient
+    * 0= failed
+    * 1=patient
     * 2..
     *  */
     public void onLoginEvent(LoginEvent event) throws IOException {
@@ -97,6 +97,17 @@ public class App extends Application {
                 MessageBoundary.displayError("Wrong username or password\n");
             else if(event.getLogin().getSuccess()==-2)
                 MessageBoundary.displayError("User already logged in!\n");
+            else if(event.getLogin().getSuccess()== 0 )     //Is a doctor
+            {
+                List<Object> params = new LinkedList<>();
+                params.add(event.login.getObject());
+                SimpleClient.setParams(params);
+                try {
+                    setRoot("patientmain");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             else if(event.getLogin().getSuccess()== 1 )     //Is a doctor
             {
                 List<Object> params=new LinkedList<>();
@@ -113,20 +124,6 @@ public class App extends Application {
                 //System.out.println("object is:"+event.login.getObject().getClass());
                 //Stage stage=null;
             }
-            else if(event.getLogin().getSuccess()== 0 )     //Is a patient
-            {
-                System.out.println("i am at app patient");
-                List<Object> params = new LinkedList<>();
-                params.add(event.login.getObject());
-                SimpleClient.setParams(params);
-                try {
-                    setRoot("patientmain");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-
         });
     }
     @Subscribe

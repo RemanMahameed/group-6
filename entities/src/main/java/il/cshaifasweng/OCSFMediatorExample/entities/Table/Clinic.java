@@ -48,6 +48,9 @@ public class Clinic {
     @OneToMany(mappedBy = "clinic")
     private List<DoctorAppointment> doctorAppointments;
 
+    @OneToMany(mappedBy = "clinic")
+    private List<Patient> patients;
+
     public Clinic(String clinicType, LocalTime[][] activityTime, LocalTime[][] coronaTestTime, LocalTime[][] vaccineTime, ClinicManager clinicManager, HMO hmo) {
         ClinicType = clinicType;
         ActivityTime = activityTime;
@@ -158,6 +161,14 @@ public class Clinic {
 
     public void setDoctorAppointments(List<DoctorAppointment> doctorAppointments) {
         this.doctorAppointments = doctorAppointments;
+    }
+
+    public List<Patient> getPatients() {
+        return patients;
+    }
+
+    public void setPatients(List<Patient> patients) {
+        this.patients = patients;
     }
 }
 
