@@ -50,7 +50,6 @@ public class DoctorMainBoundary {
     @FXML
     void initialize() {
         Doctor doctor= (Doctor) SimpleClient.getParams().get(0);
-        System.out.println(" After Doctor doctor:"+ doctor.getFirstName());
         Dlabel.setText(doctor.getUserName());
     }
 }

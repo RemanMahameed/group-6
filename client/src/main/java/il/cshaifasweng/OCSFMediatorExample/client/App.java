@@ -86,32 +86,40 @@ public class App extends Application {
     	
     }
     @Subscribe
-    /* hon bdna nf7s sho el success
-    * 0= failed
-    * 1=patient
-    * 2..
-    *  */
+    // NOTFOUND = -1;
+    // ISACTIVE = -2;
+    // ISPATIENT = 0;
+    // ISDOCTOR = 1;
+    // ISNURSE = 2;
+    // ISLAB = 3;
+    // ISCM = 4;
+    // ISHM = 5;
     public void onLoginEvent(LoginEvent event) throws IOException {
         Platform.runLater(() -> {
             if(event.getLogin().getSuccess()==-1 )
                 MessageBoundary.displayError("Wrong username or password\n");
             else if(event.getLogin().getSuccess()==-2)
                 MessageBoundary.displayError("User already logged in!\n");
-            else if(event.getLogin().getSuccess()== 1 )     //Is a doctor
+            else
             {
-                List<Object> params=new LinkedList<>();
+                List<Object> params = new LinkedList<>();
                 params.add(event.login.getObject());
                 SimpleClient.setParams(params);
-                try {
-                    setRoot("doctormain");
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (event.getLogin().getSuccess() == 0)     //Is Patient
+                {
+                    try {
+                        setRoot("patientmain");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else if (event.getLogin().getSuccess() == 1)      //Is doctor
+                {
+                    try {
+                        setRoot("doctormain");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-                //List<Object> list=new LinkedList<>();
-                //list.add(event.login.getObject());
-                //System.out.println("list Size: "+ list.size());
-                //System.out.println("object is:"+event.login.getObject().getClass());
-                //Stage stage=null;
             }
         });
     }

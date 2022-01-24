@@ -57,6 +57,9 @@ public class DataClass {
                 {openingHours,openingHours,openingHours,openingHours,openingHours,openingHours,openingHours},
                 {closingHours,closingHours,closingHours,closingHours,closingHours,closingHours,closingHours}};
         //LinkedList
+        LinkedList<Patient> patients1=new LinkedList<>();
+        LinkedList<Patient> patients2=new LinkedList<>();
+        LinkedList<Patient> patients3=new LinkedList<>();
         LinkedList<Doctor> doctors1=new LinkedList<>();
         LinkedList<Doctor> doctors2=new LinkedList<>();
         LinkedList<Doctor> doctors3=new LinkedList<>();
@@ -115,15 +118,20 @@ public class DataClass {
         doctors1.add(doctor4);
         nurses1.add(nurse1);
         laboratoryFact1.add(laboratoryFacts1);
+        patients1.add(patient1);
+        patients2.add(patient2);
         clinics1.add(clinic1);
         //insert list
         clinic1.setDoctors(doctors1);
         clinic1.setNurses(nurses1);
         clinic1.setLaboratoryFacts(laboratoryFact1);
+        clinic1.setPatients(patients1);
         doctor1.setClinicList(clinics1);
         doctor4.setClinicList(clinics1);
         nurse1.setClinicList(clinics1);
         laboratoryFacts1.setClinicList(clinics1);
+        patient1.setClinic(clinic1);
+        patient2.setClinic(clinic1);
        //connect manger to clinic
         clinic1.setClinicManager(clinicManager1);
         clinicManager1.setClinic(clinic1);
@@ -134,15 +142,18 @@ public class DataClass {
         doctors2.add(doctor6);
         nurses2.add(nurse2);
         laboratoryFact2.add(laboratoryFacts2);
+        patients2.add(patient3);
         clinics2.add(clinic2);
         //insert list
         clinic2.setDoctors(doctors2);
         clinic2.setNurses(nurses2);
         clinic2.setLaboratoryFacts(laboratoryFact2);
+        clinic2.setPatients(patients2);
         doctor3.setClinicList(clinics2);
         doctor6.setClinicList(clinics2);
         nurse2.setClinicList(clinics2);
         laboratoryFacts2.setClinicList(clinics2);
+        patient2.setClinic(clinic2);
         //connect manger to clinic
         clinic2.setClinicManager(clinicManager2);
         clinicManager2.setClinic(clinic2);
@@ -154,19 +165,33 @@ public class DataClass {
         doctors3.add(doctor6);
         nurses3.add(nurse3);
         laboratoryFact3.add(laboratoryFacts3);
+        patients3.add(patient4);
         clinics3.add(clinic3);
         //insert list
         clinic3.setDoctors(doctors3);
         clinic3.setNurses(nurses3);
         clinic3.setLaboratoryFacts(laboratoryFact3);
+        clinic3.setPatients(patients3);
         doctor2.setClinicList(clinics3);
         doctor5.setClinicList(clinics3);
         doctor6.setClinicList(clinics3);
         nurse3.setClinicList(clinics3);
         laboratoryFacts3.setClinicList(clinics3);
+        patient4.setClinic(clinic3);
         //connect manger to clinic
         clinic3.setClinicManager(clinicManager3);
         clinicManager3.setClinic(clinic3);
+
+        //connect patient to Clinics
+        patient1.setClinic(clinic1);
+        patient2.setClinic(clinic1);
+        patient3.setClinic(clinic2);
+        patient4.setClinic(clinic3);
+        //insert list
+        patients1.add(patient1);
+        patients1.add(patient2);
+
+
 
 
         try {
