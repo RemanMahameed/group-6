@@ -97,7 +97,7 @@ public class App extends Application {
                 MessageBoundary.displayError("Wrong username or password\n");
             else if(event.getLogin().getSuccess()==-2)
                 MessageBoundary.displayError("User already logged in!\n");
-            else if(event.getLogin().getSuccess()== 0 )     //Is a doctor
+            else if(event.getLogin().getSuccess()== 0 )     //Is a patient
             {
                 List<Object> params = new LinkedList<>();
                 params.add(event.login.getObject());
