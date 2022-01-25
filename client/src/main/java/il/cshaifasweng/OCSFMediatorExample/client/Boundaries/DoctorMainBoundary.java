@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Table.Doctor;
+import il.cshaifasweng.OCSFMediatorExample.entities.Table.Patient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -39,7 +40,8 @@ public class DoctorMainBoundary extends Boundary {
 
     @FXML
     void initialize() {
-        Doctor doctor= (Doctor) SimpleClient.getParams().get(0);
+        //Doctor doctor= (Doctor) SimpleClient.getParams().get(0);
+        Doctor doctor= (Doctor) params.get(0);
         System.out.println(" After Doctor doctor:"+ doctor.getFirstName());
         Dlabel.setText(doctor.getUserName());
     }

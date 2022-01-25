@@ -85,22 +85,23 @@ public class LoginData {
 
 
     private static Login CheckLogPatient(String userName, String passWord) throws Exception {
-        Login login;
+
         List<Patient> Patients = getAllPatients();
         for (Patient patient : Patients) {
             if (patient.getPassWord().equals(passWord) && patient.getUserName().equalsIgnoreCase(userName)) {
                 if (patient.getActive() == true)
-                    return login = new Login(userName, passWord, ISACTIVE);
+                    return (new Login(userName, passWord, ISACTIVE));
                 else {
+                    System.out.println("HHHHHHHHHHHHHHH");
                     patient.setActive(true);
                     session.saveOrUpdate(patient);
                     session.flush();
-                    Object object=patient;
-                    return login = new Login(userName, passWord, ISPATIENT,patient);
+                    System.out.println("CCCCCCCCCCCCCC");
+                    return  (new Login(userName, passWord, ISPATIENT,patient));
                 }
             }
         }
-        return login = new Login(userName, passWord, NOTFOUND);
+        return (new Login(userName, passWord, NOTFOUND));
     }
 
     private static Login CheckLogDoctor(String userName, String passWord) throws Exception {
@@ -207,6 +208,7 @@ public class LoginData {
         switch (userName.substring(0, 2)) {
             case ("P-"):
                 login = CheckLogPatient(userName, passWord);
+                System.out.println("I am very goooood!!!!");
                 break;
             case ("D-"):
                 System.out.println("Before Login:");
@@ -274,6 +276,12 @@ public class LoginData {
         for (Doctor doctor : doctors) {
             doctor.setActive(false);
             session.saveOrUpdate(doctor);
+            session.flush();
+        }
+        List<Patient> patients = getAllPatients();
+        for (Patient patient : patients) {
+            patient.setActive(false);
+            session.saveOrUpdate(patients);
             session.flush();
         }
         session.close();

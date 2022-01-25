@@ -22,11 +22,11 @@ public class SimpleServer extends AbstractServer {
 
 	@Override
 	protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
-		try {
-			DataClass.generateNewData();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		//try {
+		//	DataClass.generateNewData();
+		//} catch (Exception e) {
+		//	e.printStackTrace();
+		//}
 		String msgString = msg.toString();
 		//System.out.format("%s\n",msgString);*/
 		LinkedList<Object> message = (LinkedList<Object>) (msg);

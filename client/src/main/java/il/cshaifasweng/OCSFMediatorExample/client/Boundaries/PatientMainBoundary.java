@@ -27,13 +27,12 @@ public class PatientMainBoundary extends Boundary {
 
     }
 
-
     @FXML
     void initialize() {
+        System.out.println(" Before !!!");
         Patient patient= (Patient) params.get(0);
+        System.out.println(" After Doctor doctor:"+ patient.getFirstName());
         Plabel.setText(patient.getUserName());
-
-
     }
 
 }

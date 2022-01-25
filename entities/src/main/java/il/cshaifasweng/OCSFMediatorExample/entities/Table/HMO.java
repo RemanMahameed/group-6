@@ -1,13 +1,14 @@
 package il.cshaifasweng.OCSFMediatorExample.entities.Table;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
 @Entity
 @Table(name = "HMO")
-public class HMO {
+public class HMO implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "HMO_ID")
