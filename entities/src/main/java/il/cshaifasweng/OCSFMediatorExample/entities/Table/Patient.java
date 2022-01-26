@@ -9,7 +9,8 @@ import java.util.List;
 public class Patient extends Person {
     private int age;
     private boolean GreenPass;
-    //private long card;
+    private long card;
+    private int numOfVaccine;
 
     @ManyToMany
     @JoinTable(name = "Patient_laboratoryFacts",joinColumns = @JoinColumn(name = "Patient_ID"),inverseJoinColumns = {@JoinColumn(name = "laboratoryFacts_ID")})
@@ -36,10 +37,12 @@ public class Patient extends Person {
     @JoinColumn(name = "Clinic_ID")
     protected Clinic clinic;
 
-    public Patient(String firstName, String lastName, String phoneNum, String email, String userName, String passWord, int age,boolean greenPass) {
+    public Patient(String firstName, String lastName, String phoneNum, String email, String userName, String passWord, int age, long card) {
         super(firstName, lastName, phoneNum, email, userName, passWord);
         this.age = age;
-        GreenPass = greenPass;
+        GreenPass = false;
+        this.card = card;
+        numOfVaccine = 0;
     }
 
     public Patient() {
@@ -116,6 +119,22 @@ public class Patient extends Person {
 
     public void setClinic(Clinic clinic) {
         this.clinic = clinic;
+    }
+
+    public long getCard() {
+        return card;
+    }
+
+    public void setCard(long card) {
+        this.card = card;
+    }
+
+    public int getNumOfVaccine() {
+        return numOfVaccine;
+    }
+
+    public void setNumOfVaccine(int numOfVaccine) {
+        this.numOfVaccine = numOfVaccine;
     }
 }
 
