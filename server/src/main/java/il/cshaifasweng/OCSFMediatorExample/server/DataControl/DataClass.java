@@ -37,6 +37,7 @@ public class DataClass {
           configuration.addAnnotatedClass(LaboratoryFactsAppointment.class);
           configuration.addAnnotatedClass(Nurse.class);
           configuration.addAnnotatedClass(NurseAppointment.class);
+          configuration.addAnnotatedClass(ReceptionTime.class);
 
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                 .applySettings(configuration.getProperties())
@@ -98,9 +99,11 @@ public class DataClass {
         LocalTime[][] VaccineTime={
                 {openingHours,openingHours,openingHours,openingHours,openingHours,openingHours,openingHours},
                 {closingHours,closingHours,closingHours,closingHours,closingHours,closingHours,closingHours}};
+        //form 10 -14
         LocalTime[][] DoctorReceptionTime1={
                 {begineReceptionTime,begineReceptionTime,begineReceptionTime,begineReceptionTime,begineReceptionTime,begineReceptionTime,begineReceptionTime},
                 {endReceptionTime,endReceptionTime,endReceptionTime,endReceptionTime,endReceptionTime,endReceptionTime,endReceptionTime}};
+        //from 8-9
         LocalTime[][] DoctorReceptionTime2={
                 {begineReceptionTime1,begineReceptionTime1,begineReceptionTime1,begineReceptionTime1,begineReceptionTime1,begineReceptionTime1,begineReceptionTime1},
                 {endReceptionTime1,endReceptionTime1,endReceptionTime1,endReceptionTime1,endReceptionTime1,endReceptionTime1,endReceptionTime1}};
@@ -168,27 +171,46 @@ public class DataClass {
         //Set doctor1 reception time
         receptionTimes1.add(reception1);
         doctor1.setReceptionTime(receptionTimes1);
+        List<Doctor> doctorRE1=new LinkedList<>();
+        doctorRE1.add(doctor1);
+        reception1.setDoctors(doctorRE1);
 
         //Set doctor2 reception time
         receptionTimes2.add(reception3);
         doctor2.setReceptionTime(receptionTimes2);
+        List<Doctor> doctorRE2=new LinkedList<>();
+        doctorRE2.add(doctor2);
+        reception3.setDoctors(doctorRE2);
 
         //Set doctor3 reception time
         receptionTimes3.add(reception2);
-        doctor2.setReceptionTime(receptionTimes3);
+        doctor3.setReceptionTime(receptionTimes3);
+        List<Doctor> doctorRE3=new LinkedList<>();
+        doctorRE3.add(doctor3);
+        reception2.setDoctors(doctorRE3);
 
         //Set doctor4 reception time
         receptionTimes4.add(reception1);
         doctor4.setReceptionTime(receptionTimes4);
+        //List<Doctor> doctorRE4=new LinkedList<>();
+        //doctorRE4.add(doctor4);
+        reception1.getDoctors().add(doctor4);
 
         //Set doctor5 reception time
         receptionTimes5.add(reception3);
         doctor5.setReceptionTime(receptionTimes5);
+        //List<Doctor> doctorRE5=new LinkedList<>();
+        //doctorRE5.add(doctor5);
+        reception3.getDoctors().add(doctor5);
 
         //Set doctor6 reception time
         receptionTimes6.add(reception2);
         receptionTimes6.add(reception4);
-        doctor5.setReceptionTime(receptionTimes6);
+        doctor6.setReceptionTime(receptionTimes6);
+        List<Doctor> doctorRE6=new LinkedList<>();
+        doctorRE6.add(doctor6);
+        reception2.getDoctors().add(doctor6);
+        reception4.setDoctors(doctorRE6);
 
 
         //connect clinics to HMO
@@ -310,6 +332,10 @@ public class DataClass {
             session.saveOrUpdate(patient2);
             session.saveOrUpdate(patient3);
             session.saveOrUpdate(patient4);
+            session.saveOrUpdate(reception1);
+            session.saveOrUpdate(reception2);
+            session.saveOrUpdate(reception3);
+            session.saveOrUpdate(reception4);
             System.err.println("Generated ends ...");
             session.flush();
             session.getTransaction().commit(); // Save everything.

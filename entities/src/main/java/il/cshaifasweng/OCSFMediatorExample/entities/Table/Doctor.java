@@ -1,7 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.entities.Table;
 
 import javax.persistence.*;
-import java.time.LocalTime;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,6 +9,8 @@ import java.util.List;
 public class Doctor extends Person {
 
     private String Role;
+
+    @ManyToMany(mappedBy = "doctors", cascade = CascadeType.ALL)
     private List<ReceptionTime> receptionTime;
 
     @ManyToMany(mappedBy = "doctors", cascade = CascadeType.ALL)
