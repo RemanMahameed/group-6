@@ -14,6 +14,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+
+import javax.swing.event.ListDataListener;
+
 public class DataClass {
 
     protected static Session session;
@@ -84,6 +87,8 @@ public class DataClass {
         LocalTime closingHours = LocalTime.of(16,00);
         LocalTime begineReceptionTime = LocalTime.of(10,00);
         LocalTime endReceptionTime = LocalTime.of(14,00);
+        LocalTime begineReceptionTime1 = LocalTime.of(8,00);
+        LocalTime endReceptionTime1 = LocalTime.of(9,00);
         LocalTime[][] ActivityTime={
                 {openingHours,openingHours,openingHours,openingHours,openingHours,openingHours,openingHours},
                 {closingHours,closingHours,closingHours,closingHours,closingHours,closingHours,closingHours}};
@@ -93,9 +98,12 @@ public class DataClass {
         LocalTime[][] VaccineTime={
                 {openingHours,openingHours,openingHours,openingHours,openingHours,openingHours,openingHours},
                 {closingHours,closingHours,closingHours,closingHours,closingHours,closingHours,closingHours}};
-        LocalTime[][] DoctorReceptionTime={
+        LocalTime[][] DoctorReceptionTime1={
                 {begineReceptionTime,begineReceptionTime,begineReceptionTime,begineReceptionTime,begineReceptionTime,begineReceptionTime,begineReceptionTime},
                 {endReceptionTime,endReceptionTime,endReceptionTime,endReceptionTime,endReceptionTime,endReceptionTime,endReceptionTime}};
+        LocalTime[][] DoctorReceptionTime2={
+                {begineReceptionTime1,begineReceptionTime1,begineReceptionTime1,begineReceptionTime1,begineReceptionTime1,begineReceptionTime1,begineReceptionTime1},
+                {endReceptionTime1,endReceptionTime1,endReceptionTime1,endReceptionTime1,endReceptionTime1,endReceptionTime1,endReceptionTime1}};
         //LinkedList
         LinkedList<Patient> patients1=new LinkedList<>();
         LinkedList<Patient> patients2=new LinkedList<>();
@@ -112,6 +120,12 @@ public class DataClass {
         LinkedList<Clinic> clinics1=new LinkedList<>();
         LinkedList<Clinic> clinics2=new LinkedList<>();
         LinkedList<Clinic> clinics3=new LinkedList<>();
+        LinkedList<ReceptionTime> receptionTimes1=new LinkedList<>();
+        LinkedList<ReceptionTime> receptionTimes2=new LinkedList<>();
+        LinkedList<ReceptionTime> receptionTimes3=new LinkedList<>();
+        LinkedList<ReceptionTime> receptionTimes4=new LinkedList<>();
+        LinkedList<ReceptionTime> receptionTimes5=new LinkedList<>();
+        LinkedList<ReceptionTime> receptionTimes6=new LinkedList<>();
         //manager of HMO
         HmoManager hmoManager=new HmoManager("hmoManager","hmoManager","0503104837","hmoManager@gmail.com","HM-hmoManager","1111");
         //manager of clinic
@@ -119,12 +133,12 @@ public class DataClass {
         ClinicManager clinicManager2= new ClinicManager("Sara","Zreke","0526589829","CLinicM22@gmail.com","CM-ZrekeSara","2222");
         ClinicManager clinicManager3= new ClinicManager("Marah","Bhoooty","0532252582","CLinicM33@gmail.com","CM-BhotyMarah","3333");
         //doctors
-        Doctor doctor1=new Doctor("doctor1","doctor","0503104837","Doctor11@gmail.com","D-Doctor1","1111","FamilyDoctor",DoctorReceptionTime);
-        Doctor doctor2=new Doctor("doctor2","doctor","0503104837","Doctor22@gmail.com","D-Doctor2","2222","FamilyDoctor",DoctorReceptionTime);
-        Doctor doctor3=new Doctor("doctor3","doctor","0503104837","Doctor33@gmail.com","D-Doctor3","3333","ProfessionalDoctor-Otolaryngologies",DoctorReceptionTime);
-        Doctor doctor4=new Doctor("doctor4","doctor","0503104837","Doctor44@gmail.com","D-Doctor4","4444","PediatricianDoctor",DoctorReceptionTime);
-        Doctor doctor5=new Doctor("doctor5","doctor","0503104837","Doctor55@gmail.com","D-Doctor5","5555","PediatricianDoctor",DoctorReceptionTime);
-        Doctor doctor6=new Doctor("doctor6","doctor","0503104837","Doctor66@gmail.com","D-Doctor6","6666","ProfessionalDoctor-Gynecologist ",DoctorReceptionTime);
+        Doctor doctor1=new Doctor("doctor1","doctor","0503104837","Doctor11@gmail.com","D-Doctor1","1111","FamilyDoctor");
+        Doctor doctor2=new Doctor("doctor2","doctor","0503104837","Doctor22@gmail.com","D-Doctor2","2222","FamilyDoctor");
+        Doctor doctor3=new Doctor("doctor3","doctor","0503104837","Doctor33@gmail.com","D-Doctor3","3333","ProfessionalDoctor-Otolaryngologies");
+        Doctor doctor4=new Doctor("doctor4","doctor","0503104837","Doctor44@gmail.com","D-Doctor4","4444","PediatricianDoctor");
+        Doctor doctor5=new Doctor("doctor5","doctor","0503104837","Doctor55@gmail.com","D-Doctor5","5555","PediatricianDoctor");
+        Doctor doctor6=new Doctor("doctor6","doctor","0503104837","Doctor66@gmail.com","D-Doctor6","6666","ProfessionalDoctor-Gynecologist");
         //Nurse
         Nurse nurse1=new Nurse("nurse1","nurse","0503104837","nurse111@gmail.com","N-nurse1","1111");
         Nurse nurse2=new Nurse("nurse2","nurse","0503104837","nurse222@gmail.com","N-nurse2","2222");
@@ -144,6 +158,38 @@ public class DataClass {
         Clinic clinic1 = new Clinic("General clinic", ActivityTime,CoronaTestTime,VaccineTime,clinicManager1,HMO1);
         Clinic clinic2 = new Clinic("Professional clinic", ActivityTime,CoronaTestTime,VaccineTime,clinicManager2,HMO1);
         Clinic clinic3 = new Clinic("General && Professional clinic", ActivityTime,CoronaTestTime,VaccineTime,clinicManager3,HMO1);
+
+        //receptionTime
+        ReceptionTime reception1=new ReceptionTime(clinic1.getClinicType(),DoctorReceptionTime1);
+        ReceptionTime reception2=new ReceptionTime(clinic2.getClinicType(),DoctorReceptionTime1);
+        ReceptionTime reception3=new ReceptionTime(clinic3.getClinicType(),DoctorReceptionTime1);
+        ReceptionTime reception4=new ReceptionTime(clinic3.getClinicType(),DoctorReceptionTime2);
+
+        //Set doctor1 reception time
+        receptionTimes1.add(reception1);
+        doctor1.setReceptionTime(receptionTimes1);
+
+        //Set doctor2 reception time
+        receptionTimes2.add(reception3);
+        doctor2.setReceptionTime(receptionTimes2);
+
+        //Set doctor3 reception time
+        receptionTimes3.add(reception2);
+        doctor2.setReceptionTime(receptionTimes3);
+
+        //Set doctor4 reception time
+        receptionTimes4.add(reception1);
+        doctor4.setReceptionTime(receptionTimes4);
+
+        //Set doctor5 reception time
+        receptionTimes5.add(reception3);
+        doctor5.setReceptionTime(receptionTimes5);
+
+        //Set doctor6 reception time
+        receptionTimes6.add(reception2);
+        receptionTimes6.add(reception4);
+        doctor5.setReceptionTime(receptionTimes6);
+
 
         //connect clinics to HMO
         HMO1.getClinics().add(clinic1);

@@ -10,7 +10,7 @@ import java.util.List;
 public class Doctor extends Person {
 
     private String Role;
-    private  LocalTime[][] ActivityTime=new LocalTime[2][7];
+    private List<ReceptionTime> receptionTime;
 
     @ManyToMany(mappedBy = "doctors", cascade = CascadeType.ALL)
     private List<Clinic> clinicList;
@@ -21,10 +21,10 @@ public class Doctor extends Person {
     @OneToMany(mappedBy = "doctor")
     private List<DoctorAppointment> appointments;
 
-    public Doctor(String firstName, String lastName, String phoneNum, String email, String userName, String passWord, String role, LocalTime[][] activityTime) {
+
+    public Doctor(String firstName, String lastName, String phoneNum, String email, String userName, String passWord, String role) {
         super(firstName, lastName, phoneNum, email, userName, passWord);
         Role = role;
-        ActivityTime = activityTime;
     }
 
     public Doctor() {
@@ -66,11 +66,11 @@ public class Doctor extends Person {
         this.appointments = appointments;
     }
 
-    public LocalTime[][] getActivityTime() {
-        return ActivityTime;
+    public List<ReceptionTime> getReceptionTime() {
+        return receptionTime;
     }
 
-    public void setActivityTime(LocalTime[][] activityTime) {
-        ActivityTime = activityTime;
+    public void setReceptionTime(List<ReceptionTime> receptionTime) {
+        this.receptionTime = receptionTime;
     }
 }
