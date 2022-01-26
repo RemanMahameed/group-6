@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 
 public class PatientMainBoundary extends Boundary {
 
+    protected Patient patient= (Patient) params.get(0);
     @FXML
     private ResourceBundle resources;
 
@@ -24,14 +25,13 @@ public class PatientMainBoundary extends Boundary {
 
     @FXML
     void FamilyaOrPediatrician(ActionEvent event) {
+        message.add("#AppFamilyChild");
+        message.add(params);
 
     }
 
     @FXML
     void initialize() {
-        System.out.println(" Before !!!");
-        Patient patient= (Patient) params.get(0);
-        System.out.println(" After Doctor doctor:"+ patient.getFirstName());
         Plabel.setText(patient.getUserName());
     }
 

@@ -97,32 +97,25 @@ public class App extends Application {
                 MessageBoundary.displayError("Wrong username or password\n");
             else if(event.getLogin().getSuccess()==-2)
                 MessageBoundary.displayError("User already logged in!\n");
-            else if(event.getLogin().getSuccess()== 0 )     //Is a patient
+            else
             {
                 List<Object> params = new LinkedList<>();
                 params.add(event.login.getObject());
                 SimpleClient.setParams(params);
-                try {
-                    setRoot("patientmain");
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if(event.getLogin().getSuccess()== 0) {            //Is a patient
+                    try {
+                        setRoot("patientmain");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }else  if(event.getLogin().getSuccess()== 1) {     //Is a doctor
+                    try {
+                        setRoot("doctormain");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-            else if(event.getLogin().getSuccess()== 1 )     //Is a doctor
-            {
-                List<Object> params=new LinkedList<>();
-                params.add(event.login.getObject());
-                SimpleClient.setParams(params);
-                try {
-                    setRoot("doctormain");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                //List<Object> list=new LinkedList<>();
-                //list.add(event.login.getObject());
-                //System.out.println("list Size: "+ list.size());
-                //System.out.println("object is:"+event.login.getObject().getClass());
-                //Stage stage=null;
+
             }
         });
     }

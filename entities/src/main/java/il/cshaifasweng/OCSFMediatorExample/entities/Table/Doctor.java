@@ -1,6 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.entities.Table;
 
 import javax.persistence.*;
+import java.time.LocalTime;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import java.util.List;
 public class Doctor extends Person {
 
     private String Role;
+    private  LocalTime[][] ActivityTime=new LocalTime[2][7];
 
     @ManyToMany(mappedBy = "doctors", cascade = CascadeType.ALL)
     private List<Clinic> clinicList;
@@ -19,12 +21,10 @@ public class Doctor extends Person {
     @OneToMany(mappedBy = "doctor")
     private List<DoctorAppointment> appointments;
 
-    public Doctor(String firstName, String lastName, String phoneNum, String email, String userName, String passWord, String role) {
+    public Doctor(String firstName, String lastName, String phoneNum, String email, String userName, String passWord, String role, LocalTime[][] activityTime) {
         super(firstName, lastName, phoneNum, email, userName, passWord);
         Role = role;
-        clinicList=new LinkedList<>();
-        patients=new LinkedList<>();
-        appointments=new LinkedList<>();
+        ActivityTime = activityTime;
     }
 
     public Doctor() {
@@ -64,5 +64,13 @@ public class Doctor extends Person {
 
     public void setAppointments(List<DoctorAppointment> appointments) {
         this.appointments = appointments;
+    }
+
+    public LocalTime[][] getActivityTime() {
+        return ActivityTime;
+    }
+
+    public void setActivityTime(LocalTime[][] activityTime) {
+        ActivityTime = activityTime;
     }
 }

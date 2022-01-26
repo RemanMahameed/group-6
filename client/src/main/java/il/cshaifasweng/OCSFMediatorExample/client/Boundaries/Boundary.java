@@ -12,14 +12,24 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class Boundary {
-    String title = "";
-    List<Object> params;
-    Stage stage;
+    protected String title = "";
+    protected List<Object> params;
+    protected Stage stage;
+    protected  LinkedList<Object> message = new LinkedList<Object>();
 
     public Boundary() {
 
         this.params = SimpleClient.getParams();
     }
+
+    public LinkedList<Object> getMessage() {
+        return message;
+    }
+
+    public void setMessage(LinkedList<Object> message) {
+        this.message = message;
+    }
+
     public List<Object> getParams() {
         return this.params;
     }

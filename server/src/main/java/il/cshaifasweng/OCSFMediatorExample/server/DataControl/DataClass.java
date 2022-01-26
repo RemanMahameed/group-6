@@ -16,9 +16,9 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 public class DataClass {
 
-    private static Session session;
+    protected static Session session;
 
-    private static SessionFactory getSessionFactory() throws HibernateException {
+    public static SessionFactory getSessionFactory() throws HibernateException {
         Configuration configuration = new Configuration();
 
         // Add ALL of your entities here. You can also try adding a whole package.
@@ -42,11 +42,48 @@ public class DataClass {
         return configuration.buildSessionFactory(serviceRegistry);
     }
 
+    public static List<Patient> getAllPatients() throws Exception {
+        String query = "FROM Patient";
+        List<Patient> result = session.createQuery(query).list();
+        return result;
+    }
+
+    public static List<ClinicManager> getAllClinicManager() throws Exception {
+        String query = "FROM ClinicManager";
+        List<ClinicManager> result = session.createQuery(query).list();
+        return result;
+    }
+
+    public static List<LaboratoryFacts> getAllLaboratoryFacts() throws Exception {
+        String query = "FROM LaboratoryFacts";
+        List<LaboratoryFacts> result = session.createQuery(query).list();
+        return result;
+    }
+
+    public static List<Nurse> getAllNurse() throws Exception {
+        String query = "FROM Nurse";
+        List<Nurse> result = session.createQuery(query).list();
+        return result;
+    }
+
+    public static List<Doctor> getAllDoctor() throws Exception {
+        String query = "FROM Doctor";
+        List<Doctor> result = session.createQuery(query).list();
+        return result;
+    }
+    public static List<HmoManager> getAllHmoManger() throws Exception {
+        String query = "FROM HmoManger";
+        List<HmoManager> result = session.createQuery(query).list();
+        return result;
+    }
+
     public static void generateNewData() throws Exception {
 
         //matrix of openingHours
         LocalTime openingHours = LocalTime.of(8,00);
         LocalTime closingHours = LocalTime.of(16,00);
+        LocalTime begineReceptionTime = LocalTime.of(10,00);
+        LocalTime endReceptionTime = LocalTime.of(14,00);
         LocalTime[][] ActivityTime={
                 {openingHours,openingHours,openingHours,openingHours,openingHours,openingHours,openingHours},
                 {closingHours,closingHours,closingHours,closingHours,closingHours,closingHours,closingHours}};
@@ -56,6 +93,9 @@ public class DataClass {
         LocalTime[][] VaccineTime={
                 {openingHours,openingHours,openingHours,openingHours,openingHours,openingHours,openingHours},
                 {closingHours,closingHours,closingHours,closingHours,closingHours,closingHours,closingHours}};
+        LocalTime[][] DoctorReceptionTime={
+                {begineReceptionTime,begineReceptionTime,begineReceptionTime,begineReceptionTime,begineReceptionTime,begineReceptionTime,begineReceptionTime},
+                {endReceptionTime,endReceptionTime,endReceptionTime,endReceptionTime,endReceptionTime,endReceptionTime,endReceptionTime}};
         //LinkedList
         LinkedList<Patient> patients1=new LinkedList<>();
         LinkedList<Patient> patients2=new LinkedList<>();
@@ -79,12 +119,12 @@ public class DataClass {
         ClinicManager clinicManager2= new ClinicManager("Sara","Zreke","0526589829","CLinicM22@gmail.com","CM-ZrekeSara","2222");
         ClinicManager clinicManager3= new ClinicManager("Marah","Bhoooty","0532252582","CLinicM33@gmail.com","CM-BhotyMarah","3333");
         //doctors
-        Doctor doctor1=new Doctor("doctor1","doctor","0503104837","Doctor11@gmail.com","D-Doctor1","1111","FamilyDoctor");
-        Doctor doctor2=new Doctor("doctor2","doctor","0503104837","Doctor22@gmail.com","D-Doctor2","2222","FamilyDoctor");
-        Doctor doctor3=new Doctor("doctor3","doctor","0503104837","Doctor33@gmail.com","D-Doctor3","3333","ProfessionalDoctor-Otolaryngologies");
-        Doctor doctor4=new Doctor("doctor4","doctor","0503104837","Doctor44@gmail.com","D-Doctor4","4444","PediatricianDoctor");
-        Doctor doctor5=new Doctor("doctor5","doctor","0503104837","Doctor55@gmail.com","D-Doctor5","5555","PediatricianDoctor");
-        Doctor doctor6=new Doctor("doctor6","doctor","0503104837","Doctor66@gmail.com","D-Doctor6","6666","ProfessionalDoctor-Gynecologist ");
+        Doctor doctor1=new Doctor("doctor1","doctor","0503104837","Doctor11@gmail.com","D-Doctor1","1111","FamilyDoctor",DoctorReceptionTime);
+        Doctor doctor2=new Doctor("doctor2","doctor","0503104837","Doctor22@gmail.com","D-Doctor2","2222","FamilyDoctor",DoctorReceptionTime);
+        Doctor doctor3=new Doctor("doctor3","doctor","0503104837","Doctor33@gmail.com","D-Doctor3","3333","ProfessionalDoctor-Otolaryngologies",DoctorReceptionTime);
+        Doctor doctor4=new Doctor("doctor4","doctor","0503104837","Doctor44@gmail.com","D-Doctor4","4444","PediatricianDoctor",DoctorReceptionTime);
+        Doctor doctor5=new Doctor("doctor5","doctor","0503104837","Doctor55@gmail.com","D-Doctor5","5555","PediatricianDoctor",DoctorReceptionTime);
+        Doctor doctor6=new Doctor("doctor6","doctor","0503104837","Doctor66@gmail.com","D-Doctor6","6666","ProfessionalDoctor-Gynecologist ",DoctorReceptionTime);
         //Nurse
         Nurse nurse1=new Nurse("nurse1","nurse","0503104837","nurse111@gmail.com","N-nurse1","1111");
         Nurse nurse2=new Nurse("nurse2","nurse","0503104837","nurse222@gmail.com","N-nurse2","2222");

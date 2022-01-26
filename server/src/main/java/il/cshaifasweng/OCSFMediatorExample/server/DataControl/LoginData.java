@@ -4,16 +4,11 @@ import java.util.List;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.Login;
 import il.cshaifasweng.OCSFMediatorExample.entities.Table.*;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
 
 
+public class LoginData extends DataClass{
 
-public class LoginData {
     private static final int NOTFOUND = -1;
     private static final int ISACTIVE = -2;
     private static final int ISPATIENT = 0;
@@ -22,66 +17,6 @@ public class LoginData {
     private static final int ISLAB = 3;
     private static final int ISCM = 4;
     private static final int ISHM = 5;
-
-    private static Session session;
-
-    private static SessionFactory getSessionFactory() throws HibernateException {
-        Configuration configuration = new Configuration();
-
-        // Add ALL of your entities here. You can also try adding a whole package.
-
-        configuration.addAnnotatedClass(Patient.class);
-        configuration.addAnnotatedClass(ClinicManager.class);
-        configuration.addAnnotatedClass(Doctor.class);
-        configuration.addAnnotatedClass(Nurse.class);
-        configuration.addAnnotatedClass(HmoManager.class);
-        configuration.addAnnotatedClass(LaboratoryFacts.class);
-        configuration.addAnnotatedClass(DoctorAppointment.class);
-        configuration.addAnnotatedClass(HMO.class);
-        configuration.addAnnotatedClass(Clinic.class);
-        configuration.addAnnotatedClass(LaboratoryFactsAppointment.class);
-         configuration.addAnnotatedClass(NurseAppointment.class);
-        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-                .applySettings(configuration.getProperties())
-                .build();
-
-        return configuration.buildSessionFactory(serviceRegistry);
-    }
-
-    private static List<Patient> getAllPatients() throws Exception {
-        String query = "FROM Patient";
-        List<Patient> result = session.createQuery(query).list();
-        return result;
-    }
-
-    private static List<ClinicManager> getAllClinicManager() throws Exception {
-        String query = "FROM ClinicManager";
-        List<ClinicManager> result = session.createQuery(query).list();
-        return result;
-    }
-
-    private static List<LaboratoryFacts> getAllLaboratoryFacts() throws Exception {
-        String query = "FROM LaboratoryFacts";
-        List<LaboratoryFacts> result = session.createQuery(query).list();
-        return result;
-    }
-
-    private static List<Nurse> getAllNurse() throws Exception {
-        String query = "FROM Nurse";
-        List<Nurse> result = session.createQuery(query).list();
-        return result;
-    }
-
-    private static List<Doctor> getAllDoctor() throws Exception {
-        String query = "FROM Doctor";
-        List<Doctor> result = session.createQuery(query).list();
-        return result;
-    }
-    private static List<HmoManager> getAllHmoManger() throws Exception {
-        String query = "FROM HmoManger";
-        List<HmoManager> result = session.createQuery(query).list();
-        return result;
-    }
 
 
     private static Login CheckLogPatient(String userName, String passWord) throws Exception {
@@ -92,11 +27,9 @@ public class LoginData {
                 if (patient.getActive() == true)
                     return (new Login(userName, passWord, ISACTIVE));
                 else {
-                    System.out.println("HHHHHHHHHHHHHHH");
                     patient.setActive(true);
                     session.saveOrUpdate(patient);
                     session.flush();
-                    System.out.println("CCCCCCCCCCCCCC");
                     return  (new Login(userName, passWord, ISPATIENT,patient));
                 }
             }
@@ -107,7 +40,6 @@ public class LoginData {
     private static Login CheckLogDoctor(String userName, String passWord) throws Exception {
         Login login;
         List<Doctor> doctors = getAllDoctor();
-        System.out.println("size of listdoctor is: "+ doctors.size());
         for (Doctor doctor : doctors) {
             System.out.println("User Name: "+ doctor.getUserName() + '\n'
                               +"Pass Word: "+ doctor.getPassWord()+'\n');
@@ -115,7 +47,6 @@ public class LoginData {
                 if (doctor.getActive() == true)
                     return login = new Login(userName, passWord, ISACTIVE);
                 else {
-                    System.out.println("found Doctor ");
                     doctor.setActive(true);
                     session.saveOrUpdate(doctor);
                     session.flush();
@@ -123,7 +54,6 @@ public class LoginData {
                 }
             }
         }
-        System.out.println("NOT found Doctor ");
         return login = new Login(userName, passWord, NOTFOUND);
     }
 
@@ -208,12 +138,9 @@ public class LoginData {
         switch (userName.substring(0, 2)) {
             case ("P-"):
                 login = CheckLogPatient(userName, passWord);
-                System.out.println("I am very goooood!!!!");
                 break;
             case ("D-"):
-                System.out.println("Before Login:");
                 login = CheckLogDoctor(userName, passWord);
-                System.out.println("Before Login:" + login.getSuccess());
                 break;
             case ("N-"):
                 login = CheckLogNurse(userName, passWord);
