@@ -24,8 +24,8 @@ public class NurseAppointment extends Appointment {
     @JoinColumn(name = "Clinic_ID")
     protected Clinic clinic;
 
-    public NurseAppointment(int appNum, String appointmentType, LocalDateTime date, LocalTime realTime, boolean available, boolean done, Nurse nurse, Patient patient, Clinic clinic) {
-        super(appNum, appointmentType, date, realTime, available, done);
+    public NurseAppointment(String appointmentType, LocalDateTime date, Nurse nurse, Patient patient, Clinic clinic) {
+        super(appointmentType, date);
         this.nurse = nurse;
         this.patient = patient;
         this.clinic = clinic;

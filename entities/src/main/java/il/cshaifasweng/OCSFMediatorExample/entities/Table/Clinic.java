@@ -28,11 +28,11 @@ public class Clinic implements Serializable {
     @JoinColumn(name = "HMO_ID")
     private HMO hmo;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "Clinic_Doctors",joinColumns = @JoinColumn(name = "Clinic_ID"),inverseJoinColumns = {@JoinColumn(name = "Doctor_ID")})
     private List<Doctor> doctors;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "Clinic_Nurse",joinColumns = @JoinColumn(name = "Clinic_ID"),inverseJoinColumns = {@JoinColumn(name = "Nurse_ID")})
     private List<Nurse> nurses;
 

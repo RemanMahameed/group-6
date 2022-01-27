@@ -30,9 +30,6 @@ public class Doctor extends Person {
 
     public Doctor() {
         super();
-        clinicList=new LinkedList<>();
-        patients=new LinkedList<>();
-        appointments=new LinkedList<>();
     }
 
     public void setClinicList(List<Clinic> clinicList) {

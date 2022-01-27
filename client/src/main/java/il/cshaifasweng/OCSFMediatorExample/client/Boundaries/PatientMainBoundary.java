@@ -1,8 +1,10 @@
 package il.cshaifasweng.OCSFMediatorExample.client.Boundaries;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Table.Patient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,9 +26,12 @@ public class PatientMainBoundary extends Boundary {
 
 
     @FXML
-    void FamilyaOrPediatrician(ActionEvent event) {
+    void FamilyaOrPediatrician(ActionEvent event) throws IOException {
+        System.out.println("FamilyaOrPediatrician");
         message.add("#AppFamilyChild");
-        message.add(params);
+        message.add(patient);
+        System.out.println(message.get(0));
+        SimpleClient.getClient().sendToServer(message);
 
     }
 

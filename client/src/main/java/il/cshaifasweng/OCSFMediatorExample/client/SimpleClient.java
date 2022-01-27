@@ -1,5 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.DoctorApp;
 import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.LogOut;
 import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.Login;
 import org.greenrobot.eventbus.EventBus;
@@ -32,6 +33,8 @@ public class SimpleClient extends AbstractClient {
 		}else if (msg.getClass().equals(LogOut.class)) {
 			EventBus.getDefault().post(new LogOutEvent((LogOut)msg));
 
+		}else if (msg.getClass().equals(DoctorApp.class)) {
+			EventBus.getDefault().post(new DoctorAppEvent((DoctorApp) msg));
 		}
 	}
 	

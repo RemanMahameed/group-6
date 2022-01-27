@@ -23,14 +23,9 @@ public class DoctorAppointment extends Appointment {
     @JoinColumn(name = "Clinic_ID")
     protected Clinic clinic;
 
-    public DoctorAppointment(Doctor doctor, Patient patient, Clinic clinic) {
-        this.doctor = doctor;
-        this.patient = patient;
-        this.clinic = clinic;
-    }
 
-    public DoctorAppointment(int appNum, String appointmentType, LocalDateTime date, LocalTime realTime, boolean available, boolean done, Doctor doctor, Patient patient, Clinic clinic) {
-        super(appNum, appointmentType, date, realTime, available, done);
+    public DoctorAppointment(String appointmentType, LocalDateTime date, Doctor doctor, Patient patient, Clinic clinic) {
+        super(appointmentType, date);
         this.doctor = doctor;
         this.patient = patient;
         this.clinic = clinic;

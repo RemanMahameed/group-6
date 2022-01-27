@@ -1,8 +1,11 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
 //import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.Login;
+import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.DoctorApp;
 import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.LogOut;
 import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.Login;
+import il.cshaifasweng.OCSFMediatorExample.entities.Table.Patient;
+import il.cshaifasweng.OCSFMediatorExample.server.DataControl.AppointmentData;
 import il.cshaifasweng.OCSFMediatorExample.server.DataControl.DataClass;
 import il.cshaifasweng.OCSFMediatorExample.server.DataControl.LoginData;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.AbstractServer;
@@ -18,15 +21,19 @@ public class SimpleServer extends AbstractServer {
 	public SimpleServer(int port) {
 		super(port);
 
-	}
-
-	@Override
-	protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
 		//try {
 		//	DataClass.generateNewData();
 		//} catch (Exception e) {
 		//	e.printStackTrace();
 		//}
+
+//		getFreeClinicDoctorApp()
+
+	}
+
+	@Override
+	protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
+
 		String msgString = msg.toString();
 		//System.out.format("%s\n",msgString);*/
 		LinkedList<Object> message = (LinkedList<Object>) (msg);
@@ -76,7 +83,19 @@ public class SimpleServer extends AbstractServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		} else if (message.get(0).equals("#AppFamilyChild")) {
+			DoctorApp doctorApp=new DoctorApp();
+			try {
+				doctorApp.setDoctorAppointments(AppointmentData.getFreeClinicDoctorApp(message.get(1)));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				client.sendToClient(doctorApp);
+				System.out.format("Sent doctorApp to client %s\n", client.getInetAddress().getHostAddress());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
-
 }

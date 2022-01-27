@@ -23,8 +23,8 @@ public class LaboratoryFactsAppointment extends Appointment {
     @JoinColumn(name = "Clinic_ID")
     protected Clinic clinic;
 
-    public LaboratoryFactsAppointment(int appNum, String appointmentType, LocalDateTime date, LocalTime realTime, boolean available, boolean done, LaboratoryFacts laboratoryFacts, Patient patient, Clinic clinic) {
-        super(appNum, appointmentType, date, realTime, available, done);
+    public LaboratoryFactsAppointment(String appointmentType, LocalDateTime date, LaboratoryFacts laboratoryFacts, Patient patient, Clinic clinic) {
+        super(appointmentType, date);
         this.laboratoryFacts = laboratoryFacts;
         this.patient = patient;
         this.clinic = clinic;
