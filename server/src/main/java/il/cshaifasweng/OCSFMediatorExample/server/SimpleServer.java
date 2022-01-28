@@ -1,9 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
 //import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.Login;
-import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.DoctorApp;
-import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.LogOut;
-import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.Login;
+import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.*;
 import il.cshaifasweng.OCSFMediatorExample.entities.Table.Patient;
 import il.cshaifasweng.OCSFMediatorExample.server.DataControl.AppointmentData;
 import il.cshaifasweng.OCSFMediatorExample.server.DataControl.DataClass;
@@ -13,8 +11,6 @@ import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
 
 import java.io.IOException;
 import java.util.LinkedList;
-
-import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.Warning;
 
 public class SimpleServer extends AbstractServer {
 
@@ -93,6 +89,22 @@ public class SimpleServer extends AbstractServer {
 			try {
 				client.sendToClient(doctorApp);
 				System.out.format("Sent doctorApp to client %s\n", client.getInetAddress().getHostAddress());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		else if (message.get(0).equals("#specilizationChoice ")){
+			ProDoctorsList doctors = null ;
+			try {
+				doctors = AppointmentData.getdoctorsofsp( (String) message.get(1) , (String) message.get(2) );
+				if(doctors == null)
+					System.out.println("there is no doctor");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				client.sendToClient(doctors);
+				System.out.format("Sent pro doctors to client %s\n", client.getInetAddress().getHostAddress());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

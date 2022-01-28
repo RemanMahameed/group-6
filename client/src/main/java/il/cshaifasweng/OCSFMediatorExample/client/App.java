@@ -1,6 +1,10 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
 import il.cshaifasweng.OCSFMediatorExample.client.Boundaries.MessageBoundary;
+import il.cshaifasweng.OCSFMediatorExample.client.Events.LogOutEvent;
+import il.cshaifasweng.OCSFMediatorExample.client.Events.LoginEvent;
+import il.cshaifasweng.OCSFMediatorExample.client.Events.ProEvent;
+import il.cshaifasweng.OCSFMediatorExample.client.Events.WarningEvent;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -100,7 +104,7 @@ public class App extends Application {
             else
             {
                 List<Object> params = new LinkedList<>();
-                params.add(event.login.getObject());
+                params.add(event.getLogin().getObject());
                 SimpleClient.setParams(params);
                 if(event.getLogin().getSuccess()== 0) {            //Is a patient
                     try {
@@ -136,6 +140,19 @@ public class App extends Application {
             SimpleClient.setParams(params);
             try {
                 setRoot("appointment");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+    @Subscribe
+    public void onProEvent(ProEvent event) throws IOException {
+        Platform.runLater(() -> {
+            List<Object> params = new LinkedList<>();
+            params.add(event.getProDoctors());
+            SimpleClient.setParams(params);
+            try {
+                setRoot("ProDoctorsList");
             } catch (IOException e) {
                 e.printStackTrace();
             }

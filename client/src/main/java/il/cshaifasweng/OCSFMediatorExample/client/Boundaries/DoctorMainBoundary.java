@@ -38,6 +38,7 @@ public class DoctorMainBoundary extends Boundary {
     private ImageView label;
 
 
+
     @FXML
     void initialize() {
         Doctor doctor= (Doctor) params.get(0);

@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.DoctorApp;
+import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.ProDoctorsList;
 import il.cshaifasweng.OCSFMediatorExample.entities.Table.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -102,4 +103,27 @@ public class AppointmentData extends DataClass{
        }
        return (new DoctorApp(doctorAppString, doctorAppList,patient));
    }
+    public static ProDoctorsList getdoctorsofsp (String major , String id_P) throws Exception {
+        // int id_patient = Integer.valueOf(id_P);
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        LinkedList<Doctor> doctors = new LinkedList<>();
+        System.out.println(major);
+        List<Doctor> doctorstable = getAllDoctor();
+        major="ProfessionalDoctor-"+ major;
+        System.out.println(major);
+        for (Doctor doctor : doctorstable) {
+            if (doctor.getRole().equals(major) ) {
+                doctors.add(doctor);
+            }
+        }
+        //Patient patient = getPbyID(id_P);
+        ProDoctorsList SortedDoctors = new ProDoctorsList(doctors);
+        if (session != null) {
+            session.close();
+
+        }
+        return SortedDoctors;
+    }
 }

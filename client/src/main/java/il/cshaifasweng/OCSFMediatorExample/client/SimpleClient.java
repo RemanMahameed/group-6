@@ -1,12 +1,13 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
-import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.DoctorApp;
-import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.LogOut;
-import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.Login;
+import il.cshaifasweng.OCSFMediatorExample.client.Events.LogOutEvent;
+import il.cshaifasweng.OCSFMediatorExample.client.Events.LoginEvent;
+import il.cshaifasweng.OCSFMediatorExample.client.Events.ProEvent;
+import il.cshaifasweng.OCSFMediatorExample.client.Events.WarningEvent;
+import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.*;
 import org.greenrobot.eventbus.EventBus;
 
 import il.cshaifasweng.OCSFMediatorExample.client.ocsf.AbstractClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.Warning;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -35,6 +36,10 @@ public class SimpleClient extends AbstractClient {
 
 		}else if (msg.getClass().equals(DoctorApp.class)) {
 			EventBus.getDefault().post(new DoctorAppEvent((DoctorApp) msg));
+		}
+		else if (msg.getClass().equals(ProDoctorsList.class)) {
+			EventBus.getDefault().post(new ProEvent((ProDoctorsList) msg));
+
 		}
 	}
 	

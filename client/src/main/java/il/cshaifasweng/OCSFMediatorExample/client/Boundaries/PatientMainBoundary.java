@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Table.Patient;
 import javafx.event.ActionEvent;
@@ -33,6 +34,10 @@ public class PatientMainBoundary extends Boundary {
         System.out.println(message.get(0));
         SimpleClient.getClient().sendToServer(message);
 
+    }
+    @FXML
+    void to_sp(ActionEvent event) throws IOException {
+        App.setRoot("Specialization_list");
     }
 
     @FXML
