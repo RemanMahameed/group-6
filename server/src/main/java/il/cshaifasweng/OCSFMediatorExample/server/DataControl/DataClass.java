@@ -19,7 +19,7 @@ import javax.swing.event.ListDataListener;
 
 public class DataClass {
 
-    protected static Session session;
+    private static Session session;
 
     public static SessionFactory getSessionFactory() throws HibernateException {
         Configuration configuration = new Configuration();
@@ -47,37 +47,67 @@ public class DataClass {
     }
 
     public static List<Patient> getAllPatients() throws Exception {
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
         String query = "FROM Patient";
         List<Patient> result = session.createQuery(query).list();
+        session.getTransaction().commit(); // Save everything.
+        session.close();
         return result;
     }
 
     public static List<ClinicManager> getAllClinicManager() throws Exception {
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
         String query = "FROM ClinicManager";
         List<ClinicManager> result = session.createQuery(query).list();
+        session.getTransaction().commit(); // Save everything.
+        session.close();
         return result;
     }
 
     public static List<LaboratoryFacts> getAllLaboratoryFacts() throws Exception {
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
         String query = "FROM LaboratoryFacts";
         List<LaboratoryFacts> result = session.createQuery(query).list();
+        session.getTransaction().commit(); // Save everything.
+        session.close();
         return result;
     }
 
     public static List<Nurse> getAllNurse() throws Exception {
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
         String query = "FROM Nurse";
         List<Nurse> result = session.createQuery(query).list();
+        session.getTransaction().commit(); // Save everything.
+        session.close();
         return result;
     }
 
     public static List<Doctor> getAllDoctor() throws Exception {
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
         String query = "FROM Doctor";
         List<Doctor> result = session.createQuery(query).list();
+        session.getTransaction().commit(); // Save everything.
+        session.close();
         return result;
     }
     public static List<HmoManager> getAllHmoManger() throws Exception {
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
         String query = "FROM HmoManger";
         List<HmoManager> result = session.createQuery(query).list();
+        session.getTransaction().commit(); // Save everything.
+        session.close();
         return result;
     }
 
@@ -163,10 +193,10 @@ public class DataClass {
         Clinic clinic3 = new Clinic("General && Professional clinic", ActivityTime,CoronaTestTime,VaccineTime,clinicManager3,HMO1);
 
         //receptionTime
-        ReceptionTime reception1=new ReceptionTime(clinic1.getClinicType(),DoctorReceptionTime1);
-        ReceptionTime reception2=new ReceptionTime(clinic2.getClinicType(),DoctorReceptionTime1);
-        ReceptionTime reception3=new ReceptionTime(clinic3.getClinicType(),DoctorReceptionTime1);
-        ReceptionTime reception4=new ReceptionTime(clinic3.getClinicType(),DoctorReceptionTime2);
+        ReceptionTime reception1=new ReceptionTime(clinic1.getClinicType(),DoctorReceptionTime1);//10-14
+        ReceptionTime reception2=new ReceptionTime(clinic2.getClinicType(),DoctorReceptionTime1);//10-14
+        ReceptionTime reception3=new ReceptionTime(clinic3.getClinicType(),DoctorReceptionTime1);//10-14
+        ReceptionTime reception4=new ReceptionTime(clinic3.getClinicType(),DoctorReceptionTime2);//8-9
 
         //Set doctor1 reception time
         receptionTimes1.add(reception1);
@@ -220,7 +250,7 @@ public class DataClass {
         HMO1.setHmoManager(hmoManager);
 
 
-        //connect list of doctor, nurse, laboratory,clinicManger to  clinic 1
+        //connect list of doctor, nurse, laboratory,clinicManger,patient to  clinic 1
         //create list
         doctors1.add(doctor1);
         doctors1.add(doctor4);
@@ -353,13 +383,6 @@ public class DataClass {
         }
     }
 
-
-//    private static List<Patient> getAllPatients() throws Exception {
-//        String query="FROM Patient order by patientNum";
-//        List<Patient> result=session.createQuery(query).list();
-//        return result;
-//    }
-
     public static void main(String[] args) {
         try {
             SessionFactory sessionFactory = getSessionFactory();
@@ -371,7 +394,6 @@ public class DataClass {
            // printAllDoctor();
             //generateCars();
             //printAllCars();
-
             session.getTransaction().commit(); // Save everything.
 
         } catch (Exception exception) {

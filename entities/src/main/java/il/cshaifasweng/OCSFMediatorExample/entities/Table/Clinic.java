@@ -1,5 +1,8 @@
 package il.cshaifasweng.OCSFMediatorExample.entities.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalTime;
@@ -8,6 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "Clinic")
+
 public class Clinic implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,28 +32,35 @@ public class Clinic implements Serializable {
     @JoinColumn(name = "HMO_ID")
     private HMO hmo;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "Clinic_Doctors",joinColumns = @JoinColumn(name = "Clinic_ID"),inverseJoinColumns = {@JoinColumn(name = "Doctor_ID")})
     private List<Doctor> doctors;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "Clinic_Nurse",joinColumns = @JoinColumn(name = "Clinic_ID"),inverseJoinColumns = {@JoinColumn(name = "Nurse_ID")})
     private List<Nurse> nurses;
 
     @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "Clinic_LaboratoryFacts",joinColumns = @JoinColumn(name = "Clinic_ID"),inverseJoinColumns = {@JoinColumn(name = "LaboratoryFacts_ID")})
     private List<LaboratoryFacts> laboratoryFacts;
 
     @OneToMany(mappedBy = "clinic")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<LaboratoryFactsAppointment> laboratoryFactsAppointments;
 
     @OneToMany(mappedBy = "clinic")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<NurseAppointment> nurseAppointments;
 
     @OneToMany(mappedBy = "clinic")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<DoctorAppointment> doctorAppointments;
 
     @OneToMany(mappedBy = "clinic")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Patient> patients;
 
     public Clinic(String clinicType, LocalTime[][] activityTime, LocalTime[][] coronaTestTime, LocalTime[][] vaccineTime, ClinicManager clinicManager, HMO hmo) {

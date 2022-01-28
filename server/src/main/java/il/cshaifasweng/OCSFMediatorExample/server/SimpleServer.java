@@ -86,7 +86,7 @@ public class SimpleServer extends AbstractServer {
 		} else if (message.get(0).equals("#AppFamilyChild")) {
 			DoctorApp doctorApp=new DoctorApp();
 			try {
-				doctorApp.setDoctorAppointments(AppointmentData.getFreeClinicDoctorApp(message.get(1)));
+				doctorApp=(AppointmentData.getFreeClinicDoctorApp(message.get(1)));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

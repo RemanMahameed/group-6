@@ -43,7 +43,7 @@ public class App extends Application {
         scene.setRoot(loadFXML(fxml));
     }
 
-    @SuppressWarnings("exports")
+//    @SuppressWarnings("exports")
 //    public static void setRoot(String fxml, List<Object> params) throws IOException {
 //        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
 //        Parent root = fxmlLoader.load();
@@ -115,7 +115,6 @@ public class App extends Application {
                         e.printStackTrace();
                     }
                 }
-
             }
         });
     }
@@ -124,6 +123,19 @@ public class App extends Application {
         Platform.runLater(() -> {
             try {
                 setRoot("Primary");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+    @Subscribe
+    public void onDoctorAppEvent(DoctorAppEvent event) throws IOException {
+        Platform.runLater(() -> {
+            List<Object> params = new LinkedList<>();
+            params.add(event.getDoctorApp());
+            SimpleClient.setParams(params);
+            try {
+                setRoot("appointment");
             } catch (IOException e) {
                 e.printStackTrace();
             }

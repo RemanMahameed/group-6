@@ -15,7 +15,7 @@ public class ReceptionTime implements Serializable {
     String ClinicName;
     LocalTime[][] ActiveTime=new LocalTime[2][7];
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "DoctorReceptionTime")
     private List<Doctor> doctors;
 

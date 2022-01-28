@@ -17,6 +17,7 @@ public abstract class Boundary {
     protected Stage stage;
     protected  LinkedList<Object> message = new LinkedList<Object>();
 
+
     public Boundary() {
 
         this.params = SimpleClient.getParams();
@@ -60,10 +61,10 @@ public abstract class Boundary {
     @FXML
     void LogOut(ActionEvent event) throws IOException {
         System.out.println("buttom log out");
-        Object object= (Object) SimpleClient.getParams().get(0);
+        //Object object= (Object) SimpleClient.getParams().get(0);
         LinkedList<Object> message = new LinkedList<Object>();
         message.add("#Logout");
-        message.add(object);
+        message.add(params.get(0));
         System.out.println("sending Logout from client to server");
         SimpleClient.getClient().sendToServer(message);
     }

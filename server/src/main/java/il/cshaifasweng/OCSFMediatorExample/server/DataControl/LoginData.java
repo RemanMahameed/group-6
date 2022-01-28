@@ -4,11 +4,12 @@ import java.util.List;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.Login;
 import il.cshaifasweng.OCSFMediatorExample.entities.Table.*;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 
 public class LoginData extends DataClass{
-
+    private static Session session;
     private static final int NOTFOUND = -1;
     private static final int ISACTIVE = -2;
     private static final int ISPATIENT = 0;

@@ -1,7 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.entities.Table;
 
 import javax.persistence.*;
-import javax.persistence.criteria.Fetch;
+
 import java.util.List;
 
 
@@ -34,7 +34,7 @@ public class Patient extends Person {
     @OneToMany(mappedBy = "patient")
     private List<DoctorAppointment> doctorAppointments;
 
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "Clinic_ID")
     protected Clinic clinic;
 
