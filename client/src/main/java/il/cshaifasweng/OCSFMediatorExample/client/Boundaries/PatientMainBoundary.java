@@ -14,7 +14,7 @@ import javafx.scene.control.Label;
 
 public class PatientMainBoundary extends Boundary {
 
-    protected Patient patient= (Patient) params.get(0);
+    protected Patient patient= (Patient) user_Ob.get(0);
     @FXML
     private ResourceBundle resources;
 

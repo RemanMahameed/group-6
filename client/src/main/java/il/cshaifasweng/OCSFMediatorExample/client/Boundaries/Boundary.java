@@ -14,6 +14,7 @@ import java.util.List;
 public abstract class Boundary {
     protected String title = "";
     protected List<Object> params;
+    protected List<Object> user_Ob;
     protected Stage stage;
     protected  LinkedList<Object> message = new LinkedList<Object>();
 
@@ -21,6 +22,7 @@ public abstract class Boundary {
     public Boundary() {
 
         this.params = SimpleClient.getParams();
+        this.user_Ob = SimpleClient.getUser_Ob();
     }
 
     public LinkedList<Object> getMessage() {
@@ -37,6 +39,14 @@ public abstract class Boundary {
 
     public  void setParams(List<Object> params) {
         params = params;
+    }
+
+    public List<Object> getUser_Ob() {
+        return user_Ob;
+    }
+
+    public void setUser_Ob(List<Object> user_Ob) {
+        this.user_Ob = user_Ob;
     }
 
     public String getTitle() {
@@ -64,7 +74,7 @@ public abstract class Boundary {
         //Object object= (Object) SimpleClient.getParams().get(0);
         LinkedList<Object> message = new LinkedList<Object>();
         message.add("#Logout");
-        message.add(params.get(0));
+        message.add(user_Ob.get(0));
         System.out.println("sending Logout from client to server");
         SimpleClient.getClient().sendToServer(message);
     }

@@ -106,6 +106,7 @@ public class App extends Application {
                 List<Object> params = new LinkedList<>();
                 params.add(event.getLogin().getObject());
                 SimpleClient.setParams(params);
+                SimpleClient.setUser_Ob(params);
                 if(event.getLogin().getSuccess()== 0) {            //Is a patient
                     try {
                         setRoot("patientmain");

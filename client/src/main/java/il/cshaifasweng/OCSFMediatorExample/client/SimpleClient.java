@@ -16,6 +16,7 @@ public class SimpleClient extends AbstractClient {
 	
 	private static SimpleClient client = null;
 	private  static List<Object>  params=new LinkedList<>();
+	private static  List<Object> user_Ob=new LinkedList<>();
 
 	private SimpleClient(String host, int port) {
 		super(host, port);
@@ -52,6 +53,14 @@ public class SimpleClient extends AbstractClient {
 
 	public static List<Object> getParams() {
 		return params;
+	}
+
+	public static List<Object> getUser_Ob() {
+		return user_Ob;
+	}
+
+	public static void setUser_Ob(List<Object> user_Ob) {
+		SimpleClient.user_Ob = user_Ob;
 	}
 
 	public static void setParams(List<Object> params) {
