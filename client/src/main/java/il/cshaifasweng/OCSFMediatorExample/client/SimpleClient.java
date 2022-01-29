@@ -1,9 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
-import il.cshaifasweng.OCSFMediatorExample.client.Events.LogOutEvent;
-import il.cshaifasweng.OCSFMediatorExample.client.Events.LoginEvent;
-import il.cshaifasweng.OCSFMediatorExample.client.Events.ProEvent;
-import il.cshaifasweng.OCSFMediatorExample.client.Events.WarningEvent;
+import il.cshaifasweng.OCSFMediatorExample.client.Events.*;
 import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.*;
 import org.greenrobot.eventbus.EventBus;
 

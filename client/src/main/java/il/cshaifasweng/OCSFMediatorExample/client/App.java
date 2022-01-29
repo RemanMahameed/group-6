@@ -1,10 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
 import il.cshaifasweng.OCSFMediatorExample.client.Boundaries.MessageBoundary;
-import il.cshaifasweng.OCSFMediatorExample.client.Events.LogOutEvent;
-import il.cshaifasweng.OCSFMediatorExample.client.Events.LoginEvent;
-import il.cshaifasweng.OCSFMediatorExample.client.Events.ProEvent;
-import il.cshaifasweng.OCSFMediatorExample.client.Events.WarningEvent;
+import il.cshaifasweng.OCSFMediatorExample.client.Events.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -91,10 +88,10 @@ public class App extends Application {
     }
     @Subscribe
     /* hon bdna nf7s sho el success
-    * 0= failed
-    * 1=patient
-    * 2..
-    *  */
+     * 0= failed
+     * 1=patient
+     * 2..
+     *  */
     public void onLoginEvent(LoginEvent event) throws IOException {
         Platform.runLater(() -> {
             if(event.getLogin().getSuccess()==-1 )
@@ -136,9 +133,9 @@ public class App extends Application {
     @Subscribe
     public void onDoctorAppEvent(DoctorAppEvent event) throws IOException {
         Platform.runLater(() -> {
-            List<Object> params = new LinkedList<>();
-            params.add(event.getDoctorApp());
-            SimpleClient.setParams(params);
+            //List<Object> params = new LinkedList<>();
+            //params.add(event.getDoctorApp());
+            SimpleClient.getParams().add(event.getDoctorApp());
             try {
                 setRoot("appointment");
             } catch (IOException e) {
@@ -149,9 +146,10 @@ public class App extends Application {
     @Subscribe
     public void onProEvent(ProEvent event) throws IOException {
         Platform.runLater(() -> {
-            List<Object> params = new LinkedList<>();
-            params.add(event.getProDoctors());
-            SimpleClient.setParams(params);
+            //List<Object> params = new LinkedList<>();
+            //params.add(event.getProDoctors());
+            //SimpleClient.setParams(params);
+            SimpleClient.getParams().add(event.getProDoctors());
             try {
                 setRoot("ProDoctorsList");
             } catch (IOException e) {
@@ -160,7 +158,8 @@ public class App extends Application {
         });
     }
 
-	public static void main(String[] args) {
+
+    public static void main(String[] args) {
         launch();
     }
 

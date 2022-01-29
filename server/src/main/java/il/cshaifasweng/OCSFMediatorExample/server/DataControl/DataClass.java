@@ -257,7 +257,7 @@ public class DataClass {
         nurses1.add(nurse1);
         laboratoryFact1.add(laboratoryFacts1);
         patients1.add(patient1);
-        patients2.add(patient2);
+        patients1.add(patient2);
         clinics1.add(clinic1);
         //insert list
         clinic1.setDoctors(doctors1);
@@ -280,18 +280,18 @@ public class DataClass {
         doctors2.add(doctor6);
         nurses2.add(nurse2);
         laboratoryFact2.add(laboratoryFacts2);
-        patients2.add(patient3);
+        //patients2.add(patient3);
         clinics2.add(clinic2);
         //insert list
         clinic2.setDoctors(doctors2);
         clinic2.setNurses(nurses2);
         clinic2.setLaboratoryFacts(laboratoryFact2);
-        clinic2.setPatients(patients2);
+        //clinic2.setPatients(patients2);
         doctor3.setClinicList(clinics2);
         doctor6.setClinicList(clinics2);
         nurse2.setClinicList(clinics2);
         laboratoryFacts2.setClinicList(clinics2);
-        patient2.setClinic(clinic2);
+        //patient2.setClinic(clinic2);
         //connect manger to clinic
         clinic2.setClinicManager(clinicManager2);
         clinicManager2.setClinic(clinic2);
@@ -304,6 +304,7 @@ public class DataClass {
         nurses3.add(nurse3);
         laboratoryFact3.add(laboratoryFacts3);
         patients3.add(patient4);
+        patients3.add(patient3);
         clinics3.add(clinic3);
         //insert list
         clinic3.setDoctors(doctors3);
@@ -316,19 +317,10 @@ public class DataClass {
         nurse3.setClinicList(clinics3);
         laboratoryFacts3.setClinicList(clinics3);
         patient4.setClinic(clinic3);
+        patient3.setClinic(clinic3);
         //connect manger to clinic
         clinic3.setClinicManager(clinicManager3);
         clinicManager3.setClinic(clinic3);
-
-        //connect patient to Clinics
-        patient1.setClinic(clinic1);
-        patient2.setClinic(clinic1);
-        patient3.setClinic(clinic2);
-        patient4.setClinic(clinic3);
-        //insert list
-        patients1.add(patient1);
-        patients1.add(patient2);
-
 
 
 

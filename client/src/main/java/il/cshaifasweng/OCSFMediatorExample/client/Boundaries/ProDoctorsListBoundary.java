@@ -18,7 +18,8 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.image.ImageView;
 
 public class ProDoctorsListBoundary extends Boundary{
-    private ProDoctorsList shobdek= (ProDoctorsList) params.get(0);
+    int index =params.size()-1;
+    private ProDoctorsList shobdek= (ProDoctorsList) params.get(index);
 
     @FXML
     private Button LogoutBTR;

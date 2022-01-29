@@ -9,14 +9,16 @@ import java.util.ResourceBundle;
 import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.DoctorApp;
+import il.cshaifasweng.OCSFMediatorExample.entities.Table.Patient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 
 public class AppointmentBoundary extends Boundary{
-
-    private DoctorApp doctorApp=(DoctorApp) params.get(0);
+    protected Patient patient= (Patient) user_Ob.get(0);
+    private int paramsSize= params.size()-1;
+    private DoctorApp doctorApp=(DoctorApp) params.get(paramsSize);
     @FXML
     private ResourceBundle resources;
 
@@ -28,15 +30,24 @@ public class AppointmentBoundary extends Boundary{
 
     @FXML
     void BackButton(ActionEvent event) throws IOException {
-        List<Object> objects=new LinkedList<>();
-        objects.add(doctorApp.getPatient());
-        SimpleClient.setParams(objects);
         App.setRoot("patientmain");
     }
 
     @FXML
-    void NextButton(ActionEvent event) {
-
+    void NextButton(ActionEvent event) throws IOException {
+        int index=ListView.getSelectionModel().getSelectedIndex();
+        System.out.println(doctorApp.getDoctorAppString().get(index));
+        message.add("#SetSelectedAppointement");
+        message.add(patient); //add patient
+        message.add(doctorApp.getDoctor()); //add the selected doctor
+        message.add(doctorApp.getDoctorAppointments().get(index)); // add the selected appointment
+        SimpleClient.getClient().sendToServer(message);
+        String AppCon="You have select  DoctorAppointment at: "+ doctorApp.getDoctorAppointments().get(index).getDate()+"\n"
+                +"with doctor: "+doctorApp.getDoctor().getFirstName()+" "+doctorApp.getDoctor().getLastName()+" ("+doctorApp.getDoctor().getRole() +")"+"\n"
+                +"at clinic: "+doctorApp.getPatient().getClinic().getClinicType();
+        System.out.println("AppCon is: "+AppCon);
+        params.add(AppCon);
+        App.setRoot("appConfiguration");
     }
 
     @FXML

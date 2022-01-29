@@ -11,7 +11,7 @@ public class DoctorAppointment extends Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Appointment_ID")
     protected Long Id;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "Doctor_ID")
     private Doctor doctor;
 
