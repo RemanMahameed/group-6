@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
+import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.ScheduledApp;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,8 +35,31 @@ public class ViewScheduleAppBoundary extends PatientMainBoundary {
     }
 
     @FXML
-    void CancelAppointment(ActionEvent event) {
-
+    void CancelAppointment(ActionEvent event) throws IOException {
+        int index=ViewList.getSelectionModel().getSelectedIndex();
+        message.clear();
+        message.add("#CancelAppointment");
+        //message.add(scheduledApp.getTypeFlag()); // add the type of chose Appointment
+        // add the right of chose Appointment
+        switch (scheduledApp.getTypeFlag()) {
+            case ("Doctor"):
+                message.add(scheduledApp.getDoctorAppointments().get(index));
+                break;
+            case ("Nurse"):
+                message.add(scheduledApp.getNurseAppointments().get(index));
+                break;
+            case ("LaboratoryFacts"):
+                message.add(scheduledApp.getLaboratoryFactsAppointments().get(index));
+                break;
+        }
+        SimpleClient.getClient().sendToServer(message);
+        String AppCon="The  Appointment you chose is Canceled\n"+"( "+scheduledApp.getAppString()+" )";
+        System.out.println("AppCon is: "+AppCon);
+        params.add(AppCon);
+        params.add("Canceld Appointment");
+        App.setRoot("Information");
+        //MessageBoundary.displayInfo("The  Appointment you chose is Canceled\n"+"( "+scheduledApp.getAppString()+" )");
+        //App.setRoot("patientmain");
     }
 
     @FXML

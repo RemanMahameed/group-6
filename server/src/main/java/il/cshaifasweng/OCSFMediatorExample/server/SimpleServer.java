@@ -2,6 +2,7 @@ package il.cshaifasweng.OCSFMediatorExample.server;
 
 //import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.Login;
 import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.*;
+import il.cshaifasweng.OCSFMediatorExample.entities.Table.Appointment;
 import il.cshaifasweng.OCSFMediatorExample.entities.Table.Doctor;
 import il.cshaifasweng.OCSFMediatorExample.entities.Table.DoctorAppointment;
 import il.cshaifasweng.OCSFMediatorExample.entities.Table.Patient;
@@ -69,7 +70,7 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 		} else if (message.get(0).equals("#Logout")) {
-			LogOut logOut =new LogOut("Success");
+			LogOut logOut = new LogOut("Success");
 			try {
 				LoginData.logOutUser(message.get(1));
 			} catch (Exception e) {
@@ -82,9 +83,9 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 		} else if (message.get(0).equals("#AppFamilyChild")) {
-			DoctorApp doctorApp=new DoctorApp();
+			DoctorApp doctorApp = new DoctorApp();
 			try {
-				doctorApp=(AppointmentData.getFreeClinicDoctorApp(message.get(1)));
+				doctorApp = (AppointmentData.getFreeClinicDoctorApp(message.get(1)));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -94,10 +95,10 @@ public class SimpleServer extends AbstractServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}else if (message.get(0).equals("#SetSelectedAppointement")) {
+		} else if (message.get(0).equals("#SetSelectedAppointement")) {
 			Patient patient = (Patient) message.get(1);
 			try {
-				AppointmentData.SetSelectedDoctorAppointment(patient,(Doctor) message.get(2),(DoctorAppointment) message.get(3));
+				AppointmentData.SetSelectedDoctorAppointment(patient, (Doctor) message.get(2), (DoctorAppointment) message.get(3));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -107,7 +108,7 @@ public class SimpleServer extends AbstractServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}else if (message.get(0).equals("#specilizationChoice ")) {
+		} else if (message.get(0).equals("#specilizationChoice ")) {
 			ProDoctorsList doctors = null;
 			try {
 				doctors = AppointmentData.getdoctorsofsp((String) message.get(1), (String) message.get(2));
@@ -123,11 +124,11 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 		} else if (message.get(0).equals("#ViewAppointment")) {
-			String type=(String) message.get(1);
+			String type = (String) message.get(1);
 			Patient patient = (Patient) message.get(2);
-			ScheduledApp scheduledApp=new ScheduledApp();
+			ScheduledApp scheduledApp = new ScheduledApp();
 			try {
-					scheduledApp= AppointmentData.getSchuledAppointment(type,patient);
+				scheduledApp = AppointmentData.getSchuledAppointment(type, patient);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -137,6 +138,14 @@ public class SimpleServer extends AbstractServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		} else if (message.get(0).equals("#CancelAppointment")) {
+			try {
+				AppointmentData.cancelAppointment((DoctorAppointment) message.get(1));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			System.out.format("Sent doctorApp to client %s\n", client.getInetAddress().getHostAddress());
+
 		}
 	}
 }

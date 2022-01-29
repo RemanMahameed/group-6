@@ -7,19 +7,20 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="488.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Boundaries.AppConfigurationBoundary">
+<AnchorPane prefHeight="488.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Boundaries.InformationBoundary">
    <children>
       <ImageView fitHeight="488.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@image-from-rawpixel-id-516093-jpeg.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="144.0" layoutY="67.0" text="Appointment Configuration" textFill="#0b3cd0">
+      <Label fx:id="title" layoutX="144.0" layoutY="67.0" text="Appointment Configuration" textFill="#0b3cd0">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
       <Label fx:id="label" layoutX="144.0" layoutY="142.0" text="Label" />
       <Button layoutX="517.0" layoutY="416.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" />
+      <Button layoutX="56.0" layoutY="416.0" mnemonicParsing="false" onAction="#Back" text="Back" />
    </children>
 </AnchorPane>

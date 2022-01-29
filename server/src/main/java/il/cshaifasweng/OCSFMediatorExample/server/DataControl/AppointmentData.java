@@ -1,5 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.server.DataControl;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
@@ -264,6 +265,16 @@ public class AppointmentData extends DataClass{
         }
         return (new ScheduledApp(stringApp,"Nurse",nurseAppointments));
     }
+    public static void cancelAppointment(DoctorAppointment appointment) throws IOException{
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.delete(appointment);
+        session.getTransaction().commit();
+        if (session != null)
+            session.close();
+    }
+
     //**********************************************************************************************************
     //**********************************************************************************************************
     //**********************************************************************************************************

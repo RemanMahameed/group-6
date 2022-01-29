@@ -47,7 +47,8 @@ public class AppointmentBoundary extends PatientMainBoundary{
                 +"at clinic: "+doctorApp.getPatient().getClinic().getClinicType();
         System.out.println("AppCon is: "+AppCon);
         params.add(AppCon);
-        App.setRoot("appConfiguration");
+        params.add("Appointment Configuration");
+        App.setRoot("Information");
     }
 
     @FXML
