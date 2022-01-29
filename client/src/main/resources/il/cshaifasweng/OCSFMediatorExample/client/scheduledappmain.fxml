@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="488.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Boundaries.ScheduledAppMainBoundary">
+   <children>
+      <ImageView fitHeight="488.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image-from-rawpixel-id-516093-jpeg.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="161.0" layoutY="80.0" prefHeight="27.0" prefWidth="372.0" text="Please choce wihc appointment you want " textFill="#1010c9">
+         <font>
+            <Font name="System Italic" size="18.0" />
+         </font>
+      </Label>
+      <Button layoutX="226.0" layoutY="140.0" mnemonicParsing="false" onAction="#ViewDoctorApp" prefHeight="30.0" prefWidth="198.0" text="Doctor Appointment " textFill="#1010c9">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="468.0" layoutY="381.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="25.0" prefWidth="113.0" text="LogOut" textFill="#1010c9" />
+      <Button layoutX="71.0" layoutY="381.0" mnemonicParsing="false" onAction="#BackButton" prefHeight="25.0" prefWidth="113.0" text="Back" textFill="#1010c9" />
+      <Button layoutX="226.0" layoutY="208.0" mnemonicParsing="false" onAction="#ViewNurseApp" prefHeight="30.0" prefWidth="198.0" text="Nurse Appointment" textFill="#1010c9">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="226.0" layoutY="281.0" mnemonicParsing="false" onAction="#ViewLaboratoryFactsApp" text="LaboratoryFactsAppointment" textFill="#1010c9">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

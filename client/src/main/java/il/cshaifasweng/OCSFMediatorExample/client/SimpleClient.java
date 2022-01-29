@@ -24,19 +24,22 @@ public class SimpleClient extends AbstractClient {
 		if (msg.getClass().equals(Warning.class)) {
 			EventBus.getDefault().post(new WarningEvent((Warning) msg));
 
-		}else if (msg.getClass().equals(Login.class)) {
+		} else if (msg.getClass().equals(Login.class)) {
 			System.out.println("I am at simpleclient login!");
 			System.out.println("success is:" + ((Login) msg).getSuccess());
 			EventBus.getDefault().post(new LoginEvent((Login) msg));
 
-		}else if (msg.getClass().equals(LogOut.class)) {
-			EventBus.getDefault().post(new LogOutEvent((LogOut)msg));
+		} else if (msg.getClass().equals(LogOut.class)) {
+			EventBus.getDefault().post(new LogOutEvent((LogOut) msg));
 
-		}else if (msg.getClass().equals(DoctorApp.class)) {
+		} else if (msg.getClass().equals(DoctorApp.class)) {
 			EventBus.getDefault().post(new DoctorAppEvent((DoctorApp) msg));
-		}
-		else if (msg.getClass().equals(ProDoctorsList.class)) {
+
+		} else if (msg.getClass().equals(ProDoctorsList.class)) {
 			EventBus.getDefault().post(new ProEvent((ProDoctorsList) msg));
+
+		} else if (msg.getClass().equals(ScheduledApp.class)) {
+			EventBus.getDefault().post(new ScheduledAppEvent((ScheduledApp) msg));
 
 		}
 	}

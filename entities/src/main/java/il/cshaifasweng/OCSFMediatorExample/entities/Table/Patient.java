@@ -17,10 +17,12 @@ public class Patient extends Person {
     private int numOfVaccine;
 
     @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "Patient_laboratoryFacts",joinColumns = @JoinColumn(name = "Patient_ID"),inverseJoinColumns = {@JoinColumn(name = "laboratoryFacts_ID")})
     private List<LaboratoryFacts> laboratoryFacts;
 
     @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "Patient_Nurse",joinColumns = @JoinColumn(name = "Patient_ID"),inverseJoinColumns = {@JoinColumn(name = "Nurse_ID")})
     private List<Nurse> nurses;
 
@@ -30,9 +32,11 @@ public class Patient extends Person {
     private List<Doctor> doctors;
 
     @OneToMany(mappedBy = "patient")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<LaboratoryFactsAppointment> laboratoryFactsAppointments;
 
     @OneToMany(mappedBy = "patient")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<NurseAppointment> nurseAppointments;
 
     @OneToMany(mappedBy = "patient")

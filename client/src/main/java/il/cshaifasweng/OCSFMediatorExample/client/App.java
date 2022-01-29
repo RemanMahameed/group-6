@@ -144,6 +144,19 @@ public class App extends Application {
         });
     }
     @Subscribe
+    public void onScheduledAppEvent(ScheduledAppEvent event) throws IOException {
+        Platform.runLater(() -> {
+            SimpleClient.getParams().add(event.getScheduledApp());
+            try {
+                setRoot("viewscheduledApp");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+    //************************************************************************
+    //Sara nameer reeman
+    @Subscribe
     public void onProEvent(ProEvent event) throws IOException {
         Platform.runLater(() -> {
             //List<Object> params = new LinkedList<>();

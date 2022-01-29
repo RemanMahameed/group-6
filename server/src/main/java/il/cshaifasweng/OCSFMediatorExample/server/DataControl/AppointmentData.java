@@ -9,6 +9,7 @@ import java.util.Properties;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.DoctorApp;
 import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.ProDoctorsList;
+import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.ScheduledApp;
 import il.cshaifasweng.OCSFMediatorExample.entities.Table.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -23,6 +24,9 @@ import javax.mail.internet.MimeMessage;
 
 public class AppointmentData extends DataClass{
     private static Session session;
+    //**********************************************************************************************************
+    //**********************************************************************************************************
+    //Salsabeeeeeeeel!!
     private static Doctor getClinicFamilyDoctor(Clinic clinic) throws Exception{
         Doctor Familydoctor=new Doctor();
         List<Doctor> doctors =clinic.getDoctors();
@@ -195,6 +199,75 @@ public class AppointmentData extends DataClass{
             throw new RuntimeException(e);
         }
     }
+    public static ScheduledApp getSchuledAppointment(String type,Patient patient) throws Exception{
+        switch (type) {
+            case ("Doctor"):
+                return getDoctorApp(patient);
+            case ("Nurse"):
+                return getNurseApp(patient);
+            case ("LaboratoryFacts"):
+                return getLaboratoryFactsaApp(patient);
+        }
+        return new ScheduledApp();
+    }
+    private static ScheduledApp getDoctorApp(Patient patient) throws Exception{
+        List<DoctorAppointment> doctorAppointments =patient.getDoctorAppointments();
+        List<String> stringApp=new LinkedList<>();
+        String newString;
+        if(doctorAppointments.size() != 0){
+            for (DoctorAppointment doctorAppointment : doctorAppointments) {
+                newString="AppointmentType: "+doctorAppointment.getAppointmentType()
+                        +"  Date: "+ doctorAppointment.getDate()
+                        +"  with doctor: "+doctorAppointment.getDoctor().getFirstName()+" "+doctorAppointment.getDoctor().getLastName()+"\n"
+                        +"  at clinic: "+doctorAppointment.getClinic().getClinicType();
+                stringApp.add(newString);
+            }
+        }else {
+            newString="There is not Scheduled Appointment!";
+            stringApp.add(newString);
+        }
+        return (new ScheduledApp(stringApp,doctorAppointments,"Doctor"));
+    }
+    private static ScheduledApp getLaboratoryFactsaApp(Patient patient) throws Exception{
+        List<LaboratoryFactsAppointment> laboratoryFactsAppointments=patient.getLaboratoryFactsAppointments();
+        List<String> stringApp=new LinkedList<>();
+        String newString;
+        if(laboratoryFactsAppointments.size() != 0){
+            for (LaboratoryFactsAppointment laboratoryFactsAppointment : laboratoryFactsAppointments) {
+                newString="AppointmentType: "+laboratoryFactsAppointment.getAppointmentType()
+                        +"  Date: "+ laboratoryFactsAppointment.getDate()
+                        +"  with doctor: "+laboratoryFactsAppointment.getLaboratoryFacts().getFirstName()+" "+laboratoryFactsAppointment.getLaboratoryFacts().getLastName()+"\n"
+                        +"  at clinic: "+laboratoryFactsAppointment.getClinic().getClinicType();
+                stringApp.add(newString);
+            }
+        }else {
+            newString="There is not Scheduled Appointment!";
+            stringApp.add(newString);
+        }
+        return (new ScheduledApp("LaboratoryFactsa",stringApp,laboratoryFactsAppointments));
+    }
+    private static ScheduledApp getNurseApp(Patient patient) throws Exception{
+        List<NurseAppointment> nurseAppointments=patient.getNurseAppointments();
+        List<String> stringApp=new LinkedList<>();
+        String newString;
+        if(nurseAppointments.size() != 0){
+            for (NurseAppointment nurseAppointment : nurseAppointments) {
+                newString="AppointmentType: "+nurseAppointment.getAppointmentType()
+                        +"  Date: "+ nurseAppointment.getDate()
+                        +"  with doctor: "+nurseAppointment.getNurse().getFirstName()+" "+nurseAppointment.getNurse().getLastName()+"\n"
+                        +"  at clinic: "+nurseAppointment.getClinic().getClinicType();
+                stringApp.add(newString);
+            }
+        }else {
+            newString="There is not Scheduled Appointment!";
+            stringApp.add(newString);
+        }
+        return (new ScheduledApp(stringApp,"Nurse",nurseAppointments));
+    }
+    //**********************************************************************************************************
+    //**********************************************************************************************************
+    //**********************************************************************************************************
+    //Srar namer reman
     public static ProDoctorsList getdoctorsofsp (String major , String id_P) throws Exception {
         // int id_patient = Integer.valueOf(id_P);
         SessionFactory sessionFactory = getSessionFactory();

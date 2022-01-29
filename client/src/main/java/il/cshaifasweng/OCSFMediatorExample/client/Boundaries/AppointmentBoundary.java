@@ -15,8 +15,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 
-public class AppointmentBoundary extends Boundary{
-    protected Patient patient= (Patient) user_Ob.get(0);
+public class AppointmentBoundary extends PatientMainBoundary{
+    //protected Patient patient= (Patient) user_Ob.get(0);
     private int paramsSize= params.size()-1;
     private DoctorApp doctorApp=(DoctorApp) params.get(paramsSize);
     @FXML
@@ -28,10 +28,10 @@ public class AppointmentBoundary extends Boundary{
     @FXML
     private ListView<String> ListView;
 
-    @FXML
-    void BackButton(ActionEvent event) throws IOException {
-        App.setRoot("patientmain");
-    }
+//    @FXML
+//    void BackButton(ActionEvent event) throws IOException {
+//        App.setRoot("patientmain");
+//    }
 
     @FXML
     void NextButton(ActionEvent event) throws IOException {

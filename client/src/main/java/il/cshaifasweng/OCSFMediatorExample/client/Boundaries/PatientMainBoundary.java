@@ -25,7 +25,14 @@ public class PatientMainBoundary extends Boundary {
     @FXML
     private Label Plabel;
 
+    @FXML
+    protected Button BackButton;
+
     //Salsaaaaaaaabeeel
+    @FXML
+    void BackButton(ActionEvent event) throws IOException {
+        App.setRoot("patientmain");
+    }
     @FXML
     void FamilyaOrPediatrician(ActionEvent event) throws IOException {
         System.out.println("FamilyaOrPediatrician");
@@ -36,8 +43,8 @@ public class PatientMainBoundary extends Boundary {
 
     }
     @FXML
-    void ViewSchelduledAppointment(ActionEvent event) {
-
+    void ViewSchelduledAppointment(ActionEvent event) throws IOException {
+        App.setRoot("scheduledappmain");
     }
     //Saaaara nameer remaaan
     @FXML

@@ -10,23 +10,23 @@
 
 <AnchorPane prefHeight="488.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Boundaries.AppointmentBoundary">
    <children>
-      <ImageView fitHeight="488.0" fitWidth="800.0" layoutX="104.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="488.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@image-from-rawpixel-id-516093-jpeg.jpg" />
          </image>
       </ImageView>
-      <ListView fx:id="ListView" layoutX="124.0" layoutY="138.0" prefHeight="334.0" prefWidth="586.0" />
-      <Label layoutX="279.0" layoutY="80.0" text="please select appointment" textFill="#2d0ac9">
+      <ListView fx:id="ListView" layoutX="32.0" layoutY="88.0" prefHeight="334.0" prefWidth="586.0" />
+      <Label layoutX="162.0" layoutY="43.0" text="please select appointment" textFill="#2d0ac9">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Button layoutX="395.0" layoutY="480.0" mnemonicParsing="false" onAction="#NextButton" text="next">
+      <Button layoutX="32.0" layoutY="447.0" mnemonicParsing="false" onAction="#NextButton" text="next">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="672.0" layoutY="483.0" mnemonicParsing="false" onAction="#BackButton" text="Back" />
-      <Button layoutX="594.0" layoutY="483.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" />
+      <Button layoutX="466.0" layoutY="450.0" mnemonicParsing="false" onAction="#BackButton" prefHeight="25.0" prefWidth="56.0" text="Back" />
+      <Button layoutX="531.0" layoutY="450.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" />
    </children>
 </AnchorPane>

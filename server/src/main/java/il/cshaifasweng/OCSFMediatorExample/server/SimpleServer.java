@@ -107,11 +107,11 @@ public class SimpleServer extends AbstractServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}else if (message.get(0).equals("#specilizationChoice ")){
-			ProDoctorsList doctors = null ;
+		}else if (message.get(0).equals("#specilizationChoice ")) {
+			ProDoctorsList doctors = null;
 			try {
-				doctors = AppointmentData.getdoctorsofsp( (String) message.get(1) , (String) message.get(2) );
-				if(doctors == null)
+				doctors = AppointmentData.getdoctorsofsp((String) message.get(1), (String) message.get(2));
+				if (doctors == null)
 					System.out.println("there is no doctor");
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -119,6 +119,21 @@ public class SimpleServer extends AbstractServer {
 			try {
 				client.sendToClient(doctors);
 				System.out.format("Sent pro doctors to client %s\n", client.getInetAddress().getHostAddress());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else if (message.get(0).equals("#ViewAppointment")) {
+			String type=(String) message.get(1);
+			Patient patient = (Patient) message.get(2);
+			ScheduledApp scheduledApp=new ScheduledApp();
+			try {
+					scheduledApp= AppointmentData.getSchuledAppointment(type,patient);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				client.sendToClient(scheduledApp);
+				System.out.format("Sent doctorApp to client %s\n", client.getInetAddress().getHostAddress());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
