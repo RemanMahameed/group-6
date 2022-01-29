@@ -95,6 +95,7 @@ public class SimpleServer extends AbstractServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+
 		} else if (message.get(0).equals("#SetSelectedAppointement")) {
 			Patient patient = (Patient) message.get(1);
 			try {
@@ -108,6 +109,7 @@ public class SimpleServer extends AbstractServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+
 		} else if (message.get(0).equals("#specilizationChoice ")) {
 			ProDoctorsList doctors = null;
 			try {
@@ -123,6 +125,7 @@ public class SimpleServer extends AbstractServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+
 		} else if (message.get(0).equals("#ViewAppointment")) {
 			String type = (String) message.get(1);
 			Patient patient = (Patient) message.get(2);
@@ -138,13 +141,57 @@ public class SimpleServer extends AbstractServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+
 		} else if (message.get(0).equals("#CancelAppointment")) {
 			try {
 				AppointmentData.cancelAppointment((DoctorAppointment) message.get(1));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			System.out.format("Sent doctorApp to client %s\n", client.getInetAddress().getHostAddress());
+			System.out.format("Cancel App  to client %s\n", client.getInetAddress().getHostAddress());
+
+		} else if (message.get(0).equals("#BackToMainPatientboundary")) {
+			UpdateObject object = new UpdateObject();
+			String type = (String) message.get(2);
+			try {
+				object = AppointmentData.getObjectByIdByType((int) message.get(1), type);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				client.sendToClient(object);
+				System.out.format("Sent UpdateObject to client %s\n", client.getInetAddress().getHostAddress());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		}else if (message.get(0).equals("#GetAllClinicName")) {
+			ClinicName clinicName=new ClinicName();
+			try {
+				clinicName = AppointmentData.getAllClinicName((int)message.get(1));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				client.sendToClient(clinicName);
+				System.out.format("Sent UpdateObject to client %s\n", client.getInetAddress().getHostAddress());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		}else if (message.get(0).equals("#GetFeeVaccineApp")) {
+			ClinicName clinicName=new ClinicName();
+			try {
+				clinicName = AppointmentData.getAllClinicName((int)message.get(1));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				client.sendToClient(clinicName);
+				System.out.format("Sent UpdateObject to client %s\n", client.getInetAddress().getHostAddress());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 
 		}
 	}

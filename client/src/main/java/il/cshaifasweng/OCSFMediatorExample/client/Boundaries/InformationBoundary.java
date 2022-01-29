@@ -5,11 +5,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
+import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class InformationBoundary extends Boundary {
+public class InformationBoundary extends PatientMainBoundary {
     @FXML
     private ResourceBundle resources;
 
@@ -25,7 +26,12 @@ public class InformationBoundary extends Boundary {
 
     @FXML
     void Back(ActionEvent event) throws IOException {
-        App.setRoot("patientmain");
+        message.clear();
+        message.add("#BackToMainPatientboundary");
+        message.add(patient.getId());
+        message.add("Patient");
+        System.out.println("sending BackToMainPatientboundary from client to server");
+        SimpleClient.getClient().sendToServer(message);
     }
 
 

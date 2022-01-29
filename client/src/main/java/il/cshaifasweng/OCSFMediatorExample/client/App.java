@@ -154,6 +154,30 @@ public class App extends Application {
             }
         });
     }
+    @Subscribe
+    public void onClinicNameEvent(ClinicNameEvent event) throws IOException {
+        Platform.runLater(() -> {
+            SimpleClient.getParams().add(event.getClinicName());
+            try {
+                setRoot("clinic");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+    @Subscribe
+    public void onUpdateObjectEvent(UpdateObjectEvent event) throws IOException {
+        Platform.runLater(() -> {
+            List<Object> params=new LinkedList<>();
+            params.add(event.getUpdateObject().getObject());
+            SimpleClient.setUser_Ob(params);
+            try {
+                setRoot("patientmain");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
     //************************************************************************
     //Sara nameer reeman
     @Subscribe

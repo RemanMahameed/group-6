@@ -46,6 +46,15 @@ public class PatientMainBoundary extends Boundary {
     void ViewSchelduledAppointment(ActionEvent event) throws IOException {
         App.setRoot("scheduledappmain");
     }
+    @FXML
+    void VaccineAppointment(ActionEvent event) throws IOException {
+            message.clear();
+            message.add("#GetAllClinicName");
+            message.add(1); // add flag
+            SimpleClient.getClient().sendToServer(message);
+    }
+    //*************************************************************
+    //*************************************************************
     //Saaaara nameer remaaan
     @FXML
     void to_sp(ActionEvent event) throws IOException {
@@ -54,7 +63,7 @@ public class PatientMainBoundary extends Boundary {
 
     @FXML
     void initialize() {
-        Plabel.setText(patient.getUserName());
+        Plabel.setText("Welcome to our srever clinic: " + patient.getUserName());
     }
 
 }

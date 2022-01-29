@@ -110,6 +110,16 @@ public class DataClass {
         session.close();
         return result;
     }
+    public static List<Clinic> getAllClinic() throws Exception {
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        String query = "FROM Clinic";
+        List<Clinic> result = session.createQuery(query).list();
+        session.getTransaction().commit(); // Save everything.
+        session.close();
+        return result;
+    }
 
     public static void generateNewData() throws Exception {
 
