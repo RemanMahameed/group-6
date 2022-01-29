@@ -25,7 +25,7 @@ public class PatientMainBoundary extends Boundary {
     @FXML
     private Label Plabel;
 
-
+    //Salsaaaaaaaabeeel
     @FXML
     void FamilyaOrPediatrician(ActionEvent event) throws IOException {
         System.out.println("FamilyaOrPediatrician");
@@ -35,6 +35,11 @@ public class PatientMainBoundary extends Boundary {
         SimpleClient.getClient().sendToServer(message);
 
     }
+    @FXML
+    void ViewSchelduledAppointment(ActionEvent event) {
+
+    }
+    //Saaaara nameer remaaan
     @FXML
     void to_sp(ActionEvent event) throws IOException {
         App.setRoot("Specialization_list");

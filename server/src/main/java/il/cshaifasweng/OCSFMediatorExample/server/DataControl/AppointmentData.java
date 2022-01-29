@@ -93,13 +93,8 @@ public class AppointmentData extends DataClass{
                             (doctorAppointment.getDate().getDayOfMonth() == date.getDayOfMonth()) &&
                             (doctorAppointment.getDate().getHour() == date.getHour()) &&
                             (doctorAppointment.getDate().getMinute() == date.getMinute()))
-                    ) {
-//                          doctorAppointment1 = new DoctorAppointment(type, date, doctor, patient, patient.getClinic());
-//                          doctorAppList.add(doctorAppointment1);
-//                          newDoctorAppointment2 ="Month: "+date.getMonth()+ "  Day: " + date.getDayOfMonth() + "  hour: " + date.getHour() + "  minute: " + date.getMinute();
-//                          doctorAppString.add(newDoctorAppointment2);
-//                          System.out.println("The string is: "+ newDoctorAppointment2);
-//                          break;
+                    )
+                    {
                         flagIsAvailable = 1;
                     }
                 }
