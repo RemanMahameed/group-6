@@ -11,6 +11,7 @@ import java.util.Properties;
 import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.DoctorApp;
 import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.ProDoctorsList;
 import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.ScheduledApp;
+import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.UpdateObject;
 import il.cshaifasweng.OCSFMediatorExample.entities.Table.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -274,7 +275,26 @@ public class AppointmentData extends DataClass{
         if (session != null)
             session.close();
     }
+    public static UpdateObject getObjectByIdByType(int id, String type) throws Exception{
+        switch (type) {
+            case ("Patient"):
+                return getPatientByID(id);
+            case ("Nurse"):
+                return new UpdateObject();
 
+        }
+        return new UpdateObject();
+    }
+    private static UpdateObject getPatientByID(int Id) throws Exception {
+        UpdateObject updateObject=new UpdateObject();
+        List<Patient> patients=getAllPatients();
+        for (Patient patient:patients){
+            if(patient.getId()==Id)
+                updateObject.setObject(patient);
+
+        }
+        return updateObject;
+    }
     //**********************************************************************************************************
     //**********************************************************************************************************
     //**********************************************************************************************************

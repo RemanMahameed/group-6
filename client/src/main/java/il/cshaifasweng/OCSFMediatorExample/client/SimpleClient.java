@@ -41,6 +41,8 @@ public class SimpleClient extends AbstractClient {
 		} else if (msg.getClass().equals(ScheduledApp.class)) {
 			EventBus.getDefault().post(new ScheduledAppEvent((ScheduledApp) msg));
 
+		}else if (msg.getClass().equals(UpdateObject.class)) {
+			EventBus.getDefault().post(new UpdateObjectEvent((UpdateObject) msg));
 		}
 	}
 	

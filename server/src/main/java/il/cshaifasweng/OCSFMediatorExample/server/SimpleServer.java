@@ -145,6 +145,20 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 			System.out.format("Sent doctorApp to client %s\n", client.getInetAddress().getHostAddress());
+		} else if (message.get(0).equals("#BackToMainPatientboundary")) {
+			UpdateObject object = new UpdateObject();
+			String type = (String) message.get(2);
+			try {
+				object = AppointmentData.getObjectByIdByType((int) message.get(1), type);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				client.sendToClient(object);
+				System.out.format("Sent doctorApp to client %s\n", client.getInetAddress().getHostAddress());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 
 		}
 	}
