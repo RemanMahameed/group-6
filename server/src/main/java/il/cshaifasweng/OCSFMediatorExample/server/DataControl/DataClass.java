@@ -38,6 +38,8 @@ public class DataClass {
           configuration.addAnnotatedClass(Nurse.class);
           configuration.addAnnotatedClass(NurseAppointment.class);
           configuration.addAnnotatedClass(ReceptionTime.class);
+          configuration.addAnnotatedClass(CoronaTestAppointment.class);
+          configuration.addAnnotatedClass(VaccineAppointment.class);
 
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                 .applySettings(configuration.getProperties())
@@ -119,6 +121,24 @@ public class DataClass {
         session.getTransaction().commit(); // Save everything.
         session.close();
         return result;
+    }
+    public static Clinic getClinicById(int Id) throws Exception {
+
+        List<Clinic> clinics=getAllClinic();
+        for (Clinic clinic:clinics){
+            if(clinic.getId()==Id)
+                return clinic;
+        }
+        return new Clinic();
+    }
+    public static Patient getPatientById(int Id) throws Exception {
+
+        List<Patient> patients=getAllPatients();
+        for (Patient patient:patients){
+            if(patient.getId()==Id)
+                return patient;
+        }
+        return new Patient();
     }
 
     public static void generateNewData() throws Exception {

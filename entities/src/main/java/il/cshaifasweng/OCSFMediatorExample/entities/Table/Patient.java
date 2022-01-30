@@ -43,6 +43,14 @@ public class Patient extends Person {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<DoctorAppointment> doctorAppointments;
 
+    @OneToMany(mappedBy = "clinic")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<VaccineAppointment> vaccineAppointments;
+
+    @OneToMany(mappedBy = "clinic")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<CoronaTestAppointment> coronaTestAppointments;
+
     @ManyToOne
     @JoinColumn(name = "Clinic_ID")
     protected Clinic clinic;
@@ -145,6 +153,22 @@ public class Patient extends Person {
 
     public void setNumOfVaccine(int numOfVaccine) {
         this.numOfVaccine = numOfVaccine;
+    }
+
+    public List<VaccineAppointment> getVaccineAppointments() {
+        return vaccineAppointments;
+    }
+
+    public void setVaccineAppointments(List<VaccineAppointment> vaccineAppointments) {
+        this.vaccineAppointments = vaccineAppointments;
+    }
+
+    public List<CoronaTestAppointment> getCoronaTestAppointments() {
+        return coronaTestAppointments;
+    }
+
+    public void setCoronaTestAppointments(List<CoronaTestAppointment> coronaTestAppointments) {
+        this.coronaTestAppointments = coronaTestAppointments;
     }
 }
 

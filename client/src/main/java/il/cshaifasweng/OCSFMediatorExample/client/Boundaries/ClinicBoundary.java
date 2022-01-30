@@ -1,9 +1,11 @@
 package il.cshaifasweng.OCSFMediatorExample.client.Boundaries;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.ClinicName;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,6 +17,7 @@ public class ClinicBoundary extends PatientMainBoundary{
     ClinicName clinicName= (ClinicName) params.get(index);
     List<String> clinicsName= clinicName.getClinicsName();
     List<Integer> clinicsId= clinicName.getClinicsId();
+    String type=clinicName.getFlag();
     @FXML
     private ResourceBundle resources;
 
@@ -26,12 +29,17 @@ public class ClinicBoundary extends PatientMainBoundary{
 
 
     @FXML
-    void ShowFreeVaccineAPP(ActionEvent event) {
+    void ShowFreeAPP(ActionEvent event) throws IOException {
         int index=ListView.getSelectionModel().getSelectedIndex();
         message.clear();
-        message.add("GetFreeNurseApp");
-        message.add("Vaccine"); //add type of nurs App
+        message.add("#GetFreeApp");
         message.add(clinicsId.get(index)); // send id of selected clinic
+        if(type.equals("Vaccine"))
+            message.add("Vaccine"); //add type of nurs App
+        else
+            message.add("CoronaTest");
+        message.add(patient.getId());
+        SimpleClient.getClient().sendToServer(message);
     }
 
     @FXML

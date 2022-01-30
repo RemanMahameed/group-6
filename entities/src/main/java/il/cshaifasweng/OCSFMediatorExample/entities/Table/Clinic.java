@@ -61,7 +61,16 @@ public class Clinic implements Serializable {
 
     @OneToMany(mappedBy = "clinic")
     @LazyCollection(LazyCollectionOption.FALSE)
+    private List<VaccineAppointment> vaccineAppointments;
+
+    @OneToMany(mappedBy = "clinic")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<CoronaTestAppointment> coronaTestAppointments;
+
+    @OneToMany(mappedBy = "clinic")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Patient> patients;
+
 
     public Clinic(String clinicType, LocalTime[][] activityTime, LocalTime[][] coronaTestTime, LocalTime[][] vaccineTime, ClinicManager clinicManager, HMO hmo) {
         ClinicType = clinicType;
@@ -181,6 +190,22 @@ public class Clinic implements Serializable {
 
     public void setPatients(List<Patient> patients) {
         this.patients = patients;
+    }
+
+    public List<VaccineAppointment> getVaccineAppointments() {
+        return vaccineAppointments;
+    }
+
+    public void setVaccineAppointments(List<VaccineAppointment> vaccineAppointments) {
+        this.vaccineAppointments = vaccineAppointments;
+    }
+
+    public List<CoronaTestAppointment> getCoronaTestAppointments() {
+        return coronaTestAppointments;
+    }
+
+    public void setCoronaTestAppointments(List<CoronaTestAppointment> coronaTestAppointments) {
+        this.coronaTestAppointments = coronaTestAppointments;
     }
 }
 

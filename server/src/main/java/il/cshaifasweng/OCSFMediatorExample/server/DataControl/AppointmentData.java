@@ -275,14 +275,14 @@ public class AppointmentData extends DataClass{
     public static UpdateObject getObjectByIdByType(int id, String type) throws Exception{
         switch (type) {
             case ("Patient"):
-                return getPatientByID(id);
+                return getUpdtePatientByID(id);
             case ("Nurse"):
                 return new UpdateObject();
 
         }
         return new UpdateObject();
     }
-    private static UpdateObject getPatientByID(int Id) throws Exception {
+    private static UpdateObject getUpdtePatientByID(int Id) throws Exception {
         UpdateObject updateObject=new UpdateObject();
         List<Patient> patients=getAllPatients();
         for (Patient patient:patients){
@@ -292,7 +292,7 @@ public class AppointmentData extends DataClass{
         }
         return updateObject;
     }
-    public static ClinicName getAllClinicName(int flag) throws Exception {
+    public static ClinicName getAllClinicName(String flag) throws Exception {
         List<Clinic> clinics=getAllClinic();
         List<String> clinicsName=new LinkedList<>();
         List<Integer> clinicsId=new LinkedList<>();
@@ -302,6 +302,109 @@ public class AppointmentData extends DataClass{
         }
 
         return new ClinicName(clinicsName,clinicsId,flag);
+    }
+    //return free Appointment of corna test or vaccine depend on type
+    public static FreeAppointment getFreeCoronaOrVaccine(int clinicId,String AppType,int PatientId) throws Exception {
+        Clinic clinic=getClinicById(clinicId);
+        FreeAppointment freeAppointment=new FreeAppointment();
+        if(AppType.equals("CoronaTest")){
+            LocalTime[][] CoronaTestTime=clinic.getCoronaTestTime();
+            List<CoronaTestAppointment> coronaTestAppointments=clinic.getCoronaTestAppointments();
+            freeAppointment=getFreeCoronaTestApp(coronaTestAppointments,CoronaTestTime,clinic,PatientId);
+        }else {
+            LocalTime[][] VaccineTime=clinic.getVaccineTime();
+            List<VaccineAppointment> vaccineAppointments=clinic.getVaccineAppointments();
+            freeAppointment=getFreeVaccineApp(vaccineAppointments,VaccineTime,clinic,PatientId);
+        }
+        return freeAppointment;
+    }
+    public static FreeAppointment getFreeCoronaTestApp(List<CoronaTestAppointment> coronaTestAppointments,LocalTime[][] ActiveTime,Clinic clinic,int PatientId) throws Exception {
+        Patient patient =getPatientById(PatientId);
+        int clinicId=clinic.getId();
+        LocalDateTime date = LocalDateTime.now().withMinute(0);
+        //LocalDateTime date = LocalDateTime.of(2022,Month.JANUARY, 29, 10, 00);
+        LocalDateTime after1weeks = LocalDateTime.now().plusWeeks(1);
+        List<CoronaTestAppointment> newCoronaTestAppointments = new LinkedList<>();
+        List<String> AppString = new LinkedList<>();
+        CoronaTestAppointment coronaTestAppointment;
+        String newCoronaApp;
+        int flagIsAvailable=0;
+        while (date.isBefore(after1weeks)) {
+            if (ActiveTime[0][0].isBefore(date.toLocalTime()) && ActiveTime[1][0].isAfter(date.toLocalTime()) ||
+                    ActiveTime[0][1].isBefore(date.toLocalTime()) && ActiveTime[1][1].isAfter(date.toLocalTime()) ||
+                    ActiveTime[0][2].isBefore(date.toLocalTime()) && ActiveTime[1][2].isAfter(date.toLocalTime()) ||
+                    ActiveTime[0][3].isBefore(date.toLocalTime()) && ActiveTime[1][3].isAfter(date.toLocalTime()) ||
+                    ActiveTime[0][4].isBefore(date.toLocalTime()) && ActiveTime[1][4].isAfter(date.toLocalTime()) ||
+                    ActiveTime[0][5].isBefore(date.toLocalTime()) && ActiveTime[1][5].isAfter(date.toLocalTime()) ||
+                    ActiveTime[0][6].isBefore(date.toLocalTime()) && ActiveTime[1][6].isAfter(date.toLocalTime())
+            ) {
+                for (CoronaTestAppointment coronaTestAppointment1 : coronaTestAppointments) {
+                    if (((coronaTestAppointment1.getDate().getYear() == date.getYear()) &&
+                            (coronaTestAppointment1.getDate().getMonth() == date.getMonth()) &&
+                            (coronaTestAppointment1.getDate().getDayOfMonth() == date.getDayOfMonth()) &&
+                            (coronaTestAppointment1.getDate().getHour() == date.getHour()) &&
+                            (coronaTestAppointment1.getDate().getMinute() == date.getMinute()))
+                    )
+                    {
+                        flagIsAvailable = 1;
+                    }
+                }
+                if (flagIsAvailable == 0) {
+                    coronaTestAppointment = new CoronaTestAppointment("CoronaTest", date,patient,clinic);
+                    newCoronaTestAppointments.add(coronaTestAppointment);
+                    newCoronaApp = "Month: " + date.getMonth() + "   Day: " + date.getDayOfMonth() + "   hour: " + date.getHour() + "   minute: " + date.getMinute();
+                    AppString.add(newCoronaApp);
+                    System.out.println("The string is: " + newCoronaApp);
+                }
+            }
+            flagIsAvailable=0;
+            date = date.plusMinutes(10);
+        }
+        return (new FreeAppointment("CoronaTest",clinicId,AppString,newCoronaTestAppointments));
+    }
+    public static FreeAppointment getFreeVaccineApp(List<VaccineAppointment> vaccineAppointmentList,LocalTime[][] ActiveTime,Clinic clinic,int PatientId) throws Exception {
+        Patient patient =getPatientById(PatientId);
+        int clinicId=clinic.getId();
+        LocalDateTime date = LocalDateTime.now().withMinute(0);
+        //LocalDateTime date = LocalDateTime.of(2022,Month.JANUARY, 29, 10, 00);
+        LocalDateTime after1weeks = LocalDateTime.now().plusWeeks(1);
+        List<VaccineAppointment> vaccineAppointments = new LinkedList<>();
+        List<String> AppString = new LinkedList<>();
+        VaccineAppointment vaccineAppointment;
+        String newVaccineString;
+        int flagIsAvailable=0;
+        while (date.isBefore(after1weeks)) {
+            if (ActiveTime[0][0].isBefore(date.toLocalTime()) && ActiveTime[1][0].isAfter(date.toLocalTime()) ||
+                    ActiveTime[0][1].isBefore(date.toLocalTime()) && ActiveTime[1][1].isAfter(date.toLocalTime()) ||
+                    ActiveTime[0][2].isBefore(date.toLocalTime()) && ActiveTime[1][2].isAfter(date.toLocalTime()) ||
+                    ActiveTime[0][3].isBefore(date.toLocalTime()) && ActiveTime[1][3].isAfter(date.toLocalTime()) ||
+                    ActiveTime[0][4].isBefore(date.toLocalTime()) && ActiveTime[1][4].isAfter(date.toLocalTime()) ||
+                    ActiveTime[0][5].isBefore(date.toLocalTime()) && ActiveTime[1][5].isAfter(date.toLocalTime()) ||
+                    ActiveTime[0][6].isBefore(date.toLocalTime()) && ActiveTime[1][6].isAfter(date.toLocalTime())
+            ) {
+                for (VaccineAppointment vaccineAppointment1 : vaccineAppointmentList) {
+                    if (((vaccineAppointment1.getDate().getYear() == date.getYear()) &&
+                            (vaccineAppointment1.getDate().getMonth() == date.getMonth()) &&
+                            (vaccineAppointment1.getDate().getDayOfMonth() == date.getDayOfMonth()) &&
+                            (vaccineAppointment1.getDate().getHour() == date.getHour()) &&
+                            (vaccineAppointment1.getDate().getMinute() == date.getMinute()))
+                    )
+                    {
+                        flagIsAvailable = 1;
+                    }
+                }
+                if (flagIsAvailable == 0) {
+                    vaccineAppointment = new VaccineAppointment("Vaccine", date,patient,clinic);
+                    vaccineAppointments.add(vaccineAppointment);
+                    newVaccineString = "Month: " + date.getMonth() + "   Day: " + date.getDayOfMonth() + "   hour: " + date.getHour() + "   minute: " + date.getMinute();
+                    AppString.add(newVaccineString);
+                    System.out.println("The string is: " + newVaccineString);
+                }
+            }
+            flagIsAvailable=0;
+            date = date.plusMinutes(10);
+        }
+        return (new FreeAppointment(vaccineAppointments,"Vaccine",clinicId,AppString));
     }
     //**********************************************************************************************************
     //**********************************************************************************************************

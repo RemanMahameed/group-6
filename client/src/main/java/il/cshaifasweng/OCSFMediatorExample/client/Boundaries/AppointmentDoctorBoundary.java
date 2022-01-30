@@ -15,7 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 
-public class AppointmentBoundary extends PatientMainBoundary{
+public class AppointmentDoctorBoundary extends PatientMainBoundary{
     //protected Patient patient= (Patient) user_Ob.get(0);
     private int paramsSize= params.size()-1;
     private DoctorApp doctorApp=(DoctorApp) params.get(paramsSize);
@@ -53,7 +53,7 @@ public class AppointmentBoundary extends PatientMainBoundary{
 
     @FXML
     void initialize() {
-        assert ListView != null : "fx:id=\"ListView\" was not injected: check your FXML file 'appointment.fxml'.";
+        assert ListView != null : "fx:id=\"ListView\" was not injected: check your FXML file 'appointmentdoctor.fxml'.";
         List<String> stringApp= doctorApp.getDoctorAppString();
         for (int i = 0; i < stringApp.size(); i++) {
             ListView.getItems().add(stringApp.get(i));

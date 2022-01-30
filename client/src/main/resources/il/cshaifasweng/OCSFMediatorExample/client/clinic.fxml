@@ -27,7 +27,7 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="230.0" layoutY="346.0" mnemonicParsing="false" onAction="#ShowFreeVaccineAPP" text="Vaccine Appointment">
+      <Button layoutX="219.0" layoutY="347.0" mnemonicParsing="false" onAction="#ShowFreeAPP" text="Show appointment" textFill="#1010c9">
          <font>
             <Font size="14.0" />
          </font>

@@ -3,6 +3,8 @@ package il.cshaifasweng.OCSFMediatorExample.entities.Table;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name ="CoronaTestAppointment")
 public class CoronaTestAppointment extends Appointment{
 
     @javax.persistence.Id

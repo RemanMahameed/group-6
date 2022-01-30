@@ -169,7 +169,7 @@ public class SimpleServer extends AbstractServer {
 		}else if (message.get(0).equals("#GetAllClinicName")) {
 			ClinicName clinicName=new ClinicName();
 			try {
-				clinicName = AppointmentData.getAllClinicName((int)message.get(1));
+				clinicName = AppointmentData.getAllClinicName((String)message.get(1));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -180,22 +180,22 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 
+		} else if (message.get(0).equals("#GetFreeApp")) {
+			int clinicId=(int)message.get(1);
+			String appType= (String) message.get(2);
+			int PatientId=(int)message.get(3);
+			FreeAppointment freeAppointment=new FreeAppointment();
+			try {
+				freeAppointment = AppointmentData.getFreeCoronaOrVaccine(clinicId,appType,PatientId);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				client.sendToClient(freeAppointment);
+				System.out.format("Sent FreeAppointment to client %s\n", client.getInetAddress().getHostAddress());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-//		else if (message.get(0).equals("#GetFreeNurseApp")) {
-//			ClinicName clinicName=new ClinicName();
-//			String appType= (String) message.get(1);
-//			int clinicId=(int) message.get(2);
-//			try {
-//				clinicName = AppointmentData.getAllClinicName(clinicId,appType);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//			try {
-//				client.sendToClient(clinicName);
-//				System.out.format("Sent UpdateObject to client %s\n", client.getInetAddress().getHostAddress());
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//		}
 	}
 }

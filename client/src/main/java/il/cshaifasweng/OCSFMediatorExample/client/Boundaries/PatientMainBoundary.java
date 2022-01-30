@@ -50,7 +50,7 @@ public class PatientMainBoundary extends Boundary {
     void VaccineAppointment(ActionEvent event) throws IOException {
             message.clear();
             message.add("#GetAllClinicName");
-            message.add(1); // add flag
+            message.add("Vaccine"); // add flag
             SimpleClient.getClient().sendToServer(message);
     }
     @FXML

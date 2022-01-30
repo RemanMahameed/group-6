@@ -8,12 +8,12 @@ import java.util.List;
 public class ClinicName implements Serializable {
     private List<String> ClinicsName;
     private List<Integer> ClinicsId;
-    private int flag; //to Know why we need clinic
+    private String flag; //to Know why we need clinic
 
     public ClinicName() {
     }
 
-    public ClinicName(List<String> clinicsName, List<Integer> clinicsId, int flag) {
+    public ClinicName(List<String> clinicsName, List<Integer> clinicsId, String flag) {
         ClinicsName = clinicsName;
         ClinicsId = clinicsId;
         this.flag = flag;
@@ -35,11 +35,11 @@ public class ClinicName implements Serializable {
         ClinicsId = clinicsId;
     }
 
-    public int getFlag() {
+    public String getFlag() {
         return flag;
     }
 
-    public void setFlag(int flag) {
+    public void setFlag(String flag) {
         this.flag = flag;
     }
 }

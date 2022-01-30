@@ -25,8 +25,10 @@ public class App extends Application {
 
     private static Scene scene;
     private SimpleClient client;
+    private List<Object> params=new LinkedList<>();
 
     static List<Object> p;
+
     //static List<Show> shows;
 
 
@@ -175,6 +177,20 @@ public class App extends Application {
             SimpleClient.getParams().add(event.getClinicName());
             try {
                 setRoot("clinic");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+    @Subscribe
+    public void onFreeAppointmentEvent(FreeAppointmentEvent event) throws IOException {
+        Platform.runLater(() -> {
+            params.clear();
+            params.add(event.getFreeAppointment());
+            SimpleClient.setParams(params);
+            try {
+                System.out.println("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+                setRoot("coronvaccineapp");
             } catch (IOException e) {
                 e.printStackTrace();
             }
