@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name ="Patient",uniqueConstraints= @UniqueConstraint(columnNames={"PassWord"}))
 public class Patient extends Person {
     private int age;
-    private boolean GreenPass;
+    private boolean IsRecovery;
     private long card;
     private int numOfVaccine;
 
@@ -47,12 +47,12 @@ public class Patient extends Person {
     @JoinColumn(name = "Clinic_ID")
     protected Clinic clinic;
 
-    public Patient(String firstName, String lastName, String phoneNum, String email, String userName, String passWord, int age, long card) {
+    public Patient(String firstName, String lastName, String phoneNum, String email, String userName, String passWord, int age, boolean isRecovery, long card) {
         super(firstName, lastName, phoneNum, email, userName, passWord);
         this.age = age;
-        GreenPass = false;
+        IsRecovery = isRecovery;
         this.card = card;
-        numOfVaccine = 0;
+        numOfVaccine=0;
     }
 
     public Patient() {
@@ -67,12 +67,12 @@ public class Patient extends Person {
         this.age = age;
     }
 
-    public boolean isGreenPass() {
-        return GreenPass;
+    public boolean isRecovery() {
+        return IsRecovery;
     }
 
-    public void setGreenPass(boolean greenPass) {
-        GreenPass = greenPass;
+    public void setRecovery(boolean recovery) {
+        IsRecovery = recovery;
     }
 
     public List<LaboratoryFacts> getLaboratoryFacts() {

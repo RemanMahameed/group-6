@@ -1,6 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
 //import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.Login;
+import com.mysql.cj.util.DnsSrv;
 import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.*;
 import il.cshaifasweng.OCSFMediatorExample.entities.Table.Appointment;
 import il.cshaifasweng.OCSFMediatorExample.entities.Table.Doctor;
@@ -179,20 +180,22 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 
-		}else if (message.get(0).equals("#GetFeeVaccineApp")) {
-			ClinicName clinicName=new ClinicName();
-			try {
-				clinicName = AppointmentData.getAllClinicName((int)message.get(1));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			try {
-				client.sendToClient(clinicName);
-				System.out.format("Sent UpdateObject to client %s\n", client.getInetAddress().getHostAddress());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
 		}
+//		else if (message.get(0).equals("#GetFreeNurseApp")) {
+//			ClinicName clinicName=new ClinicName();
+//			String appType= (String) message.get(1);
+//			int clinicId=(int) message.get(2);
+//			try {
+//				clinicName = AppointmentData.getAllClinicName(clinicId,appType);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			try {
+//				client.sendToClient(clinicName);
+//				System.out.format("Sent UpdateObject to client %s\n", client.getInetAddress().getHostAddress());
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
 	}
 }

@@ -11,29 +11,33 @@
 
 <AnchorPane prefHeight="488.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Boundaries.ClinicBoundary">
    <children>
-      <ImageView fitHeight="488.0" fitWidth="800.0" layoutX="-2.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="488.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@image-from-rawpixel-id-516093-jpeg.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="255.0" layoutY="40.0" text="Our Clinic " textFill="#1010c9">
+      <Label layoutX="268.0" layoutY="38.0" text="Our Clinic " textFill="#1010c9">
          <font>
             <Font name="System Italic" size="24.0" />
          </font>
       </Label>
-      <ListView fx:id="ListView" layoutX="200.0" layoutY="144.0" prefHeight="200.0" prefWidth="200.0" />
+      <ListView fx:id="ListView" layoutX="195.0" layoutY="127.0" prefHeight="200.0" prefWidth="200.0" />
       <Button layoutX="523.0" layoutY="417.0" mnemonicParsing="false" onAction="#BackButton" prefHeight="25.0" prefWidth="65.0" text="Back" textFill="#1010c9">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="274.0" layoutY="360.0" mnemonicParsing="false" onAction="#ShowFreeApp" text="Next" />
+      <Button layoutX="230.0" layoutY="346.0" mnemonicParsing="false" onAction="#ShowFreeVaccineAPP" text="Vaccine Appointment">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
       <Button layoutX="447.0" layoutY="417.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#1010c9">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Label layoutX="200.0" layoutY="104.0" text="Please choose clinic">
+      <Label layoutX="73.0" layoutY="96.0" text="Please choose clinic: ">
          <font>
             <Font size="14.0" />
          </font>

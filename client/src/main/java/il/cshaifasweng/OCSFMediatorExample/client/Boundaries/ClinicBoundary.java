@@ -26,10 +26,11 @@ public class ClinicBoundary extends PatientMainBoundary{
 
 
     @FXML
-    void ShowFreeApp(ActionEvent event) {
+    void ShowFreeVaccineAPP(ActionEvent event) {
         int index=ListView.getSelectionModel().getSelectedIndex();
         message.clear();
-        message.add("GetFeeVaccineApp");
+        message.add("GetFreeNurseApp");
+        message.add("Vaccine"); //add type of nurs App
         message.add(clinicsId.get(index)); // send id of selected clinic
     }
 

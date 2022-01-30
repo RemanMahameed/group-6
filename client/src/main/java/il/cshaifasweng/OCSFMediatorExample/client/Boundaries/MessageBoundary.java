@@ -31,6 +31,14 @@ public class MessageBoundary {
 
         alert.showAndWait();
     }
+    static public void displayGeenPass(String dialouge) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Green Pass");
+        alert.setHeaderText("Green Pass");
+        alert.setContentText(dialouge);
+
+        alert.showAndWait();
+    }
 
 }
 

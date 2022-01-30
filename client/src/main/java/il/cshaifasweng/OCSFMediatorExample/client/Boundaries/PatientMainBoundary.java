@@ -53,6 +53,22 @@ public class PatientMainBoundary extends Boundary {
             message.add(1); // add flag
             SimpleClient.getClient().sendToServer(message);
     }
+    @FXML
+    void IssuingGreenNote(ActionEvent event) throws IOException {
+         if(patient.getNumOfVaccine()>= 2 || patient.isRecovery()){
+             String Info=
+                     "First Name: "+patient.getFirstName()+
+                     "\n"+
+                     "Last Name: "+patient.getLastName();
+             MessageBoundary.displayGeenPass(Info);
+         }else {
+             String Info="You Don't have Green Pass\n"+
+                     "First Name: "+patient.getFirstName()+
+                     "\n"+
+                     "Last Name: "+patient.getLastName();
+             MessageBoundary.displayError(Info);
+         }
+    }
     //*************************************************************
     //*************************************************************
     //Saaaara nameer remaaan
@@ -63,7 +79,7 @@ public class PatientMainBoundary extends Boundary {
 
     @FXML
     void initialize() {
-        Plabel.setText("Welcome to our srever clinic: " + patient.getUserName());
+        Plabel.setText(patient.getUserName());
     }
 
 }

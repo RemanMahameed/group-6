@@ -191,10 +191,10 @@ public class DataClass {
         LaboratoryFacts laboratoryFacts2=new LaboratoryFacts("laboratoryFacts2","laboratoryFacts","0503104837","laboratoryFacts2222@gmail.com","L-laboratoryFacts1","2222");
         LaboratoryFacts laboratoryFacts3=new LaboratoryFacts("laboratoryFacts3","laboratoryFacts","0503104837","laboratoryFacts3333@gmail.com","L-laboratoryFacts1","3333");
         //Patient
-        Patient patient1=new Patient("patient1","patient","0503104837","reman.2000.h@gmail.com","P-patient1","1111",34,120);
-        Patient patient2=new Patient("patient2","patient","0503104837","sarazreke@gmail.com","P-patient2","2222",18,162);
-        Patient patient3=new Patient("patient3","patient","0503104837","marah.bhoty@gmail.com","P-patient3","3333",10,158);
-        Patient patient4=new Patient("patient4","patient","0503104837","nameer.egbaria14@gmail.com","P-patient4","4444",20,132);
+        Patient patient1=new Patient("patient1","patient","0503104837","reman.2000.h@gmail.com","P-patient1","1111",34,false,120);
+        Patient patient2=new Patient("patient2","patient","0503104837","sarazreke@gmail.com","P-patient2","2222",18,true,162);
+        Patient patient3=new Patient("patient3","patient","0503104837","marah.bhoty@gmail.com","P-patient3","3333",10,false,158);
+        Patient patient4=new Patient("patient4","patient","0503104837","nameer.egbaria14@gmail.com","P-patient4","4444",20,true,132);
         //HMO
         HMO HMO1 = new HMO("HMO1");
         //Clinic
