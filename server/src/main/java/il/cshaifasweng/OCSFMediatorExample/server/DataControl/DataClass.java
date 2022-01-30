@@ -104,7 +104,7 @@ public class DataClass {
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
         session.beginTransaction();
-        String query = "FROM HmoManger";
+        String query = "FROM HmoManager";
         List<HmoManager> result = session.createQuery(query).list();
         session.getTransaction().commit(); // Save everything.
         session.close();
@@ -195,12 +195,21 @@ public class DataClass {
         Patient patient2=new Patient("patient2","patient","0503104837","sarazreke@gmail.com","P-patient2","2222",18,true,162);
         Patient patient3=new Patient("patient3","patient","0503104837","marah.bhoty@gmail.com","P-patient3","3333",10,false,158);
         Patient patient4=new Patient("patient4","patient","0503104837","nameer.egbaria14@gmail.com","P-patient4","4444",20,true,132);
+
         //HMO
         HMO HMO1 = new HMO("HMO1");
+
         //Clinic
         Clinic clinic1 = new Clinic("General clinic", ActivityTime,CoronaTestTime,VaccineTime,clinicManager1,HMO1);
         Clinic clinic2 = new Clinic("Professional clinic", ActivityTime,CoronaTestTime,VaccineTime,clinicManager2,HMO1);
         Clinic clinic3 = new Clinic("General && Professional clinic", ActivityTime,CoronaTestTime,VaccineTime,clinicManager3,HMO1);
+
+        //connect clinics to HMO
+        HMO1.getClinics().add(clinic1);
+        HMO1.getClinics().add(clinic2);
+        HMO1.getClinics().add(clinic3);
+        HMO1.setHmoManager(hmoManager);
+        hmoManager.setHmo(HMO1);
 
         //receptionTime
         ReceptionTime reception1=new ReceptionTime(clinic1.getClinicType(),DoctorReceptionTime1);//10-14
@@ -251,13 +260,6 @@ public class DataClass {
         doctorRE6.add(doctor6);
         reception2.getDoctors().add(doctor6);
         reception4.setDoctors(doctorRE6);
-
-
-        //connect clinics to HMO
-        HMO1.getClinics().add(clinic1);
-        HMO1.getClinics().add(clinic2);
-        HMO1.getClinics().add(clinic3);
-        HMO1.setHmoManager(hmoManager);
 
 
         //connect list of doctor, nurse, laboratory,clinicManger,patient to  clinic 1

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="488.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Boundaries.MainHmBoundary">
+   <children>
+      <ImageView fitHeight="488.0" fitWidth="800.0" layoutX="-3.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image-from-rawpixel-id-516093-jpeg.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="157.0" layoutY="45.0" text="Welcom HMO Manger" textFill="#1010c9">
+         <font>
+            <Font name="System Italic" size="24.0" />
+         </font>
+      </Label>
+      <Button layoutX="112.0" layoutY="112.0" mnemonicParsing="false" onAction="#OpenSystem" prefHeight="30.0" prefWidth="285.0" text="Open System" textFill="#1010c9">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="112.0" layoutY="237.0" mnemonicParsing="false" onAction="#UpdateOperatingHours" prefHeight="30.0" prefWidth="285.0" text="Update operating hours" textFill="#1010c9">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="112.0" layoutY="177.0" mnemonicParsing="false" onAction="#CloseSystem" prefHeight="30.0" prefWidth="285.0" text="Close System" textFill="#1010c9">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="112.0" layoutY="307.0" mnemonicParsing="false" onAction="#ViewReports" prefHeight="30.0" prefWidth="285.0" text="View reports" textFill="#1010c9">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="323.0" layoutY="398.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="6.0" prefWidth="99.0" text="LogOut" textFill="#1010c9">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

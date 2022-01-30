@@ -16,7 +16,6 @@ public class HMO implements Serializable {
     private String name;
 
     @OneToOne
-    //@JoinColumns({@JoinColumn(name = "HMmoManager_ID")})
     @JoinColumn(name = "HMmoManager_ID")
     private HmoManager hmoManager;
 
