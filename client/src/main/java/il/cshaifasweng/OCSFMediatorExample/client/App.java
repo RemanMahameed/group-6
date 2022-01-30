@@ -86,6 +86,14 @@ public class App extends Application {
     	});
     	
     }
+    private static final int NOTFOUND = -1;
+    private static final int ISACTIVE = -2;
+    private static final int ISPATIENT = 0;
+    private static final int ISDOCTOR = 1;
+    private static final int ISNURSE = 2;
+    private static final int ISLAB = 3;
+    private static final int ISCM = 4;
+    private static final int ISHM = 5;
     @Subscribe
     /* hon bdna nf7s sho el success
      * 0= failed
@@ -94,9 +102,9 @@ public class App extends Application {
      *  */
     public void onLoginEvent(LoginEvent event) throws IOException {
         Platform.runLater(() -> {
-            if(event.getLogin().getSuccess()==-1 )
+            if(event.getLogin().getSuccess()== NOTFOUND )
                 MessageBoundary.displayError("Wrong username or password\n");
-            else if(event.getLogin().getSuccess()==-2)
+            else if(event.getLogin().getSuccess()== ISACTIVE )
                 MessageBoundary.displayError("User already logged in!\n");
             else
             {
@@ -104,15 +112,22 @@ public class App extends Application {
                 params.add(event.getLogin().getObject());
                 SimpleClient.setParams(params);
                 SimpleClient.setUser_Ob(params);
-                if(event.getLogin().getSuccess()== 0) {            //Is a patient
+                if(event.getLogin().getSuccess()== ISPATIENT ) {            //Is a patient
                     try {
                         setRoot("patientmain");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                }else  if(event.getLogin().getSuccess()== 1) {     //Is a doctor
+                }else  if(event.getLogin().getSuccess()== ISDOCTOR) {     //Is a doctor
                     try {
                         setRoot("doctormain");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else  if(event.getLogin().getSuccess()== ISHM) {     //Is a doctor
+                    try {
+                        setRoot("mainhm");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
