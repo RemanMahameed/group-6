@@ -15,18 +15,29 @@
             <Image url="@image-from-rawpixel-id-516093-jpeg.jpg" />
          </image>
       </ImageView>
-      <ListView fx:id="ListView" layoutX="32.0" layoutY="88.0" prefHeight="334.0" prefWidth="586.0" />
-      <Label layoutX="162.0" layoutY="43.0" text="please select appointment" textFill="#2d0ac9">
+      <ListView fx:id="ListView" layoutX="32.0" layoutY="107.0" prefHeight="334.0" prefWidth="586.0" />
+      <Label layoutX="32.0" layoutY="77.0" text="please select appointment" textFill="#253f84">
          <font>
-            <Font size="24.0" />
+            <Font name="Sitka Small" size="18.0" />
          </font>
       </Label>
-      <Button layoutX="32.0" layoutY="447.0" mnemonicParsing="false" onAction="#NextButton" text="next">
+      <Button layoutX="32.0" layoutY="447.0" mnemonicParsing="false" onAction="#NextButton" text="Submit" textFill="#253f84">
          <font>
-            <Font size="14.0" />
+            <Font name="Symbol" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="466.0" layoutY="450.0" mnemonicParsing="false" onAction="#BackButton" prefHeight="25.0" prefWidth="56.0" text="Back" />
-      <Button layoutX="531.0" layoutY="450.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" />
+      <Button layoutX="466.0" layoutY="450.0" mnemonicParsing="false" onAction="#BackButton" prefHeight="25.0" prefWidth="56.0" text="Back" textFill="#253f84">
+         <font>
+            <Font name="Script MT Bold" size="14.0" />
+         </font></Button>
+      <Button layoutX="531.0" layoutY="450.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#253f84">
+         <font>
+            <Font name="Script MT Bold" size="14.0" />
+         </font></Button>
+      <Label layoutX="146.0" layoutY="27.0" text="Free Doctor Appointment" textFill="#253f84">
+         <font>
+            <Font name="Script MT Bold" size="36.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

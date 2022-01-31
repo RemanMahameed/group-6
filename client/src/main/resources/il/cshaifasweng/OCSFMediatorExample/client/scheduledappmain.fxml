@@ -14,26 +14,42 @@
             <Image url="@image-from-rawpixel-id-516093-jpeg.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="161.0" layoutY="80.0" prefHeight="27.0" prefWidth="372.0" text="Please choce wihc appointment you want " textFill="#1010c9">
+      <Label layoutX="135.0" layoutY="59.0" prefHeight="44.0" prefWidth="413.0" text="Please choose wihc appointment you want " textFill="#253f84">
          <font>
-            <Font name="System Italic" size="18.0" />
+            <Font name="Script MT Bold" size="24.0" />
          </font>
       </Label>
-      <Button layoutX="226.0" layoutY="140.0" mnemonicParsing="false" onAction="#ViewDoctorApp" prefHeight="30.0" prefWidth="198.0" text="Doctor Appointment " textFill="#1010c9">
+      <Button layoutX="226.0" layoutY="129.0" mnemonicParsing="false" onAction="#ViewDoctorApp" prefHeight="30.0" prefWidth="220.0" text="Doctor Appointment " textFill="#253f84">
          <font>
-            <Font size="14.0" />
+            <Font name="Rockwell" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="468.0" layoutY="381.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="25.0" prefWidth="113.0" text="LogOut" textFill="#1010c9" />
-      <Button layoutX="71.0" layoutY="381.0" mnemonicParsing="false" onAction="#BackButton" prefHeight="25.0" prefWidth="113.0" text="Back" textFill="#1010c9" />
-      <Button layoutX="226.0" layoutY="208.0" mnemonicParsing="false" onAction="#ViewNurseApp" prefHeight="30.0" prefWidth="198.0" text="Nurse Appointment" textFill="#1010c9">
+      <Button layoutX="467.0" layoutY="400.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="25.0" prefWidth="113.0" text="LogOut" textFill="#253f84">
          <font>
-            <Font size="14.0" />
+            <Font name="Script MT Bold" size="14.0" />
+         </font></Button>
+      <Button layoutX="71.0" layoutY="400.0" mnemonicParsing="false" onAction="#BackButton" prefHeight="25.0" prefWidth="113.0" text="Back" textFill="#253f84">
+         <font>
+            <Font name="Script MT Bold" size="14.0" />
+         </font></Button>
+      <Button layoutX="226.0" layoutY="179.0" mnemonicParsing="false" onAction="#ViewNurseApp" prefHeight="30.0" prefWidth="220.0" text="Nurse Appointment" textFill="#253f84">
+         <font>
+            <Font name="Rockwell" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="226.0" layoutY="281.0" mnemonicParsing="false" onAction="#ViewLaboratoryFactsApp" text="LaboratoryFactsAppointment" textFill="#1010c9">
+      <Button layoutX="226.0" layoutY="229.0" mnemonicParsing="false" onAction="#ViewLaboratoryFactsApp" prefHeight="30.0" prefWidth="220.0" text="LaboratoryFactsAppointment" textFill="#253f84">
          <font>
-            <Font size="14.0" />
+            <Font name="Rockwell" size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="226.0" layoutY="281.0" mnemonicParsing="false" onAction="#ViewVaccineApp" prefHeight="30.0" prefWidth="220.0" text="Vaccine Appointment " textFill="#253f84">
+         <font>
+            <Font name="Rockwell" size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="226.0" layoutY="338.0" mnemonicParsing="false" onAction="#ViewCoronaTestApp" prefHeight="30.0" prefWidth="220.0" text="Corona Test Appointment " textFill="#253f84">
+         <font>
+            <Font name="Rockwell" size="14.0" />
          </font>
       </Button>
    </children>

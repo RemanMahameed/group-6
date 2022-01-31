@@ -3,10 +3,7 @@ package il.cshaifasweng.OCSFMediatorExample.server;
 //import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.Login;
 import com.mysql.cj.util.DnsSrv;
 import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.*;
-import il.cshaifasweng.OCSFMediatorExample.entities.Table.Appointment;
-import il.cshaifasweng.OCSFMediatorExample.entities.Table.Doctor;
-import il.cshaifasweng.OCSFMediatorExample.entities.Table.DoctorAppointment;
-import il.cshaifasweng.OCSFMediatorExample.entities.Table.Patient;
+import il.cshaifasweng.OCSFMediatorExample.entities.Table.*;
 import il.cshaifasweng.OCSFMediatorExample.server.DataControl.AppointmentData;
 import il.cshaifasweng.OCSFMediatorExample.server.DataControl.DataClass;
 import il.cshaifasweng.OCSFMediatorExample.server.DataControl.LoginData;
@@ -106,7 +103,7 @@ public class SimpleServer extends AbstractServer {
 			}
 			try {
 				client.sendToClient(patient);
-				System.out.format("Sent doctorApp to client %s\n", client.getInetAddress().getHostAddress());
+				System.out.format("Set doctorApp  client %s\n", client.getInetAddress().getHostAddress());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -129,10 +126,10 @@ public class SimpleServer extends AbstractServer {
 
 		} else if (message.get(0).equals("#ViewAppointment")) {
 			String type = (String) message.get(1);
-			Patient patient = (Patient) message.get(2);
+			int patientId = (int) message.get(2);
 			ScheduledApp scheduledApp = new ScheduledApp();
 			try {
-				scheduledApp = AppointmentData.getSchuledAppointment(type, patient);
+				scheduledApp = AppointmentData.getScheduledAppointment(type, patientId);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -166,10 +163,10 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 
-		}else if (message.get(0).equals("#GetAllClinicName")) {
-			ClinicName clinicName=new ClinicName();
+		} else if (message.get(0).equals("#GetAllClinicName")) {
+			ClinicName clinicName = new ClinicName();
 			try {
-				clinicName = AppointmentData.getAllClinicName((String)message.get(1));
+				clinicName = AppointmentData.getAllClinicName((String) message.get(1));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -181,12 +178,12 @@ public class SimpleServer extends AbstractServer {
 			}
 
 		} else if (message.get(0).equals("#GetFreeApp")) {
-			int clinicId=(int)message.get(1);
-			String appType= (String) message.get(2);
-			int PatientId=(int)message.get(3);
-			FreeAppointment freeAppointment=new FreeAppointment();
+			int clinicId = (int) message.get(1);
+			String appType = (String) message.get(2);
+			int PatientId = (int) message.get(3);
+			FreeAppointment freeAppointment = new FreeAppointment();
 			try {
-				freeAppointment = AppointmentData.getFreeCoronaOrVaccine(clinicId,appType,PatientId);
+				freeAppointment = AppointmentData.getFreeCoronaOrVaccine(clinicId, appType, PatientId);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -196,6 +193,29 @@ public class SimpleServer extends AbstractServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+
+		}else if (message.get(0).equals("#SetSelectedVaccineApp")) {
+			VaccineAppointment vaccineAppointment=(VaccineAppointment)message.get(1);
+			int clinicId=(int)message.get(2);
+			int patientId=(int)message.get(3);
+			try {
+				AppointmentData.setSelectedVaccineApp(vaccineAppointment,clinicId,patientId);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			System.out.format("Set Vaccine Appointment %s\n", client.getInetAddress().getHostAddress());
+
+		}else if (message.get(0).equals("#setSelectedCoronaTestApp")) {
+			CoronaTestAppointment coronaTestAppointment=(CoronaTestAppointment) message.get(1);
+			int clinicId=(int)message.get(2);
+			int patientId=(int)message.get(3);
+			try {
+				AppointmentData.setSelectedCoronaTestApp(coronaTestAppointment,clinicId,patientId);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			System.out.format("Set Vaccine Appointment %s\n", client.getInetAddress().getHostAddress());
+
 		}
 	}
 }

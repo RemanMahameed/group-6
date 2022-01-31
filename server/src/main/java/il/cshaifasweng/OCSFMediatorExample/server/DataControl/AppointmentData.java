@@ -146,16 +146,69 @@ public class AppointmentData extends DataClass{
                 +"with doctor: "+doctor.getFirstName()+" "+doctor.getLastName()+"\n"
                 +"at clinic: "+clinic.getClinicType();
         String subject="Appointment Configuration";
-        setEmail(patient.getEmail(), messageContent,subject);
+        //setEmail(patient.getEmail(), messageContent,subject);
 
-        //session.saveOrUpdate(doctor);
-        //session.saveOrUpdate(patient);
-        //session.saveOrUpdate(clinic);
         session.saveOrUpdate(doctorAppointment);
         session.flush();
         session.getTransaction().commit();
         if (session != null)
             session.close();
+    }
+
+    public static void setSelectedVaccineApp(VaccineAppointment vaccineAppointment,int clinicId,int patientId) throws Exception {
+        Clinic clinic=getClinicById(clinicId);
+        Patient patient=getPatientById(patientId);
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+//        if(vaccineAppointment.getAppointmentType().equals("VaccineCorona")){
+//            patient.setNumOfVaccine((patient.getNumOfVaccine()+1));
+//        }
+        clinic.getVaccineAppointments().add(vaccineAppointment);
+        patient.getVaccineAppointments().add(vaccineAppointment);
+        vaccineAppointment.setClinic(clinic);
+        vaccineAppointment.setPatient(patient);
+
+        //sending email..
+        String messageContent="You Have "+ vaccineAppointment.getAppointmentType() +" Appointment at: "+ vaccineAppointment.getDate()+"\n"
+                +"at clinic: "+clinic.getClinicType();
+        String subject="Appointment Configuration";
+        //setEmail(patient.getEmail(), messageContent,subject);
+        //setEmail("salehsalsabeel99@gamil.com", messageContent,subject);
+        //
+        session.saveOrUpdate(vaccineAppointment);
+        session.flush();
+        session.getTransaction().commit();
+        if (session != null)
+            session.close();
+    }
+
+    public static void setSelectedCoronaTestApp(CoronaTestAppointment coronaTestAppointment,int clinicId,int patientId) throws Exception {
+        Clinic clinic=getClinicById(clinicId);
+        Patient patient=getPatientById(patientId);
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        clinic.getCoronaTestAppointments().add(coronaTestAppointment);
+        patient.getCoronaTestAppointments().add(coronaTestAppointment);
+        coronaTestAppointment.setClinic(clinic);
+        coronaTestAppointment.setPatient(patient);
+
+        //sending email..
+        String messageContent="You Have "+ coronaTestAppointment.getAppointmentType() +" Appointment at: "+ coronaTestAppointment.getDate()+"\n"
+                +"at clinic: "+clinic.getClinicType();
+        String subject="Appointment Configuration";
+        //setEmail(patient.getEmail(), messageContent,subject);
+        //setEmail("salehsalsabeel99@gamil.com", messageContent,subject);
+        //
+
+        session.saveOrUpdate(coronaTestAppointment);
+        session.flush();
+        session.getTransaction().commit();
+        if (session != null)
+            session.close();
+
     }
     public static void setEmail(String patient ,String content,String subject){
 
@@ -198,14 +251,19 @@ public class AppointmentData extends DataClass{
             throw new RuntimeException(e);
         }
     }
-    public static ScheduledApp getSchuledAppointment(String type,Patient patient) throws Exception{
+    public static ScheduledApp getScheduledAppointment(String type,int patientId) throws Exception{
+        Patient patient=getPatientById(patientId);
         switch (type) {
             case ("Doctor"):
                 return getDoctorApp(patient);
             case ("Nurse"):
                 return getNurseApp(patient);
             case ("LaboratoryFacts"):
-                return getLaboratoryFactsaApp(patient);
+                return getLaboratoryFactsApp(patient);
+            case ("CoronaTest"):
+                return getCoronaTestApp(patient.getId());
+            case ("Vaccine"):
+                return getVaccineApp(patient.getId());
         }
         return new ScheduledApp();
     }
@@ -225,9 +283,12 @@ public class AppointmentData extends DataClass{
             newString="There is not Scheduled Appointment!";
             stringApp.add(newString);
         }
-        return (new ScheduledApp(stringApp,doctorAppointments,"Doctor"));
+        ScheduledApp scheduledApp=new ScheduledApp(stringApp,"Doctor");
+        scheduledApp.setDoctorAppointments(doctorAppointments);
+        return (scheduledApp);
     }
-    private static ScheduledApp getLaboratoryFactsaApp(Patient patient) throws Exception{
+
+    private static ScheduledApp getLaboratoryFactsApp(Patient patient) throws Exception{
         List<LaboratoryFactsAppointment> laboratoryFactsAppointments=patient.getLaboratoryFactsAppointments();
         List<String> stringApp=new LinkedList<>();
         String newString;
@@ -243,8 +304,11 @@ public class AppointmentData extends DataClass{
             newString="There is not Scheduled Appointment!";
             stringApp.add(newString);
         }
-        return (new ScheduledApp("LaboratoryFactsa",stringApp,laboratoryFactsAppointments));
+        ScheduledApp scheduledApp=new ScheduledApp(stringApp,"LaboratoryFacts");
+        scheduledApp.setLaboratoryFactsAppointments(laboratoryFactsAppointments);
+        return (scheduledApp);
     }
+
     private static ScheduledApp getNurseApp(Patient patient) throws Exception{
         List<NurseAppointment> nurseAppointments=patient.getNurseAppointments();
         List<String> stringApp=new LinkedList<>();
@@ -261,7 +325,50 @@ public class AppointmentData extends DataClass{
             newString="There is not Scheduled Appointment!";
             stringApp.add(newString);
         }
-        return (new ScheduledApp(stringApp,"Nurse",nurseAppointments));
+        ScheduledApp scheduledApp=new ScheduledApp(stringApp,"Nurse");
+        scheduledApp.setNurseAppointments(nurseAppointments);
+        return (scheduledApp);
+    }
+
+    private static ScheduledApp getCoronaTestApp(int patientId) throws Exception{
+        List<CoronaTestAppointment> coronaTestAppointments=getCoronaTestPatientById(patientId);
+        List<String> stringApp=new LinkedList<>();
+        String newString;
+        if(coronaTestAppointments.size() != 0){
+            for (CoronaTestAppointment coronaTestAppointment : coronaTestAppointments) {
+                newString="AppointmentType: "+coronaTestAppointment.getAppointmentType()
+                        +"  Date: "+ coronaTestAppointment.getDate()
+                        +"  at clinic: "+coronaTestAppointment.getClinic().getClinicType();
+                stringApp.add(newString);
+            }
+        }else {
+            newString="There is not Scheduled Appointment!";
+            stringApp.add(newString);
+        }
+        ScheduledApp scheduledApp=new ScheduledApp(stringApp,"CoronaTest");
+        scheduledApp.setCoronaTestAppointments(coronaTestAppointments);
+
+        return (scheduledApp);
+    }
+
+    private static ScheduledApp getVaccineApp(int patientId) throws Exception{
+        List<VaccineAppointment> vaccineAppointments=getVaccinePatientById(patientId);
+        List<String> stringApp=new LinkedList<>();
+        String newString;
+        if(vaccineAppointments.size() != 0){
+            for (VaccineAppointment vaccineAppointment : vaccineAppointments) {
+                newString="AppointmentType: "+vaccineAppointment.getAppointmentType()
+                        +"  Date: "+ vaccineAppointment.getDate()
+                        +"  at clinic: "+vaccineAppointment.getClinic().getClinicType();
+                stringApp.add(newString);
+            }
+        }else {
+            newString="There is not Scheduled Appointment!";
+            stringApp.add(newString);
+        }
+        ScheduledApp scheduledApp=new ScheduledApp(stringApp,"Vaccine");
+        scheduledApp.setVaccineAppointments(vaccineAppointments);
+        return (scheduledApp);
     }
     public static void cancelAppointment(DoctorAppointment appointment) throws IOException{
         SessionFactory sessionFactory = getSessionFactory();
@@ -314,7 +421,7 @@ public class AppointmentData extends DataClass{
         }else {
             LocalTime[][] VaccineTime=clinic.getVaccineTime();
             List<VaccineAppointment> vaccineAppointments=clinic.getVaccineAppointments();
-            freeAppointment=getFreeVaccineApp(vaccineAppointments,VaccineTime,clinic,PatientId);
+            freeAppointment=getFreeVaccineApp(vaccineAppointments,VaccineTime,clinic,PatientId,AppType);
         }
         return freeAppointment;
     }
@@ -362,7 +469,7 @@ public class AppointmentData extends DataClass{
         }
         return (new FreeAppointment("CoronaTest",clinicId,AppString,newCoronaTestAppointments));
     }
-    public static FreeAppointment getFreeVaccineApp(List<VaccineAppointment> vaccineAppointmentList,LocalTime[][] ActiveTime,Clinic clinic,int PatientId) throws Exception {
+    public static FreeAppointment getFreeVaccineApp(List<VaccineAppointment> vaccineAppointmentList,LocalTime[][] ActiveTime,Clinic clinic,int PatientId,String AppType) throws Exception {
         Patient patient =getPatientById(PatientId);
         int clinicId=clinic.getId();
         LocalDateTime date = LocalDateTime.now().withMinute(0);
@@ -394,7 +501,7 @@ public class AppointmentData extends DataClass{
                     }
                 }
                 if (flagIsAvailable == 0) {
-                    vaccineAppointment = new VaccineAppointment("Vaccine", date,patient,clinic);
+                    vaccineAppointment = new VaccineAppointment(AppType, date,patient,clinic);
                     vaccineAppointments.add(vaccineAppointment);
                     newVaccineString = "Month: " + date.getMonth() + "   Day: " + date.getDayOfMonth() + "   hour: " + date.getHour() + "   minute: " + date.getMinute();
                     AppString.add(newVaccineString);

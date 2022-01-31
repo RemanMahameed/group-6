@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="488.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Boundaries.ClinicBoundary">
    <children>
       <ImageView fitHeight="488.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
@@ -16,30 +15,30 @@
             <Image url="@image-from-rawpixel-id-516093-jpeg.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="268.0" layoutY="38.0" text="Our Clinic " textFill="#1010c9">
+      <Label layoutX="231.0" layoutY="43.0" text="Our Clinic " textFill="#253f84">
          <font>
-            <Font name="System Italic" size="24.0" />
+            <Font name="Script MT Bold" size="36.0" />
          </font>
       </Label>
-      <ListView fx:id="ListView" layoutX="195.0" layoutY="127.0" prefHeight="200.0" prefWidth="200.0" />
-      <Button layoutX="523.0" layoutY="417.0" mnemonicParsing="false" onAction="#BackButton" prefHeight="25.0" prefWidth="65.0" text="Back" textFill="#1010c9">
+      <ListView fx:id="ListView" layoutX="187.0" layoutY="138.0" prefHeight="200.0" prefWidth="200.0" />
+      <Button layoutX="400.0" layoutY="417.0" mnemonicParsing="false" onAction="#BackButton" prefHeight="25.0" prefWidth="65.0" text="Back" textFill="#253f84">
          <font>
-            <Font size="14.0" />
+            <Font name="Script MT Bold" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="219.0" layoutY="347.0" mnemonicParsing="false" onAction="#ShowFreeAPP" text="Show appointment" textFill="#1010c9">
+      <Button layoutX="219.0" layoutY="352.0" mnemonicParsing="false" onAction="#ShowFreeAPP" text="Show Appointment" textFill="#253f84">
          <font>
-            <Font size="14.0" />
+            <Font name="Symbol" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="447.0" layoutY="417.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#1010c9">
+      <Button layoutX="477.0" layoutY="417.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#253f84">
          <font>
-            <Font size="14.0" />
+            <Font name="Script MT Bold" size="14.0" />
          </font>
       </Button>
-      <Label layoutX="73.0" layoutY="96.0" text="Please choose clinic: ">
+      <Label layoutX="74.0" layoutY="103.0" text="Please choose clinic: " textFill="#253f84">
          <font>
-            <Font size="14.0" />
+            <Font name="Sitka Small" size="18.0" />
          </font>
       </Label>
    </children>

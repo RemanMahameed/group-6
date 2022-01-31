@@ -122,6 +122,26 @@ public class DataClass {
         session.close();
         return result;
     }
+    public static List<CoronaTestAppointment> getAllCoronaTestAppointment() throws Exception {
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        String query = "FROM CoronaTestAppointment";
+        List<CoronaTestAppointment> result = session.createQuery(query).list();
+        session.getTransaction().commit(); // Save everything.
+        session.close();
+        return result;
+    }
+    public static List<VaccineAppointment> getAllVaccineAppointment() throws Exception {
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        String query = "FROM VaccineAppointment";
+        List<VaccineAppointment> result = session.createQuery(query).list();
+        session.getTransaction().commit(); // Save everything.
+        session.close();
+        return result;
+    }
     public static Clinic getClinicById(int Id) throws Exception {
 
         List<Clinic> clinics=getAllClinic();
@@ -139,6 +159,26 @@ public class DataClass {
                 return patient;
         }
         return new Patient();
+    }
+    public static List<CoronaTestAppointment> getCoronaTestPatientById(int Id) throws Exception {
+
+        List<CoronaTestAppointment> coronaTestAppointments=getAllCoronaTestAppointment();
+        List<CoronaTestAppointment> coronaTestAppointmentList=new LinkedList<>();
+        for (CoronaTestAppointment coronaTestAppointment:coronaTestAppointments){
+            if(coronaTestAppointment.getPatient().getId()==Id)
+                coronaTestAppointmentList.add(coronaTestAppointment);
+        }
+        return coronaTestAppointmentList;
+    }
+    public static List<VaccineAppointment> getVaccinePatientById(int Id) throws Exception {
+
+        List<VaccineAppointment> vaccineAppointments=getAllVaccineAppointment();
+        List<VaccineAppointment> vaccineAppointmentList=new LinkedList<>();
+        for (VaccineAppointment vaccineAppointment:vaccineAppointments){
+            if(vaccineAppointment.getPatient().getId()==Id)
+                vaccineAppointmentList.add(vaccineAppointment);
+        }
+        return vaccineAppointmentList;
     }
 
     public static void generateNewData() throws Exception {

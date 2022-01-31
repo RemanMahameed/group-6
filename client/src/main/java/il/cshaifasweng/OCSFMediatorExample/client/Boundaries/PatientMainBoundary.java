@@ -46,12 +46,22 @@ public class PatientMainBoundary extends Boundary {
     void ViewSchelduledAppointment(ActionEvent event) throws IOException {
         App.setRoot("scheduledappmain");
     }
+
     @FXML
-    void VaccineAppointment(ActionEvent event) throws IOException {
-            message.clear();
-            message.add("#GetAllClinicName");
-            message.add("Vaccine"); // add flag
-            SimpleClient.getClient().sendToServer(message);
+    void CoronaVaccineAppointment(ActionEvent event) throws IOException {
+        message.clear();
+        message.add("#GetAllClinicName");
+        message.add("CoronaVaccine"); // add flag
+        SimpleClient.getClient().sendToServer(message);
+    }
+
+    @FXML
+    void FluVaccineAppointment(ActionEvent event) throws IOException {
+        message.clear();
+        message.add("#GetAllClinicName");
+        message.add("FluVaccine"); // add flag
+        SimpleClient.getClient().sendToServer(message);
+
     }
     @FXML
     void CoronaTestAppointment(ActionEvent event) throws IOException{

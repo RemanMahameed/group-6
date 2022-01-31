@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="488.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Boundaries.CoronaAndVaccineAppBoundary">
    <children>
       <ImageView fitHeight="488.0" fitWidth="800.0" layoutX="-1.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
@@ -16,32 +15,31 @@
             <Image url="@image-from-rawpixel-id-516093-jpeg.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="211.0" layoutY="47.0" text="Free Appointment" textFill="#1010c9">
+      <Label layoutX="197.0" layoutY="23.0" text="Free Appointment" textFill="#253f84">
          <font>
-            <Font name="Calibri Light Italic" size="24.0" />
+            <Font name="Script MT Bold" size="36.0" />
          </font>
       </Label>
-      <Label layoutX="57.0" layoutY="75.0" text="please chose date: " textFill="#1010c9">
+      <Label layoutX="57.0" layoutY="75.0" text="please choose date: " textFill="#253f84">
          <font>
-            <Font name="System Italic" size="18.0" />
+            <Font name="Symbol" size="18.0" />
          </font>
       </Label>
-      <ListView fx:id="ListView" layoutX="58.0" layoutY="111.0" prefHeight="318.0" prefWidth="533.0" />
-      <Button layoutX="58.0" layoutY="436.0" mnemonicParsing="false" onAction="#SaveAppointment" prefHeight="30.0" prefWidth="100.0" text="Next" textFill="#1010c9">
+      <ListView fx:id="ListView" layoutX="36.0" layoutY="111.0" prefHeight="318.0" prefWidth="578.0" />
+      <Button layoutX="40.0" layoutY="436.0" mnemonicParsing="false" onAction="#SaveAppointment" prefHeight="30.0" prefWidth="100.0" text="Submit" textFill="#253f84">
          <font>
-            <Font size="14.0" />
+            <Font name="Symbol" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="478.0" layoutY="436.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="30.0" prefWidth="100.0" text="LogOut" textFill="#1010c9">
+      <Button layoutX="514.0" layoutY="436.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="30.0" prefWidth="100.0" text="LogOut" textFill="#253f84">
          <font>
-            <Font size="14.0" />
+            <Font name="Script MT Bold" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="334.0" layoutY="436.0" mnemonicParsing="false" onAction="#Back" prefHeight="30.0" prefWidth="100.0" text="Back" textFill="#1010c9">
+      <Button layoutX="401.0" layoutY="436.0" mnemonicParsing="false" onAction="#Back" prefHeight="30.0" prefWidth="100.0" text="Back" textFill="#253f84">
          <font>
-            <Font size="14.0" />
+            <Font name="Script MT Bold" size="14.0" />
          </font>
       </Button>
-      <Label layoutX="66.0" layoutY="30.0" prefHeight="17.0" prefWidth="100.0" text="יש תסמונים " />
    </children>
 </AnchorPane>

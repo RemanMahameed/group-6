@@ -5,6 +5,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -61,10 +62,26 @@ public class Patient extends Person {
         IsRecovery = isRecovery;
         this.card = card;
         numOfVaccine=0;
+        laboratoryFacts=new LinkedList<>();
+        nurses=new LinkedList<>();
+        doctors=new LinkedList<>();
+        laboratoryFactsAppointments=new LinkedList<>();
+        nurseAppointments=new LinkedList<>();
+        doctorAppointments=new LinkedList<>();
+        vaccineAppointments=new LinkedList<>();
+        coronaTestAppointments=new LinkedList<>();
     }
 
     public Patient() {
         super();
+        laboratoryFacts=new LinkedList<>();
+        nurses=new LinkedList<>();
+        doctors=new LinkedList<>();
+        laboratoryFactsAppointments=new LinkedList<>();
+        nurseAppointments=new LinkedList<>();
+        doctorAppointments=new LinkedList<>();
+        vaccineAppointments=new LinkedList<>();
+        coronaTestAppointments=new LinkedList<>();
     }
 
     public int getAge() {

@@ -13,7 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 
-public class CoronaAndVaccineAppBoundary extends Boundary{
+public class CoronaAndVaccineAppBoundary extends PatientMainBoundary{
     FreeAppointment freeAppointment=(FreeAppointment) params.get(0);
     List<String> AppString=freeAppointment.getDetailsApp();
     String AppType=freeAppointment.getType();
@@ -30,7 +30,6 @@ public class CoronaAndVaccineAppBoundary extends Boundary{
     void Back(ActionEvent event) throws IOException {
         message.clear();
         message.add("#GetAllClinicName");
-        System.out.println(AppType+"   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaas");
         if(AppType.equals("Vaccine"))
             message.add("Vaccine"); // add flag
         else
@@ -39,8 +38,22 @@ public class CoronaAndVaccineAppBoundary extends Boundary{
     }
 
     @FXML
-    void SaveAppointment(ActionEvent event) {
-
+    void SaveAppointment(ActionEvent event) throws IOException {
+        int index=ListView.getSelectionModel().getSelectedIndex();
+        message.clear();
+        if(AppType.equals("CoronaTest")) {
+            message.add("#setSelectedCoronaTestApp");
+            message.add(freeAppointment.getCoronaTestAppointments().get(index)); //add the selected App
+        } else {
+            message.add("#SetSelectedVaccineApp");
+            message.add(freeAppointment.getVaccineAppointments().get(index)); //add the selected App
+        }
+        message.add(freeAppointment.getClinicId());
+        message.add(patient.getId());
+        SimpleClient.getClient().sendToServer(message);
+        MessageBoundary.displayInfo("You chose: "+"\n"+
+                ListView.getSelectionModel().getSelectedItems());
+        App.setRoot("patientmain");
     }
 
     @FXML

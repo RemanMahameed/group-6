@@ -24,7 +24,7 @@
             <Font name="System Italic" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="175.0" layoutY="351.0" mnemonicParsing="false" onAction="#IssuingGreenNote" prefHeight="30.0" prefWidth="285.0" text="Issuing a green note" textFill="#253f84">
+      <Button layoutX="175.0" layoutY="385.0" mnemonicParsing="false" onAction="#IssuingGreenNote" prefHeight="30.0" prefWidth="285.0" text="Issuing a green note" textFill="#253f84">
          <font>
             <Font name="System Italic" size="14.0" />
          </font></Button>
@@ -32,24 +32,29 @@
          <font>
             <Font name="System Italic" size="14.0" />
          </font></Button>
-      <Button layoutX="175.0" layoutY="207.0" onAction="#to_sp" prefHeight="30.0" prefWidth="285.0" text="Specialized Doctor Appointment" textFill="#253f84">
+      <Button layoutX="175.0" layoutY="210.0" onAction="#to_sp" prefHeight="30.0" prefWidth="285.0" text="Specialized Doctor Appointment" textFill="#253f84">
          <font>
             <Font size="14.0" />
          </font></Button>
-      <Button layoutX="175.0" layoutY="258.0" mnemonicParsing="false" onAction="#VaccineAppointment" prefHeight="30.0" prefWidth="285.0" text="Vaccine appintment " textFill="#253f84">
+      <Button layoutX="175.0" layoutY="257.0" mnemonicParsing="false" onAction="#FluVaccineAppointment" prefHeight="30.0" prefWidth="285.0" text="FluVaccine Appointment" textFill="#253f84">
          <font>
             <Font name="System Italic" size="14.0" />
          </font></Button>
-      <Button fx:id="LogoutBTR" layoutX="551.0" layoutY="412.0" mnemonicParsing="false" onAction="#LogOut" text="logOut" textFill="#253f84">
+      <Button fx:id="LogoutBTR" layoutX="547.0" layoutY="435.0" mnemonicParsing="false" onAction="#LogOut" text="logOut" textFill="#253f84">
          <font>
-            <Font name="System Italic" size="14.0" />
+            <Font name="Script MT Bold" size="14.0" />
          </font></Button>
       <Label layoutX="88.0" layoutY="29.0" prefHeight="44.0" prefWidth="357.0" text="Welcome to our servers:" textFill="#253f84">
          <font>
             <Font name="Script MT Bold" size="36.0" />
          </font>
       </Label>
-      <Button layoutX="175.0" layoutY="302.0" mnemonicParsing="false" onAction="#CoronaTestAppointment" prefHeight="30.0" prefWidth="285.0" text="Corona test appointment" textFill="#253f84">
+      <Button layoutX="175.0" layoutY="341.0" mnemonicParsing="false" onAction="#CoronaTestAppointment" prefHeight="30.0" prefWidth="285.0" text="Corona test appointment" textFill="#253f84">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="175.0" layoutY="301.0" mnemonicParsing="false" onAction="#CoronaVaccineAppointment" prefHeight="30.0" prefWidth="285.0" text="CoronaVaccine Appointment" textFill="#253f84">
          <font>
             <Font name="System Italic" size="14.0" />
          </font>

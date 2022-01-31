@@ -15,14 +15,23 @@
             <Image url="@image-from-rawpixel-id-516093-jpeg.jpg" />
          </image>
       </ImageView>
-      <Label fx:id="title" layoutX="104.0" layoutY="53.0" text="Scheduled Appointment:" textFill="#1010c9">
+      <Label fx:id="title" layoutX="72.0" layoutY="53.0" prefHeight="44.0" prefWidth="380.0" text="Scheduled Appointment:" textFill="#253f84">
          <font>
-            <Font name="System Italic" size="36.0" />
+            <Font name="Script MT Bold" size="36.0" />
          </font>
       </Label>
       <ListView fx:id="ViewList" layoutX="20.0" layoutY="119.0" prefHeight="250.0" prefWidth="610.0" />
-      <Button layoutX="261.0" layoutY="385.0" mnemonicParsing="false" onAction="#CancelAppointment" text="Cancel Appointment " textFill="#1010c9" />
-      <Button layoutX="112.0" layoutY="441.0" mnemonicParsing="false" onAction="#Back" prefHeight="25.0" prefWidth="56.0" text="Back" textFill="#1010c9" />
-      <Button layoutX="522.0" layoutY="441.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#1010c9" />
+      <Button layoutX="261.0" layoutY="385.0" mnemonicParsing="false" onAction="#CancelAppointment" text="Cancel Appointment " textFill="#253f84">
+         <font>
+            <Font name="Rockwell" size="14.0" />
+         </font></Button>
+      <Button layoutX="112.0" layoutY="441.0" mnemonicParsing="false" onAction="#Back" prefHeight="25.0" prefWidth="56.0" text="Back" textFill="#253f84">
+         <font>
+            <Font name="Script MT Bold" size="14.0" />
+         </font></Button>
+      <Button layoutX="522.0" layoutY="441.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#253f84">
+         <font>
+            <Font name="Script MT Bold" size="14.0" />
+         </font></Button>
    </children>
 </AnchorPane>

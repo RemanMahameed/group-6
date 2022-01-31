@@ -154,7 +154,7 @@ public class App extends Application {
             //params.add(event.getDoctorApp());
             SimpleClient.getParams().add(event.getDoctorApp());
             try {
-                setRoot("appointment");
+                setRoot("appointmentdoctor");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -189,7 +189,6 @@ public class App extends Application {
             params.add(event.getFreeAppointment());
             SimpleClient.setParams(params);
             try {
-                System.out.println("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
                 setRoot("coronvaccineapp");
             } catch (IOException e) {
                 e.printStackTrace();

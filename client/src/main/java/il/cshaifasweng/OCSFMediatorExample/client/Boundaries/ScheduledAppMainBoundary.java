@@ -22,7 +22,7 @@ public class ScheduledAppMainBoundary extends PatientMainBoundary{
         System.out.println("ViewDoctorApp");
         message.add("#ViewAppointment");
         message.add("Doctor"); //add type of app
-        message.add(patient);
+        message.add(patient.getId());
         System.out.println(message.get(0));
         SimpleClient.getClient().sendToServer(message);
     }
@@ -32,7 +32,7 @@ public class ScheduledAppMainBoundary extends PatientMainBoundary{
         System.out.println("ViewDoctorApp");
         message.add("#ViewAppointment");
         message.add("LaboratoryFacts"); //add type of app
-        message.add(patient);
+        message.add(patient.getId());
         System.out.println(message.get(0));
         SimpleClient.getClient().sendToServer(message);
     }
@@ -42,7 +42,25 @@ public class ScheduledAppMainBoundary extends PatientMainBoundary{
         System.out.println("ViewDoctorApp");
         message.add("#ViewAppointment");
         message.add("Nurse"); //add type of app
-        message.add(patient);
+        message.add(patient.getId());
+        System.out.println(message.get(0));
+        SimpleClient.getClient().sendToServer(message);
+    }
+
+    @FXML
+    void ViewCoronaTestApp(ActionEvent event) throws IOException {
+        message.add("#ViewAppointment");
+        message.add("CoronaTest"); //add type of app
+        message.add(patient.getId());
+        System.out.println(message.get(0));
+        SimpleClient.getClient().sendToServer(message);
+    }
+
+    @FXML
+    void ViewVaccineApp(ActionEvent event) throws IOException {
+        message.add("#ViewAppointment");
+        message.add("Vaccine"); //add type of app
+        message.add(patient.getId());
         System.out.println(message.get(0));
         SimpleClient.getClient().sendToServer(message);
     }

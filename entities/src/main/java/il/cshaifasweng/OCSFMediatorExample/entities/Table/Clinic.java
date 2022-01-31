@@ -6,6 +6,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalTime;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -79,9 +80,28 @@ public class Clinic implements Serializable {
         VaccineTime = vaccineTime;
         this.clinicManager = clinicManager;
         this.hmo = hmo;
+        laboratoryFacts=new LinkedList<>();
+        nurses=new LinkedList<>();
+        doctors=new LinkedList<>();
+        patients=new LinkedList<>();
+        laboratoryFactsAppointments=new LinkedList<>();
+        nurseAppointments=new LinkedList<>();
+        doctorAppointments=new LinkedList<>();
+        vaccineAppointments=new LinkedList<>();
+        coronaTestAppointments=new LinkedList<>();
     }
 
     public Clinic() {
+        super();
+        laboratoryFacts=new LinkedList<>();
+        nurses=new LinkedList<>();
+        doctors=new LinkedList<>();
+        patients=new LinkedList<>();
+        laboratoryFactsAppointments=new LinkedList<>();
+        nurseAppointments=new LinkedList<>();
+        doctorAppointments=new LinkedList<>();
+        vaccineAppointments=new LinkedList<>();
+        coronaTestAppointments=new LinkedList<>();
     }
 
     public int getId() {
