@@ -14,38 +14,45 @@
             <Image url="@image-from-rawpixel-id-516093-jpeg.jpg" />
          </image>
       </ImageView>
-      <Label fx:id="Plabel" layoutX="132.0" layoutY="73.0" text="P-Patient" textFill="#1010c9">
+      <Label fx:id="Plabel" layoutX="86.0" layoutY="73.0" text="P-Patient" textFill="#253f84">
          <font>
-            <Font size="18.0" />
+            <Font name="Script MT Bold" size="24.0" />
          </font>
       </Label>
-      <Button layoutX="175.0" layoutY="120.0" mnemonicParsing="false" onAction="#FamilyaOrPediatrician" prefHeight="30.0" prefWidth="285.0" text="Appointment to family doctor / pediatrician." textFill="#1010c9">
+      <Button layoutX="175.0" layoutY="120.0" mnemonicParsing="false" onAction="#FamilyaOrPediatrician" prefHeight="30.0" prefWidth="285.0" text="Appointment to family doctor / pediatrician." textFill="#253f84">
          <font>
             <Font name="System Italic" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="175.0" layoutY="310.0" mnemonicParsing="false" onAction="#IssuingGreenNote" prefHeight="30.0" prefWidth="285.0" text="Issuing a green note" textFill="#1010c9">
+      <Button layoutX="175.0" layoutY="351.0" mnemonicParsing="false" onAction="#IssuingGreenNote" prefHeight="30.0" prefWidth="285.0" text="Issuing a green note" textFill="#253f84">
          <font>
             <Font name="System Italic" size="14.0" />
          </font></Button>
-      <Button layoutX="175.0" layoutY="165.0" mnemonicParsing="false" onAction="#ViewSchelduledAppointment" prefHeight="30.0" prefWidth="285.0" text="view scheduled appointment " textFill="#1010c9">
+      <Button layoutX="175.0" layoutY="165.0" mnemonicParsing="false" onAction="#ViewSchelduledAppointment" prefHeight="30.0" prefWidth="285.0" text="view scheduled appointment " textFill="#253f84">
          <font>
             <Font name="System Italic" size="14.0" />
          </font></Button>
-      <Button layoutX="175.0" layoutY="207.0" onAction="#to_sp" prefHeight="30.0" prefWidth="285.0" text="Specialized Doctor Appointment" textFill="#1010c9">
+      <Button layoutX="175.0" layoutY="207.0" onAction="#to_sp" prefHeight="30.0" prefWidth="285.0" text="Specialized Doctor Appointment" textFill="#253f84">
          <font>
             <Font size="14.0" />
          </font></Button>
-      <Button layoutX="175.0" layoutY="263.0" mnemonicParsing="false" onAction="#VaccineAppointment" prefHeight="30.0" prefWidth="285.0" text="Vaccine appintment " textFill="#1010c9">
+      <Button layoutX="175.0" layoutY="258.0" mnemonicParsing="false" onAction="#VaccineAppointment" prefHeight="30.0" prefWidth="285.0" text="Vaccine appintment " textFill="#253f84">
          <font>
             <Font name="System Italic" size="14.0" />
          </font></Button>
-      <Button layoutX="96.0" layoutY="424.0" mnemonicParsing="false" text="Button" />
-      <Button fx:id="LogoutBTR" layoutX="551.0" layoutY="412.0" mnemonicParsing="false" onAction="#LogOut" text="log out" />
-      <Label layoutX="88.0" layoutY="29.0" prefHeight="35.0" prefWidth="311.0" text="Welcome to our servers:" textFill="#1010c9">
+      <Button fx:id="LogoutBTR" layoutX="551.0" layoutY="412.0" mnemonicParsing="false" onAction="#LogOut" text="logOut" textFill="#253f84">
          <font>
-            <Font name="System Italic" size="24.0" />
+            <Font name="System Italic" size="14.0" />
+         </font></Button>
+      <Label layoutX="88.0" layoutY="29.0" prefHeight="44.0" prefWidth="357.0" text="Welcome to our servers:" textFill="#253f84">
+         <font>
+            <Font name="Script MT Bold" size="36.0" />
          </font>
       </Label>
+      <Button layoutX="175.0" layoutY="302.0" mnemonicParsing="false" onAction="#CoronaTestAppointment" prefHeight="30.0" prefWidth="285.0" text="Corona test appointment" textFill="#253f84">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

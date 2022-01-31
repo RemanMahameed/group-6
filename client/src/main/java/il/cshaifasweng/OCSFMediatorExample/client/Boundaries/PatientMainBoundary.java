@@ -54,6 +54,10 @@ public class PatientMainBoundary extends Boundary {
             SimpleClient.getClient().sendToServer(message);
     }
     @FXML
+    void CoronaTestAppointment(ActionEvent event) throws IOException{
+            App.setRoot("questionnaire");
+    }
+    @FXML
     void IssuingGreenNote(ActionEvent event) throws IOException {
          if(patient.getNumOfVaccine()>= 2 || patient.isRecovery()){
              String Info=
@@ -79,7 +83,7 @@ public class PatientMainBoundary extends Boundary {
 
     @FXML
     void initialize() {
-        Plabel.setText(patient.getUserName());
+        Plabel.setText(patient.getFirstName()+" "+patient.getLastName());
     }
 
 }
