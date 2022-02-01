@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="488.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Boundaries.MainHmBoundary">
    <children>
       <ImageView fitHeight="488.0" fitWidth="800.0" layoutX="-3.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
@@ -15,34 +14,34 @@
             <Image url="@image-from-rawpixel-id-516093-jpeg.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="157.0" layoutY="45.0" text="Welcom HMO Manger" textFill="#1010c9">
+      <Label layoutX="143.0" layoutY="41.0" text="Welcom HMO Manger" textFill="#253f84">
          <font>
-            <Font name="System Italic" size="24.0" />
+            <Font name="Script MT Bold" size="36.0" />
          </font>
       </Label>
-      <Button layoutX="112.0" layoutY="112.0" mnemonicParsing="false" onAction="#OpenSystem" prefHeight="30.0" prefWidth="285.0" text="Open System" textFill="#1010c9">
+      <Button layoutX="170.0" layoutY="121.0" mnemonicParsing="false" onAction="#OpenSystem" prefHeight="30.0" prefWidth="285.0" text="Open System" textFill="#253f84">
          <font>
-            <Font size="14.0" />
+            <Font name="Rockwell" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="112.0" layoutY="237.0" mnemonicParsing="false" onAction="#UpdateOperatingHours" prefHeight="30.0" prefWidth="285.0" text="Update operating hours" textFill="#1010c9">
+      <Button layoutX="170.0" layoutY="258.0" mnemonicParsing="false" onAction="#UpdateOperatingHours" prefHeight="30.0" prefWidth="285.0" text="Update operating hours" textFill="#253f84">
          <font>
-            <Font size="14.0" />
+            <Font name="Rockwell" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="112.0" layoutY="177.0" mnemonicParsing="false" onAction="#CloseSystem" prefHeight="30.0" prefWidth="285.0" text="Close System" textFill="#1010c9">
+      <Button layoutX="170.0" layoutY="186.0" mnemonicParsing="false" onAction="#CloseSystem" prefHeight="30.0" prefWidth="285.0" text="Close System" textFill="#253f84">
          <font>
-            <Font size="14.0" />
+            <Font name="Rockwell" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="112.0" layoutY="307.0" mnemonicParsing="false" onAction="#ViewReports" prefHeight="30.0" prefWidth="285.0" text="View reports" textFill="#1010c9">
+      <Button layoutX="170.0" layoutY="324.0" mnemonicParsing="false" onAction="#ViewReports" prefHeight="30.0" prefWidth="285.0" text="View reports" textFill="#253f84">
          <font>
-            <Font size="14.0" />
+            <Font name="Rockwell" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="323.0" layoutY="398.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="6.0" prefWidth="99.0" text="LogOut" textFill="#1010c9">
+      <Button layoutX="515.0" layoutY="432.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="6.0" prefWidth="99.0" text="LogOut" textFill="#253f84">
          <font>
-            <Font size="14.0" />
+            <Font name="Script MT Bold" size="14.0" />
          </font>
       </Button>
    </children>

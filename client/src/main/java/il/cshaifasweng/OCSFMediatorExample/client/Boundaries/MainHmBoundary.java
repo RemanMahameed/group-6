@@ -1,5 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.client.Boundaries;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -27,8 +28,8 @@ public class MainHmBoundary extends Boundary{
     }
 
     @FXML
-    void UpdateOperatingHours(ActionEvent event) {
-
+    void UpdateOperatingHours(ActionEvent event) throws IOException {
+        App.setRoot("UpdateOperatingHours");
     }
 
     @FXML

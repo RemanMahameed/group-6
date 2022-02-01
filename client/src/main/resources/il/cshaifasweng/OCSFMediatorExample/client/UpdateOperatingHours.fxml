@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="488.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Boundaries.UpdateOperatingHoursBoundary">
+   <children>
+      <ImageView fitHeight="488.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image-from-rawpixel-id-516093-jpeg.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="144.0" layoutY="39.0" text="Update Operating Hours" textFill="#253f84">
+         <font>
+            <Font name="Script MT Bold" size="36.0" />
+         </font>
+      </Label>
+      <ListView fx:id="ListView" layoutX="219.0" layoutY="144.0" prefHeight="200.0" prefWidth="200.0" />
+      <Label layoutX="34.0" layoutY="110.0" text="Please choose clinic" textFill="#253f84">
+         <font>
+            <Font name="Symbol" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="30.0" layoutY="359.0" text="Which working Hours you want to Change? select one." textFill="#253f84">
+         <font>
+            <Font name="Symbol" size="18.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="ChoiceBox" layoutX="494.0" layoutY="366.0" prefWidth="150.0" />
+      <Button layoutX="506.0" layoutY="438.0" mnemonicParsing="false" onAction="#Back" text="Back" textFill="#253f84">
+         <font>
+            <Font name="Script MT Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="569.0" layoutY="438.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#253f84">
+         <font>
+            <Font name="Script MT Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="24.0" layoutY="430.0" mnemonicParsing="false" onAction="#Next" text="Next" textFill="#253f84">
+         <font>
+            <Font name="Script MT Bold" size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
