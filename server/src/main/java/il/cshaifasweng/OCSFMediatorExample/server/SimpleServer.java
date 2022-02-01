@@ -83,7 +83,7 @@ public class SimpleServer extends AbstractServer {
 		} else if (message.get(0).equals("#AppFamilyChild")) {
 			DoctorApp doctorApp = new DoctorApp();
 			try {
-				doctorApp = (AppointmentData.getFreeClinicDoctorApp(message.get(1)));
+				doctorApp = (AppointmentData.getFreeClinicDoctorApp((int)message.get(1)));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -95,18 +95,15 @@ public class SimpleServer extends AbstractServer {
 			}
 
 		} else if (message.get(0).equals("#SetSelectedAppointement")) {
-			Patient patient = (Patient) message.get(1);
+			//Patient patient = (Patient) message.get(1);
+			int patientId=(int)message.get(1);
 			try {
-				AppointmentData.SetSelectedDoctorAppointment(patient, (Doctor) message.get(2), (DoctorAppointment) message.get(3));
+				AppointmentData.SetSelectedDoctorAppointment(patientId, (Doctor) message.get(2), (DoctorAppointment) message.get(3));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			try {
-				client.sendToClient(patient);
-				System.out.format("Set doctorApp  client %s\n", client.getInetAddress().getHostAddress());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			System.out.format("Set doctorApp %s\n", client.getInetAddress().getHostAddress());
+
 
 		} else if (message.get(0).equals("#specilizationChoice ")) {
 			ProDoctorsList doctors = null;
@@ -141,8 +138,9 @@ public class SimpleServer extends AbstractServer {
 			}
 
 		} else if (message.get(0).equals("#CancelAppointment")) {
+			String type=(String) message.get(2);
 			try {
-				AppointmentData.cancelAppointment((DoctorAppointment) message.get(1));
+				AppointmentData.cancelAppointment((Appointment) message.get(1));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

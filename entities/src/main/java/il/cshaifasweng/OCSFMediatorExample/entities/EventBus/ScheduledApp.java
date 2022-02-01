@@ -25,25 +25,13 @@ public class ScheduledApp implements Serializable {
         coronaTestAppointments=new LinkedList<>();
         vaccineAppointments=new LinkedList<>();
     }
-    //    public ScheduledApp(List<String> appString, List<DoctorAppointment> doctorAppointments, String typeFlag) {
-//        AppString = appString;
-//        this.doctorAppointments = doctorAppointments;
-//        this.typeFlag = typeFlag;
-//    }
-//
-//    public ScheduledApp(List<String> appString, String typeFlag, List<NurseAppointment> nurseAppointments) {
-//        AppString = appString;
-//        this.nurseAppointments = nurseAppointments;
-//        this.typeFlag = typeFlag;
-//    }
-//
-//    public ScheduledApp(String typeFlag,List<String> appString, List<LaboratoryFactsAppointment> laboratoryFactsAppointments) {
-//        AppString = appString;
-//        this.laboratoryFactsAppointments = laboratoryFactsAppointments;
-//        this.typeFlag = typeFlag;
-//    }
 
     public ScheduledApp() {
+        doctorAppointments=new LinkedList<>();
+        nurseAppointments=new LinkedList<>();
+        laboratoryFactsAppointments=new LinkedList<>();
+        coronaTestAppointments=new LinkedList<>();
+        vaccineAppointments=new LinkedList<>();
     }
 
     public List<String> getAppString() {

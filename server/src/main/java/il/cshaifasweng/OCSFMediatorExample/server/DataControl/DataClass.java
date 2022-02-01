@@ -187,7 +187,7 @@ public class DataClass {
         LocalTime openingHours = LocalTime.of(8,00);
         LocalTime closingHours = LocalTime.of(16,00);
         LocalTime begineReceptionTime = LocalTime.of(10,00);
-        LocalTime endReceptionTime = LocalTime.of(14,00);
+        LocalTime endReceptionTime = LocalTime.of(15,00);
         LocalTime begineReceptionTime1 = LocalTime.of(8,00);
         LocalTime endReceptionTime1 = LocalTime.of(9,00);
         LocalTime[][] ActivityTime={

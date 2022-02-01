@@ -34,7 +34,7 @@
          <font>
             <Font name="Script MT Bold" size="14.0" />
          </font></Button>
-      <Label layoutX="146.0" layoutY="27.0" text="Free Doctor Appointment" textFill="#253f84">
+      <Label layoutX="146.0" layoutY="25.0" text="Free Doctor Appointment" textFill="#253f84">
          <font>
             <Font name="Script MT Bold" size="36.0" />
          </font>

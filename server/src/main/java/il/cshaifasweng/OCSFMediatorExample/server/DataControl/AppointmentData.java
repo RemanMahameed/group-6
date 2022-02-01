@@ -49,12 +49,12 @@ public class AppointmentData extends DataClass{
         return PediatricianDoctor;
     }
 
-    public static DoctorApp getFreeClinicDoctorApp(Object object) throws Exception {
+    public static DoctorApp getFreeClinicDoctorApp(int patientId) throws Exception {
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Patient patient=(Patient) object;
+        Patient patient=getPatientById(patientId);
         DoctorApp doctorAppointments=new DoctorApp();
         Doctor patientDoctor;
         if(patient.getAge()> 18){
@@ -74,6 +74,7 @@ public class AppointmentData extends DataClass{
         List<DoctorAppointment> doctorAppointments = doctor.getAppointments();
         LocalTime[][] DoctorReceptionTime = doctor.getReceptionTime().get(0).getActiveTime();
         LocalDateTime date = LocalDateTime.now().withMinute(0);
+        LocalDateTime now = LocalDateTime.now();
         //LocalDateTime date = LocalDateTime.of(2022,Month.JANUARY, 29, 10, 00);
         LocalDateTime after4weeks = LocalDateTime.now().plusWeeks(4);
         List<DoctorAppointment> doctorAppList = new LinkedList<>();
@@ -102,11 +103,22 @@ public class AppointmentData extends DataClass{
                     }
                 }
                 if (flagIsAvailable == 0) {
-                    doctorAppointment1 = new DoctorAppointment(type, date, doctor, patient, patient.getClinic());
-                    doctorAppList.add(doctorAppointment1);
-                    newDoctorAppointment2 = "Month: " + date.getMonth() + "   Day: " + date.getDayOfMonth() + "   hour: " + date.getHour() + "   minute: " + date.getMinute();
-                    doctorAppString.add(newDoctorAppointment2);
-                    System.out.println("The string is: " + newDoctorAppointment2);
+                    if(date.toLocalDate().equals(now.toLocalDate()) ){
+                        if(date.toLocalTime().isAfter(now.toLocalTime()))
+                        {
+                            doctorAppointment1 = new DoctorAppointment(type, date, doctor, patient, patient.getClinic());
+                            doctorAppList.add(doctorAppointment1);
+                            newDoctorAppointment2 = "Month: " + date.getMonth() + "   Day: " + date.getDayOfMonth() + "   hour: " + date.getHour() + "   minute: " + date.getMinute();
+                            doctorAppString.add(newDoctorAppointment2);
+                            System.out.println("The string is: " + newDoctorAppointment2);
+                        }
+                    }else {
+                        doctorAppointment1 = new DoctorAppointment(type, date, doctor, patient, patient.getClinic());
+                        doctorAppList.add(doctorAppointment1);
+                        newDoctorAppointment2 = "Month: " + date.getMonth() + "   Day: " + date.getDayOfMonth() + "   hour: " + date.getHour() + "   minute: " + date.getMinute();
+                        doctorAppString.add(newDoctorAppointment2);
+                        System.out.println("The string is: " + newDoctorAppointment2);
+                    }
                 }
             }
             flagIsAvailable=0;
@@ -114,11 +126,11 @@ public class AppointmentData extends DataClass{
         }
         return (new DoctorApp(doctorAppString, doctorAppList,patient,doctor));
     }
-    public static void SetSelectedDoctorAppointment(Patient patient, Doctor doctor, DoctorAppointment doctorAppointment){
+    public static void SetSelectedDoctorAppointment(int patientId, Doctor doctor, DoctorAppointment doctorAppointment) throws Exception {
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
         session.beginTransaction();
-
+        Patient patient=getPatientById(patientId);
         Clinic clinic=patient.getClinic();
         doctorAppointment.setClinic(clinic);
         doctorAppointment.setDoctor(doctor);
@@ -143,8 +155,8 @@ public class AppointmentData extends DataClass{
             patient.getDoctorAppointments().add(doctorAppointment);
         //sending email..
         String messageContent="You Have DoctorAppointment at: "+ doctorAppointment.getDate()+"\n"
-                +"with doctor: "+doctor.getFirstName()+" "+doctor.getLastName()+"\n"
-                +"at clinic: "+clinic.getClinicType();
+                             +"Date: "+ doctorAppointment.getDate().toLocalDate()+" Time: "+doctorAppointment.getDate().toLocalTime().withSecond(0)+"\n"
+                             +"At clinic: "+clinic.getClinicType();
         String subject="Appointment Configuration";
         //setEmail(patient.getEmail(), messageContent,subject);
 
@@ -170,8 +182,9 @@ public class AppointmentData extends DataClass{
         vaccineAppointment.setPatient(patient);
 
         //sending email..
-        String messageContent="You Have "+ vaccineAppointment.getAppointmentType() +" Appointment at: "+ vaccineAppointment.getDate()+"\n"
-                +"at clinic: "+clinic.getClinicType();
+        String messageContent="You Have "+ vaccineAppointment.getAppointmentType() +" Appointment at: \n"
+                             +"Date: "+ vaccineAppointment.getDate().toLocalDate()+" Time: "+vaccineAppointment.getDate().toLocalTime().withSecond(0)+"\n"
+                             +"At clinic: "+clinic.getClinicType();
         String subject="Appointment Configuration";
         //setEmail(patient.getEmail(), messageContent,subject);
         //setEmail("salehsalsabeel99@gamil.com", messageContent,subject);
@@ -196,8 +209,9 @@ public class AppointmentData extends DataClass{
         coronaTestAppointment.setPatient(patient);
 
         //sending email..
-        String messageContent="You Have "+ coronaTestAppointment.getAppointmentType() +" Appointment at: "+ coronaTestAppointment.getDate()+"\n"
-                +"at clinic: "+clinic.getClinicType();
+        String messageContent="You Have "+ coronaTestAppointment.getAppointmentType() +" Appointment at: \n"
+                             +"Date: "+ coronaTestAppointment.getDate().toLocalDate()+" Time: "+coronaTestAppointment.getDate().toLocalTime().withSecond(0)+"\n"
+                             +"At clinic: "+clinic.getClinicType();
         String subject="Appointment Configuration";
         //setEmail(patient.getEmail(), messageContent,subject);
         //setEmail("salehsalsabeel99@gamil.com", messageContent,subject);
@@ -273,10 +287,10 @@ public class AppointmentData extends DataClass{
         String newString;
         if(doctorAppointments.size() != 0){
             for (DoctorAppointment doctorAppointment : doctorAppointments) {
-                newString="AppointmentType: "+doctorAppointment.getAppointmentType()
-                        +"  Date: "+ doctorAppointment.getDate()
-                        +"  with doctor: "+doctorAppointment.getDoctor().getFirstName()+" "+doctorAppointment.getDoctor().getLastName()+"\n"
-                        +"  at clinic: "+doctorAppointment.getClinic().getClinicType();
+                newString="AppointmentType: "+doctorAppointment.getAppointmentType()+"\n"
+                         +"Date: "+ doctorAppointment.getDate().toLocalDate()+"  Time: "+doctorAppointment.getDate().toLocalTime().withSecond(0)+"\n"
+                         +"With doctor: "+doctorAppointment.getDoctor().getFirstName()+" "+doctorAppointment.getDoctor().getLastName()+"\n"
+                         +"At clinic: "+doctorAppointment.getClinic().getClinicType();
                 stringApp.add(newString);
             }
         }else {
@@ -294,10 +308,10 @@ public class AppointmentData extends DataClass{
         String newString;
         if(laboratoryFactsAppointments.size() != 0){
             for (LaboratoryFactsAppointment laboratoryFactsAppointment : laboratoryFactsAppointments) {
-                newString="AppointmentType: "+laboratoryFactsAppointment.getAppointmentType()
-                        +"  Date: "+ laboratoryFactsAppointment.getDate()
-                        +"  with doctor: "+laboratoryFactsAppointment.getLaboratoryFacts().getFirstName()+" "+laboratoryFactsAppointment.getLaboratoryFacts().getLastName()+"\n"
-                        +"  at clinic: "+laboratoryFactsAppointment.getClinic().getClinicType();
+                newString="AppointmentType: "+laboratoryFactsAppointment.getAppointmentType()+"\n"
+                         +"Date: "+ laboratoryFactsAppointment.getDate().toLocalDate()+"  Time: "+laboratoryFactsAppointment.getDate().toLocalTime().withSecond(0)+"\n"
+                         +"With doctor: "+laboratoryFactsAppointment.getLaboratoryFacts().getFirstName()+" "+laboratoryFactsAppointment.getLaboratoryFacts().getLastName()+"\n"
+                         +"At clinic: "+laboratoryFactsAppointment.getClinic().getClinicType();
                 stringApp.add(newString);
             }
         }else {
@@ -315,10 +329,10 @@ public class AppointmentData extends DataClass{
         String newString;
         if(nurseAppointments.size() != 0){
             for (NurseAppointment nurseAppointment : nurseAppointments) {
-                newString="AppointmentType: "+nurseAppointment.getAppointmentType()
-                        +"  Date: "+ nurseAppointment.getDate()
-                        +"  with doctor: "+nurseAppointment.getNurse().getFirstName()+" "+nurseAppointment.getNurse().getLastName()+"\n"
-                        +"  at clinic: "+nurseAppointment.getClinic().getClinicType();
+                newString="AppointmentType: "+nurseAppointment.getAppointmentType()+"\n"
+                         +"Date: "+ nurseAppointment.getDate().toLocalDate()+"  Time: "+nurseAppointment.getDate().toLocalTime().withSecond(0)+"\n"
+                         +"With doctor: "+nurseAppointment.getNurse().getFirstName()+" "+nurseAppointment.getNurse().getLastName()+"\n"
+                         +"At clinic: "+nurseAppointment.getClinic().getClinicType();
                 stringApp.add(newString);
             }
         }else {
@@ -336,9 +350,9 @@ public class AppointmentData extends DataClass{
         String newString;
         if(coronaTestAppointments.size() != 0){
             for (CoronaTestAppointment coronaTestAppointment : coronaTestAppointments) {
-                newString="AppointmentType: "+coronaTestAppointment.getAppointmentType()
-                        +"  Date: "+ coronaTestAppointment.getDate()
-                        +"  at clinic: "+coronaTestAppointment.getClinic().getClinicType();
+                newString="AppointmentType: "+coronaTestAppointment.getAppointmentType()+"\n"
+                         +"Date: "+ coronaTestAppointment.getDate().toLocalDate()+"  Time: "+coronaTestAppointment.getDate().toLocalTime().withSecond(0)+"\n"
+                         +"At clinic: "+coronaTestAppointment.getClinic().getClinicType();
                 stringApp.add(newString);
             }
         }else {
@@ -357,9 +371,9 @@ public class AppointmentData extends DataClass{
         String newString;
         if(vaccineAppointments.size() != 0){
             for (VaccineAppointment vaccineAppointment : vaccineAppointments) {
-                newString="AppointmentType: "+vaccineAppointment.getAppointmentType()
-                        +"  Date: "+ vaccineAppointment.getDate()
-                        +"  at clinic: "+vaccineAppointment.getClinic().getClinicType();
+                newString="AppointmentType: "+vaccineAppointment.getAppointmentType()+"\n"
+                        +"Date: "+ vaccineAppointment.getDate().toLocalDate()+"  Time: "+vaccineAppointment.getDate().toLocalTime().withSecond(0)+"\n"
+                        +"At clinic: "+vaccineAppointment.getClinic().getClinicType();
                 stringApp.add(newString);
             }
         }else {
@@ -370,7 +384,7 @@ public class AppointmentData extends DataClass{
         scheduledApp.setVaccineAppointments(vaccineAppointments);
         return (scheduledApp);
     }
-    public static void cancelAppointment(DoctorAppointment appointment) throws IOException{
+    public static void cancelAppointment(Appointment appointment) throws IOException{
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
         session.beginTransaction();
@@ -379,6 +393,15 @@ public class AppointmentData extends DataClass{
         if (session != null)
             session.close();
     }
+//    public static void cancelDoctorAppointment(DoctorAppointment appointment) throws IOException{
+//        SessionFactory sessionFactory = getSessionFactory();
+//        session = sessionFactory.openSession();
+//        session.beginTransaction();
+//        session.delete(appointment);
+//        session.getTransaction().commit();
+//        if (session != null)
+//            session.close();
+//    }
     public static UpdateObject getObjectByIdByType(int id, String type) throws Exception{
         switch (type) {
             case ("Patient"):
@@ -429,6 +452,7 @@ public class AppointmentData extends DataClass{
         Patient patient =getPatientById(PatientId);
         int clinicId=clinic.getId();
         LocalDateTime date = LocalDateTime.now().withMinute(0);
+        LocalDateTime now =LocalDateTime.now();
         //LocalDateTime date = LocalDateTime.of(2022,Month.JANUARY, 29, 10, 00);
         LocalDateTime after1weeks = LocalDateTime.now().plusWeeks(1);
         List<CoronaTestAppointment> newCoronaTestAppointments = new LinkedList<>();
@@ -451,21 +475,30 @@ public class AppointmentData extends DataClass{
                             (coronaTestAppointment1.getDate().getDayOfMonth() == date.getDayOfMonth()) &&
                             (coronaTestAppointment1.getDate().getHour() == date.getHour()) &&
                             (coronaTestAppointment1.getDate().getMinute() == date.getMinute()))
-                    )
-                    {
+                    ) {
                         flagIsAvailable = 1;
                     }
                 }
                 if (flagIsAvailable == 0) {
-                    coronaTestAppointment = new CoronaTestAppointment("CoronaTest", date,patient,clinic);
-                    newCoronaTestAppointments.add(coronaTestAppointment);
-                    newCoronaApp = "Month: " + date.getMonth() + "   Day: " + date.getDayOfMonth() + "   hour: " + date.getHour() + "   minute: " + date.getMinute();
-                    AppString.add(newCoronaApp);
-                    System.out.println("The string is: " + newCoronaApp);
+                    if (date.toLocalDate().equals(now.toLocalDate())) {
+                        if (date.toLocalTime().isAfter(now.toLocalTime())) {
+                            coronaTestAppointment = new CoronaTestAppointment("CoronaTest", date, patient, clinic);
+                            newCoronaTestAppointments.add(coronaTestAppointment);
+                            newCoronaApp = "Month: " + date.getMonth() + "   Day: " + date.getDayOfMonth() + "   hour: " + date.getHour() + "   minute: " + date.getMinute();
+                            AppString.add(newCoronaApp);
+                            System.out.println("The string is: " + newCoronaApp);
+                        }
+                    } else {
+                        coronaTestAppointment = new CoronaTestAppointment("CoronaTest", date, patient, clinic);
+                        newCoronaTestAppointments.add(coronaTestAppointment);
+                        newCoronaApp = "Month: " + date.getMonth() + "   Day: " + date.getDayOfMonth() + "   hour: " + date.getHour() + "   minute: " + date.getMinute();
+                        AppString.add(newCoronaApp);
+                        System.out.println("The string is: " + newCoronaApp);
+                    }
                 }
             }
-            flagIsAvailable=0;
-            date = date.plusMinutes(10);
+                flagIsAvailable = 0;
+                date = date.plusMinutes(10);
         }
         return (new FreeAppointment("CoronaTest",clinicId,AppString,newCoronaTestAppointments));
     }
@@ -473,6 +506,7 @@ public class AppointmentData extends DataClass{
         Patient patient =getPatientById(PatientId);
         int clinicId=clinic.getId();
         LocalDateTime date = LocalDateTime.now().withMinute(0);
+        LocalDateTime now = LocalDateTime.now();
         //LocalDateTime date = LocalDateTime.of(2022,Month.JANUARY, 29, 10, 00);
         LocalDateTime after1weeks = LocalDateTime.now().plusWeeks(1);
         List<VaccineAppointment> vaccineAppointments = new LinkedList<>();
@@ -501,11 +535,21 @@ public class AppointmentData extends DataClass{
                     }
                 }
                 if (flagIsAvailable == 0) {
-                    vaccineAppointment = new VaccineAppointment(AppType, date,patient,clinic);
-                    vaccineAppointments.add(vaccineAppointment);
-                    newVaccineString = "Month: " + date.getMonth() + "   Day: " + date.getDayOfMonth() + "   hour: " + date.getHour() + "   minute: " + date.getMinute();
-                    AppString.add(newVaccineString);
-                    System.out.println("The string is: " + newVaccineString);
+                    if (date.toLocalDate().equals(now.toLocalDate())) {
+                        if (date.toLocalTime().isAfter(now.toLocalTime())) {
+                            vaccineAppointment = new VaccineAppointment(AppType, date,patient,clinic);
+                            vaccineAppointments.add(vaccineAppointment);
+                            newVaccineString = "Month: " + date.getMonth() + "   Day: " + date.getDayOfMonth() + "   hour: " + date.getHour() + "   minute: " + date.getMinute();
+                            AppString.add(newVaccineString);
+                            System.out.println("The string is: " + newVaccineString);
+                        }
+                    }else {
+                        vaccineAppointment = new VaccineAppointment(AppType, date,patient,clinic);
+                        vaccineAppointments.add(vaccineAppointment);
+                        newVaccineString = "Month: " + date.getMonth() + "   Day: " + date.getDayOfMonth() + "   hour: " + date.getHour() + "   minute: " + date.getMinute();
+                        AppString.add(newVaccineString);
+                        System.out.println("The string is: " + newVaccineString);
+                    }
                 }
             }
             flagIsAvailable=0;

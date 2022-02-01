@@ -15,9 +15,9 @@
             <Image url="@image-from-rawpixel-id-516093-jpeg.jpg" />
          </image>
       </ImageView>
-      <Label fx:id="title" layoutX="72.0" layoutY="53.0" prefHeight="44.0" prefWidth="380.0" text="Scheduled Appointment:" textFill="#253f84">
+      <Label fx:id="title" layoutX="135.0" layoutY="50.0" prefHeight="44.0" prefWidth="380.0" text="Scheduled Appointment:" textFill="#253f84">
          <font>
-            <Font name="Script MT Bold" size="36.0" />
+            <Font name="Script MT Bold" size="24.0" />
          </font>
       </Label>
       <ListView fx:id="ViewList" layoutX="20.0" layoutY="119.0" prefHeight="250.0" prefWidth="610.0" />

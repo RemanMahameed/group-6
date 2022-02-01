@@ -37,7 +37,7 @@ public class PatientMainBoundary extends Boundary {
     void FamilyaOrPediatrician(ActionEvent event) throws IOException {
         System.out.println("FamilyaOrPediatrician");
         message.add("#AppFamilyChild");
-        message.add(patient);
+        message.add(patient.getId());
         System.out.println(message.get(0));
         SimpleClient.getClient().sendToServer(message);
 

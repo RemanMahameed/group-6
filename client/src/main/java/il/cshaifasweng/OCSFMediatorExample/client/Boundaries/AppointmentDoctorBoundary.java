@@ -35,20 +35,30 @@ public class AppointmentDoctorBoundary extends PatientMainBoundary{
 
     @FXML
     void NextButton(ActionEvent event) throws IOException {
-        int index=ListView.getSelectionModel().getSelectedIndex();
-        System.out.println(doctorApp.getDoctorAppString().get(index));
-        message.add("#SetSelectedAppointement");
-        message.add(patient); //add patient
-        message.add(doctorApp.getDoctor()); //add the selected doctor
-        message.add(doctorApp.getDoctorAppointments().get(index)); // add the selected appointment
-        SimpleClient.getClient().sendToServer(message);
-        String AppCon="You have select  DoctorAppointment at: "+ doctorApp.getDoctorAppointments().get(index).getDate()+"\n"
-                +"with doctor: "+doctorApp.getDoctor().getFirstName()+" "+doctorApp.getDoctor().getLastName()+" ("+doctorApp.getDoctor().getRole() +")"+"\n"
-                +"at clinic: "+doctorApp.getPatient().getClinic().getClinicType();
-        System.out.println("AppCon is: "+AppCon);
-        params.add(AppCon);
-        params.add("Appointment Configuration");
-        App.setRoot("Information");
+        if(ListView.getSelectionModel().isEmpty()){
+            MessageBoundary.displayError("You don't chose any Appointment.\n"+"Please choose one.");
+        }else {
+            int index=ListView.getSelectionModel().getSelectedIndex();
+            System.out.println(doctorApp.getDoctorAppString().get(index));
+            message.add("#SetSelectedAppointement");
+            message.add(patient.getId()); //add patient
+            message.add(doctorApp.getDoctor()); //add the selected doctor
+            message.add(doctorApp.getDoctorAppointments().get(index)); // add the selected appointment
+            SimpleClient.getClient().sendToServer(message);
+            MessageBoundary.displayInfo("The canceled appointment is:\n"+ListView.getSelectionModel().getSelectedItems());
+            App.setRoot("patientmain");
+        }
+
+        //---------------------------------------
+//        String AppCon="You have select  DoctorAppointment at: "+ doctorApp.getDoctorAppointments().get(index).getDate()+"\n"
+//                +"with doctor: "+doctorApp.getDoctor().getFirstName()+" "+doctorApp.getDoctor().getLastName()+" ("+doctorApp.getDoctor().getRole() +")"+"\n"
+//                +"at clinic: "+doctorApp.getPatient().getClinic().getClinicType();
+//        System.out.println("AppCon is: "+AppCon);
+//        params.add(AppCon);
+//        params.add("Appointment Configuration");
+//        App.setRoot("Information");
+        //--------------------------------------
+
     }
 
     @FXML
