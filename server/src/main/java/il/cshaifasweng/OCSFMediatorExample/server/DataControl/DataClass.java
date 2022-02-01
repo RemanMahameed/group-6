@@ -151,6 +151,15 @@ public class DataClass {
         }
         return new Clinic();
     }
+    public static Clinic getClinicByName(String name) throws Exception {
+
+        List<Clinic> clinics=getAllClinic();
+        for (Clinic clinic:clinics){
+            if(clinic.getClinicType().equals(name))
+                return clinic;
+        }
+        return new Clinic();
+    }
     public static Patient getPatientById(int Id) throws Exception {
 
         List<Patient> patients=getAllPatients();
@@ -159,6 +168,15 @@ public class DataClass {
                 return patient;
         }
         return new Patient();
+    }
+    public static Doctor getDoctorById(int Id) throws Exception {
+
+        List<Doctor> doctors=getAllDoctor();
+        for (Doctor doctor:doctors){
+            if(doctor.getId()==Id)
+                return doctor;
+        }
+        return new Doctor();
     }
     public static List<CoronaTestAppointment> getCoronaTestPatientById(int Id) throws Exception {
 

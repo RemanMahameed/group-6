@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="488.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Boundaries.UpdateOperatingHoursBoundary">
    <children>
       <ImageView fitHeight="488.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
@@ -33,7 +32,7 @@
             <Font name="Symbol" size="18.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="ChoiceBox" layoutX="494.0" layoutY="366.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="ChoiceBox" layoutX="500.0" layoutY="366.0" prefHeight="25.0" prefWidth="128.0" />
       <Button layoutX="506.0" layoutY="438.0" mnemonicParsing="false" onAction="#Back" text="Back" textFill="#253f84">
          <font>
             <Font name="Script MT Bold" size="14.0" />

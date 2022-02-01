@@ -2,14 +2,18 @@ package il.cshaifasweng.OCSFMediatorExample.client.Boundaries;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
+import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
+import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.ClinicName;
+import il.cshaifasweng.OCSFMediatorExample.entities.Table.HmoManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 public class MainHmBoundary extends Boundary{
-
+    HmoManager hmoManager=(HmoManager) user_Ob.get(0);
     @FXML
     private ResourceBundle resources;
 
@@ -29,7 +33,11 @@ public class MainHmBoundary extends Boundary{
 
     @FXML
     void UpdateOperatingHours(ActionEvent event) throws IOException {
-        App.setRoot("UpdateOperatingHours");
+        message.clear();
+        message.add("#GetAllClinicName");
+        message.add("UpdateOperatingHours"); // add the flag (Why we need Clinic name)
+        SimpleClient.getClient().sendToServer(message);
+        //App.setRoot("UpdateOperatingHours");
     }
 
     @FXML

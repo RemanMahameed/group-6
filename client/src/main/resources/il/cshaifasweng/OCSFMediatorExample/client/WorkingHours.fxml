@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="488.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Boundaries.WorkingHoursBoundary">
@@ -92,16 +93,6 @@
                   </HBox>
                </children>
             </HBox>
-            <Label prefHeight="25.0" prefWidth="78.0" text="Start at:" textFill="#253f84" GridPane.columnIndex="1">
-               <font>
-                  <Font name="Symbol" size="18.0" />
-               </font>
-            </Label>
-            <Label prefHeight="25.0" prefWidth="78.0" text="Finish at:" textFill="#253f84" GridPane.columnIndex="3">
-               <font>
-                  <Font name="Symbol" size="18.0" />
-               </font>
-            </Label>
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
                   <ChoiceBox fx:id="StarHours2" prefWidth="150.0" />
@@ -180,6 +171,57 @@
                   <ChoiceBox fx:id="FinishMinute7" prefWidth="150.0" />
                </children>
             </HBox>
+            <HBox GridPane.columnIndex="1">
+               <children>
+                  <VBox prefHeight="36.0" prefWidth="173.0">
+                     <children>
+                        <Label prefHeight="14.0" prefWidth="83.0" text="Start at:" textFill="#253f84">
+                           <font>
+                              <Font name="Symbol" size="18.0" />
+                           </font>
+                        </Label>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label prefHeight="20.0" prefWidth="92.0" text="Hours " textFill="#253f84">
+                                 <font>
+                                    <Font name="Symbol" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Minute" textFill="#253f84">
+                                 <font>
+                                    <Font name="Symbol" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="78.0" text="Finish at:" textFill="#253f84">
+                     <font>
+                        <Font name="Symbol" size="18.0" />
+                     </font>
+                  </Label>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label prefHeight="20.0" prefWidth="92.0" text="Hours " textFill="#253f84">
+                           <font>
+                              <Font name="Symbol" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label text="Minute" textFill="#253f84">
+                           <font>
+                              <Font name="Symbol" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" />
+               </children>
+            </VBox>
          </children>
       </GridPane>
       <Pane layoutX="431.0" layoutY="388.0" />

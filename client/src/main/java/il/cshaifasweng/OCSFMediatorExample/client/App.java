@@ -174,11 +174,21 @@ public class App extends Application {
     @Subscribe
     public void onClinicNameEvent(ClinicNameEvent event) throws IOException {
         Platform.runLater(() -> {
-            SimpleClient.getParams().add(event.getClinicName());
-            try {
-                setRoot("clinic");
-            } catch (IOException e) {
-                e.printStackTrace();
+            params.clear();
+            params.add(event.getClinicName());
+            SimpleClient.setParams(params);
+            if(event.getClinicName().getFlag().equals("UpdateOperatingHours")){
+                try {
+                    setRoot("UpdateOperatingHours");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }else {
+                try {
+                    setRoot("clinic");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -203,6 +213,32 @@ public class App extends Application {
             SimpleClient.setUser_Ob(params);
             try {
                 setRoot("patientmain");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+    @Subscribe
+    public void onWorkingHoursEvent(WorkingHoursEvent event) throws IOException {
+        Platform.runLater(() -> {
+            params.clear();
+            params.add(event.getWorkingHours());
+            SimpleClient.setParams(params);
+            try {
+                setRoot("WorkingHours");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+    @Subscribe
+    public void onDoctorNamesEvent(DoctorNameEvent event) throws IOException {
+        Platform.runLater(() -> {
+            params.clear();
+            params.add(event.getDoctorNames());
+            SimpleClient.setParams(params);
+            try {
+                setRoot("DoctorWorkingHours");
             } catch (IOException e) {
                 e.printStackTrace();
             }

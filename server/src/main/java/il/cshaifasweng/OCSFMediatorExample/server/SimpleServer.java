@@ -7,6 +7,7 @@ import il.cshaifasweng.OCSFMediatorExample.entities.Table.*;
 import il.cshaifasweng.OCSFMediatorExample.server.DataControl.AppointmentData;
 import il.cshaifasweng.OCSFMediatorExample.server.DataControl.DataClass;
 import il.cshaifasweng.OCSFMediatorExample.server.DataControl.LoginData;
+import il.cshaifasweng.OCSFMediatorExample.server.DataControl.WorkingHoursData;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.AbstractServer;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
 
@@ -170,7 +171,7 @@ public class SimpleServer extends AbstractServer {
 			}
 			try {
 				client.sendToClient(clinicName);
-				System.out.format("Sent UpdateObject to client %s\n", client.getInetAddress().getHostAddress());
+				System.out.format("Sent ClinicName to client %s\n", client.getInetAddress().getHostAddress());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -212,7 +213,39 @@ public class SimpleServer extends AbstractServer {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			System.out.format("Set Vaccine Appointment %s\n", client.getInetAddress().getHostAddress());
+			System.out.format("Set Corona Appointment %s\n", client.getInetAddress().getHostAddress());
+
+		}else if (message.get(0).equals("#getWorkingHours")) {
+			WorkingHours workingHours=new WorkingHours();
+			String clinicName= (String) message.get(1);
+			String type=(String) message.get(2);
+			try {
+				WorkingHoursData.getWorkingHours(workingHours,clinicName,type);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				client.sendToClient(workingHours);
+				System.out.format("Sent WorkingHours to client %s\n", client.getInetAddress().getHostAddress());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		} else if (message.get(0).equals("#geClinicDoctor")) {
+			DoctorNames doctorNames =new DoctorNames();
+			String clinicName= (String) message.get(2);
+			String type=(String) message.get(1);
+			try {
+				WorkingHoursData.getClinicDoctors(doctorNames,clinicName,type);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				client.sendToClient(doctorNames);
+				System.out.format("Sent DoctorsName to client %s\n", client.getInetAddress().getHostAddress());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 
 		}
 	}

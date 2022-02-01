@@ -49,6 +49,12 @@ public class SimpleClient extends AbstractClient {
 
 		}else if (msg.getClass().equals(FreeAppointment.class)) {
 			EventBus.getDefault().post(new FreeAppointmentEvent((FreeAppointment) msg));
+
+		}else if (msg.getClass().equals(WorkingHours.class)) {
+			EventBus.getDefault().post(new WorkingHoursEvent((WorkingHours) msg));
+
+		}else if (msg.getClass().equals(DoctorNames.class)) {
+			EventBus.getDefault().post(new DoctorNameEvent((DoctorNames) msg));
 		}
 	}
 	

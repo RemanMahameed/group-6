@@ -3,9 +3,12 @@ package il.cshaifasweng.OCSFMediatorExample.client.Boundaries;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
+import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
+import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.WorkingHours;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,6 +21,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 public class WorkingHoursBoundary extends Boundary{
     ObservableList<String> Hours= FXCollections.observableArrayList("Hours");
     ObservableList<String> Minute= FXCollections.observableArrayList("Minute");
+    WorkingHours workingHours=(WorkingHours) params.get(0);
+    LocalTime[][] activityWorking=workingHours.getActivityTime();
 
     @FXML
     private ResourceBundle resources;
@@ -111,7 +116,10 @@ public class WorkingHoursBoundary extends Boundary{
 
     @FXML
     void Back(ActionEvent event) throws IOException {
-        App.setRoot("UpdateOperatingHours");
+        message.clear();
+        message.add("#GetAllClinicName");
+        message.add("UpdateOperatingHours"); // add the flag (Why we need Clinic name)
+        SimpleClient.getClient().sendToServer(message);
     }
 
     @FXML
@@ -127,34 +135,38 @@ public class WorkingHoursBoundary extends Boundary{
         for (int i=0;i<=59;i++){
             Minute.add(String.valueOf(i));
         }
-        StarHours1.setValue("Hours");
-        StarHours2.setValue("Hours");
-        StarHours3.setValue("Hours");
-        StarHours4.setValue("Hours");
-        StarHours5.setValue("Hours");
-        StarHours6.setValue("Hours");
-        StarHours7.setValue("Hours");
-        FinishHours1.setValue("Hours");
-        FinishHours2.setValue("Hours");
-        FinishHours3.setValue("Hours");
-        FinishHours4.setValue("Hours");
-        FinishHours5.setValue("Hours");
-        FinishHours6.setValue("Hours");
-        FinishHours7.setValue("Hours");
-        StartMinute1.setValue("Minute");
-        StartMinute2.setValue("Minute");
-        StartMinute3.setValue("Minute");
-        StartMinute4.setValue("Minute");
-        StartMinute5.setValue("Minute");
-        StartMinute6.setValue("Minute");
-        StartMinute7.setValue("Minute");
-        FinishMinute1.setValue("Minute");
-        FinishMinute2.setValue("Minute");
-        FinishMinute3.setValue("Minute");
-        FinishMinute4.setValue("Minute");
-        FinishMinute5.setValue("Minute");
-        FinishMinute6.setValue("Minute");
-        FinishMinute7.setValue("Minute");
+        //StartWorking (Hours)
+        StarHours1.setValue(String.valueOf(activityWorking[0][0].getHour()));
+        StarHours2.setValue(String.valueOf(activityWorking[0][1].getHour()));
+        StarHours3.setValue(String.valueOf(activityWorking[0][2].getHour()));
+        StarHours4.setValue(String.valueOf(activityWorking[0][3].getHour()));
+        StarHours5.setValue(String.valueOf(activityWorking[0][4].getHour()));
+        StarHours6.setValue(String.valueOf(activityWorking[0][5].getHour()));
+        StarHours7.setValue(String.valueOf(activityWorking[0][6].getHour()));
+        //FinishWorking (Hours)
+        FinishHours1.setValue(String.valueOf(activityWorking[1][0].getHour()));
+        FinishHours2.setValue(String.valueOf(activityWorking[1][1].getHour()));
+        FinishHours3.setValue(String.valueOf(activityWorking[1][2].getHour()));
+        FinishHours4.setValue(String.valueOf(activityWorking[1][3].getHour()));
+        FinishHours5.setValue(String.valueOf(activityWorking[1][4].getHour()));
+        FinishHours6.setValue(String.valueOf(activityWorking[1][5].getHour()));
+        FinishHours7.setValue(String.valueOf(activityWorking[1][6].getHour()));
+        //StartWorking (Minute)
+        StartMinute1.setValue(String.valueOf(activityWorking[0][0].getMinute()));
+        StartMinute2.setValue(String.valueOf(activityWorking[0][1].getMinute()));
+        StartMinute3.setValue(String.valueOf(activityWorking[0][2].getMinute()));
+        StartMinute4.setValue(String.valueOf(activityWorking[0][3].getMinute()));
+        StartMinute5.setValue(String.valueOf(activityWorking[0][4].getMinute()));
+        StartMinute6.setValue(String.valueOf(activityWorking[0][5].getMinute()));
+        StartMinute7.setValue(String.valueOf(activityWorking[0][6].getMinute()));
+        //FinishWorking (Minute)
+        FinishMinute1.setValue(String.valueOf(activityWorking[1][0].getMinute()));
+        FinishMinute2.setValue(String.valueOf(activityWorking[1][1].getMinute()));
+        FinishMinute3.setValue(String.valueOf(activityWorking[1][2].getMinute()));
+        FinishMinute4.setValue(String.valueOf(activityWorking[1][3].getMinute()));
+        FinishMinute5.setValue(String.valueOf(activityWorking[1][4].getMinute()));
+        FinishMinute6.setValue(String.valueOf(activityWorking[1][5].getMinute()));
+        FinishMinute7.setValue(String.valueOf(activityWorking[1][6].getMinute()));
         StarHours1.setItems(Hours);
         StarHours2.setItems(Hours);
         StarHours3.setItems(Hours);
