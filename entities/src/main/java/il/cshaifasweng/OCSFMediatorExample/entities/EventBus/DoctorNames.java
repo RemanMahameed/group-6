@@ -7,17 +7,19 @@ public class DoctorNames implements Serializable {
     private List<String> DoctorsFirstName;
     private List<String> DoctorsLastName;
     private List<Integer> DoctorsId;
-    private String flag; //to Know why we need clinic
+    private String flag; //to Know why we need  name of Doctors clinic
+    private String clinicName;
 
     public DoctorNames() {
     }
 
 
-    public DoctorNames(List<String> doctorsFirstName, List<String> doctorsLastName, List<Integer> doctorsId, String flag) {
+    public DoctorNames(List<String> doctorsFirstName, List<String> doctorsLastName, List<Integer> doctorsId, String flag, String clinicName) {
         DoctorsFirstName = doctorsFirstName;
         DoctorsLastName = doctorsLastName;
         DoctorsId = doctorsId;
         this.flag = flag;
+        this.clinicName = clinicName;
     }
 
     public List<String> getDoctorsFirstName() {
@@ -50,5 +52,13 @@ public class DoctorNames implements Serializable {
 
     public void setFlag(String flag) {
         this.flag = flag;
+    }
+
+    public String getClinicName() {
+        return clinicName;
+    }
+
+    public void setClinicName(String clinicName) {
+        this.clinicName = clinicName;
     }
 }

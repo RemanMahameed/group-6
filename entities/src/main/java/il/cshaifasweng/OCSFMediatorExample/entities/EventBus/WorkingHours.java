@@ -6,17 +6,23 @@ import java.time.LocalTime;
 public class WorkingHours implements Serializable {
     LocalTime[][] activityTime;
     String type;
+    String clinicName;
 
     public WorkingHours() {
     }
 
-    public WorkingHours(LocalTime[][] activeTime, String type) {
+    public WorkingHours(LocalTime[][] activityTime, String type, String clinicName) {
         this.activityTime = activityTime;
         this.type = type;
+        this.clinicName = clinicName;
     }
 
     public LocalTime[][] getActivityTime() {
         return activityTime;
+    }
+
+    public void setActivityTime(LocalTime[][] activityTime) {
+        this.activityTime = activityTime;
     }
 
     public void setActiveTime(LocalTime[][] activeTime) {
@@ -29,5 +35,13 @@ public class WorkingHours implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getClinicName() {
+        return clinicName;
+    }
+
+    public void setClinicName(String clinicName) {
+        this.clinicName = clinicName;
     }
 }

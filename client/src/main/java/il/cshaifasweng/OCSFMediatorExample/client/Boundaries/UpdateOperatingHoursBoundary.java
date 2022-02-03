@@ -38,10 +38,11 @@ public class UpdateOperatingHoursBoundary extends Boundary {
         message.clear();
         if(ChoiceBox.getValue().equals("Clinic's Doctor")){
             message.add("#geClinicDoctor");
-            message.add("WorkingHours");
+
         }else {
             message.add("#getWorkingHours");
         }
+        message.add("WorkingHours");
         index=ListView.getSelectionModel().getSelectedIndex();
         message.add(clinicsName.get(index)); // add the clinic name
         message.add(ChoiceBox.getValue()); //add what we want to change.

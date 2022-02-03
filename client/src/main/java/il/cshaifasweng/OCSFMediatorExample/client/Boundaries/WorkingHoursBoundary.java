@@ -19,8 +19,8 @@ import org.hibernate.type.LocalDateTimeType;
 import javax.persistence.criteria.CriteriaBuilder;
 
 public class WorkingHoursBoundary extends Boundary{
-    ObservableList<String> Hours= FXCollections.observableArrayList("Hours");
-    ObservableList<String> Minute= FXCollections.observableArrayList("Minute");
+    ObservableList<Integer> Hours= FXCollections.observableArrayList();
+    ObservableList<Integer> Minute= FXCollections.observableArrayList();
     WorkingHours workingHours=(WorkingHours) params.get(0);
     LocalTime[][] activityWorking=workingHours.getActivityTime();
 
@@ -31,88 +31,88 @@ public class WorkingHoursBoundary extends Boundary{
     private URL location;
 
     @FXML
-    private ChoiceBox<String> FinishHours1;
+    private ChoiceBox<Integer> FinishHours1;
 
     @FXML
-    private ChoiceBox<String> FinishHours2;
+    private ChoiceBox<Integer> FinishHours2;
 
     @FXML
-    private ChoiceBox<String> FinishHours3;
+    private ChoiceBox<Integer> FinishHours3;
 
     @FXML
-    private ChoiceBox<String> FinishHours4;
+    private ChoiceBox<Integer> FinishHours4;
 
     @FXML
-    private ChoiceBox<String> FinishHours5;
+    private ChoiceBox<Integer> FinishHours5;
 
     @FXML
-    private ChoiceBox<String> FinishHours6;
+    private ChoiceBox<Integer> FinishHours6;
 
     @FXML
-    private ChoiceBox<String> FinishHours7;
+    private ChoiceBox<Integer> FinishHours7;
 
     @FXML
-    private ChoiceBox<String> FinishMinute1;
+    private ChoiceBox<Integer> FinishMinute1;
 
     @FXML
-    private ChoiceBox<String> FinishMinute2;
+    private ChoiceBox<Integer> FinishMinute2;
 
     @FXML
-    private ChoiceBox<String> FinishMinute3;
+    private ChoiceBox<Integer> FinishMinute3;
 
     @FXML
-    private ChoiceBox<String> FinishMinute4;
+    private ChoiceBox<Integer> FinishMinute4;
 
     @FXML
-    private ChoiceBox<String> FinishMinute5;
+    private ChoiceBox<Integer> FinishMinute5;
 
     @FXML
-    private ChoiceBox<String> FinishMinute6;
+    private ChoiceBox<Integer> FinishMinute6;
 
     @FXML
-    private ChoiceBox<String> FinishMinute7;
+    private ChoiceBox<Integer> FinishMinute7;
 
     @FXML
-    private ChoiceBox<String> StarHours1;
+    private ChoiceBox<Integer> StarHours1;
 
     @FXML
-    private ChoiceBox<String> StarHours2;
+    private ChoiceBox<Integer> StarHours2;
 
     @FXML
-    private ChoiceBox<String> StarHours3;
+    private ChoiceBox<Integer> StarHours3;
 
     @FXML
-    private ChoiceBox<String> StarHours4;
+    private ChoiceBox<Integer> StarHours4;
 
     @FXML
-    private ChoiceBox<String> StarHours5;
+    private ChoiceBox<Integer> StarHours5;
 
     @FXML
-    private ChoiceBox<String> StarHours6;
+    private ChoiceBox<Integer> StarHours6;
 
     @FXML
-    private ChoiceBox<String> StarHours7;
+    private ChoiceBox<Integer> StarHours7;
 
     @FXML
-    private ChoiceBox<String> StartMinute1;
+    private ChoiceBox<Integer> StartMinute1;
 
     @FXML
-    private ChoiceBox<String> StartMinute2;
+    private ChoiceBox<Integer> StartMinute2;
 
     @FXML
-    private ChoiceBox<String> StartMinute3;
+    private ChoiceBox<Integer> StartMinute3;
 
     @FXML
-    private ChoiceBox<String> StartMinute4;
+    private ChoiceBox<Integer> StartMinute4;
 
     @FXML
-    private ChoiceBox<String> StartMinute5;
+    private ChoiceBox<Integer> StartMinute5;
 
     @FXML
-    private ChoiceBox<String> StartMinute6;
+    private ChoiceBox<Integer> StartMinute6;
 
     @FXML
-    private ChoiceBox<String> StartMinute7;
+    private ChoiceBox<Integer> StartMinute7;
 
     @FXML
     void Back(ActionEvent event) throws IOException {
@@ -130,43 +130,43 @@ public class WorkingHoursBoundary extends Boundary{
     @FXML
     void initialize() {
         for(int i=0;i<=23;i++){
-            Hours.add(String.valueOf(i));
+            Hours.add(i);
         }
         for (int i=0;i<=59;i++){
-            Minute.add(String.valueOf(i));
+            Minute.add(i);
         }
         //StartWorking (Hours)
-        StarHours1.setValue(String.valueOf(activityWorking[0][0].getHour()));
-        StarHours2.setValue(String.valueOf(activityWorking[0][1].getHour()));
-        StarHours3.setValue(String.valueOf(activityWorking[0][2].getHour()));
-        StarHours4.setValue(String.valueOf(activityWorking[0][3].getHour()));
-        StarHours5.setValue(String.valueOf(activityWorking[0][4].getHour()));
-        StarHours6.setValue(String.valueOf(activityWorking[0][5].getHour()));
-        StarHours7.setValue(String.valueOf(activityWorking[0][6].getHour()));
+        StarHours1.setValue(activityWorking[0][0].getHour());
+        StarHours2.setValue(activityWorking[0][1].getHour());
+        StarHours3.setValue(activityWorking[0][2].getHour());
+        StarHours4.setValue(activityWorking[0][3].getHour());
+        StarHours5.setValue(activityWorking[0][4].getHour());
+        StarHours6.setValue(activityWorking[0][5].getHour());
+        StarHours7.setValue(activityWorking[0][6].getHour());
         //FinishWorking (Hours)
-        FinishHours1.setValue(String.valueOf(activityWorking[1][0].getHour()));
-        FinishHours2.setValue(String.valueOf(activityWorking[1][1].getHour()));
-        FinishHours3.setValue(String.valueOf(activityWorking[1][2].getHour()));
-        FinishHours4.setValue(String.valueOf(activityWorking[1][3].getHour()));
-        FinishHours5.setValue(String.valueOf(activityWorking[1][4].getHour()));
-        FinishHours6.setValue(String.valueOf(activityWorking[1][5].getHour()));
-        FinishHours7.setValue(String.valueOf(activityWorking[1][6].getHour()));
+        FinishHours1.setValue(activityWorking[1][0].getHour());
+        FinishHours2.setValue(activityWorking[1][1].getHour());
+        FinishHours3.setValue(activityWorking[1][2].getHour());
+        FinishHours4.setValue(activityWorking[1][3].getHour());
+        FinishHours5.setValue(activityWorking[1][4].getHour());
+        FinishHours6.setValue(activityWorking[1][5].getHour());
+        FinishHours7.setValue(activityWorking[1][6].getHour());
         //StartWorking (Minute)
-        StartMinute1.setValue(String.valueOf(activityWorking[0][0].getMinute()));
-        StartMinute2.setValue(String.valueOf(activityWorking[0][1].getMinute()));
-        StartMinute3.setValue(String.valueOf(activityWorking[0][2].getMinute()));
-        StartMinute4.setValue(String.valueOf(activityWorking[0][3].getMinute()));
-        StartMinute5.setValue(String.valueOf(activityWorking[0][4].getMinute()));
-        StartMinute6.setValue(String.valueOf(activityWorking[0][5].getMinute()));
-        StartMinute7.setValue(String.valueOf(activityWorking[0][6].getMinute()));
+        StartMinute1.setValue(activityWorking[0][0].getMinute());
+        StartMinute2.setValue(activityWorking[0][1].getMinute());
+        StartMinute3.setValue(activityWorking[0][2].getMinute());
+        StartMinute4.setValue(activityWorking[0][3].getMinute());
+        StartMinute5.setValue(activityWorking[0][4].getMinute());
+        StartMinute6.setValue(activityWorking[0][5].getMinute());
+        StartMinute7.setValue(activityWorking[0][6].getMinute());
         //FinishWorking (Minute)
-        FinishMinute1.setValue(String.valueOf(activityWorking[1][0].getMinute()));
-        FinishMinute2.setValue(String.valueOf(activityWorking[1][1].getMinute()));
-        FinishMinute3.setValue(String.valueOf(activityWorking[1][2].getMinute()));
-        FinishMinute4.setValue(String.valueOf(activityWorking[1][3].getMinute()));
-        FinishMinute5.setValue(String.valueOf(activityWorking[1][4].getMinute()));
-        FinishMinute6.setValue(String.valueOf(activityWorking[1][5].getMinute()));
-        FinishMinute7.setValue(String.valueOf(activityWorking[1][6].getMinute()));
+        FinishMinute1.setValue(activityWorking[1][0].getMinute());
+        FinishMinute2.setValue(activityWorking[1][1].getMinute());
+        FinishMinute3.setValue(activityWorking[1][2].getMinute());
+        FinishMinute4.setValue(activityWorking[1][3].getMinute());
+        FinishMinute5.setValue(activityWorking[1][4].getMinute());
+        FinishMinute6.setValue(activityWorking[1][5].getMinute());
+        FinishMinute7.setValue(activityWorking[1][6].getMinute());
         StarHours1.setItems(Hours);
         StarHours2.setItems(Hours);
         StarHours3.setItems(Hours);

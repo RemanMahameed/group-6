@@ -13,13 +13,13 @@ import java.util.List;
 
 public class WorkingHoursData extends DataClass {
 
-    public static void getWorkingHours(WorkingHours workingHours, String Name, String type) throws Exception {
+    public static void getWorkingHours(WorkingHours workingHours, String Name, String type,String doctorId) throws Exception {
         switch (type) {
             case ("Clinic"):
                 getClinicWorkingHours(workingHours, Name, type);
                 break;
             case ("Clinic's Doctor"):
-                getDoctorWorkingHours(workingHours, Name, type);
+                getDoctorWorkingHours(workingHours, doctorId, type,Name);
                 break;
             case ("Corona Test"):
                 getCoronaTestWorkingHours(workingHours, Name, type);
@@ -35,6 +35,7 @@ public class WorkingHoursData extends DataClass {
         LocalTime[][] activityTime = clinic.getActivityTime();
         workingHours.setActiveTime(activityTime);
         workingHours.setType(type);
+        workingHours.setClinicName(clinicName);
     }
 
     public static void getCoronaTestWorkingHours(WorkingHours workingHours, String clinicName, String type) throws Exception {
@@ -42,6 +43,7 @@ public class WorkingHoursData extends DataClass {
         LocalTime[][] activityTime = clinic.getCoronaTestTime();
         workingHours.setActiveTime(activityTime);
         workingHours.setType(type);
+        workingHours.setClinicName(clinicName);
     }
 
     public static void getVaccineWorkingHours(WorkingHours workingHours, String clinicName, String type) throws Exception {
@@ -49,13 +51,20 @@ public class WorkingHoursData extends DataClass {
         LocalTime[][] activityTime = clinic.getCoronaTestTime();
         workingHours.setActiveTime(activityTime);
         workingHours.setType(type);
+        workingHours.setClinicName(clinicName);
     }
-    public static void getDoctorWorkingHours(WorkingHours workingHours, String StringDoctorID, String type) throws Exception {
+    public static void getDoctorWorkingHours(WorkingHours workingHours, String StringDoctorID, String type,String clinicName) throws Exception {
         int doctorId=Integer.parseInt(StringDoctorID);
         Doctor doctor = getDoctorById(doctorId);
         List<ReceptionTime> receptionTime= doctor.getReceptionTime();
-        workingHours.setActiveTime(receptionTime.get(0).getActiveTime());
+        // get the rightWorking hours()
+        for (ReceptionTime receptionTime1:receptionTime) {
+            if (receptionTime1.getClinicName().equals(clinicName))
+                workingHours.setActiveTime(receptionTime1.getActiveTime());
+        }
         workingHours.setType(type);
+        workingHours.setClinicName(clinicName);
+        //workingHours.setActiveTime(receptionTime.get(0).getActiveTime());
     }
     public static void getClinicDoctors(DoctorNames doctorNames,String clinicName,String type) throws Exception {
         Clinic clinic=getClinicByName(clinicName);
@@ -72,6 +81,7 @@ public class WorkingHoursData extends DataClass {
         doctorNames.setDoctorsLastName(doctorsLastName);
         doctorNames.setDoctorsId(doctorsId);
         doctorNames.setFlag(type);
+        doctorNames.setClinicName(clinicName);
     }
 }
 

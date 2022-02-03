@@ -217,10 +217,11 @@ public class SimpleServer extends AbstractServer {
 
 		}else if (message.get(0).equals("#getWorkingHours")) {
 			WorkingHours workingHours=new WorkingHours();
-			String clinicName= (String) message.get(1);
-			String type=(String) message.get(2);
+			String doctorId=(String)message.get(1);
+			String clinicName= (String) message.get(2);
+			String type=(String) message.get(3);
 			try {
-				WorkingHoursData.getWorkingHours(workingHours,clinicName,type);
+				WorkingHoursData.getWorkingHours(workingHours,clinicName,type,doctorId);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -233,8 +234,8 @@ public class SimpleServer extends AbstractServer {
 
 		} else if (message.get(0).equals("#geClinicDoctor")) {
 			DoctorNames doctorNames =new DoctorNames();
-			String clinicName= (String) message.get(2);
 			String type=(String) message.get(1);
+			String clinicName= (String) message.get(2);
 			try {
 				WorkingHoursData.getClinicDoctors(doctorNames,clinicName,type);
 			} catch (Exception e) {

@@ -39,7 +39,8 @@ public class DoctorWorkingHoursBoundary extends Boundary{
     void Next(ActionEvent event) throws IOException {
         int index=ListView.getSelectionModel().getSelectedIndex();
         message.add("#getWorkingHours");
-        message.add(doctorsIdList.get(index).toString()); // add the doctor name
+        message.add(doctorsIdList.get(index).toString()); // add the doctor Id
+        message.add(doctorNames.getClinicName());          //add clinicName
         message.add("Clinic's Doctor"); //add what we want to change.
         SimpleClient.getClient().sendToServer(message);
     }
