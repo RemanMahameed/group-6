@@ -1,5 +1,8 @@
 package il.cshaifasweng.OCSFMediatorExample.entities.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,6 +23,7 @@ public class HMO implements Serializable {
     private HmoManager hmoManager;
 
     @OneToMany(mappedBy = "hmo")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Clinic> clinics = new ArrayList<>();
 
     public HMO(String name) {

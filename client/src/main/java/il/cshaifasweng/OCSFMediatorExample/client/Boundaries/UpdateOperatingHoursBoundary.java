@@ -14,7 +14,7 @@ import javafx.scene.control.SelectionMode;
 import java.io.IOException;
 import java.util.List;
 
-public class UpdateOperatingHoursBoundary extends Boundary {
+public class UpdateOperatingHoursBoundary extends MainCmBoundary {
     ObservableList<String> Choices= FXCollections.observableArrayList("Clinic","Clinic's Doctor","Corona Test","Vaccine");
     int index= params.size()-1;
     ClinicName clinicName= (ClinicName) params.get(index);
@@ -29,7 +29,7 @@ public class UpdateOperatingHoursBoundary extends Boundary {
 
     @FXML
     void Back(ActionEvent event) throws IOException {
-        App.setRoot("mainhm");
+        App.setRoot("maincm");
     }
 
 
@@ -44,9 +44,10 @@ public class UpdateOperatingHoursBoundary extends Boundary {
         }
         message.add("WorkingHours");
         index=ListView.getSelectionModel().getSelectedIndex();
-        message.add(clinicsName.get(index)); // add the clinic name
+        message.add(clinicManager.getClinic().getClinicType()); // add the clinic name
         message.add(ChoiceBox.getValue()); //add what we want to change.
         SimpleClient.getClient().sendToServer(message);
+        MessageBoundary.displayInfo("You working at:\n"+clinicManager.getClinic().getClinicType());
     }
     @FXML
     void initialize() {

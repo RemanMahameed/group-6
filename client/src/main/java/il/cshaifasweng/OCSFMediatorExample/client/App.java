@@ -127,9 +127,16 @@ public class App extends Application {
                         e.printStackTrace();
                     }
                 }
-                else  if(event.getLogin().getSuccess()== ISHM) {     //Is a doctor
+                else  if(event.getLogin().getSuccess()== ISCM) {     //User working as clinicManager
                     try {
-                        setRoot("mainhm");
+                        setRoot("maincm");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else  if(event.getLogin().getSuccess()== ISHM) {     //User working as clinicManager
+                    try {
+                        setRoot("MainHm");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
