@@ -147,20 +147,20 @@ public class SimpleServer extends AbstractServer {
 			}
 			System.out.format("Cancel App  to client %s\n", client.getInetAddress().getHostAddress());
 
-		} else if (message.get(0).equals("#BackToMainPatientboundary")) {
-			UpdateObject object = new UpdateObject();
-			String type = (String) message.get(2);
-			try {
-				object = AppointmentData.getObjectByIdByType((int) message.get(1), type);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			try {
-				client.sendToClient(object);
-				System.out.format("Sent UpdateObject to client %s\n", client.getInetAddress().getHostAddress());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+//		} else if (message.get(0).equals("#BackToMainPatientboundary")) {
+//			UpdateObject object = new UpdateObject();
+//			String type = (String) message.get(2);
+//			try {
+//				object = AppointmentData.getObjectByIdByType((int) message.get(1), type);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			try {
+//				client.sendToClient(object);
+//				System.out.format("Sent UpdateObject to client %s\n", client.getInetAddress().getHostAddress());
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
 
 		} else if (message.get(0).equals("#GetAllClinicName")) {
 			ClinicName clinicName = new ClinicName();
@@ -247,6 +247,17 @@ public class SimpleServer extends AbstractServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+
+		}
+		else if (message.get(0).equals("#SendReminderEmail")) {
+			int clinicId=(int) message.get(1);
+			try {
+				AppointmentData.sendReminderEmail(clinicId);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			System.out.format("Sent Reminder Email to patient %s\n", client.getInetAddress().getHostAddress());
+
 
 		}
 	}

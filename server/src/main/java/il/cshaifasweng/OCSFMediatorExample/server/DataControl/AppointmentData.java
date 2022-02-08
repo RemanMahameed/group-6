@@ -1,6 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.server.DataControl;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
@@ -158,7 +159,7 @@ public class AppointmentData extends DataClass{
                              +"Date: "+ doctorAppointment.getDate().toLocalDate()+" Time: "+doctorAppointment.getDate().toLocalTime().withSecond(0)+"\n"
                              +"At clinic: "+clinic.getClinicType();
         String subject="Appointment Configuration";
-        //setEmail(patient.getEmail(), messageContent,subject);
+        //sendEmail(patient.getEmail(), messageContent,subject);
 
         session.saveOrUpdate(doctorAppointment);
         session.flush();
@@ -186,8 +187,8 @@ public class AppointmentData extends DataClass{
                              +"Date: "+ vaccineAppointment.getDate().toLocalDate()+" Time: "+vaccineAppointment.getDate().toLocalTime().withSecond(0)+"\n"
                              +"At clinic: "+clinic.getClinicType();
         String subject="Appointment Configuration";
-        //setEmail(patient.getEmail(), messageContent,subject);
-        //setEmail("salehsalsabeel99@gamil.com", messageContent,subject);
+        //sendEmail(patient.getEmail(), messageContent,subject);
+        //sendEmail("salehsalsabeel99@gamil.com", messageContent,subject);
         //
         session.saveOrUpdate(vaccineAppointment);
         session.flush();
@@ -213,8 +214,8 @@ public class AppointmentData extends DataClass{
                              +"Date: "+ coronaTestAppointment.getDate().toLocalDate()+" Time: "+coronaTestAppointment.getDate().toLocalTime().withSecond(0)+"\n"
                              +"At clinic: "+clinic.getClinicType();
         String subject="Appointment Configuration";
-        //setEmail(patient.getEmail(), messageContent,subject);
-        //setEmail("salehsalsabeel99@gamil.com", messageContent,subject);
+        //sendEmail(patient.getEmail(), messageContent,subject);
+        //sendEmail("salehsalsabeel99@gamil.com", messageContent,subject);
         //
 
         session.saveOrUpdate(coronaTestAppointment);
@@ -224,12 +225,12 @@ public class AppointmentData extends DataClass{
             session.close();
 
     }
-    public static void setEmail(String patient ,String content,String subject){
+    public static void sendEmail(String patient ,String content,String subject){
 
         // Put sender’s address
         String from = "salehsalsabeel99@gmail.com";
         final String username = "salehsalsabeel99@gmail.com";
-        final String password = "hsjytvhggi";
+        final String password = "hgpl]ggi";
 
         String host = "smtp.gmail.com";
         Properties props = new Properties();
@@ -263,6 +264,103 @@ public class AppointmentData extends DataClass{
             System.out.println("Message sent successfully ...");
         } catch (MessagingException e) {
             throw new RuntimeException(e);
+        }
+    }
+    public static void sendReminderEmail(int clinicId) throws Exception {
+        LocalDate tomorrowDate = LocalDate.now().plusDays(1);
+        Clinic clinic = getClinicById(clinicId);
+        assert clinic != null;
+        //get clinic's appointment
+        List<DoctorAppointment> doctorAppointments=clinic.getDoctorAppointments();
+        List<NurseAppointment> nurseAppointments=clinic.getNurseAppointments();
+        List<LaboratoryFactsAppointment> laboratoryFactsAppointments=clinic.getLaboratoryFactsAppointments();
+        List<CoronaTestAppointment> coronaTestAppointments=clinic.getCoronaTestAppointments();
+        List<VaccineAppointment> vaccineAppointments=clinic.getVaccineAppointments();
+        //Send reminder email
+        sendReminderDoctorApp(doctorAppointments,tomorrowDate,clinicId);
+        sendReminderNurseApp(nurseAppointments,tomorrowDate,clinicId);
+        sendReminderLaboratoryFactsApp(laboratoryFactsAppointments,tomorrowDate,clinicId);
+        sendReminderCoronaTestApp(coronaTestAppointments,tomorrowDate,clinicId);
+        sendReminderVaccineApp(vaccineAppointments,tomorrowDate,clinicId);
+    }
+    public static void sendReminderDoctorApp(List<DoctorAppointment>doctorAppointments,LocalDate date,int clinicId) throws Exception {
+        Clinic clinic= getClinicById(clinicId);
+        for (DoctorAppointment doctorAppointment:doctorAppointments){
+            if(doctorAppointment.getDate().toLocalDate().equals(date)){
+                String patientEmail=doctorAppointment.getPatient().getEmail();
+                //Email content..
+                String messageContent="You Have "+ doctorAppointment.getAppointmentType() +" Appointment at: \n"
+                        +"Date: "+ doctorAppointment.getDate().toLocalDate()+" Time: "+doctorAppointment.getDate().toLocalTime().withSecond(0)+"\n"
+                        +"At clinic: "+clinic.getClinicType();
+                //Email subject
+                String subject="Reminder Email";
+                //sendEmail(patientEmail, messageContent,subject);
+                sendEmail("salehsalsabeel99@gamil.com", messageContent,subject);
+            }
+        }
+    }
+    public static void sendReminderNurseApp(List<NurseAppointment>nurseAppointments,LocalDate date,int clinicId) throws Exception {
+        Clinic clinic= getClinicById(clinicId);
+        for (NurseAppointment nurseAppointment:nurseAppointments){
+            if(nurseAppointment.getDate().toLocalDate().equals(date)){
+                String patientEmail=nurseAppointment.getPatient().getEmail();
+                //Email content..
+                String messageContent="You Have "+ nurseAppointment.getAppointmentType() +" Appointment at: \n"
+                        +"Date: "+ nurseAppointment.getDate().toLocalDate()+" Time: "+nurseAppointment.getDate().toLocalTime().withSecond(0)+"\n"
+                        +"At clinic: "+clinic.getClinicType();
+                //Email subject
+                String subject="Reminder Email";
+                //sendEmail(patientEmail, messageContent,subject);
+                sendEmail("salehsalsabeel99@gamil.com", messageContent,subject);
+            }
+        }
+    }
+    public static void sendReminderLaboratoryFactsApp(List<LaboratoryFactsAppointment>laboratoryFactsAppointments,LocalDate date,int clinicId) throws Exception {
+        Clinic clinic= getClinicById(clinicId);
+        for (LaboratoryFactsAppointment laboratoryFactsAppointment:laboratoryFactsAppointments){
+            if(laboratoryFactsAppointment.getDate().toLocalDate().equals(date)){
+                String patientEmail=laboratoryFactsAppointment.getPatient().getEmail();
+                //Email content..
+                String messageContent="You Have "+ laboratoryFactsAppointment.getAppointmentType() +" Appointment at: \n"
+                        +"Date: "+ laboratoryFactsAppointment.getDate().toLocalDate()+" Time: "+laboratoryFactsAppointment.getDate().toLocalTime().withSecond(0)+"\n"
+                        +"At clinic: "+clinic.getClinicType();
+                //Email subject
+                String subject="Reminder Email";
+                //sendEmail(patientEmail, messageContent,subject);
+                sendEmail("salehsalsabeel99@gamil.com", messageContent,subject);
+            }
+        }
+    }
+    public static void sendReminderCoronaTestApp(List<CoronaTestAppointment>coronaTestAppointments,LocalDate date,int clinicId) throws Exception {
+        Clinic clinic= getClinicById(clinicId);
+        for (CoronaTestAppointment coronaTestAppointment:coronaTestAppointments){
+            if(coronaTestAppointment.getDate().toLocalDate().equals(date)){
+                String patientEmail=coronaTestAppointment.getPatient().getEmail();
+                //Email content..
+                String messageContent="You Have "+ coronaTestAppointment.getAppointmentType() +" Appointment at: \n"
+                        +"Date: "+ coronaTestAppointment.getDate().toLocalDate()+" Time: "+coronaTestAppointment.getDate().toLocalTime().withSecond(0)+"\n"
+                        +"At clinic: "+clinic.getClinicType();
+                //Email subject
+                String subject="Reminder Email";
+                //sendEmail(patientEmail, messageContent,subject);
+                sendEmail("salehsalsabeel99@gamil.com", messageContent,subject);
+            }
+        }
+    }
+    public static void sendReminderVaccineApp(List<VaccineAppointment>vaccineAppointments,LocalDate date,int clinicId) throws Exception {
+        Clinic clinic= getClinicById(clinicId);
+        for (VaccineAppointment vaccineAppointment:vaccineAppointments){
+            if(vaccineAppointment.getDate().toLocalDate().equals(date)){
+                String patientEmail=vaccineAppointment.getPatient().getEmail();
+                //Email content..
+                String messageContent="You Have "+ vaccineAppointment.getAppointmentType() +" Appointment at: \n"
+                        +"Date: "+ vaccineAppointment.getDate().toLocalDate()+" Time: "+vaccineAppointment.getDate().toLocalTime().withSecond(0)+"\n"
+                        +"At clinic: "+clinic.getClinicType();
+                //Email subject
+                String subject="Reminder Email";
+                //sendEmail(patientEmail, messageContent,subject);
+                sendEmail("salehsalsabeel99@gamil.com", messageContent,subject);
+            }
         }
     }
     public static ScheduledApp getScheduledAppointment(String type,int patientId) throws Exception{
@@ -402,26 +500,26 @@ public class AppointmentData extends DataClass{
 //        if (session != null)
 //            session.close();
 //    }
-    public static UpdateObject getObjectByIdByType(int id, String type) throws Exception{
-        switch (type) {
-            case ("Patient"):
-                return getUpdtePatientByID(id);
-            case ("Nurse"):
-                return new UpdateObject();
-
-        }
-        return new UpdateObject();
-    }
-    private static UpdateObject getUpdtePatientByID(int Id) throws Exception {
-        UpdateObject updateObject=new UpdateObject();
-        List<Patient> patients=getAllPatients();
-        for (Patient patient:patients){
-            if(patient.getId()==Id)
-                updateObject.setObject(patient);
-
-        }
-        return updateObject;
-    }
+//    public static UpdateObject getObjectByIdByType(int id, String type) throws Exception{
+//        switch (type) {
+//            case ("Patient"):
+//                return getUpdtePatientByID(id);
+//            case ("Nurse"):
+//                return new UpdateObject();
+//
+//        }
+//        return new UpdateObject();
+//    }
+//    private static UpdateObject getUpdtePatientByID(int Id) throws Exception {
+//        UpdateObject updateObject=new UpdateObject();
+//        List<Patient> patients=getAllPatients();
+//        for (Patient patient:patients){
+//            if(patient.getId()==Id)
+//                updateObject.setObject(patient);
+//
+//        }
+//        return updateObject;
+//    }
     public static ClinicName getAllClinicName(String flag) throws Exception {
         List<Clinic> clinics=getAllClinic();
         List<String> clinicsName=new LinkedList<>();

@@ -24,7 +24,12 @@ public class MainCmBoundary extends Boundary{
     }
 
     @FXML
-    void OpenSystem(ActionEvent event) {
+    void OpenSystem(ActionEvent event) throws IOException {
+        message.clear();
+        message.add("#SendReminderEmail");
+        message.add(clinicManager.getClinic().getId()); //send the clinic id
+        SimpleClient.getClient().sendToServer(message);
+        MessageBoundary.displayInfo("Sent Reminder Email");
 
     }
 
