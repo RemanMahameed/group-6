@@ -19,11 +19,12 @@ import org.hibernate.type.LocalDateTimeType;
 import javax.persistence.criteria.CriteriaBuilder;
 
 public class WorkingHoursBoundary extends Boundary{
-    ObservableList<Integer> Hours= FXCollections.observableArrayList();
-    ObservableList<Integer> Minute= FXCollections.observableArrayList();
-    WorkingHours workingHours=(WorkingHours) params.get(0);
-    LocalTime[][] activityWorking=workingHours.getActivityTime();
-
+    protected ObservableList<Integer> Hours= FXCollections.observableArrayList();
+    protected ObservableList<Integer> Minute= FXCollections.observableArrayList();
+    protected WorkingHours workingHours=(WorkingHours) params.get(0);
+    protected LocalTime[][] activityWorking=workingHours.getActivityTime();
+    protected LocalTime[][] newActivityWorkingTime=new LocalTime[2][7];
+    protected String type=workingHours.getType();
     @FXML
     private ResourceBundle resources;
 
@@ -123,8 +124,41 @@ public class WorkingHoursBoundary extends Boundary{
     }
 
     @FXML
-    void Submit(ActionEvent event) {
-
+    void Submit(ActionEvent event) throws IOException {
+        //Set start working Hours
+        newActivityWorkingTime[0][0]=LocalTime.of(StarHours1.getValue(),StartMinute1.getValue());
+        newActivityWorkingTime[0][1]=LocalTime.of(StarHours2.getValue(),StartMinute2.getValue());
+        newActivityWorkingTime[0][2]=LocalTime.of(StarHours3.getValue(),StartMinute3.getValue());
+        newActivityWorkingTime[0][3]=LocalTime.of(StarHours4.getValue(),StartMinute4.getValue());
+        newActivityWorkingTime[0][4]=LocalTime.of(StarHours5.getValue(),StartMinute5.getValue());
+        newActivityWorkingTime[0][5]=LocalTime.of(StarHours6.getValue(),StartMinute6.getValue());
+        newActivityWorkingTime[0][6]=LocalTime.of(StarHours7.getValue(),StartMinute7.getValue());
+        //Set finish working hours
+        newActivityWorkingTime[0][0]=LocalTime.of(FinishHours1.getValue(),FinishMinute1.getValue());
+        newActivityWorkingTime[1][0]=LocalTime.of(FinishHours2.getValue(),FinishMinute2.getValue());
+        newActivityWorkingTime[2][0]=LocalTime.of(FinishHours3.getValue(),FinishMinute3.getValue());
+        newActivityWorkingTime[3][0]=LocalTime.of(FinishHours4.getValue(),FinishMinute4.getValue());
+        newActivityWorkingTime[4][0]=LocalTime.of(FinishHours5.getValue(),FinishMinute5.getValue());
+        newActivityWorkingTime[5][0]=LocalTime.of(FinishHours6.getValue(),FinishMinute6.getValue());
+        newActivityWorkingTime[6][0]=LocalTime.of(FinishHours7.getValue(),FinishMinute7.getValue());
+        //what we want to change
+        message.clear();
+        message.add("#SetNewWorkingHours");
+        switch (type) {
+            case ("Clinic"):
+                message.add("Clinic");
+                break;
+            case ("Clinic's Doctor"):
+                message.add("Clinic's Doctor");
+                break;
+            case ("Corona Test"):
+                message.add("Corona Test");
+                break;
+            case ("Vaccine"):
+                message.add("Vaccine");
+                break;
+        }
+        SimpleClient.getClient().sendToServer(message);
     }
 
     @FXML

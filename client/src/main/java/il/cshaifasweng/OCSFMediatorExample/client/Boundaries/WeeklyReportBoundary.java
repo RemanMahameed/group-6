@@ -8,7 +8,7 @@ import il.cshaifasweng.OCSFMediatorExample.client.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-public class Report2Boundary extends Boundary{
+public class WeeklyReportBoundary extends Boundary{
 
     @FXML
     private ResourceBundle resources;

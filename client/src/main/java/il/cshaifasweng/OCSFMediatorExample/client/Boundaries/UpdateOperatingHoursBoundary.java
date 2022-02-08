@@ -16,11 +16,11 @@ import java.util.List;
 
 public class UpdateOperatingHoursBoundary extends MainCmBoundary {
     ObservableList<String> Choices= FXCollections.observableArrayList("Clinic","Clinic's Doctor","Corona Test","Vaccine");
-    int index= params.size()-1;
-    ClinicName clinicName= (ClinicName) params.get(index);
-    List<String> clinicsName= clinicName.getClinicsName();
-    List<Integer> clinicsId= clinicName.getClinicsId();
-    String type=clinicName.getFlag();
+//    int index= params.size()-1;
+//    ClinicName clinicName= (ClinicName) params.get(index);
+//    List<String> clinicsName= clinicName.getClinicsName();
+//    List<Integer> clinicsId= clinicName.getClinicsId();
+//    String type=clinicName.getFlag();
     @FXML
     private ChoiceBox<String> ChoiceBox;
 
@@ -29,7 +29,7 @@ public class UpdateOperatingHoursBoundary extends MainCmBoundary {
 
     @FXML
     void Back(ActionEvent event) throws IOException {
-        App.setRoot("maincm");
+        App.setRoot("MainCm");
     }
 
 
@@ -43,7 +43,6 @@ public class UpdateOperatingHoursBoundary extends MainCmBoundary {
             message.add("#getWorkingHours");
         }
         message.add("WorkingHours");
-        index=ListView.getSelectionModel().getSelectedIndex();
         message.add(clinicManager.getClinic().getClinicType()); // add the clinic name
         message.add(ChoiceBox.getValue()); //add what we want to change.
         SimpleClient.getClient().sendToServer(message);
@@ -53,9 +52,5 @@ public class UpdateOperatingHoursBoundary extends MainCmBoundary {
     void initialize() {
         ChoiceBox.setValue("Clinic");
         ChoiceBox.setItems(Choices);
-        for (int i = 0; i < clinicsName.size(); i++) {
-            ListView.getItems().add(clinicsName.get(i));
-        }
-        ListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 }

@@ -129,7 +129,7 @@ public class App extends Application {
                 }
                 else  if(event.getLogin().getSuccess()== ISCM) {     //User working as clinicManager
                     try {
-                        setRoot("maincm");
+                        setRoot("MainCm");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

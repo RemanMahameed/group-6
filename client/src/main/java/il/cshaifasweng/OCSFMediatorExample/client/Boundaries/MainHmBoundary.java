@@ -68,8 +68,12 @@ public class MainHmBoundary extends Boundary {
     void ShowReport(ActionEvent event) throws IOException {
         if(Optintion1.isSelected() || Optintion2.isSelected()){
             params.add("HmoManager");
-            App.setRoot("Report2");
+            App.setRoot("WeeklyReport");
         }
+        else
+            App.setRoot("DailyReport");
+
+
         // (report type,clinic id,Manager type )
     }
 

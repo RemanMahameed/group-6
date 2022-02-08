@@ -59,8 +59,9 @@ public class ReportsMainBoundary extends MainCmBoundary {
     void ShowReport(ActionEvent event) throws IOException {
         if(Optintion1.isSelected() || Optintion2.isSelected()){
             params.add("ClinicManager");
-            App.setRoot("Report2");
-        }
+            App.setRoot("WeeklyReport");
+        }else
+            App.setRoot("DailyReport");
         // (report type,clinic id,Manager type )
     }
 
