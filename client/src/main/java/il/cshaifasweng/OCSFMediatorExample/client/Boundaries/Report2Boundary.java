@@ -18,7 +18,10 @@ public class Report2Boundary extends Boundary{
 
     @FXML
     void Back(ActionEvent event) throws IOException {
-        App.setRoot("MainHm");
+        if(params.get((params.size()-1)).equals("HmoManager"))
+            App.setRoot("MainHm");
+        else
+            App.setRoot("ReportsMain");
     }
 
 

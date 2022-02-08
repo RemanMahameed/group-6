@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Table.ClinicManager;
 import javafx.event.ActionEvent;
@@ -43,8 +44,8 @@ public class MainCmBoundary extends Boundary{
     }
 
     @FXML
-    void ViewReports(ActionEvent event) {
-
+    void ViewReports(ActionEvent event) throws IOException {
+        App.setRoot("ReportsMain");
     }
 
     @FXML

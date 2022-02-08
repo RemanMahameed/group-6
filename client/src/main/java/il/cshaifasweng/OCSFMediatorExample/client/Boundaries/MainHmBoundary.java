@@ -66,9 +66,11 @@ public class MainHmBoundary extends Boundary {
 
     @FXML
     void ShowReport(ActionEvent event) throws IOException {
-        if(Optintion1.isSelected() || Optintion2.isSelected())
+        if(Optintion1.isSelected() || Optintion2.isSelected()){
+            params.add("HmoManager");
             App.setRoot("Report2");
-
+        }
+        // (report type,clinic id,Manager type )
     }
 
 
