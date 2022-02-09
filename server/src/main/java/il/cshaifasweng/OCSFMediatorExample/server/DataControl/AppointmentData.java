@@ -84,13 +84,13 @@ public class AppointmentData extends DataClass{
         String newDoctorAppointment2;
         int flagIsAvailable=0;
         while (date.isBefore(after4weeks)) {
-            if (DoctorReceptionTime[0][0].isBefore(date.toLocalTime()) && DoctorReceptionTime[1][0].isAfter(date.toLocalTime()) ||
-                    DoctorReceptionTime[0][1].isBefore(date.toLocalTime()) && DoctorReceptionTime[1][1].isAfter(date.toLocalTime()) ||
-                    DoctorReceptionTime[0][2].isBefore(date.toLocalTime()) && DoctorReceptionTime[1][2].isAfter(date.toLocalTime()) ||
-                    DoctorReceptionTime[0][3].isBefore(date.toLocalTime()) && DoctorReceptionTime[1][3].isAfter(date.toLocalTime()) ||
-                    DoctorReceptionTime[0][4].isBefore(date.toLocalTime()) && DoctorReceptionTime[1][4].isAfter(date.toLocalTime()) ||
-                    DoctorReceptionTime[0][5].isBefore(date.toLocalTime()) && DoctorReceptionTime[1][5].isAfter(date.toLocalTime()) ||
-                    DoctorReceptionTime[0][6].isBefore(date.toLocalTime()) && DoctorReceptionTime[1][6].isAfter(date.toLocalTime())
+            if (date.getDayOfWeek().toString().equalsIgnoreCase("Sunday") && DoctorReceptionTime[0][0].isBefore(date.toLocalTime()) && DoctorReceptionTime[1][0].isAfter(date.toLocalTime()) ||
+                    date.getDayOfWeek().toString().equalsIgnoreCase("Monday") && DoctorReceptionTime[0][1].isBefore(date.toLocalTime()) && DoctorReceptionTime[1][1].isAfter(date.toLocalTime()) ||
+                    date.getDayOfWeek().toString().equalsIgnoreCase("Tuesday") && DoctorReceptionTime[0][2].isBefore(date.toLocalTime()) && DoctorReceptionTime[1][2].isAfter(date.toLocalTime()) ||
+                    date.getDayOfWeek().toString().equalsIgnoreCase("Wednesday") && DoctorReceptionTime[0][3].isBefore(date.toLocalTime()) && DoctorReceptionTime[1][3].isAfter(date.toLocalTime()) ||
+                    date.getDayOfWeek().toString().equalsIgnoreCase("Thursday") && DoctorReceptionTime[0][4].isBefore(date.toLocalTime()) && DoctorReceptionTime[1][4].isAfter(date.toLocalTime()) ||
+                    date.getDayOfWeek().toString().equalsIgnoreCase("Friday") && DoctorReceptionTime[0][5].isBefore(date.toLocalTime()) && DoctorReceptionTime[1][5].isAfter(date.toLocalTime()) ||
+                    date.getDayOfWeek().toString().equalsIgnoreCase("Saturday") && DoctorReceptionTime[0][6].isBefore(date.toLocalTime()) && DoctorReceptionTime[1][6].isAfter(date.toLocalTime())
             ) {
                 for (DoctorAppointment doctorAppointment : doctorAppointments) {
                     if (((doctorAppointment.getDate().getYear() == date.getYear()) &&
@@ -559,13 +559,13 @@ public class AppointmentData extends DataClass{
         String newCoronaApp;
         int flagIsAvailable=0;
         while (date.isBefore(after1weeks)) {
-            if (ActiveTime[0][0].isBefore(date.toLocalTime()) && ActiveTime[1][0].isAfter(date.toLocalTime()) ||
-                    ActiveTime[0][1].isBefore(date.toLocalTime()) && ActiveTime[1][1].isAfter(date.toLocalTime()) ||
-                    ActiveTime[0][2].isBefore(date.toLocalTime()) && ActiveTime[1][2].isAfter(date.toLocalTime()) ||
-                    ActiveTime[0][3].isBefore(date.toLocalTime()) && ActiveTime[1][3].isAfter(date.toLocalTime()) ||
-                    ActiveTime[0][4].isBefore(date.toLocalTime()) && ActiveTime[1][4].isAfter(date.toLocalTime()) ||
-                    ActiveTime[0][5].isBefore(date.toLocalTime()) && ActiveTime[1][5].isAfter(date.toLocalTime()) ||
-                    ActiveTime[0][6].isBefore(date.toLocalTime()) && ActiveTime[1][6].isAfter(date.toLocalTime())
+            if (date.getDayOfWeek().toString().equalsIgnoreCase("Sunday") && ActiveTime[0][0].isBefore(date.toLocalTime()) && ActiveTime[1][0].isAfter(date.toLocalTime()) ||
+                    date.getDayOfWeek().toString().equalsIgnoreCase("Monday")   &&ActiveTime[0][1].isBefore(date.toLocalTime()) && ActiveTime[1][1].isAfter(date.toLocalTime()) ||
+                    date.getDayOfWeek().toString().equalsIgnoreCase("Tuesday")  &&ActiveTime[0][2].isBefore(date.toLocalTime()) && ActiveTime[1][2].isAfter(date.toLocalTime()) ||
+                    date.getDayOfWeek().toString().equalsIgnoreCase("Wednesday")&&ActiveTime[0][3].isBefore(date.toLocalTime()) && ActiveTime[1][3].isAfter(date.toLocalTime()) ||
+                    date.getDayOfWeek().toString().equalsIgnoreCase("Thursday") &&ActiveTime[0][4].isBefore(date.toLocalTime()) && ActiveTime[1][4].isAfter(date.toLocalTime()) ||
+                    date.getDayOfWeek().toString().equalsIgnoreCase("Friday")   &&ActiveTime[0][5].isBefore(date.toLocalTime()) && ActiveTime[1][5].isAfter(date.toLocalTime()) ||
+                    date.getDayOfWeek().toString().equalsIgnoreCase("Saturday") &&ActiveTime[0][6].isBefore(date.toLocalTime()) && ActiveTime[1][6].isAfter(date.toLocalTime())
             ) {
                 for (CoronaTestAppointment coronaTestAppointment1 : coronaTestAppointments) {
                     if (((coronaTestAppointment1.getDate().getYear() == date.getYear()) &&
@@ -613,13 +613,13 @@ public class AppointmentData extends DataClass{
         String newVaccineString;
         int flagIsAvailable=0;
         while (date.isBefore(after1weeks)) {
-            if (ActiveTime[0][0].isBefore(date.toLocalTime()) && ActiveTime[1][0].isAfter(date.toLocalTime()) ||
-                    ActiveTime[0][1].isBefore(date.toLocalTime()) && ActiveTime[1][1].isAfter(date.toLocalTime()) ||
-                    ActiveTime[0][2].isBefore(date.toLocalTime()) && ActiveTime[1][2].isAfter(date.toLocalTime()) ||
-                    ActiveTime[0][3].isBefore(date.toLocalTime()) && ActiveTime[1][3].isAfter(date.toLocalTime()) ||
-                    ActiveTime[0][4].isBefore(date.toLocalTime()) && ActiveTime[1][4].isAfter(date.toLocalTime()) ||
-                    ActiveTime[0][5].isBefore(date.toLocalTime()) && ActiveTime[1][5].isAfter(date.toLocalTime()) ||
-                    ActiveTime[0][6].isBefore(date.toLocalTime()) && ActiveTime[1][6].isAfter(date.toLocalTime())
+            if (date.getDayOfWeek().toString().equalsIgnoreCase("Sunday") && ActiveTime[0][0].isBefore(date.toLocalTime()) && ActiveTime[1][0].isAfter(date.toLocalTime()) ||
+                    date.getDayOfWeek().toString().equalsIgnoreCase("Monday")   && ActiveTime[0][1].isBefore(date.toLocalTime()) && ActiveTime[1][1].isAfter(date.toLocalTime()) ||
+                    date.getDayOfWeek().toString().equalsIgnoreCase("Tuesday")  && ActiveTime[0][2].isBefore(date.toLocalTime()) && ActiveTime[1][2].isAfter(date.toLocalTime()) ||
+                    date.getDayOfWeek().toString().equalsIgnoreCase("Wednesday")&& ActiveTime[0][3].isBefore(date.toLocalTime()) && ActiveTime[1][3].isAfter(date.toLocalTime()) ||
+                    date.getDayOfWeek().toString().equalsIgnoreCase("Thursday") && ActiveTime[0][4].isBefore(date.toLocalTime()) && ActiveTime[1][4].isAfter(date.toLocalTime()) ||
+                    date.getDayOfWeek().toString().equalsIgnoreCase("Friday")   && ActiveTime[0][5].isBefore(date.toLocalTime()) && ActiveTime[1][5].isAfter(date.toLocalTime()) ||
+                    date.getDayOfWeek().toString().equalsIgnoreCase("Saturday") && ActiveTime[0][6].isBefore(date.toLocalTime()) && ActiveTime[1][6].isAfter(date.toLocalTime())
             ) {
                 for (VaccineAppointment vaccineAppointment1 : vaccineAppointmentList) {
                     if (((vaccineAppointment1.getDate().getYear() == date.getYear()) &&

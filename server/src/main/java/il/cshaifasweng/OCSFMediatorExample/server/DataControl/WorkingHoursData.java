@@ -104,15 +104,17 @@ public class WorkingHoursData extends DataClass {
                 break;
             case ("Clinic's Doctor"):
                 // get the rightWorking hours()
+                int temp=0;
                 for (ReceptionTime receptionTime1:receptionTime) {
                     if (receptionTime1.getClinicName().equals(clinicName)){
                         oldWorkingHours=receptionTime1.getActiveTime();
                         receptionTime1.setActiveTime(newWorkingHours);
+                        doctor.getReceptionTime().set(temp,receptionTime1);
+                        SetWorkingHours(clinicName, newWorkingHours,oldWorkingHours,type,doctorId);
                         session.saveOrUpdate(doctor);
                     }
-
+                    temp++;
                 }
-                SetWorkingHours(clinicName, newWorkingHours,oldWorkingHours,type,doctorId);
                 break;
             case ("Corona Test"):
                 oldWorkingHours=clinic.getCoronaTestTime();
@@ -189,7 +191,7 @@ public class WorkingHoursData extends DataClass {
             List<DoctorAppointment> doctorAppointments=doctor.getAppointments();
             List<DoctorAppointment> doctorAppointmentsList=new LinkedList<>();
             for (DoctorAppointment doctorAppointment:doctorAppointments) {
-                if (doctorAppointment.getClinic().equals(clinicName)){
+                if (doctorAppointment.getClinic().getClinicType().equals(clinicName)){
                     doctorAppointmentsList.add(doctorAppointment);
                 }
             }
