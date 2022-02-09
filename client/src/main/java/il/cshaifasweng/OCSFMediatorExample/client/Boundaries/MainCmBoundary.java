@@ -33,6 +33,50 @@ public class MainCmBoundary extends Boundary{
         MessageBoundary.displayInfo("Sent Reminder Email");
 
     }
+    @FXML
+    void UpdateClinicWorkingHours(ActionEvent event) throws IOException {
+        message.clear();
+        message.add("#getWorkingHours");
+        message.add("WorkingHours");
+        message.add(clinicManager.getClinic().getClinicType()); // add the clinic name
+        message.add("Clinic"); //add what we want to change.
+        SimpleClient.getClient().sendToServer(message);
+        MessageBoundary.displayInfo("You working at:\n"+clinicManager.getClinic().getClinicType());
+    }
+
+    @FXML
+    void UpdateCoronaTestWorkingHours(ActionEvent event) throws IOException {
+        message.clear();
+        message.add("#getWorkingHours");
+        message.add("WorkingHours");
+        message.add(clinicManager.getClinic().getClinicType()); // add the clinic name
+        message.add("Corona Test"); //add what we want to change.
+        SimpleClient.getClient().sendToServer(message);
+        MessageBoundary.displayInfo("You working at:\n"+clinicManager.getClinic().getClinicType());
+    }
+
+    @FXML
+    void UpdateDoctorWorkingHours(ActionEvent event) throws IOException {
+        message.clear();
+        message.add("#geClinicDoctor");
+        message.add("WorkingHours");
+        message.add(clinicManager.getClinic().getClinicType()); // add the clinic name
+        message.add("Clinic's Doctor"); //add what we want to change.
+        SimpleClient.getClient().sendToServer(message);
+        MessageBoundary.displayInfo("You working at:\n"+clinicManager.getClinic().getClinicType());
+    }
+
+    @FXML
+    void UpdateVaccineWorkingHours(ActionEvent event) throws IOException {
+        message.clear();
+        message.add("#getWorkingHours");
+        message.add("WorkingHours");
+        message.add(clinicManager.getClinic().getClinicType()); // add the clinic name
+        message.add("Vaccine"); //add what we want to change.
+        SimpleClient.getClient().sendToServer(message);
+        MessageBoundary.displayInfo("You working at:\n"+clinicManager.getClinic().getClinicType());
+    }
+
 
     @FXML
     void UpdateOperatingHours(ActionEvent event) throws IOException {

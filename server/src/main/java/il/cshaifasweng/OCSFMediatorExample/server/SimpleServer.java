@@ -10,8 +10,10 @@ import il.cshaifasweng.OCSFMediatorExample.server.DataControl.LoginData;
 import il.cshaifasweng.OCSFMediatorExample.server.DataControl.WorkingHoursData;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.AbstractServer;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
+import org.hibernate.engine.internal.ImmutableEntityEntry;
 
 import java.io.IOException;
+import java.time.LocalTime;
 import java.util.LinkedList;
 
 public class SimpleServer extends AbstractServer {
@@ -248,8 +250,7 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 
-		}
-		else if (message.get(0).equals("#SendReminderEmail")) {
+		} else if (message.get(0).equals("#SendReminderEmail")) {
 			int clinicId=(int) message.get(1);
 			try {
 				AppointmentData.sendReminderEmail(clinicId);
@@ -258,6 +259,17 @@ public class SimpleServer extends AbstractServer {
 			}
 			System.out.format("Sent Reminder Email to patient %s\n", client.getInetAddress().getHostAddress());
 
+		}else if (message.get(0).equals("#SetNewWorkingHours")) {
+			String type=(String) message.get(1);
+			String clinicName=(String) message.get(2);
+			LocalTime[][] newWorkingHours=(LocalTime[][])message.get(3);
+			int doctorId=(int) message.get(4);
+			try {
+				WorkingHoursData.SetNewWorkingHours(clinicName,type,newWorkingHours,doctorId);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			System.out.format("Set new Working Hours %s\n", client.getInetAddress().getHostAddress());
 
 		}
 	}

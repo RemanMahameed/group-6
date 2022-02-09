@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.SplittableRandom;
 
+import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.DoctorNames;
 import javafx.event.ActionEvent;
@@ -28,10 +29,7 @@ public class DoctorWorkingHoursBoundary extends Boundary{
 
     @FXML
     void Back(ActionEvent event) throws IOException {
-        message.clear();
-        message.add("#GetAllClinicName");
-        message.add("UpdateOperatingHours"); // add the flag (Why we need Clinic name)
-        SimpleClient.getClient().sendToServer(message);
+        App.setRoot("MainCm");
     }
 
 

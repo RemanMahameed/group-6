@@ -116,13 +116,13 @@ public class App extends Application {
                 SimpleClient.setUser_Ob(params);
                 if(event.getLogin().getSuccess()== ISPATIENT ) {            //Is a patient
                     try {
-                        setRoot("patientmain");
+                        setRoot("PatientMain");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }else  if(event.getLogin().getSuccess()== ISDOCTOR) {     //Is a doctor
                     try {
-                        setRoot("doctormain");
+                        setRoot("DoctorMain");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -134,7 +134,7 @@ public class App extends Application {
                         e.printStackTrace();
                     }
                 }
-                else  if(event.getLogin().getSuccess()== ISHM) {     //User working as clinicManager
+                else  if(event.getLogin().getSuccess()== ISHM) {     //User working HmoManager
                     try {
                         setRoot("MainHm");
                     } catch (IOException e) {

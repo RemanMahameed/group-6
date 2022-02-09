@@ -19,22 +19,22 @@
             <Font name="Script MT Bold" size="36.0" />
          </font>
       </Label>
-      <Button layoutX="170.0" layoutY="121.0" mnemonicParsing="false" onAction="#OpenSystem" prefHeight="30.0" prefWidth="285.0" text="Open System" textFill="#253f84">
+      <Button layoutX="170.0" layoutY="115.0" mnemonicParsing="false" onAction="#OpenSystem" prefHeight="30.0" prefWidth="285.0" text="Open System" textFill="#253f84">
          <font>
             <Font name="Rockwell" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="170.0" layoutY="258.0" mnemonicParsing="false" onAction="#UpdateOperatingHours" prefHeight="30.0" prefWidth="285.0" text="Update operating hours" textFill="#253f84">
+      <Button layoutX="170.0" layoutY="242.0" mnemonicParsing="false" onAction="#UpdateClinicWorkingHours" prefHeight="30.0" prefWidth="285.0" text="Update clinic working hours" textFill="#253f84">
          <font>
             <Font name="Rockwell" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="170.0" layoutY="186.0" mnemonicParsing="false" onAction="#CloseSystem" prefHeight="30.0" prefWidth="285.0" text="Close System" textFill="#253f84">
+      <Button layoutX="170.0" layoutY="159.0" mnemonicParsing="false" onAction="#CloseSystem" prefHeight="30.0" prefWidth="285.0" text="Close System" textFill="#253f84">
          <font>
             <Font name="Rockwell" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="170.0" layoutY="324.0" mnemonicParsing="false" onAction="#ViewReports" prefHeight="30.0" prefWidth="285.0" text="View reports" textFill="#253f84">
+      <Button layoutX="170.0" layoutY="199.0" mnemonicParsing="false" onAction="#ViewReports" prefHeight="30.0" prefWidth="285.0" text="View reports" textFill="#253f84">
          <font>
             <Font name="Rockwell" size="14.0" />
          </font>
@@ -42,6 +42,21 @@
       <Button layoutX="515.0" layoutY="432.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="6.0" prefWidth="99.0" text="LogOut" textFill="#253f84">
          <font>
             <Font name="Script MT Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="170.0" layoutY="290.0" mnemonicParsing="false" onAction="#UpdateDoctorWorkingHours" prefHeight="30.0" prefWidth="285.0" text="Update clinic's doctor working hours" textFill="#253f84">
+         <font>
+            <Font name="Rockwell" size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="170.0" layoutY="335.0" mnemonicParsing="false" onAction="#UpdateCoronaTestWorkingHours" prefHeight="30.0" prefWidth="285.0" text="Update corona test working hours" textFill="#253f84">
+         <font>
+            <Font name="Rockwell" size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="170.0" layoutY="384.0" mnemonicParsing="false" onAction="#UpdateVaccineWorkingHours" prefHeight="30.0" prefWidth="285.0" text="Update vaccine working hours" textFill="#253f84">
+         <font>
+            <Font name="Rockwell" size="14.0" />
          </font>
       </Button>
    </children>

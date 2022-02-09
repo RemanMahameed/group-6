@@ -45,8 +45,8 @@ public class AppointmentDoctorBoundary extends PatientMainBoundary{
             message.add(doctorApp.getDoctor()); //add the selected doctor
             message.add(doctorApp.getDoctorAppointments().get(index)); // add the selected appointment
             SimpleClient.getClient().sendToServer(message);
-            MessageBoundary.displayInfo("The canceled appointment is:\n"+ListView.getSelectionModel().getSelectedItems());
-            App.setRoot("patientmain");
+            MessageBoundary.displayInfo("The Selected appointment is:\n"+ListView.getSelectionModel().getSelectedItems());
+            App.setRoot("PatientMain");
         }
 
         //---------------------------------------

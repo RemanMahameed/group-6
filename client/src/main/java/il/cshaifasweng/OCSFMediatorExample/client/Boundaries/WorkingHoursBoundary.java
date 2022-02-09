@@ -23,6 +23,7 @@ public class WorkingHoursBoundary extends Boundary{
     protected ObservableList<Integer> Minute= FXCollections.observableArrayList();
     protected WorkingHours workingHours=(WorkingHours) params.get(0);
     protected LocalTime[][] activityWorking=workingHours.getActivityTime();
+    protected LocalTime[][] clinicActivityWorking=workingHours.getClinicActivityTime();
     protected LocalTime[][] newActivityWorkingTime=new LocalTime[2][7];
     protected String type=workingHours.getType();
     @FXML
@@ -117,10 +118,7 @@ public class WorkingHoursBoundary extends Boundary{
 
     @FXML
     void Back(ActionEvent event) throws IOException {
-        message.clear();
-        message.add("#GetAllClinicName");
-        message.add("UpdateOperatingHours"); // add the flag (Why we need Clinic name)
-        SimpleClient.getClient().sendToServer(message);
+         App.setRoot("MainCm");
     }
 
     @FXML
@@ -134,13 +132,13 @@ public class WorkingHoursBoundary extends Boundary{
         newActivityWorkingTime[0][5]=LocalTime.of(StarHours6.getValue(),StartMinute6.getValue());
         newActivityWorkingTime[0][6]=LocalTime.of(StarHours7.getValue(),StartMinute7.getValue());
         //Set finish working hours
-        newActivityWorkingTime[0][0]=LocalTime.of(FinishHours1.getValue(),FinishMinute1.getValue());
-        newActivityWorkingTime[1][0]=LocalTime.of(FinishHours2.getValue(),FinishMinute2.getValue());
-        newActivityWorkingTime[2][0]=LocalTime.of(FinishHours3.getValue(),FinishMinute3.getValue());
-        newActivityWorkingTime[3][0]=LocalTime.of(FinishHours4.getValue(),FinishMinute4.getValue());
-        newActivityWorkingTime[4][0]=LocalTime.of(FinishHours5.getValue(),FinishMinute5.getValue());
-        newActivityWorkingTime[5][0]=LocalTime.of(FinishHours6.getValue(),FinishMinute6.getValue());
-        newActivityWorkingTime[6][0]=LocalTime.of(FinishHours7.getValue(),FinishMinute7.getValue());
+        newActivityWorkingTime[1][0]=LocalTime.of(FinishHours1.getValue(),FinishMinute1.getValue());
+        newActivityWorkingTime[1][1]=LocalTime.of(FinishHours2.getValue(),FinishMinute2.getValue());
+        newActivityWorkingTime[1][2]=LocalTime.of(FinishHours3.getValue(),FinishMinute3.getValue());
+        newActivityWorkingTime[1][3]=LocalTime.of(FinishHours4.getValue(),FinishMinute4.getValue());
+        newActivityWorkingTime[1][4]=LocalTime.of(FinishHours5.getValue(),FinishMinute5.getValue());
+        newActivityWorkingTime[1][5]=LocalTime.of(FinishHours6.getValue(),FinishMinute6.getValue());
+        newActivityWorkingTime[1][6]=LocalTime.of(FinishHours7.getValue(),FinishMinute7.getValue());
         //what we want to change
         message.clear();
         message.add("#SetNewWorkingHours");
@@ -158,7 +156,18 @@ public class WorkingHoursBoundary extends Boundary{
                 message.add("Vaccine");
                 break;
         }
-        SimpleClient.getClient().sendToServer(message);
+
+        if(CheckCorrectness(clinicActivityWorking,newActivityWorkingTime)){
+            message.add(workingHours.getClinicName());
+            message.add(newActivityWorkingTime);
+            message.add(workingHours.getDoctorId());
+            SimpleClient.getClient().sendToServer(message);
+            MessageBoundary.displayInfo("Change successfully");
+            App.setRoot("MainCm");
+        }else{
+            MessageBoundary.displayInfo("The new working hours wrong!!");
+        }
+        //message (#SetNewWorkingHours,type,clinic name,doctorId)
     }
 
     @FXML
@@ -230,5 +239,17 @@ public class WorkingHoursBoundary extends Boundary{
         FinishMinute6.setItems(Minute);
         FinishMinute7.setItems(Minute);
     }
-
+    //check is service time is in clinic time
+    public boolean CheckCorrectness(LocalTime[][] clinicActivityTime,LocalTime[][] serviceActivityTime){
+        if(  (clinicActivityTime[0][0].minusSeconds(1).isBefore(serviceActivityTime[0][0]) && clinicActivityTime[1][0].plusSeconds(1).isAfter(serviceActivityTime[1][0]))
+              &&(clinicActivityTime[0][1].minusSeconds(1).isBefore(serviceActivityTime[0][1]) && clinicActivityTime[1][1].plusSeconds(1).isAfter(serviceActivityTime[1][1]))
+              &&(clinicActivityTime[0][2].minusSeconds(1).isBefore(serviceActivityTime[0][2]) && clinicActivityTime[1][2].plusSeconds(1).isAfter(serviceActivityTime[1][2]))
+              &&(clinicActivityTime[0][3].minusSeconds(1).isBefore(serviceActivityTime[0][3]) && clinicActivityTime[1][3].plusSeconds(1).isAfter(serviceActivityTime[1][3]))
+              &&(clinicActivityTime[0][4].minusSeconds(1).isBefore(serviceActivityTime[0][4]) && clinicActivityTime[1][4].plusSeconds(1).isAfter(serviceActivityTime[1][4]))
+              &&(clinicActivityTime[0][5].minusSeconds(1).isBefore(serviceActivityTime[0][5]) && clinicActivityTime[1][5].plusSeconds(1).isAfter(serviceActivityTime[1][5]))
+              &&(clinicActivityTime[0][6].minusSeconds(1).isBefore(serviceActivityTime[0][6]) && clinicActivityTime[1][6].plusSeconds(1).isAfter(serviceActivityTime[1][6]))
+        )
+              return true;
+        return false;
+    }
 }

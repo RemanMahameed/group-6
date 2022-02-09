@@ -31,7 +31,7 @@ public class ViewScheduleAppBoundary extends PatientMainBoundary {
 
     @FXML
     void Back(ActionEvent event) throws IOException {
-        App.setRoot("scheduledappmain");
+        App.setRoot("ScheduledAppMain");
     }
 
     @FXML
@@ -61,15 +61,8 @@ public class ViewScheduleAppBoundary extends PatientMainBoundary {
                 }
                 message.add(scheduledApp.getTypeFlag());
                 SimpleClient.getClient().sendToServer(message);
-                //---------------------
-//                String AppCon="The  Appointment you chose is Canceled\n"+"( "+scheduledApp.getAppString()+" )";
-//                System.out.println("AppCon is: "+AppCon);
-//                params.add(AppCon);
-//                params.add("Canceld Appointment");
-//                App.setRoot("Information");
-                //-----------------------
                 MessageBoundary.displayInfo("The canceled appointment is:\n"+ViewList.getSelectionModel().getSelectedItems());
-                App.setRoot("scheduledappmain");
+                App.setRoot("ScheduledAppMain");
             }else {
                 MessageBoundary.displayWarning("There is not Scheduled Appointment!");
             }
