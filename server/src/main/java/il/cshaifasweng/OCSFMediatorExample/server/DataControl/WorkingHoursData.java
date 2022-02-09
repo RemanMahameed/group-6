@@ -100,7 +100,7 @@ public class WorkingHoursData extends DataClass {
         LocalTime[][] oldWorkingHours=new LocalTime[2][7];
         switch (type) {
             case ("Clinic"):
-                //SetClinicWorkingHours(clinicName, newWorkingHours);
+                SetClinicWorkingHours(clinic,newWorkingHours);
                 break;
             case ("Clinic's Doctor"):
                 // get the rightWorking hours()
@@ -110,7 +110,7 @@ public class WorkingHoursData extends DataClass {
                         oldWorkingHours=receptionTime1.getActiveTime();
                         receptionTime1.setActiveTime(newWorkingHours);
                         doctor.getReceptionTime().set(temp,receptionTime1);
-                        SetWorkingHours(clinicName, newWorkingHours,oldWorkingHours,type,doctorId);
+                        SetWorkingHours(clinic, newWorkingHours,oldWorkingHours,type,doctorId);
                         session.saveOrUpdate(doctor);
                     }
                     temp++;
@@ -118,18 +118,18 @@ public class WorkingHoursData extends DataClass {
                 break;
             case ("Corona Test"):
                 oldWorkingHours=clinic.getCoronaTestTime();
-                SetWorkingHours(clinicName, newWorkingHours,oldWorkingHours,type,doctorId);
+                SetWorkingHours(clinic, newWorkingHours,oldWorkingHours,type,doctorId);
                 break;
             case ("Vaccine"):
                 oldWorkingHours=clinic.getVaccineTime();
-                SetWorkingHours(clinicName, newWorkingHours,oldWorkingHours,type,doctorId);
+                SetWorkingHours(clinic, newWorkingHours,oldWorkingHours,type,doctorId);
                 break;
         }
         session.getTransaction().commit(); // Save everything.
         session.close();
     }
-    public static void SetWorkingHours(String clinicName, LocalTime[][] newWorkingHours,LocalTime[][] oldWorkingHours,String type,int doctorId) throws Exception {
-        Clinic clinic=getClinicByName(clinicName);
+    public static void SetWorkingHours(Clinic clinic, LocalTime[][] newWorkingHours,LocalTime[][] oldWorkingHours,String type,int doctorId) throws Exception {
+
         //newStart
         LocalTime newSundayStart= newWorkingHours[0][0];
         LocalTime newMondayStart= newWorkingHours[0][1];
@@ -173,7 +173,7 @@ public class WorkingHoursData extends DataClass {
             checkCoronaTestAppointment(coronaTestAppointments,"Friday",oldFridayStart,newFridayStart,oldFridayFinish,newFridayFinish);
             checkCoronaTestAppointment(coronaTestAppointments,"Saturday",oldSaturdayStart,newSaturdayStart,oldSaturdayFinish,newSaturdayFinish);
             clinic.setCoronaTestTime(newWorkingHours);
-            session.saveOrUpdate(clinic);
+            //session.saveOrUpdate(clinic);
         }else if(type.equals("Vaccine")){
             List<VaccineAppointment> vaccineAppointments=clinic.getVaccineAppointments();
             checkVaccineAppointment(vaccineAppointments,"Sunday",oldSundayStart,newSundayStart,oldSundayFinish,newSundayFinish);
@@ -184,14 +184,14 @@ public class WorkingHoursData extends DataClass {
             checkVaccineAppointment(vaccineAppointments,"Friday",oldFridayStart,newFridayStart,oldFridayFinish,newFridayFinish);
             checkVaccineAppointment(vaccineAppointments,"Saturday",oldSaturdayStart,newSaturdayStart,oldSaturdayFinish,newSaturdayFinish);
             clinic.setVaccineTime(newWorkingHours);
-            session.saveOrUpdate(clinic);
+            //session.saveOrUpdate(clinic);
         }else if(type.equals("Clinic's Doctor")){
             int temp=0;
             Doctor doctor =getDoctorById(doctorId);
             List<DoctorAppointment> doctorAppointments=doctor.getAppointments();
             List<DoctorAppointment> doctorAppointmentsList=new LinkedList<>();
             for (DoctorAppointment doctorAppointment:doctorAppointments) {
-                if (doctorAppointment.getClinic().getClinicType().equals(clinicName)){
+                if (doctorAppointment.getClinic().getClinicType().equals(clinic.getClinicType())){
                     doctorAppointmentsList.add(doctorAppointment);
                 }
             }
@@ -203,6 +203,7 @@ public class WorkingHoursData extends DataClass {
             checkDoctorAppointment(doctorAppointmentsList,"Friday",oldFridayStart,newFridayStart,oldFridayFinish,newFridayFinish);
             checkDoctorAppointment(doctorAppointmentsList,"Saturday",oldSaturdayStart,newSaturdayStart,oldSaturdayFinish,newSaturdayFinish);;
         }
+        session.saveOrUpdate(clinic);
     }
     public static void checkCoronaTestAppointment(List<CoronaTestAppointment> coronaTestAppointments,String day,LocalTime oldStart, LocalTime newStart,LocalTime oldFinish,LocalTime newFinish) {
         if ((oldStart.isBefore(newStart)) || oldFinish.isAfter(newFinish)) {
@@ -258,6 +259,133 @@ public class WorkingHoursData extends DataClass {
                 }
             }
         }
+    }
+    public static void SetClinicWorkingHours(Clinic clinic,LocalTime[][] newClinicWorking) throws Exception {
+        List<Doctor> doctors=clinic.getDoctors();
+        LocalTime[][] coronaTestActivity=clinic.getCoronaTestTime();
+        LocalTime[][] vaccineActivity=clinic.getVaccineTime();
+        LocalTime[][] doctorActivity=new LocalTime[2][7];
+        LocalTime[][] newServicesWorkingHours=new LocalTime[2][7];
+        List<Boolean>flag=new LinkedList<>();
+        flag.add(true);
+        clinic.setActivityTime(newClinicWorking);
+        newServicesWorkingHours=setMatrix(clinic.getCoronaTestTime());
+        if(!CheckServicesTime(newClinicWorking,coronaTestActivity,newServicesWorkingHours)){
+            SetWorkingHours(clinic,newServicesWorkingHours,coronaTestActivity,"Corona Test",0);
+        }
+        newServicesWorkingHours=setMatrix(clinic.getVaccineTime());
+        if(!CheckServicesTime(newClinicWorking,vaccineActivity,newServicesWorkingHours)){
+            SetWorkingHours(clinic,newServicesWorkingHours,vaccineActivity,"Vaccine",0);
+        }
+        for (Doctor doctor:doctors){
+            List<ReceptionTime> receptionTimes=doctor.getReceptionTime();
+            ReceptionTime receptionTime=new ReceptionTime();
+            int temp=0;
+            // get the right ReceptionTime time
+            for (ReceptionTime receptionTime1:receptionTimes) {
+                if (receptionTime1.getClinicName().equals(clinic.getClinicType())) {
+                    doctorActivity = receptionTime1.getActiveTime();
+                    newServicesWorkingHours=setMatrix(receptionTime1.getActiveTime());
+                }
+                temp++;
+            }
+            if(!CheckServicesTime(newClinicWorking,doctorActivity,newServicesWorkingHours)){
+                SetWorkingHours(clinic,newServicesWorkingHours,doctorActivity,"Clinic's Doctor",doctor.getId());
+                receptionTime.setActiveTime(newServicesWorkingHours);
+                doctor.getReceptionTime().set(temp-1,receptionTime);
+                session.saveOrUpdate(doctor);
+            }
+
+        }
+        session.saveOrUpdate(clinic);
+
+    }
+    //this function Checking if services working time is in clinic hours working time
+    //if services working hours  not good change (to be like clinicWorkingHours )
+    // if we change services working hours return false else return true
+    public static boolean CheckServicesTime(LocalTime[][] clinicWorkingHours,LocalTime[][] servicesWorkingHours,LocalTime[][] newServicesWorkingHours){
+        int flag=0;
+        //clinicStart
+        LocalTime clinicSundayStart= clinicWorkingHours[0][0];
+        LocalTime clinicMondayStart= clinicWorkingHours[0][1];
+        LocalTime clinicTuesdayStart= clinicWorkingHours[0][2];
+        LocalTime clinicWednesdayStart= clinicWorkingHours[0][3];
+        LocalTime clinicThursdayStart= clinicWorkingHours[0][4];
+        LocalTime clinicFridayStart= clinicWorkingHours[0][5];
+        LocalTime clinicSaturdayStart= clinicWorkingHours[0][6];
+        //clinicFinish
+        LocalTime clinicSundayFinish=clinicWorkingHours[1][0];
+        LocalTime clinicMondayFinish=clinicWorkingHours[1][1];
+        LocalTime clinicTuesdayFinish=clinicWorkingHours[1][2];
+        LocalTime clinicWednesdayFinish=clinicWorkingHours[1][3];
+        LocalTime clinicThursdayFinish=clinicWorkingHours[1][4];
+        LocalTime clinicFridayFinish=clinicWorkingHours[1][5];
+        LocalTime clinicSaturdayFinish=clinicWorkingHours[1][6];
+        //oldStart
+        LocalTime servicesSundayStart= servicesWorkingHours[0][0];
+        LocalTime servicesMondayStart= servicesWorkingHours[0][1];
+        LocalTime servicesTuesdayStart= servicesWorkingHours[0][2];
+        LocalTime servicesWednesdayStart= servicesWorkingHours[0][3];
+        LocalTime servicesThursdayStart= servicesWorkingHours[0][4];
+        LocalTime servicesFridayStart= servicesWorkingHours[0][5];
+        LocalTime servicesSaturdayStart= servicesWorkingHours[0][6];
+        //oldFinish
+        LocalTime servicesSundayFinish=servicesWorkingHours[1][0];
+        LocalTime servicesMondayFinish=servicesWorkingHours[1][1];
+        LocalTime servicesTuesdayFinish=servicesWorkingHours[1][2];
+        LocalTime servicesWednesdayFinish=servicesWorkingHours[1][3];
+        LocalTime servicesThursdayFinish=servicesWorkingHours[1][4];
+        LocalTime servicesFridayFinish=servicesWorkingHours[1][5];
+        LocalTime servicesSaturdayFinish=servicesWorkingHours[1][6];
+        //-------
+        if(clinicSundayStart.isAfter(servicesSundayStart) || clinicSundayFinish.isBefore(servicesSundayFinish)){
+            newServicesWorkingHours[0][0] = clinicWorkingHours[0][0];
+            newServicesWorkingHours[1][0] = clinicWorkingHours[1][0];
+            flag=1;
+        }
+        if(clinicMondayStart.isAfter(servicesMondayStart) || clinicMondayFinish.isBefore(servicesMondayFinish)) {
+            newServicesWorkingHours[0][1] = clinicWorkingHours[0][1];
+            newServicesWorkingHours[1][1] = clinicWorkingHours[1][1];
+            flag=1;
+        }
+        if(clinicTuesdayStart.isAfter(servicesTuesdayStart) || clinicTuesdayFinish.isBefore(servicesTuesdayFinish)) {
+            newServicesWorkingHours[0][2] = clinicWorkingHours[0][2];
+            newServicesWorkingHours[1][2] = clinicWorkingHours[1][2];
+            flag=1;
+        }
+        if(clinicWednesdayStart.isAfter(servicesWednesdayStart) || clinicWednesdayFinish.isBefore(servicesWednesdayFinish)) {
+            newServicesWorkingHours[0][3] = clinicWorkingHours[0][3];
+            newServicesWorkingHours[1][3] = clinicWorkingHours[1][3];
+            flag=1;
+        }
+        if(clinicThursdayStart.isAfter(servicesThursdayStart) || clinicThursdayFinish.isBefore(servicesThursdayFinish)) {
+            newServicesWorkingHours[0][4] = clinicWorkingHours[0][4];
+            newServicesWorkingHours[1][4] = clinicWorkingHours[1][4];
+            flag=1;
+        }
+        if(clinicFridayStart.isAfter(servicesFridayStart) || clinicFridayFinish.isBefore(servicesFridayFinish)) {
+            newServicesWorkingHours[0][5] = clinicWorkingHours[0][5];
+            newServicesWorkingHours[1][5] = clinicWorkingHours[1][5];
+            flag=1;
+        }
+        if(clinicSaturdayStart.isAfter(servicesSaturdayStart) || clinicSaturdayFinish.isBefore(servicesSaturdayFinish)) {
+            newServicesWorkingHours[0][6] = clinicWorkingHours[0][6];
+            newServicesWorkingHours[1][6] = clinicWorkingHours[1][6];
+            flag=1;
+        }
+        if(flag == 1)
+            return false;
+        else
+            return true;
+    }
+    public static LocalTime[][] setMatrix(LocalTime[][] matrix){
+        LocalTime[][] newMatrix=new LocalTime[2][7];
+        for(int i=0;i<2;i++){
+            for (int j=0;j<7;j++){
+                newMatrix[i][j]=matrix[i][j];
+            }
+        }
+        return newMatrix;
     }
 }
 

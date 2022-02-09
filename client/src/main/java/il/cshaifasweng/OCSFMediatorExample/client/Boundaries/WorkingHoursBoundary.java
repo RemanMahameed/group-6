@@ -156,18 +156,24 @@ public class WorkingHoursBoundary extends Boundary{
                 message.add("Vaccine");
                 break;
         }
-
-        if(CheckCorrectness(clinicActivityWorking,newActivityWorkingTime)){
-            message.add(workingHours.getClinicName());
-            message.add(newActivityWorkingTime);
-            message.add(workingHours.getDoctorId());
+        message.add(workingHours.getClinicName());
+        message.add(newActivityWorkingTime);
+        message.add(workingHours.getDoctorId());
+        if(type.equals("Clinic")){
             SimpleClient.getClient().sendToServer(message);
             MessageBoundary.displayInfo("Change successfully");
             App.setRoot("MainCm");
-        }else{
-            MessageBoundary.displayInfo("The new working hours wrong!!");
         }
-        //message (#SetNewWorkingHours,type,clinic name,doctorId)
+        else if(CheckCorrectness(clinicActivityWorking,newActivityWorkingTime)){
+                SimpleClient.getClient().sendToServer(message);
+                MessageBoundary.displayInfo("Change successfully");
+                App.setRoot("MainCm");
+        }else{
+                MessageBoundary.displayError("The new working hours do not correspond to the clinic's working hours!\n");
+        }
+
+
+        //message (#SetNewWorkingHours,type,clinic name,New WorkingHours,doctorId)
     }
 
     @FXML
