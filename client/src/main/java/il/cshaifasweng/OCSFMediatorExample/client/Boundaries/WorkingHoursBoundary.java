@@ -123,6 +123,7 @@ public class WorkingHoursBoundary extends Boundary{
 
     @FXML
     void Submit(ActionEvent event) throws IOException {
+        System.out.println("Whaaaaaaat!!?");
         //Set start working Hours
         newActivityWorkingTime[0][0]=LocalTime.of(Integer.parseInt(StarHours1.getValue()),Integer.parseInt(StartMinute1.getValue()));
         newActivityWorkingTime[0][1]=LocalTime.of(Integer.parseInt(StarHours2.getValue()),Integer.parseInt(StartMinute2.getValue()));
@@ -156,6 +157,7 @@ public class WorkingHoursBoundary extends Boundary{
                 message.add("Vaccine");
                 break;
         }
+        System.out.println("typeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee:"+type);
         message.add(workingHours.getClinicName());
         message.add(newActivityWorkingTime);
         message.add(workingHours.getDoctorId());
@@ -165,6 +167,7 @@ public class WorkingHoursBoundary extends Boundary{
             App.setRoot("MainCm");
         }
         else if(CheckCorrectness(clinicActivityWorking,newActivityWorkingTime)){
+            System.out.println("okkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk!!");
                 SimpleClient.getClient().sendToServer(message);
                 MessageBoundary.displayInfo("Change successfully");
                 App.setRoot("MainCm");
@@ -247,6 +250,51 @@ public class WorkingHoursBoundary extends Boundary{
     }
     //check is service time is in clinic time
     public boolean CheckCorrectness(LocalTime[][] clinicActivityTime,LocalTime[][] serviceActivityTime){
+        System.out.println("CheckCorrectness: type:"+type);
+
+//        if((clinicActivityTime[0][0].minusSeconds(1).isBefore(serviceActivityTime[0][0]) && clinicActivityTime[1][0].plusSeconds(1).isAfter(serviceActivityTime[1][0]))){
+//            System.out.println("clinicActivityTime[0][0].minusSeconds(1)"+clinicActivityTime[0][0].minusSeconds(1));
+//            System.out.println("clinicActivityTime[1][0].plusSeconds(1)"+clinicActivityTime[1][0].plusSeconds(1));
+//            System.out.println("serviceActivityTime[0][0]"+serviceActivityTime[0][0]);
+//            System.out.println("clinicActivityTime[1][0]"+serviceActivityTime[1][0]);
+//        }
+//        if(clinicActivityTime[0][1].minusSeconds(1).isBefore(serviceActivityTime[0][1]) && clinicActivityTime[1][1].plusSeconds(1).isAfter(serviceActivityTime[1][1])){
+//            System.out.println("clinicActivityTime[0][1].minusSeconds(1)"+clinicActivityTime[0][1].minusSeconds(1));
+//            System.out.println("clinicActivityTime[1][1].plusSeconds(1)"+clinicActivityTime[1][1].plusSeconds(1));
+//            System.out.println("serviceActivityTime[0][1]"+serviceActivityTime[0][1]);
+//            System.out.println("clinicActivityTime[1][1]"+serviceActivityTime[1][1]);
+//        }
+//        if(clinicActivityTime[0][2].minusSeconds(1).isBefore(serviceActivityTime[0][2]) && clinicActivityTime[1][2].plusSeconds(1).isAfter(serviceActivityTime[1][2])){
+//            System.out.println("clinicActivityTime[0][2].minusSeconds(1)"+clinicActivityTime[0][2].minusSeconds(1));
+//            System.out.println("clinicActivityTime[1][2].plusSeconds(1)"+clinicActivityTime[1][2].plusSeconds(1));
+//            System.out.println("serviceActivityTime[0][2]"+serviceActivityTime[0][2]);
+//            System.out.println("clinicActivityTime[1][2]"+serviceActivityTime[1][2]);
+//        }
+//        if(clinicActivityTime[0][3].minusSeconds(1).isBefore(serviceActivityTime[0][3]) && clinicActivityTime[1][3].plusSeconds(1).isAfter(serviceActivityTime[1][3])){
+//            System.out.println("clinicActivityTime[0][3].minusSeconds(1)"+clinicActivityTime[0][3].minusSeconds(1));
+//            System.out.println("clinicActivityTime[1][3].plusSeconds(1)"+clinicActivityTime[1][3].plusSeconds(1));
+//            System.out.println("serviceActivityTime[0][3]"+serviceActivityTime[0][3]);
+//            System.out.println("clinicActivityTime[1][3]"+serviceActivityTime[1][3]);
+//        }
+//        if(clinicActivityTime[0][4].minusSeconds(1).isBefore(serviceActivityTime[0][4]) && clinicActivityTime[1][4].plusSeconds(1).isAfter(serviceActivityTime[1][4])){
+//            System.out.println("clinicActivityTime[0][4].minusSeconds(1)"+clinicActivityTime[0][4].minusSeconds(1));
+//            System.out.println("clinicActivityTime[1][4].plusSeconds(1)"+clinicActivityTime[1][4].plusSeconds(1));
+//            System.out.println("serviceActivityTime[0][4]"+serviceActivityTime[0][4]);
+//            System.out.println("clinicActivityTime[1][4]"+serviceActivityTime[1][4]);
+//        }
+//        if(clinicActivityTime[0][5].minusSeconds(1).isBefore(serviceActivityTime[0][5]) && clinicActivityTime[1][5].plusSeconds(1).isAfter(serviceActivityTime[1][5])){
+//            System.out.println("clinicActivityTime[0][5].minusSeconds(1)"+clinicActivityTime[0][5].minusSeconds(1));
+//            System.out.println("clinicActivityTime[1][5].plusSeconds(1)"+clinicActivityTime[1][5].plusSeconds(1));
+//            System.out.println("serviceActivityTime[0][5]"+serviceActivityTime[0][5]);
+//            System.out.println("clinicActivityTime[1][5]"+serviceActivityTime[1][5]);
+//        }
+//        if(clinicActivityTime[0][6].minusSeconds(1).isBefore(serviceActivityTime[0][6]) && clinicActivityTime[1][6].plusSeconds(1).isAfter(serviceActivityTime[1][6])){
+//            System.out.println("clinicActivityTime[0][6].minusSeconds(1)"+clinicActivityTime[0][6].minusSeconds(1));
+//            System.out.println("clinicActivityTime[1][6].plusSeconds(1)"+clinicActivityTime[1][6].plusSeconds(1));
+//            System.out.println("serviceActivityTime[0][6]"+serviceActivityTime[0][6]);
+//            System.out.println("clinicActivityTime[1][6]"+serviceActivityTime[1][6]);
+//        }
+
         if(  (clinicActivityTime[0][0].minusSeconds(1).isBefore(serviceActivityTime[0][0]) && clinicActivityTime[1][0].plusSeconds(1).isAfter(serviceActivityTime[1][0]))
               &&(clinicActivityTime[0][1].minusSeconds(1).isBefore(serviceActivityTime[0][1]) && clinicActivityTime[1][1].plusSeconds(1).isAfter(serviceActivityTime[1][1]))
               &&(clinicActivityTime[0][2].minusSeconds(1).isBefore(serviceActivityTime[0][2]) && clinicActivityTime[1][2].plusSeconds(1).isAfter(serviceActivityTime[1][2]))

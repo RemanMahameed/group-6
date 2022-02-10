@@ -215,8 +215,8 @@ public class WorkingHoursData extends DataClass {
                                 + "Your Appointment details: " + coronaTestAppointment.getAppointmentType() + " Appointment at: \n"
                                 + "Date: " + coronaTestAppointment.getDate().toLocalDate() + " Time: " + coronaTestAppointment.getDate().toLocalTime().withSecond(0) + "\n"
                                 + "At clinic: " + coronaTestAppointment.getClinic().getClinicType();
-                        AppointmentData.sendEmail("salehSalsabeel99@gmail.com",messageContent,"Canceled Appointment");
-                        //AppointmentData.sendEmail(coronaTestAppointment.getPatient().getEmail(),messageContent,"Canceled Appointment");
+                        //AppointmentData.sendEmail("salehSalsabeel99@gmail.com",messageContent,"Canceled Appointment");
+                        AppointmentData.sendEmail(coronaTestAppointment.getPatient().getEmail(),messageContent,"Canceled Appointment");
                         session.delete(coronaTestAppointment);
 
                     }
@@ -234,8 +234,8 @@ public class WorkingHoursData extends DataClass {
                                 + "Your Appointment details: " + vaccineAppointment.getAppointmentType() + " Appointment at: \n"
                                 + "Date: " + vaccineAppointment.getDate().toLocalDate() + " Time: " + vaccineAppointment.getDate().toLocalTime().withSecond(0) + "\n"
                                 + "At clinic: " + vaccineAppointment.getClinic().getClinicType();
-                        AppointmentData.sendEmail("salehSalsabeel99@gmail.com",messageContent,"Canceled Appointment");
-                        //AppointmentData.sendEmail(coronaTestAppointment.getPatient().getEmail(),messageContent,"Canceled Appointment");
+                        //AppointmentData.sendEmail("salehSalsabeel99@gmail.com",messageContent,"Canceled Appointment");
+                        AppointmentData.sendEmail(vaccineAppointment.getPatient().getEmail(),messageContent,"Canceled Appointment");
                         session.delete(vaccineAppointment);
                     }
                 }
@@ -252,8 +252,8 @@ public class WorkingHoursData extends DataClass {
                                 + "Your Appointment details: " + doctorAppointment.getAppointmentType() + " Appointment at: \n"
                                 + "Date: " + doctorAppointment.getDate().toLocalDate() + " Time: " + doctorAppointment.getDate().toLocalTime().withSecond(0) + "\n"
                                 + "At clinic: " + doctorAppointment.getClinic().getClinicType();
-                        AppointmentData.sendEmail("salehSalsabeel99@gmail.com", messageContent, "Canceled Appointment");
-                        //AppointmentData.sendEmail(coronaTestAppointment.getPatient().getEmail(),messageContent,"Canceled Appointment");
+                        //AppointmentData.sendEmail("salehSalsabeel99@gmail.com", messageContent, "Canceled Appointment");
+                        AppointmentData.sendEmail(doctorAppointment.getPatient().getEmail(),messageContent,"Canceled Appointment");
                         session.delete(doctorAppointment);
                     }
                 }
@@ -291,6 +291,7 @@ public class WorkingHoursData extends DataClass {
             }
             if(!CheckServicesTime(newClinicWorking,doctorActivity,newServicesWorkingHours)){
                 SetWorkingHours(clinic,newServicesWorkingHours,doctorActivity,"Clinic's Doctor",doctor.getId());
+                receptionTime=doctor.getReceptionTime().get(temp-1);
                 receptionTime.setActiveTime(newServicesWorkingHours);
                 doctor.getReceptionTime().set(temp-1,receptionTime);
                 session.saveOrUpdate(doctor);
