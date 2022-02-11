@@ -110,7 +110,7 @@ public class WorkingHoursData extends DataClass {
                         oldWorkingHours=receptionTime1.getActiveTime();
                         receptionTime1.setActiveTime(newWorkingHours);
                         doctor.getReceptionTime().set(temp,receptionTime1);
-                        SetWorkingHours(clinic, newWorkingHours,oldWorkingHours,type,doctorId);
+                        SetWorkingHours(clinic, newWorkingHours,oldWorkingHours,type,doctor);
                         session.saveOrUpdate(doctor);
                     }
                     temp++;
@@ -118,17 +118,17 @@ public class WorkingHoursData extends DataClass {
                 break;
             case ("Corona Test"):
                 oldWorkingHours=clinic.getCoronaTestTime();
-                SetWorkingHours(clinic, newWorkingHours,oldWorkingHours,type,doctorId);
+                SetWorkingHours(clinic, newWorkingHours,oldWorkingHours,type,doctor);
                 break;
             case ("Vaccine"):
                 oldWorkingHours=clinic.getVaccineTime();
-                SetWorkingHours(clinic, newWorkingHours,oldWorkingHours,type,doctorId);
+                SetWorkingHours(clinic, newWorkingHours,oldWorkingHours,type,doctor);
                 break;
         }
         session.getTransaction().commit(); // Save everything.
         session.close();
     }
-    public static void SetWorkingHours(Clinic clinic, LocalTime[][] newWorkingHours,LocalTime[][] oldWorkingHours,String type,int doctorId) throws Exception {
+    public static void SetWorkingHours(Clinic clinic, LocalTime[][] newWorkingHours,LocalTime[][] oldWorkingHours,String type,Doctor doctor) throws Exception {
 
         //newStart
         LocalTime newSundayStart= newWorkingHours[0][0];
@@ -173,7 +173,7 @@ public class WorkingHoursData extends DataClass {
             checkCoronaTestAppointment(coronaTestAppointments,"Friday",oldFridayStart,newFridayStart,oldFridayFinish,newFridayFinish);
             checkCoronaTestAppointment(coronaTestAppointments,"Saturday",oldSaturdayStart,newSaturdayStart,oldSaturdayFinish,newSaturdayFinish);
             clinic.setCoronaTestTime(newWorkingHours);
-            //session.saveOrUpdate(clinic);
+            session.saveOrUpdate(clinic);
         }else if(type.equals("Vaccine")){
             List<VaccineAppointment> vaccineAppointments=clinic.getVaccineAppointments();
             checkVaccineAppointment(vaccineAppointments,"Sunday",oldSundayStart,newSundayStart,oldSundayFinish,newSundayFinish);
@@ -184,10 +184,8 @@ public class WorkingHoursData extends DataClass {
             checkVaccineAppointment(vaccineAppointments,"Friday",oldFridayStart,newFridayStart,oldFridayFinish,newFridayFinish);
             checkVaccineAppointment(vaccineAppointments,"Saturday",oldSaturdayStart,newSaturdayStart,oldSaturdayFinish,newSaturdayFinish);
             clinic.setVaccineTime(newWorkingHours);
-            //session.saveOrUpdate(clinic);
+            session.saveOrUpdate(clinic);
         }else if(type.equals("Clinic's Doctor")){
-            int temp=0;
-            Doctor doctor =getDoctorById(doctorId);
             List<DoctorAppointment> doctorAppointments=doctor.getAppointments();
             List<DoctorAppointment> doctorAppointmentsList=new LinkedList<>();
             for (DoctorAppointment doctorAppointment:doctorAppointments) {
@@ -203,7 +201,6 @@ public class WorkingHoursData extends DataClass {
             checkDoctorAppointment(doctorAppointmentsList,"Friday",oldFridayStart,newFridayStart,oldFridayFinish,newFridayFinish);
             checkDoctorAppointment(doctorAppointmentsList,"Saturday",oldSaturdayStart,newSaturdayStart,oldSaturdayFinish,newSaturdayFinish);;
         }
-        session.saveOrUpdate(clinic);
     }
     public static void checkCoronaTestAppointment(List<CoronaTestAppointment> coronaTestAppointments,String day,LocalTime oldStart, LocalTime newStart,LocalTime oldFinish,LocalTime newFinish) {
         if ((oldStart.isBefore(newStart)) || oldFinish.isAfter(newFinish)) {
@@ -215,8 +212,8 @@ public class WorkingHoursData extends DataClass {
                                 + "Your Appointment details: " + coronaTestAppointment.getAppointmentType() + " Appointment at: \n"
                                 + "Date: " + coronaTestAppointment.getDate().toLocalDate() + " Time: " + coronaTestAppointment.getDate().toLocalTime().withSecond(0) + "\n"
                                 + "At clinic: " + coronaTestAppointment.getClinic().getClinicType();
-                        //AppointmentData.sendEmail("salehSalsabeel99@gmail.com",messageContent,"Canceled Appointment");
-                        AppointmentData.sendEmail(coronaTestAppointment.getPatient().getEmail(),messageContent,"Canceled Appointment");
+                        AppointmentData.sendEmail("salehSalsabeel99@gmail.com",messageContent,"Canceled Appointment");
+                        //AppointmentData.sendEmail(coronaTestAppointment.getPatient().getEmail(),messageContent,"Canceled Appointment");
                         session.delete(coronaTestAppointment);
 
                     }
@@ -234,8 +231,8 @@ public class WorkingHoursData extends DataClass {
                                 + "Your Appointment details: " + vaccineAppointment.getAppointmentType() + " Appointment at: \n"
                                 + "Date: " + vaccineAppointment.getDate().toLocalDate() + " Time: " + vaccineAppointment.getDate().toLocalTime().withSecond(0) + "\n"
                                 + "At clinic: " + vaccineAppointment.getClinic().getClinicType();
-                        //AppointmentData.sendEmail("salehSalsabeel99@gmail.com",messageContent,"Canceled Appointment");
-                        AppointmentData.sendEmail(vaccineAppointment.getPatient().getEmail(),messageContent,"Canceled Appointment");
+                        AppointmentData.sendEmail("salehSalsabeel99@gmail.com",messageContent,"Canceled Appointment");
+                        //AppointmentData.sendEmail(vaccineAppointment.getPatient().getEmail(),messageContent,"Canceled Appointment");
                         session.delete(vaccineAppointment);
                     }
                 }
@@ -252,8 +249,8 @@ public class WorkingHoursData extends DataClass {
                                 + "Your Appointment details: " + doctorAppointment.getAppointmentType() + " Appointment at: \n"
                                 + "Date: " + doctorAppointment.getDate().toLocalDate() + " Time: " + doctorAppointment.getDate().toLocalTime().withSecond(0) + "\n"
                                 + "At clinic: " + doctorAppointment.getClinic().getClinicType();
-                        //AppointmentData.sendEmail("salehSalsabeel99@gmail.com", messageContent, "Canceled Appointment");
-                        AppointmentData.sendEmail(doctorAppointment.getPatient().getEmail(),messageContent,"Canceled Appointment");
+                        AppointmentData.sendEmail("salehSalsabeel99@gmail.com", messageContent, "Canceled Appointment");
+                        //AppointmentData.sendEmail(doctorAppointment.getPatient().getEmail(),messageContent,"Canceled Appointment");
                         session.delete(doctorAppointment);
                     }
                 }
@@ -266,16 +263,15 @@ public class WorkingHoursData extends DataClass {
         LocalTime[][] vaccineActivity=clinic.getVaccineTime();
         LocalTime[][] doctorActivity=new LocalTime[2][7];
         LocalTime[][] newServicesWorkingHours=new LocalTime[2][7];
-        List<Boolean>flag=new LinkedList<>();
-        flag.add(true);
+        Boolean flagChangeReciption=false;
         clinic.setActivityTime(newClinicWorking);
         newServicesWorkingHours=setMatrix(clinic.getCoronaTestTime());
         if(!CheckServicesTime(newClinicWorking,coronaTestActivity,newServicesWorkingHours)){
-            SetWorkingHours(clinic,newServicesWorkingHours,coronaTestActivity,"Corona Test",0);
+            SetWorkingHours(clinic,newServicesWorkingHours,coronaTestActivity,"Corona Test",null);
         }
         newServicesWorkingHours=setMatrix(clinic.getVaccineTime());
         if(!CheckServicesTime(newClinicWorking,vaccineActivity,newServicesWorkingHours)){
-            SetWorkingHours(clinic,newServicesWorkingHours,vaccineActivity,"Vaccine",0);
+            SetWorkingHours(clinic,newServicesWorkingHours,vaccineActivity,"Vaccine",null);
         }
         for (Doctor doctor:doctors){
             List<ReceptionTime> receptionTimes=doctor.getReceptionTime();
@@ -290,7 +286,7 @@ public class WorkingHoursData extends DataClass {
                 temp++;
             }
             if(!CheckServicesTime(newClinicWorking,doctorActivity,newServicesWorkingHours)){
-                SetWorkingHours(clinic,newServicesWorkingHours,doctorActivity,"Clinic's Doctor",doctor.getId());
+                SetWorkingHours(clinic,newServicesWorkingHours,doctorActivity,"Clinic's Doctor",doctor);
                 receptionTime=doctor.getReceptionTime().get(temp-1);
                 receptionTime.setActiveTime(newServicesWorkingHours);
                 doctor.getReceptionTime().set(temp-1,receptionTime);

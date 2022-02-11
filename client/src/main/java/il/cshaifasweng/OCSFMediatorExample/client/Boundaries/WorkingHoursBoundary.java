@@ -249,9 +249,23 @@ public class WorkingHoursBoundary extends Boundary{
         FinishMinute7.setItems(Minute);
     }
     //check is service time is in clinic time
-    public boolean CheckCorrectness(LocalTime[][] clinicActivityTime,LocalTime[][] serviceActivityTime){
-        System.out.println("CheckCorrectness: type:"+type);
 
+    public boolean CheckCorrectness(LocalTime[][] clinicActivityTime,LocalTime[][] serviceActivityTime){
+        if(  (clinicActivityTime[0][0].minusSeconds(1).isBefore(serviceActivityTime[0][0]) && clinicActivityTime[1][0].plusSeconds(1).isAfter(serviceActivityTime[1][0]))
+                &&(clinicActivityTime[0][1].minusSeconds(1).isBefore(serviceActivityTime[0][1]) && clinicActivityTime[1][1].plusSeconds(1).isAfter(serviceActivityTime[1][1]))
+                &&(clinicActivityTime[0][2].minusSeconds(1).isBefore(serviceActivityTime[0][2]) && clinicActivityTime[1][2].plusSeconds(1).isAfter(serviceActivityTime[1][2]))
+                &&(clinicActivityTime[0][3].minusSeconds(1).isBefore(serviceActivityTime[0][3]) && clinicActivityTime[1][3].plusSeconds(1).isAfter(serviceActivityTime[1][3]))
+                &&(clinicActivityTime[0][4].minusSeconds(1).isBefore(serviceActivityTime[0][4]) && clinicActivityTime[1][4].plusSeconds(1).isAfter(serviceActivityTime[1][4]))
+                &&(clinicActivityTime[0][5].minusSeconds(1).isBefore(serviceActivityTime[0][5]) && clinicActivityTime[1][5].plusSeconds(1).isAfter(serviceActivityTime[1][5]))
+                &&(clinicActivityTime[0][6].minusSeconds(1).isBefore(serviceActivityTime[0][6]) && clinicActivityTime[1][6].plusSeconds(1).isAfter(serviceActivityTime[1][6]))
+        )
+            return true;
+        return false;
+//        System.out.println("CheckCorrectness: type:"+type);
+//        System.out.println("clinicActivityTime[0][4].minusSeconds(1)"+clinicActivityTime[0][4].minusSeconds(1));
+//        System.out.println("clinicActivityTime[1][4].plusSeconds(1)"+clinicActivityTime[1][4].plusSeconds(1));
+//        System.out.println("serviceActivityTime[0][4]"+serviceActivityTime[0][4]);
+//        System.out.println("clinicActivityTime[1][4]"+serviceActivityTime[1][4]);
 //        if((clinicActivityTime[0][0].minusSeconds(1).isBefore(serviceActivityTime[0][0]) && clinicActivityTime[1][0].plusSeconds(1).isAfter(serviceActivityTime[1][0]))){
 //            System.out.println("clinicActivityTime[0][0].minusSeconds(1)"+clinicActivityTime[0][0].minusSeconds(1));
 //            System.out.println("clinicActivityTime[1][0].plusSeconds(1)"+clinicActivityTime[1][0].plusSeconds(1));
@@ -295,15 +309,5 @@ public class WorkingHoursBoundary extends Boundary{
 //            System.out.println("clinicActivityTime[1][6]"+serviceActivityTime[1][6]);
 //        }
 
-        if(  (clinicActivityTime[0][0].minusSeconds(1).isBefore(serviceActivityTime[0][0]) && clinicActivityTime[1][0].plusSeconds(1).isAfter(serviceActivityTime[1][0]))
-              &&(clinicActivityTime[0][1].minusSeconds(1).isBefore(serviceActivityTime[0][1]) && clinicActivityTime[1][1].plusSeconds(1).isAfter(serviceActivityTime[1][1]))
-              &&(clinicActivityTime[0][2].minusSeconds(1).isBefore(serviceActivityTime[0][2]) && clinicActivityTime[1][2].plusSeconds(1).isAfter(serviceActivityTime[1][2]))
-              &&(clinicActivityTime[0][3].minusSeconds(1).isBefore(serviceActivityTime[0][3]) && clinicActivityTime[1][3].plusSeconds(1).isAfter(serviceActivityTime[1][3]))
-              &&(clinicActivityTime[0][4].minusSeconds(1).isBefore(serviceActivityTime[0][4]) && clinicActivityTime[1][4].plusSeconds(1).isAfter(serviceActivityTime[1][4]))
-              &&(clinicActivityTime[0][5].minusSeconds(1).isBefore(serviceActivityTime[0][5]) && clinicActivityTime[1][5].plusSeconds(1).isAfter(serviceActivityTime[1][5]))
-              &&(clinicActivityTime[0][6].minusSeconds(1).isBefore(serviceActivityTime[0][6]) && clinicActivityTime[1][6].plusSeconds(1).isAfter(serviceActivityTime[1][6]))
-        )
-              return true;
-        return false;
     }
 }

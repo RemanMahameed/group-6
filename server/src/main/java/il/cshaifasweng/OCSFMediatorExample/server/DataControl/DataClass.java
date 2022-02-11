@@ -291,53 +291,45 @@ public class DataClass {
 
         //receptionTime
         ReceptionTime reception1=new ReceptionTime(clinic1.getClinicType(),DoctorReceptionTime1);//10-14
-        ReceptionTime reception2=new ReceptionTime(clinic2.getClinicType(),DoctorReceptionTime1);//10-14
-        ReceptionTime reception3=new ReceptionTime(clinic3.getClinicType(),DoctorReceptionTime1);//10-14
-        ReceptionTime reception4=new ReceptionTime(clinic3.getClinicType(),DoctorReceptionTime2);//8-9
+        ReceptionTime reception2=new ReceptionTime(clinic3.getClinicType(),DoctorReceptionTime1);//10-14
+        ReceptionTime reception3=new ReceptionTime(clinic2.getClinicType(),DoctorReceptionTime1);//10-14
+        ReceptionTime reception4=new ReceptionTime(clinic1.getClinicType(),DoctorReceptionTime1);//10-14
+        ReceptionTime reception5=new ReceptionTime(clinic3.getClinicType(),DoctorReceptionTime1);//10-14
+        ReceptionTime reception6_3=new ReceptionTime(clinic3.getClinicType(),DoctorReceptionTime2);//8-9
+        ReceptionTime reception6_2=new ReceptionTime(clinic2.getClinicType(),DoctorReceptionTime1);//10-14
+
 
         //Set doctor1 reception time
         receptionTimes1.add(reception1);
         doctor1.setReceptionTime(receptionTimes1);
-        List<Doctor> doctorRE1=new LinkedList<>();
-        doctorRE1.add(doctor1);
-        reception1.setDoctors(doctorRE1);
+        reception1.setDoctor(doctor1);
 
         //Set doctor2 reception time
-        receptionTimes2.add(reception3);
+        receptionTimes2.add(reception2);
         doctor2.setReceptionTime(receptionTimes2);
-        List<Doctor> doctorRE2=new LinkedList<>();
-        doctorRE2.add(doctor2);
-        reception3.setDoctors(doctorRE2);
+        reception2.setDoctor(doctor2);
 
         //Set doctor3 reception time
-        receptionTimes3.add(reception2);
+        receptionTimes3.add(reception3);
         doctor3.setReceptionTime(receptionTimes3);
-        List<Doctor> doctorRE3=new LinkedList<>();
-        doctorRE3.add(doctor3);
-        reception2.setDoctors(doctorRE3);
+        reception3.setDoctor(doctor3);
 
         //Set doctor4 reception time
-        receptionTimes4.add(reception1);
+        receptionTimes4.add(reception4);
         doctor4.setReceptionTime(receptionTimes4);
-        //List<Doctor> doctorRE4=new LinkedList<>();
-        //doctorRE4.add(doctor4);
-        reception1.getDoctors().add(doctor4);
+        reception4.setDoctor(doctor4);
 
         //Set doctor5 reception time
-        receptionTimes5.add(reception3);
+        receptionTimes5.add(reception5);
         doctor5.setReceptionTime(receptionTimes5);
-        //List<Doctor> doctorRE5=new LinkedList<>();
-        //doctorRE5.add(doctor5);
-        reception3.getDoctors().add(doctor5);
+        reception5.setDoctor(doctor5);
 
         //Set doctor6 reception time
-        receptionTimes6.add(reception2);
-        receptionTimes6.add(reception4);
+        receptionTimes6.add(reception6_2);
+        receptionTimes6.add(reception6_3);
         doctor6.setReceptionTime(receptionTimes6);
-        List<Doctor> doctorRE6=new LinkedList<>();
-        doctorRE6.add(doctor6);
-        reception2.getDoctors().add(doctor6);
-        reception4.setDoctors(doctorRE6);
+        reception6_2.setDoctor(doctor6);
+        reception6_3.setDoctor(doctor6);
 
 
         //connect list of doctor, nurse, laboratory,clinicManger,patient to  clinic 1
@@ -448,6 +440,9 @@ public class DataClass {
             session.saveOrUpdate(reception2);
             session.saveOrUpdate(reception3);
             session.saveOrUpdate(reception4);
+            session.saveOrUpdate(reception5);
+            session.saveOrUpdate(reception6_2);
+            session.saveOrUpdate(reception6_3);
             System.err.println("Generated ends ...");
             session.flush();
             session.getTransaction().commit(); // Save everything.

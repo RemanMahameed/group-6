@@ -14,7 +14,10 @@ public class Doctor extends Person {
 
     private String Role;
 
-    @ManyToMany(mappedBy = "doctors", cascade = CascadeType.ALL)
+//    @ManyToMany(mappedBy = "doctors", cascade = CascadeType.ALL)
+//    @LazyCollection(LazyCollectionOption.FALSE)
+//    private List<ReceptionTime> receptionTime;
+    @OneToMany(mappedBy = "doctor")
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<ReceptionTime> receptionTime;
 
