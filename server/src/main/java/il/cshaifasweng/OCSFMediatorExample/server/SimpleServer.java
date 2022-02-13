@@ -124,6 +124,32 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 
+		}else if (message.get(0).equals("#ProDocChoice")) {
+			DoctorApp doctorApp = new DoctorApp();
+			Doctor doc = null;
+			try {
+				doc = DataClass.getDoctorById(Integer.valueOf((String)message.get(1)));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			Patient P = null;
+			try {
+				P = DataClass.getPatientById(Integer.valueOf((String)message.get(2)));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				doctorApp = AppointmentData.getFreeProDoctorApp(doc ,P ,"Professional clinic" ,"Professional clinic" );
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				client.sendToClient(doctorApp);
+				System.out.format("Sent doctorApp to client %s\n", client.getInetAddress().getHostAddress());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
 		} else if (message.get(0).equals("#ViewAppointment")) {
 			String type = (String) message.get(1);
 			int patientId = (int) message.get(2);

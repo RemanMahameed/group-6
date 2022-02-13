@@ -17,8 +17,6 @@ import javafx.scene.image.ImageView;
 public class SpecializationBoundary extends Boundary{
 
 
-    @FXML
-    private Button LogoutBTR;
 
     @FXML
     private ImageView label;

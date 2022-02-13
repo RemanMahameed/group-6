@@ -659,6 +659,65 @@ public class AppointmentData extends DataClass{
     //**********************************************************************************************************
     //**********************************************************************************************************
     //Srar namer reman
+    // this func returns the pro doc by his name an clinic
+    public static DoctorApp getFreeProDoctorApp(Doctor doctor,Patient patient,String type , String clinic) throws Exception {
+
+        List<DoctorAppointment> doctorAppointments = doctor.getAppointments();
+        LocalTime[][] DoctorReceptionTime = doctor.getRecepByClinic(clinic).getActiveTime();
+        LocalDateTime date = LocalDateTime.now().withMinute(0);
+        LocalDateTime now = LocalDateTime.now();
+        //LocalDateTime date = LocalDateTime.of(2022,Month.JANUARY, 29, 10, 00);
+        LocalDateTime after3months = LocalDateTime.now().plusMonths(3);
+        List<DoctorAppointment> doctorAppList = new LinkedList<>();
+        List<String> doctorAppString = new LinkedList<>();
+        DoctorAppointment doctorAppointment1;
+        String newDoctorAppointment2;
+        Clinic proClinic = getClinicByName(clinic);
+        int flagIsAvailable=0;
+        while (date.isBefore(after3months)) {
+            if (date.getDayOfWeek().toString().equalsIgnoreCase("Sunday") && DoctorReceptionTime[0][0].isBefore(date.toLocalTime()) && DoctorReceptionTime[1][0].isAfter(date.toLocalTime()) ||
+                    date.getDayOfWeek().toString().equalsIgnoreCase("Monday") && DoctorReceptionTime[0][1].isBefore(date.toLocalTime()) && DoctorReceptionTime[1][1].isAfter(date.toLocalTime()) ||
+                    date.getDayOfWeek().toString().equalsIgnoreCase("Tuesday") && DoctorReceptionTime[0][2].isBefore(date.toLocalTime()) && DoctorReceptionTime[1][2].isAfter(date.toLocalTime()) ||
+                    date.getDayOfWeek().toString().equalsIgnoreCase("Wednesday") && DoctorReceptionTime[0][3].isBefore(date.toLocalTime()) && DoctorReceptionTime[1][3].isAfter(date.toLocalTime()) ||
+                    date.getDayOfWeek().toString().equalsIgnoreCase("Thursday") && DoctorReceptionTime[0][4].isBefore(date.toLocalTime()) && DoctorReceptionTime[1][4].isAfter(date.toLocalTime()) ||
+                    date.getDayOfWeek().toString().equalsIgnoreCase("Friday") && DoctorReceptionTime[0][5].isBefore(date.toLocalTime()) && DoctorReceptionTime[1][5].isAfter(date.toLocalTime()) ||
+                    date.getDayOfWeek().toString().equalsIgnoreCase("Saturday") && DoctorReceptionTime[0][6].isBefore(date.toLocalTime()) && DoctorReceptionTime[1][6].isAfter(date.toLocalTime())
+            ) {
+                for (DoctorAppointment doctorAppointment : doctorAppointments) {
+                    if (((doctorAppointment.getDate().getYear() == date.getYear()) &&
+                            (doctorAppointment.getDate().getMonth() == date.getMonth()) &&
+                            (doctorAppointment.getDate().getDayOfMonth() == date.getDayOfMonth()) &&
+                            (doctorAppointment.getDate().getHour() == date.getHour()) &&
+                            (doctorAppointment.getDate().getMinute() == date.getMinute()))
+                    )
+                    {
+                        flagIsAvailable = 1;
+                    }
+                }
+                if (flagIsAvailable == 0) {
+                    if(date.toLocalDate().equals(now.toLocalDate()) ){
+                        if(date.toLocalTime().isAfter(now.toLocalTime()))
+                        {
+                            doctorAppointment1 = new DoctorAppointment(type, date, doctor, patient, proClinic);
+                            doctorAppList.add(doctorAppointment1);
+                            newDoctorAppointment2 = "Month: " + date.getMonth() + "   Day: " + date.getDayOfMonth() + "   hour: " + date.getHour() + "   minute: " + date.getMinute();
+                            doctorAppString.add(newDoctorAppointment2);
+                            System.out.println("The string is: " + newDoctorAppointment2);
+                        }
+                    }else {
+                        doctorAppointment1 = new DoctorAppointment(type, date, doctor, patient, proClinic);
+                        doctorAppList.add(doctorAppointment1);
+                        newDoctorAppointment2 = "Month: " + date.getMonth() + "   Day: " + date.getDayOfMonth() + "   hour: " + date.getHour() + "   minute: " + date.getMinute();
+                        doctorAppString.add(newDoctorAppointment2);
+                        System.out.println("The string is: " + newDoctorAppointment2);
+                    }
+                }
+            }
+            flagIsAvailable=0;
+            date = date.plusMinutes(20);
+        }
+        return (new DoctorApp(doctorAppString, doctorAppList,patient,doctor));
+    }
     public static ProDoctorsList getdoctorsofsp (String major , String id_P) throws Exception {
         // int id_patient = Integer.valueOf(id_P);
         SessionFactory sessionFactory = getSessionFactory();

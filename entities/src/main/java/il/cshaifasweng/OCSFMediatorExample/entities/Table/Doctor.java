@@ -82,4 +82,13 @@ public class Doctor extends Person {
     public void setReceptionTime(List<ReceptionTime> receptionTime) {
         this.receptionTime = receptionTime;
     }
+    //saraa remaan nameer
+    public ReceptionTime getRecepByClinic(String Clinic){
+        ReceptionTime recep =null ;
+        for (ReceptionTime element : this.receptionTime) {
+            if(element.getClinicName().equals(Clinic))
+                return element;
+        }
+        return recep;
+    }
 }
