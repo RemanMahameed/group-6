@@ -267,6 +267,18 @@ public class App extends Application {
             }
         });
     }
+    @Subscribe
+    public void onClinicBusEvent(ClinicBusEvent event) throws IOException {
+        Platform.runLater(() -> {
+            System.out.println("i am is ClinicBusEvent");
+            SimpleClient.getParams().add(event.getClinicBus().getClinic());
+            try {
+                setRoot("DoctorActions");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
 
     public static void main(String[] args) {

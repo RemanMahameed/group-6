@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="488.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Boundaries.DoctorActionsBoundary">
+    <children>
+        <ImageView fitHeight="488.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@image-from-rawpixel-id-516093-jpeg.jpg" />
+            </image>
+        </ImageView>
+        <Label fx:id="Dlabel" layoutX="97.0" layoutY="49.0" prefHeight="54.0" prefWidth="382.0" text="Welcome D." textFill="#092c61">
+            <font>
+                <Font name="System Italic" size="36.0" />
+            </font>
+        </Label>
+        <Button fx:id="LogoutBTR" layoutX="551.0" layoutY="412.0" mnemonicParsing="false" onAction="#LogOut" text="log out" />
+      <Button layoutX="114.0" layoutY="412.0" mnemonicParsing="false" onAction="#backAction" text="back" />
+      <Button layoutX="141.0" layoutY="165.0" mnemonicParsing="false" onAction="#patientsListAction" text="View patients list" textFill="#3a1884">
+         <font>
+            <Font name="AGA Arabesque Desktop" size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="141.0" layoutY="219.0" mnemonicParsing="false" onAction="#AppListAction" text="View appointments list" textFill="#310e73">
+         <font>
+            <Font name="AGA Arabesque Desktop" size="14.0" />
+         </font>
+      </Button>
+      <Label fx:id="clinicLable" layoutX="26.0" layoutY="14.0" prefHeight="26.0" prefWidth="610.0" text="Label" />
+    </children>
+</AnchorPane>

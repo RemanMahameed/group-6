@@ -297,6 +297,23 @@ public class SimpleServer extends AbstractServer {
 			}
 			System.out.format("Set new Working Hours %s\n", client.getInetAddress().getHostAddress());
 
+		}else if (message.get(0).equals("#DocClinicName")){
+			ClinicBus clinic = new ClinicBus();
+			try {
+				System.out.println("my clinic is: " + (String) message.get(1));
+				Clinic clin = DataClass.getClinicByName((String) message.get(1));
+				System.out.println("my clinic is: " + clin.getClinicType());
+				 clinic.setClinic(clin);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				client.sendToClient(clinic);
+				System.out.format("Sent clinic to client %s\n", client.getInetAddress().getHostAddress());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
 		}
 	}
 }
