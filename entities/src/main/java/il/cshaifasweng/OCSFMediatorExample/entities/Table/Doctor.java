@@ -67,6 +67,16 @@ public class Doctor extends Person {
         this.patients = patients;
     }
 
+    public void AddPatient(Patient patient){
+        if(this.patients.size()==0){
+            List<Patient> firstPatient=new LinkedList<>();
+            firstPatient.add(patient);
+            setPatients(firstPatient);
+        }
+        else
+            this.patients.add(patient);
+    }
+
     public List<DoctorAppointment> getAppointments() {
         return appointments;
     }

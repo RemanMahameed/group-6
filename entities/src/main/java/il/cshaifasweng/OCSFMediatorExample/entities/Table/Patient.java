@@ -108,6 +108,16 @@ public class Patient extends Person {
         this.laboratoryFacts = laboratoryFacts;
     }
 
+    public void AddLaboratoryFacts(LaboratoryFacts laboratoryFact){
+        if(this.laboratoryFacts.size()==0){
+            List<LaboratoryFacts> firstLaboratoryfact=new LinkedList<>();
+            firstLaboratoryfact.add(laboratoryFact);
+            setLaboratoryFacts(firstLaboratoryfact);
+        }
+        else
+            this.laboratoryFacts.add(laboratoryFact);
+    }
+
     public List<Nurse> getNurses() {
         return nurses;
     }
@@ -116,8 +126,28 @@ public class Patient extends Person {
         this.nurses = nurses;
     }
 
+    public void AddNurse(Nurse nurse){
+        if(this.nurses.size()==0){
+            List<Nurse> firstNurse=new LinkedList<>();
+            firstNurse.add(nurse);
+            setNurses(firstNurse);
+        }
+        else
+            this.nurses.add(nurse);
+    }
+
     public List<Doctor> getDoctors() {
         return doctors;
+    }
+
+    public void AddDoctor(Doctor doctor){
+        if(this.doctors.size()==0){
+            List<Doctor> firstDoctor=new LinkedList<>();
+            firstDoctor.add(doctor);
+            setDoctors(firstDoctor);
+        }
+        else
+            this.doctors.add(doctor);
     }
 
     public void setDoctors(List<Doctor> doctors) {

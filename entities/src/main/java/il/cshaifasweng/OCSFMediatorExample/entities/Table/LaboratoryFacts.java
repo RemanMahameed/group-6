@@ -1,6 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.entities.Table;
 
 import javax.persistence.*;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -38,6 +39,16 @@ public class LaboratoryFacts extends Person {
 
     public void setPatients(List<Patient> patients) {
         this.patients = patients;
+    }
+
+    public void AddPatient(Patient patient){
+        if(this.patients.size()==0){
+            List<Patient> firstPatient=new LinkedList<>();
+            firstPatient.add(patient);
+            setPatients(firstPatient);
+        }
+        else
+            this.patients.add(patient);
     }
 
     public List<LaboratoryFactsAppointment> getAppointments() {

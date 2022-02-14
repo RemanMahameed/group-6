@@ -138,6 +138,10 @@ public class AppointmentData extends DataClass{
         doctorAppointment.setPatient(patient);
         List<DoctorAppointment> doctorAppointments= new LinkedList<>();
         doctorAppointments.add(doctorAppointment);
+        List<Patient> firstPatient=new LinkedList<>();
+        firstPatient.add(patient);
+        List<Doctor> firstDoctor=new LinkedList<>();
+        firstDoctor.add(doctor);
         //connect app to clinic
         if(clinic.getDoctorAppointments().size() == 0)
             clinic.setDoctorAppointments(doctorAppointments);
@@ -154,6 +158,10 @@ public class AppointmentData extends DataClass{
             patient.setDoctorAppointments(doctorAppointments);
         else
             patient.getDoctorAppointments().add(doctorAppointment);
+        // connect between doctors and patients
+        patient.AddDoctor(doctor);
+        doctor.AddPatient(patient);
+
         //sending email..
         String messageContent="You Have DoctorAppointment at: "+ doctorAppointment.getDate()+"\n"
                              +"Date: "+ doctorAppointment.getDate().toLocalDate()+" Time: "+doctorAppointment.getDate().toLocalTime().withSecond(0)+"\n"
@@ -162,6 +170,8 @@ public class AppointmentData extends DataClass{
         //sendEmail(patient.getEmail(), messageContent,subject);
 
         session.saveOrUpdate(doctorAppointment);
+        session.saveOrUpdate(doctor);
+        session.saveOrUpdate(patient);
         session.flush();
         session.getTransaction().commit();
         if (session != null)

@@ -1,5 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.entities.Table;
 
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -42,6 +43,16 @@ public class Nurse extends Person {
 
     public void setPatients(List<Patient> patients) {
         this.patients = patients;
+    }
+
+    public void AddPatient(Patient patient){
+        if(this.patients.size()==0){
+            List<Patient> firstPatient=new LinkedList<>();
+            firstPatient.add(patient);
+            setPatients(firstPatient);
+        }
+        else
+            this.patients.add(patient);
     }
 
     public List<NurseAppointment> getAppointments() {
