@@ -39,7 +39,10 @@ public class ProDoctorsListBoundary extends Boundary{
             if(!Proslist.getSelectionModel().getSelectedItems().equals(null))
             {
                 LinkedList<String> choice = new LinkedList<String>();
-                int selectedindex =  Proslist.getSelectionModel().getSelectedIndex();
+                String selectedString = Proslist.getSelectionModel().getSelectedItem();
+                int point_index=selectedString.indexOf(".");
+                int selectedindex = Integer.parseInt(selectedString.substring(0,point_index));
+                System.out.println(selectedindex);
                 int docId= shobdek.getProDoctors().get(selectedindex).getId();
                 choice.add("#ProDocChoice" );
                 choice.add(String.valueOf(docId));
@@ -48,6 +51,12 @@ public class ProDoctorsListBoundary extends Boundary{
                 //String id = "2";
                 //System.out.println(id);
                 choice.add(id); // adding the id of the patient
+                System.out.println(selectedString);
+                int end=selectedString.indexOf("#");
+                System.out.println("the end is:" +end);
+                int StartOfClinicName=selectedString.indexOf(":");
+                System.out.println(selectedString.substring(StartOfClinicName+1,end));
+                choice.add(selectedString.substring(StartOfClinicName+1,end));
                 try {
                     SimpleClient.getClient().sendToServer(choice);
                 } catch (IOException e) {
@@ -65,8 +74,11 @@ public class ProDoctorsListBoundary extends Boundary{
         System.out.println("I am in the init of ProDoctors");
         LinkedList<Doctor> DoctorsToShow = shobdek.getProDoctors();
         System.out.println(DoctorsToShow.size());
+        int doc_num=0;
         for (int i = 0; i < DoctorsToShow.size(); i++) {
-            Proslist.getItems().add("Dr." +DoctorsToShow.get(i).getLastName() + DoctorsToShow.get(i).getFirstName());
+            for (int j = 0; j < DoctorsToShow.get(i).getClinicList().size(); j++) {
+                Proslist.getItems().add(i+"."+j+" Clinic:" +DoctorsToShow.get(i).getClinicList().get(j).getClinicType()+ "# Dr." + DoctorsToShow.get(i).getLastName() + DoctorsToShow.get(i).getFirstName());
+            }
         }
         Proslist.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 

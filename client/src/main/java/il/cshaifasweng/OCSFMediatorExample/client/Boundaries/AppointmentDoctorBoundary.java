@@ -63,6 +63,7 @@ public class AppointmentDoctorBoundary extends PatientMainBoundary{
 
     @FXML
     void initialize() {
+        System.out.println("im in the app................");
         assert ListView != null : "fx:id=\"ListView\" was not injected: check your FXML file 'appointmentdoctor.fxml'.";
         List<String> stringApp= doctorApp.getDoctorAppString();
         for (int i = 0; i < stringApp.size(); i++) {

@@ -21,11 +21,11 @@ public class SimpleServer extends AbstractServer {
 	public SimpleServer(int port) {
 		super(port);
 
-		//try {
-		//	DataClass.generateNewData();
-		//} catch (Exception e) {
-		//	e.printStackTrace();
-		//}
+//		try {
+//			DataClass.generateNewData();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 
 //		getFreeClinicDoctorApp()
 
@@ -139,7 +139,7 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 			try {
-				doctorApp = AppointmentData.getFreeProDoctorApp(doc ,P ,"Professional clinic" ,"Professional clinic" );
+				doctorApp = AppointmentData.getFreeProDoctorApp(doc ,P ,doc.getRole() ,(String) message.get(3) );
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
