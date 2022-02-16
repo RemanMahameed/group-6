@@ -52,11 +52,11 @@ public class SimpleServer extends AbstractServer {
 //			} catch (Exception e) {
 //				e.printStackTrace();
 //			}
-			try {
-			DataClass.generateNewData();
-		    } catch (Exception e) {
-			e.printStackTrace();
-		}
+//			try {
+//			DataClass.generateNewData();
+//		    } catch (Exception e) {
+//			e.printStackTrace();
+//		}
 			System.out.format("I am in the else \n");
 			Login login = null;
 			try {

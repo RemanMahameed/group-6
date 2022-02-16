@@ -2,10 +2,7 @@ package il.cshaifasweng.OCSFMediatorExample.client.Boundaries;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.DoctorApp;
-import il.cshaifasweng.OCSFMediatorExample.entities.Table.Clinic;
-import il.cshaifasweng.OCSFMediatorExample.entities.Table.Doctor;
-import il.cshaifasweng.OCSFMediatorExample.entities.Table.DoctorAppointment;
-import il.cshaifasweng.OCSFMediatorExample.entities.Table.Patient;
+import il.cshaifasweng.OCSFMediatorExample.entities.Table.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -19,7 +16,7 @@ import java.util.List;
 public class AppViewBoundary extends Boundary{
     Object user =  user_Ob.get(0);
     int index =params.size()-1;
-    Clinic clinic = (Clinic) params.get(index);
+//    Clinic clinic = (Clinic) params.get(index);
     @FXML
     private ListView<String> AppList;
 
@@ -35,6 +32,14 @@ public class AppViewBoundary extends Boundary{
                 e.printStackTrace();
             }
         }
+        if (user.getClass().equals(Nurse.class)) {
+            try {
+                App.setRoot("nursemain");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     @FXML
@@ -45,10 +50,11 @@ public class AppViewBoundary extends Boundary{
 
     @FXML
     void initialize() {
-        String belong = "These Actions is belong to " + clinic.getClinicType();
-        ClinicLabel.setText(belong);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         if (user.getClass().equals(Doctor.class)) {
+            Clinic clinic = (Clinic) params.get(index);
+            String belong = "These Actions is belong to " + clinic.getClinicType();
+            ClinicLabel.setText(belong);
             System.out.println("I am a doctor");
             Doctor doctor = (Doctor) user_Ob.get(0);
             List<DoctorAppointment> appointments = doctor.getAppointments();
@@ -58,6 +64,18 @@ public class AppViewBoundary extends Boundary{
                             + "Appointment Date is : " + dtf.format(element.getDate()) + "\n"
                     );
                 }
+        }
+        if(user.getClass().equals(Nurse.class)) {
+            System.out.println("I am a nurse");
+            Nurse nurse = (Nurse) user_Ob.get(0);
+            List<NurseAppointment> appointments = nurse.getAppointments();
+            for (NurseAppointment element : appointments)
+                if(!element.isDone()) {
+                    AppList.getItems().add("Patient name is : " + element.getPatient().getFirstName() + " " + element.getPatient().getLastName() + "\n"
+                            + "Appointment Date is : " + dtf.format(element.getDate()) + "\n"
+                    );
+
+        }
         }
     }
 }

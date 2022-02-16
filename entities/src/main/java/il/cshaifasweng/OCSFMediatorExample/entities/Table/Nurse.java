@@ -1,5 +1,8 @@
 package il.cshaifasweng.OCSFMediatorExample.entities.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,12 +15,15 @@ import javax.persistence.*;
 public class Nurse extends Person {
 
     @ManyToMany(mappedBy = "nurses", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Clinic> clinicList;
 
     @ManyToMany(mappedBy = "nurses", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Patient> patients;
 
     @OneToMany(mappedBy = "nurse")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<NurseAppointment> appointments;
 
     public Nurse(String firstName, String lastName, String phoneNum, String email, String userName, String passWord) {

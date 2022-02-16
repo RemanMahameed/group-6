@@ -16,6 +16,7 @@
             </image>
         </ImageView>
         <Button fx:id="LogoutBTR" layoutX="538.0" layoutY="412.0" mnemonicParsing="false" onAction="#LogOut" text="log out" />
+        <Button layoutX="114.0" layoutY="412.0" mnemonicParsing="false" onAction="#backAction" text="back" />
         <Label fx:id="ClinicLabel" layoutX="21.0" layoutY="14.0" prefHeight="18.0" prefWidth="612.0" />
         <ListView fx:id="PatientList" layoutX="141.0" layoutY="119.0" prefHeight="222.0" prefWidth="318.0" />
       <Label layoutX="141.0" layoutY="54.0" prefHeight="34.0" prefWidth="250.0" text="Patient List" textFill="#121b6b">

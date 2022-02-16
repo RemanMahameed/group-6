@@ -141,6 +141,13 @@ public class App extends Application {
                         e.printStackTrace();
                     }
                 }
+                else if (event.getLogin().getSuccess() == 2) {     //Is a nurse
+                    try {
+                        setRoot("nursemain");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         });
     }

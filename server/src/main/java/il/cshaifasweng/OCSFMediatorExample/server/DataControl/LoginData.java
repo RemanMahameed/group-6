@@ -212,6 +212,12 @@ public class LoginData extends DataClass{
             session.saveOrUpdate(patients);
             session.flush();
         }
+        List<Nurse> nurses = getAllNurse();
+        for (Nurse nurse : nurses) {
+            nurse.setActive(false);
+            session.saveOrUpdate(nurses);
+            session.flush();
+        }
         session.close();
     }
 }
