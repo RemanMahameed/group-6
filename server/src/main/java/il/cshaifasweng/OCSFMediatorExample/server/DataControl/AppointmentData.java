@@ -132,8 +132,8 @@ public class AppointmentData extends DataClass{
         session = sessionFactory.openSession();
         session.beginTransaction();
         Patient patient = getPatientById(patientId);
-        System.out.println("my patient id is: " + patient.getId());
-        Clinic clinic = patient.getClinic();
+        //Clinic clinic = patient.getClinic();   sara changed it in order to get the right clinic
+        Clinic clinic = doctorAppointment.getClinic();
         doctorAppointment.setClinic(clinic);
         doctorAppointment.setDoctor(doctor);
         doctorAppointment.setPatient(patient);
@@ -726,6 +726,7 @@ public class AppointmentData extends DataClass{
         DoctorAppointment doctorAppointment1;
         String newDoctorAppointment2;
         Clinic proClinic = getClinicByName(clinic);
+        //System.out.println("th pro clinic choice is : "+proClinic.getClinicType());
         int flagIsAvailable=0;
         while (date.isBefore(after3months)) {
             if (date.getDayOfWeek().toString().equalsIgnoreCase("Sunday") && DoctorReceptionTime[0][0].isBefore(date.toLocalTime()) && DoctorReceptionTime[1][0].isAfter(date.toLocalTime()) ||
@@ -769,6 +770,7 @@ public class AppointmentData extends DataClass{
             flagIsAvailable=0;
             date = date.plusMinutes(20);
         }
+
         return (new DoctorApp(doctorAppString, doctorAppList,patient,doctor));
     }
     public static ProDoctorsList getdoctorsofsp (String major , String id_P) throws Exception {
