@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
@@ -788,8 +789,41 @@ public class AppointmentData extends DataClass{
                 doctors.add(doctor);
             }
         }
-        //Patient patient = getPbyID(id_P);
-        ProDoctorsList SortedDoctors = new ProDoctorsList(doctors);
+        Patient patient = getPatientById(Integer.parseInt(id_P));
+        List<DoctorAppointment> docApp = patient.getDoctorAppointments();
+        for (DoctorAppointment element : docApp)
+        {
+            if (!(element.getAppointmentType().equalsIgnoreCase(major)))
+                docApp.remove(element);
+        }
+        docApp.sort(Comparator.comparing(DoctorAppointment :: getDate).reversed());
+        LinkedList<Doctor> finalDocList = new LinkedList<>();
+        int exist=0;
+        for (DoctorAppointment element : docApp)
+        {
+            exist=0;
+            for (Doctor docelement : finalDocList)
+            {
+                if (docelement.getId()==element.getDoctor().getId())
+                    exist=1;
+            }
+            if (exist==0)
+                finalDocList.add(element.getDoctor());
+        }
+        for (Doctor element : doctors)
+        {
+            exist=0;
+            for (Doctor docelement : finalDocList)
+            {
+                if (docelement.getId()==element.getId())
+                    exist=1;
+            }
+            if (exist==0)
+                finalDocList.add(element);
+        }
+
+
+        ProDoctorsList SortedDoctors = new ProDoctorsList(finalDocList);
         if (session != null) {
             session.close();
 

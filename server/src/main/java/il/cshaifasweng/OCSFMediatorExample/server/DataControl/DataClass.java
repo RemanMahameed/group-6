@@ -247,6 +247,9 @@ public class DataClass {
         LinkedList<ReceptionTime> receptionTimes4=new LinkedList<>();
         LinkedList<ReceptionTime> receptionTimes5=new LinkedList<>();
         LinkedList<ReceptionTime> receptionTimes6=new LinkedList<>();
+        LinkedList<ReceptionTime> receptionTimes7=new LinkedList<>();
+        LinkedList<ReceptionTime> receptionTimes8=new LinkedList<>();
+        LinkedList<ReceptionTime> receptionTimes9=new LinkedList<>();
         //manager of HMO
         HmoManager hmoManager=new HmoManager("hmoManager","hmoManager","0503104837","hmoManager@gmail.com","HM-hmoManager","1111");
         //manager of clinic
@@ -260,6 +263,9 @@ public class DataClass {
         Doctor doctor4=new Doctor("doctor4","doctor","0503104837","Doctor44@gmail.com","D-Doctor4","4444","PediatricianDoctor");
         Doctor doctor5=new Doctor("doctor5","doctor","0503104837","Doctor55@gmail.com","D-Doctor5","5555","PediatricianDoctor");
         Doctor doctor6=new Doctor("doctor6","doctor","0503104837","Doctor66@gmail.com","D-Doctor6","6666","ProfessionalDoctor-Gynecologist");
+        Doctor doctor7=new Doctor("doctor7","doctor","0503104837","Doctor77@gmail.com","D-Doctor7","7777","ProfessionalDoctor-Otolaryngologies");
+        Doctor doctor8=new Doctor("doctor8","doctor","0503104837","Doctor88@gmail.com","D-Doctor8","8888","ProfessionalDoctor-Otolaryngologies");
+        Doctor doctor9=new Doctor("doctor9","doctor","0503104837","Doctor99@gmail.com","D-Doctor9","9999","ProfessionalDoctor-Otolaryngologies");
         //Nurse
         Nurse nurse1=new Nurse("nurse1","nurse","0503104837","nurse111@gmail.com","N-nurse1","1111");
         Nurse nurse2=new Nurse("nurse2","nurse","0503104837","nurse222@gmail.com","N-nurse2","2222");
@@ -297,6 +303,9 @@ public class DataClass {
         ReceptionTime reception5=new ReceptionTime(clinic3.getClinicType(),DoctorReceptionTime1);//10-14
         ReceptionTime reception6_3=new ReceptionTime(clinic3.getClinicType(),DoctorReceptionTime2);//8-9
         ReceptionTime reception6_2=new ReceptionTime(clinic2.getClinicType(),DoctorReceptionTime1);//10-14
+        ReceptionTime reception7=new ReceptionTime(clinic3.getClinicType(),DoctorReceptionTime1);//10-14
+        ReceptionTime reception8=new ReceptionTime(clinic3.getClinicType(),DoctorReceptionTime1);//10-14
+        ReceptionTime reception9=new ReceptionTime(clinic2.getClinicType(),DoctorReceptionTime1);//10-14
 
 
         //Set doctor1 reception time
@@ -331,6 +340,21 @@ public class DataClass {
         reception6_2.setDoctor(doctor6);
         reception6_3.setDoctor(doctor6);
 
+        //Set doctor7 reception time
+        receptionTimes7.add(reception7);
+        doctor7.setReceptionTime(receptionTimes7);
+        reception7.setDoctor(doctor7);
+
+        //Set doctor8 reception time
+        receptionTimes8.add(reception8);
+        doctor8.setReceptionTime(receptionTimes8);
+        reception8.setDoctor(doctor8);
+
+        //Set doctor9 reception time
+        receptionTimes9.add(reception9);
+        doctor9.setReceptionTime(receptionTimes9);
+        reception9.setDoctor(doctor9);
+
 
         //connect list of doctor, nurse, laboratory,clinicManger,patient to  clinic 1
         //create list
@@ -360,6 +384,7 @@ public class DataClass {
         //create list
         doctors2.add(doctor3);
         doctors2.add(doctor6);
+        doctors2.add(doctor9);
         nurses2.add(nurse2);
         laboratoryFact2.add(laboratoryFacts2);
         //patients2.add(patient3);
@@ -371,6 +396,7 @@ public class DataClass {
         //clinic2.setPatients(patients2);
         doctor3.setClinicList(clinics2);
         doctor6.setClinicList(clinics2);
+        doctor9.setClinicList(clinics2);
         nurse2.setClinicList(clinics2);
         laboratoryFacts2.setClinicList(clinics2);
         //patient2.setClinic(clinic2);
@@ -383,6 +409,8 @@ public class DataClass {
         doctors3.add(doctor2);
         doctors3.add(doctor5);
         doctors3.add(doctor6);
+        doctors3.add(doctor7);
+        doctors3.add(doctor8);
         nurses3.add(nurse3);
         laboratoryFact3.add(laboratoryFacts3);
         patients3.add(patient4);
@@ -396,6 +424,8 @@ public class DataClass {
         doctor2.setClinicList(clinics3);
         doctor5.setClinicList(clinics3);
         doctor6.setClinicList(clinics3);
+        doctor7.setClinicList(clinics3);
+        doctor8.setClinicList(clinics3);
         nurse3.setClinicList(clinics3);
         laboratoryFacts3.setClinicList(clinics3);
         patient4.setClinic(clinic3);
@@ -426,6 +456,9 @@ public class DataClass {
             session.saveOrUpdate(doctor4);
             session.saveOrUpdate(doctor5);
             session.saveOrUpdate(doctor6);
+            session.saveOrUpdate(doctor7);
+            session.saveOrUpdate(doctor8);
+            session.saveOrUpdate(doctor9);
             session.saveOrUpdate(nurse1);
             session.saveOrUpdate(nurse2);
             session.saveOrUpdate(nurse3);
@@ -443,6 +476,9 @@ public class DataClass {
             session.saveOrUpdate(reception5);
             session.saveOrUpdate(reception6_2);
             session.saveOrUpdate(reception6_3);
+            session.saveOrUpdate(reception7);
+            session.saveOrUpdate(reception8);
+            session.saveOrUpdate(reception9);
             System.err.println("Generated ends ...");
             session.flush();
             session.getTransaction().commit(); // Save everything.
