@@ -146,8 +146,12 @@ public class Patient extends Person {
             firstDoctor.add(doctor);
             setDoctors(firstDoctor);
         }
-        else
+        else {
+            for (Doctor element : this.getDoctors())
+                if(element.getId()==doctor.getId())
+                    return;
             this.doctors.add(doctor);
+        }
     }
 
     public void setDoctors(List<Doctor> doctors) {

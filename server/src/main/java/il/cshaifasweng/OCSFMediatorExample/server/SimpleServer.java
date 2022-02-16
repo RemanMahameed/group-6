@@ -52,11 +52,11 @@ public class SimpleServer extends AbstractServer {
 //			} catch (Exception e) {
 //				e.printStackTrace();
 //			}
-//			try {
-//			DataClass.generateNewData();
-//		    } catch (Exception e) {
-//			e.printStackTrace();
-//		}
+			try {
+			DataClass.generateNewData();
+		    } catch (Exception e) {
+			e.printStackTrace();
+		}
 			System.out.format("I am in the else \n");
 			Login login = null;
 			try {
@@ -139,6 +139,7 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 			try {
+				//System.out.println("the clinic is: " + message.get(3));
 				doctorApp = AppointmentData.getFreeProDoctorApp(doc ,P ,doc.getRole() ,(String) message.get(3) );
 			} catch (Exception e) {
 				e.printStackTrace();

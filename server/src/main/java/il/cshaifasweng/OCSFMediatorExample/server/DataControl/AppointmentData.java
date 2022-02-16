@@ -111,14 +111,14 @@ public class AppointmentData extends DataClass{
                             doctorAppList.add(doctorAppointment1);
                             newDoctorAppointment2 = "Month: " + date.getMonth() + "   Day: " + date.getDayOfMonth() + "   hour: " + date.getHour() + "   minute: " + date.getMinute();
                             doctorAppString.add(newDoctorAppointment2);
-                            System.out.println("The string is: " + newDoctorAppointment2);
+                            //System.out.println("The string is: " + newDoctorAppointment2);
                         }
                     }else {
                         doctorAppointment1 = new DoctorAppointment(type, date, doctor, patient, patient.getClinic());
                         doctorAppList.add(doctorAppointment1);
                         newDoctorAppointment2 = "Month: " + date.getMonth() + "   Day: " + date.getDayOfMonth() + "   hour: " + date.getHour() + "   minute: " + date.getMinute();
                         doctorAppString.add(newDoctorAppointment2);
-                        System.out.println("The string is: " + newDoctorAppointment2);
+                        //System.out.println("The string is: " + newDoctorAppointment2);
                     }
                 }
             }
@@ -131,36 +131,79 @@ public class AppointmentData extends DataClass{
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
         session.beginTransaction();
-        Patient patient=getPatientById(patientId);
-        Clinic clinic=patient.getClinic();
+        Patient patient = getPatientById(patientId);
+        System.out.println("my patient id is: " + patient.getId());
+        Clinic clinic = patient.getClinic();
         doctorAppointment.setClinic(clinic);
         doctorAppointment.setDoctor(doctor);
         doctorAppointment.setPatient(patient);
-        List<DoctorAppointment> doctorAppointments= new LinkedList<>();
+        List<DoctorAppointment> doctorAppointments = new LinkedList<>();
         doctorAppointments.add(doctorAppointment);
-        List<Patient> firstPatient=new LinkedList<>();
+        List<Patient> firstPatient = new LinkedList<>();
         firstPatient.add(patient);
-        List<Doctor> firstDoctor=new LinkedList<>();
+        List<Doctor> firstDoctor = new LinkedList<>();
         firstDoctor.add(doctor);
         //connect app to clinic
-        if(clinic.getDoctorAppointments().size() == 0)
+        if (clinic.getDoctorAppointments().size() == 0)
             clinic.setDoctorAppointments(doctorAppointments);
         else
             clinic.getDoctorAppointments().add(doctorAppointment);
         //connect app to doctor
-        if(doctor.getAppointments().size() == 0){
+        if (doctor.getAppointments().size() == 0) {
             doctor.setAppointments(doctorAppointments);
-        }else {
+        } else {
             doctor.getAppointments().add(doctorAppointment);
         }
         //connect app to patient
-        if(patient.getDoctorAppointments().size() == 0)
+        if (patient.getDoctorAppointments().size() == 0)
             patient.setDoctorAppointments(doctorAppointments);
         else
             patient.getDoctorAppointments().add(doctorAppointment);
-        // connect between doctors and patients
-        patient.AddDoctor(doctor);
-        doctor.AddPatient(patient);
+        //connect doctor to patient
+        int exist = 0;
+        if (patient.getDoctors().size() == 0) {
+            patient.setDoctors(firstDoctor);
+            session.saveOrUpdate(doctor);
+        }
+        else
+        {
+             exist = 0;
+            for (Doctor element : patient.getDoctors())
+                if(element.getId()==doctor.getId())
+            {
+                exist=1;
+                System.out.println("is exist");
+            }
+            if (exist==0)
+            {
+                System.out.println("not exist");
+                patient.getDoctors().add(doctor);
+                session.saveOrUpdate(doctor);
+            }
+             }
+        //connect patient to doctor
+        if(doctor.getPatients().size()==0) {
+            doctor.setPatients(firstPatient);
+            session.saveOrUpdate(patient);
+        }
+        else
+        {
+            exist=0;
+            for (Patient element : doctor.getPatients())
+                if (element.getId() == patient.getId())
+            {
+                exist=1;
+                System.out.println("is exist");
+            }
+            if (exist==0){
+                System.out.println("not exist");
+                doctor.getPatients().add(patient);
+                session.saveOrUpdate(patient);
+            }
+
+        }
+
+
 
         //sending email..
         String messageContent="You Have DoctorAppointment at: "+ doctorAppointment.getDate()+"\n"
@@ -170,8 +213,8 @@ public class AppointmentData extends DataClass{
         //sendEmail(patient.getEmail(), messageContent,subject);
 
         session.saveOrUpdate(doctorAppointment);
-        session.saveOrUpdate(doctor);
-        session.saveOrUpdate(patient);
+
+
         session.flush();
         session.getTransaction().commit();
         if (session != null)
@@ -712,14 +755,14 @@ public class AppointmentData extends DataClass{
                             doctorAppList.add(doctorAppointment1);
                             newDoctorAppointment2 = "Month: " + date.getMonth() + "   Day: " + date.getDayOfMonth() + "   hour: " + date.getHour() + "   minute: " + date.getMinute();
                             doctorAppString.add(newDoctorAppointment2);
-                            System.out.println("The string is: " + newDoctorAppointment2);
+                            //System.out.println("The string is: " + newDoctorAppointment2);
                         }
                     }else {
                         doctorAppointment1 = new DoctorAppointment(type, date, doctor, patient, proClinic);
                         doctorAppList.add(doctorAppointment1);
                         newDoctorAppointment2 = "Month: " + date.getMonth() + "   Day: " + date.getDayOfMonth() + "   hour: " + date.getHour() + "   minute: " + date.getMinute();
                         doctorAppString.add(newDoctorAppointment2);
-                        System.out.println("The string is: " + newDoctorAppointment2);
+                        //System.out.println("The string is: " + newDoctorAppointment2);
                     }
                 }
             }

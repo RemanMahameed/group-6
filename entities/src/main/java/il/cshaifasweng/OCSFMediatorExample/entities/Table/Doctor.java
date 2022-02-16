@@ -73,8 +73,12 @@ public class Doctor extends Person {
             firstPatient.add(patient);
             setPatients(firstPatient);
         }
-        else
+        else {
+            for (Patient element : this.patients)
+                if (element.getId() == patient.getId())
+                    return;
             this.patients.add(patient);
+        }
     }
 
     public List<DoctorAppointment> getAppointments() {
