@@ -33,7 +33,11 @@ public class DoctorActionsBoundary extends Boundary{
 
     @FXML
     void AppListAction(ActionEvent event) {
-
+        try {
+            App.setRoot("AppView");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
