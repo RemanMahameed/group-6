@@ -39,6 +39,13 @@ public class AppViewBoundary extends Boundary{
                 e.printStackTrace();
             }
         }
+        if (user.getClass().equals(LaboratoryFacts.class)) {
+            try {
+                App.setRoot("LaboratoryFactMain");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 
@@ -77,5 +84,18 @@ public class AppViewBoundary extends Boundary{
 
         }
         }
+        if(user.getClass().equals(LaboratoryFacts.class)) {
+            System.out.println("I am a laboratory factor");
+            LaboratoryFacts laboratoryFact = (LaboratoryFacts) user_Ob.get(0);
+            List<LaboratoryFactsAppointment> appointments = laboratoryFact.getAppointments();
+            for (LaboratoryFactsAppointment element : appointments)
+                if(!element.isDone()) {
+                    AppList.getItems().add("Patient name is : " + element.getPatient().getFirstName() + " " + element.getPatient().getLastName() + "\n"
+                            + "Appointment Date is : " + dtf.format(element.getDate()) + "\n"
+                    );
+
+                }
+        }
+
     }
 }

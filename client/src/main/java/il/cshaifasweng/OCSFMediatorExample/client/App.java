@@ -11,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
+
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -141,9 +142,17 @@ public class App extends Application {
                         e.printStackTrace();
                     }
                 }
-                else if (event.getLogin().getSuccess() == 2) {     //Is a nurse
+                else if (event.getLogin().getSuccess() == ISNURSE) {     //Is a nurse
                     try {
                         setRoot("nursemain");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else if (event.getLogin().getSuccess() == ISLAB) {     //Is a Laboratory factor
+                    try {
+                        System.out.println(" im going to LaboratoryFactMain boundary");
+                        setRoot("LaboratoryFactMain");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

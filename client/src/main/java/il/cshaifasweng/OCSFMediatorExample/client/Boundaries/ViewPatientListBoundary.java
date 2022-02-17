@@ -6,10 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
-import il.cshaifasweng.OCSFMediatorExample.entities.Table.Clinic;
-import il.cshaifasweng.OCSFMediatorExample.entities.Table.Doctor;
-import il.cshaifasweng.OCSFMediatorExample.entities.Table.Nurse;
-import il.cshaifasweng.OCSFMediatorExample.entities.Table.Patient;
+import il.cshaifasweng.OCSFMediatorExample.entities.Table.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -53,6 +50,13 @@ public class ViewPatientListBoundary extends Boundary {
                 e.printStackTrace();
             }
         }
+        if (user.getClass().equals(LaboratoryFacts.class)) {
+            try {
+                App.setRoot("LaboratoryFactMain");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
     @FXML
@@ -74,6 +78,14 @@ public class ViewPatientListBoundary extends Boundary {
             System.out.println("I am a nurse");
             Nurse nurse = (Nurse) user_Ob.get(0);
             List<Patient> patients = nurse.getPatients();
+            for(Patient element : patients)
+                PatientList.getItems().add(element.getFirstName() + " " + element.getLastName());
+        }
+        if (user.getClass().equals(LaboratoryFacts.class))
+        {
+            System.out.println("I am a laboratory factor");
+            LaboratoryFacts lab = (LaboratoryFacts) user_Ob.get(0);
+            List<Patient> patients = lab.getPatients();
             for(Patient element : patients)
                 PatientList.getItems().add(element.getFirstName() + " " + element.getLastName());
         }

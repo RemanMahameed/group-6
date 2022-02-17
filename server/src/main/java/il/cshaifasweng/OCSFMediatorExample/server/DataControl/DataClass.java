@@ -272,8 +272,8 @@ public class DataClass {
         Nurse nurse3=new Nurse("nurse3","nurse","0503104837","nurse333@gmail.com","N-nurse3","3333");
         //LaboratoryFacts
         LaboratoryFacts laboratoryFacts1=new LaboratoryFacts("laboratoryFacts1","laboratoryFacts","0503104837","laboratoryFacts1111@gmail.com","L-laboratoryFacts1","1111");
-        LaboratoryFacts laboratoryFacts2=new LaboratoryFacts("laboratoryFacts2","laboratoryFacts","0503104837","laboratoryFacts2222@gmail.com","L-laboratoryFacts1","2222");
-        LaboratoryFacts laboratoryFacts3=new LaboratoryFacts("laboratoryFacts3","laboratoryFacts","0503104837","laboratoryFacts3333@gmail.com","L-laboratoryFacts1","3333");
+        LaboratoryFacts laboratoryFacts2=new LaboratoryFacts("laboratoryFacts2","laboratoryFacts","0503104837","laboratoryFacts2222@gmail.com","L-laboratoryFacts2","2222");
+        LaboratoryFacts laboratoryFacts3=new LaboratoryFacts("laboratoryFacts3","laboratoryFacts","0503104837","laboratoryFacts3333@gmail.com","L-laboratoryFacts3","3333");
         //Patient
         Patient patient1=new Patient("patient1","patient","0503104837","reman.2000.h@gmail.com","P-patient1","1111",34,false,120);
         Patient patient2=new Patient("patient2","patient","0503104837","sarazreke@gmail.com","P-patient2","2222",18,true,162);

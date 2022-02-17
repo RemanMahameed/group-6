@@ -87,7 +87,7 @@ public class LoginData extends DataClass{
                     laboratoryFacts1.setActive(true);
                     session.saveOrUpdate(laboratoryFacts1);
                     session.flush();
-                    return login = new Login(userName, passWord, ISLAB,laboratoryFacts);
+                    return login = new Login(userName, passWord, ISLAB,laboratoryFacts1);
                 }
             }
         }
@@ -218,6 +218,7 @@ public class LoginData extends DataClass{
             session.saveOrUpdate(nurses);
             session.flush();
         }
+
         session.close();
     }
 }

@@ -1,7 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.client.Boundaries;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
-import il.cshaifasweng.OCSFMediatorExample.entities.Table.Nurse;
+import il.cshaifasweng.OCSFMediatorExample.entities.Table.LaboratoryFacts;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -11,15 +11,15 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class NurseMainBoundary extends Boundary {
-    Nurse nurse;
+public class MainLaboratoryFactBoundary extends Boundary{
+    LaboratoryFacts LaboratoryFact;
 
-    public Nurse getNurse() {
-        return nurse;
+    public LaboratoryFacts getLaboratoryFact() {
+        return LaboratoryFact;
     }
 
-    public void setNurse(Nurse nurse) {
-        this.nurse = nurse;
+    public void setLaboratoryFact(LaboratoryFacts LaboratoryFact) {
+        this.LaboratoryFact = LaboratoryFact;
     }
 
     @FXML
@@ -55,8 +55,9 @@ public class NurseMainBoundary extends Boundary {
     }
     @FXML
     void initialize() {
-        Nurse nurse= (Nurse) user_Ob.get(0);
-        System.out.println(" After Nurse nurse:"+ nurse.getFirstName());
-        Dlabel.setText(nurse.getUserName());
+        System.out.println("im in the initialize");
+        LaboratoryFacts LaboratoryFact= (LaboratoryFacts) user_Ob.get(0);
+        System.out.println(" After LaboratoryFacts LaboratoryFact:"+ LaboratoryFact.getFirstName());
+        Dlabel.setText(LaboratoryFact.getUserName());
     }
 }
