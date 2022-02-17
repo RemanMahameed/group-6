@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.Optional;
 
 
+import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,6 +37,11 @@ public class PrimaryController {
 
 	@FXML
 	void QueueManageBTR(ActionEvent event) {
+		try {
+			App.setRoot("QueueManagement");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 	}
 
