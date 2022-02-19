@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="488.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Boundaries.PrimaryController">
+    <children>
+        <ImageView fitHeight="488.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@image-from-rawpixel-id-516093-jpeg.jpg" />
+            </image>
+        </ImageView>
+        <Label layoutX="241.0" layoutY="60.0" text="Welcome" textAlignment="CENTER" textFill="#253f84">
+            <font>
+                <Font name="Script MT Bold" size="48.0" />
+            </font>
+        </Label>
+        <Label layoutX="93.0" layoutY="135.0" text="choose the system that you would like to use: " textAlignment="CENTER" textFill="#253f84">
+            <font>
+                <Font name="Nirmala UI" size="22.0" />
+            </font>
+        </Label>
+        <Label layoutX="46.0" layoutY="407.0" text="health is wealth!" textAlignment="CENTER" textFill="#253f84">
+            <font>
+                <Font name="Script MT Bold" size="28.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>

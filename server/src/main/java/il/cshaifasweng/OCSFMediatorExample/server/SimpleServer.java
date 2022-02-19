@@ -52,11 +52,11 @@ public class SimpleServer extends AbstractServer {
 //			} catch (Exception e) {
 //				e.printStackTrace();
 //			}
-			try {
-			DataClass.generateNewData();
-		    } catch (Exception e) {
-			e.printStackTrace();
-		}
+//			try {
+//			DataClass.generateNewData();
+//		    } catch (Exception e) {
+//			e.printStackTrace();
+//		}
 			System.out.format("I am in the else \n");
 			Login login = null;
 			try {
@@ -311,6 +311,27 @@ public class SimpleServer extends AbstractServer {
 			try {
 				client.sendToClient(clinic);
 				System.out.format("Sent clinic to client %s\n", client.getInetAddress().getHostAddress());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		}else if (message.get(0).equals("#CardNum")) {
+			System.out.println(" I am in card num");
+			String CardString = (String) message.get(1);
+			long CardNum = Long.parseLong(CardString);
+			String Clinic = (String) message.get(2);
+			//System.out.println(" I am in card num1");
+			cardinfo info = new cardinfo() ;
+			try {
+				//System.out.println(" I am in card num2");
+				info = LoginData.CheckPatientCard(CardNum ,Clinic );
+				//System.out.println(" I am in card num3");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				client.sendToClient(info);
+				System.out.format("Sent Card verification to client %s\n", client.getInetAddress().getHostAddress());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

@@ -1,7 +1,9 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
 import il.cshaifasweng.OCSFMediatorExample.client.Boundaries.MessageBoundary;
+import il.cshaifasweng.OCSFMediatorExample.client.Boundaries.dispalyQueueBoundary;
 import il.cshaifasweng.OCSFMediatorExample.client.Events.*;
+import il.cshaifasweng.OCSFMediatorExample.entities.Table.Patient;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -292,6 +294,38 @@ public class App extends Application {
                 setRoot("DoctorActions");
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        });
+    }
+    @Subscribe
+    public  void onCardInfoEvent(CardInfoEvent event)throws IOException {
+        Platform.runLater(() -> {
+            System.out.println("i am in CardInfoEvent");
+            if(event.getInf().getSuccess()== NOTFOUND )
+                MessageBoundary.displayError("Wrong Card number\n");
+            else if(event.getInf().getSuccess()== ISACTIVE )
+                MessageBoundary.displayError("User already logged in!\n");
+            else{
+                params.clear();
+                params.add(event.getInf().getC());
+                SimpleClient.setParams(params);
+                LinkedList<Object> user = new LinkedList<>();
+                user.add(event.getInf().getP());
+                SimpleClient.setUser_Ob(user);
+                if(event.getInf().getDetails().equals("$")){
+                    try {
+                        App.setRoot("otherActions");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    try {
+                        dispalyQueueBoundary.displayQueue(event.getInf().getDetails() , event.getInf().getP());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
             }
         });
     }

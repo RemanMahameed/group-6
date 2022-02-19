@@ -3,9 +3,12 @@ package il.cshaifasweng.OCSFMediatorExample.server.DataControl;
 import java.util.List;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.Login;
+import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.cardinfo;
 import il.cshaifasweng.OCSFMediatorExample.entities.Table.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
+import static il.cshaifasweng.OCSFMediatorExample.server.DataControl.AppointmentData.getClosestApp;
 
 
 public class LoginData extends DataClass{
@@ -220,6 +223,40 @@ public class LoginData extends DataClass{
         }
 
         session.close();
+    }
+    //////////////////////////////
+    /// sara nameer reeman
+    public static cardinfo CheckPatientCard(long card , String clinicName) throws Exception {
+
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<Patient> Patients = getAllPatients();
+        // Clinic clinic = new Clinic();
+        Clinic clinic = getClinicByName(clinicName);
+        String det = "$";
+//        for(Clinic element : clinics){
+//            if(clinicName.equals(element.getClinicType()))
+//                clinic=element;
+//        }
+        for (Patient patient : Patients) {
+            if (patient.getCard()== card ) {
+                if (patient.getActive() == true)
+                    return (new cardinfo(patient , clinic , ISACTIVE ,""));
+                else {
+                    det = getClosestApp(patient , clinic);
+                    patient.setActive(true);
+                    session.saveOrUpdate(patient);
+                    session.flush();
+                    session.getTransaction().commit();
+                    return  (new cardinfo(patient , clinic, ISPATIENT , det));
+                }
+            }
+        }
+        session.getTransaction().commit();
+        if (session != null)
+            session.close();
+        return (new cardinfo(Patients.get(0) , clinic, NOTFOUND , ""));
     }
 }
 

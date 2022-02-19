@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
@@ -830,4 +830,130 @@ public class AppointmentData extends DataClass{
         }
         return SortedDoctors;
     }
-}
+    public static String getClosestApp(Patient p , Clinic c)
+    {
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        List<DoctorAppointment> docApps = p.getDoctorAppointments();
+        List<VaccineAppointment> vaccine = p.getVaccineAppointments();
+        List<CoronaTestAppointment> corona = p.getCoronaTestAppointments();
+        int Sdoc = docApps.size();
+        int Svaccine = vaccine.size();
+        int Scorona = corona.size();
+        String details = "$";
+        LocalDateTime date = LocalDateTime.now();
+        int i;
+        // removing the appointments of other clinics and other dates
+        for(i=0 ; i< Sdoc ; i++){
+            if(docApps.get(i).getClinic().getId() != c.getId() || docApps.get(i).getDate().getYear() != date.getYear() || docApps.get(i).getDate().getDayOfYear() != date.getDayOfYear()){
+                {
+                    docApps.remove(i);
+                    Sdoc--;
+                }
+            }
+            }
+
+        for(i=0 ; i< Scorona ; i++){
+            if(corona.get(i).getClinic().getId() != c.getId() || corona.get(i).getDate().getYear() != date.getYear() || corona.get(i).getDate().getDayOfYear() != date.getDayOfYear()){
+                corona.remove(i);
+            }
+        }
+        if(Svaccine!=0){
+        for(i=0 ; i< Svaccine ; i++){
+
+            if(vaccine.get(i).getClinic().getId() != c.getId() || vaccine.get(i).getDate().getYear() != date.getYear() || vaccine.get(i).getDate().getDayOfYear() != date.getDayOfYear()){
+                vaccine.remove(i);
+            }
+        }}
+        docApps.sort(Comparator.comparing(DoctorAppointment :: getDate).reversed());
+        vaccine.sort(Comparator.comparing(VaccineAppointment :: getDate).reversed());
+        corona.sort(Comparator.comparing(CoronaTestAppointment :: getDate).reversed());
+//
+        ///// just one is not empty
+        if (Sdoc!=0 && Scorona==0 && Svaccine==0)
+        {
+            //the app is docApp
+            details = "the doctor name is : " + docApps.get(0).getDoctor().getFirstName()+"\n"
+                   + "the scheduled date is " + dtf.format(docApps.get(0).getDate());
+        }
+        else if(Sdoc==0 && Scorona!=0 && Svaccine==0)
+        {
+            //the app is corona
+            details = "the scheduled date is " + dtf.format(corona.get(0).getDate());
+        }
+        else if(Sdoc==0 && Scorona==0 && Svaccine!=0)
+        {
+            //the app is vaccine
+            details =  "the scheduled date is " + dtf.format(vaccine.get(0).getDate());
+        }
+
+
+        ///// just two is not empty
+        if(Sdoc==0 && Scorona!=0 && Svaccine!=0) {
+            if (corona.get(0).getDate().isBefore(vaccine.get(0).getDate()))
+            {
+                //the App is corona
+                details = "the scheduled date is " + dtf.format(corona.get(0).getDate());
+            }
+            else if (vaccine.get(0).getDate().isBefore(corona.get(0).getDate()))
+            {
+                //the app is vaccine
+                details =  "the scheduled date is " + dtf.format(vaccine.get(0).getDate());
+            }
+        }
+        else if (Sdoc!=0 && Scorona==0 && Svaccine!=0)
+        {
+            if (docApps.get(0).getDate().isBefore(vaccine.get(0).getDate()))
+            {
+                //the App is docApp
+                details = "the doctor name is : " + docApps.get(0).getDoctor().getFirstName()+"\n"
+                        + "the scheduled date is " + dtf.format(docApps.get(0).getDate());
+            }
+            else if (vaccine.get(0).getDate().isBefore(docApps.get(0).getDate()))
+            {
+                //the app is vaccine
+                details =  "the scheduled date is " + dtf.format(vaccine.get(0).getDate());
+            }
+        }
+        else if (Sdoc!=0 && Scorona!=0 && Svaccine==0)
+        {
+            if (docApps.get(0).getDate().isBefore(corona.get(0).getDate()))
+            {
+                //the App is docApp
+                details = "the doctor name is : " + docApps.get(0).getDoctor().getFirstName()+"\n"
+                        + "the scheduled date is " + dtf.format(docApps.get(0).getDate());
+            }
+            else if (corona.get(0).getDate().isBefore(docApps.get(0).getDate()))
+            {
+                //the app is corona
+                details = "the scheduled date is " + dtf.format(corona.get(0).getDate());
+            }
+        }
+        ////// all of them are not empty
+        else if (Sdoc!=0 && Scorona!=0 && Svaccine!=0) {
+            if (docApps.get(0).getDate().isBefore(corona.get(0).getDate()) && docApps.get(0).getDate().isBefore(vaccine.get(0).getDate())) {
+                /// the app is docApp
+                details = "the doctor name is : " + docApps.get(0).getDoctor().getFirstName()+"\n"
+                        + "the scheduled date is " + dtf.format(docApps.get(0).getDate());
+            }
+            if (corona.get(0).getDate().isBefore(docApps.get(0).getDate()) && corona.get(0).getDate().isBefore(vaccine.get(0).getDate())) {
+                /// the app is corona
+                details = "the scheduled date is " + dtf.format(corona.get(0).getDate());
+            }
+            if (vaccine.get(0).getDate().isBefore(corona.get(0).getDate()) && vaccine.get(0).getDate().isBefore(docApps.get(0).getDate())) {
+                /// the app is vaccine
+                details =  "the scheduled date is " + dtf.format(vaccine.get(0).getDate());
+            }
+        }
+        if (session != null) {
+            session.close();
+
+        }
+        System.out.println(details);
+        return details ;
+        }
+
+    }
+
