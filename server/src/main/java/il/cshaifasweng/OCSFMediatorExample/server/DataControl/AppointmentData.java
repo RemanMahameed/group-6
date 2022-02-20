@@ -867,9 +867,9 @@ public class AppointmentData extends DataClass{
                 vaccine.remove(i);
             }
         }}
-        docApps.sort(Comparator.comparing(DoctorAppointment :: getDate).reversed());
-        vaccine.sort(Comparator.comparing(VaccineAppointment :: getDate).reversed());
-        corona.sort(Comparator.comparing(CoronaTestAppointment :: getDate).reversed());
+        docApps.sort(Comparator.comparing(DoctorAppointment :: getDate));
+        vaccine.sort(Comparator.comparing(VaccineAppointment :: getDate));
+        corona.sort(Comparator.comparing(CoronaTestAppointment :: getDate));
 //
         ///// just one is not empty
         if (Sdoc!=0 && Scorona==0 && Svaccine==0)
