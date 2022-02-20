@@ -52,11 +52,11 @@ public class SimpleServer extends AbstractServer {
 //			} catch (Exception e) {
 //				e.printStackTrace();
 //			}
-			try {
-			DataClass.generateNewData();
-		    } catch (Exception e) {
-			e.printStackTrace();
-		}
+//			try {
+//			DataClass.generateNewData();
+//		    } catch (Exception e) {
+//			e.printStackTrace();
+//		}
 			System.out.format("I am in the else \n");
 			Login login = null;
 			try {
@@ -336,6 +336,65 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 
+		}else if (message.get(0).equals("#NurseApp")) {
+			AppNum appNum = new AppNum();
+			appNum.setAppType("NurseApp");
+			NurseAppointment nurseAppointment=new NurseAppointment();
+			Patient patientNurse = new Patient();
+			try {
+				patientNurse = DataClass.getPatientById(Integer.valueOf((String)message.get(1)));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			Clinic clinic = new Clinic();
+			try {
+				clinic = DataClass.getClinicById(Integer.valueOf((String)message.get(2)));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			int numOfapp=0;
+			try {
+				numOfapp= AppointmentData.NumAppAndSetNurseAppointment(patientNurse, clinic,nurseAppointment);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			appNum.setAppnum(numOfapp);
+
+			try {
+				client.sendToClient(appNum);
+				System.out.format("Sent Nurse Appointment to client %s\n", client.getInetAddress().getHostAddress());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}else if (message.get(0).equals("#LabApp")) {
+			AppNum appNum = new AppNum();
+			appNum.setAppType("LabApp");
+			Patient patient = new Patient();
+			try {
+				patient = DataClass.getPatientById(Integer.valueOf((String)message.get(1)));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			Clinic clinic = new Clinic();
+			try {
+				clinic = DataClass.getClinicById(Integer.valueOf((String)message.get(1)));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				appNum.setAppnum(AppointmentData.NumAppAndSetLabAppointment(patient, clinic));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			try {
+				client.sendToClient(appNum);
+				System.out.format("Sent Lab Appointment to client %s\n", client.getInetAddress().getHostAddress());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+
 	}
 }

@@ -59,6 +59,8 @@ public class SimpleClient extends AbstractClient {
 			EventBus.getDefault().post(new ClinicBusEvent((ClinicBus) msg));
 		}else if (msg.getClass().equals(cardinfo.class)) {
 			EventBus.getDefault().post(new CardInfoEvent((cardinfo) msg));
+		}else if (msg.getClass().equals(AppNum.class)) {
+			EventBus.getDefault().post(new AppNumEvent((AppNum) msg));
 		}
 	}
 	

@@ -1,8 +1,10 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import il.cshaifasweng.OCSFMediatorExample.client.Boundaries.Boundary;
 import il.cshaifasweng.OCSFMediatorExample.client.Boundaries.MessageBoundary;
 import il.cshaifasweng.OCSFMediatorExample.client.Boundaries.dispalyQueueBoundary;
 import il.cshaifasweng.OCSFMediatorExample.client.Events.*;
+import il.cshaifasweng.OCSFMediatorExample.entities.Table.Clinic;
 import il.cshaifasweng.OCSFMediatorExample.entities.Table.Patient;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -328,6 +330,27 @@ public class App extends Application {
 
             }
         });
+    }
+    @Subscribe
+    public  void onAppNumEvent(AppNumEvent event)throws IOException {
+        Platform.runLater(() -> {
+            if(event.getAppNum().getAppType().equalsIgnoreCase("NurseApp")) {
+                MessageBoundary.displayInfo("your nurse Appointment number:\n               N-" + event.getAppNum().getAppnum());
+            }
+            else if(event.getAppNum().getAppType().equalsIgnoreCase("LabApp")) {
+                MessageBoundary.displayInfo("your Lab Appointment number:\n                 L-" + event.getAppNum().getAppnum());
+            }
+            LinkedList<Object> message = new LinkedList<Object>();
+            message.add("#Logout");
+            message.add(SimpleClient.getUser_Ob().get(0));
+            System.out.println("sending Logout from client to server");
+            try {
+                SimpleClient.getClient().sendToServer(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
     }
 
 

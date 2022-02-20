@@ -214,8 +214,6 @@ public class AppointmentData extends DataClass{
         //sendEmail(patient.getEmail(), messageContent,subject);
 
         session.saveOrUpdate(doctorAppointment);
-
-
         session.flush();
         session.getTransaction().commit();
         if (session != null)
@@ -954,6 +952,83 @@ public class AppointmentData extends DataClass{
         System.out.println(details);
         return details ;
         }
+
+    public static int NumAppAndSetNurseAppointment(Patient patient , Clinic clinic,NurseAppointment nurseApp) throws Exception {
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        nurseApp.setClinic(clinic);
+        nurseApp.setPatient(patient);
+        nurseApp.setAppointmentType("NurseApp");
+        nurseApp.setDate(LocalDateTime.now());
+        nurseApp.setDone(false);
+        session.saveOrUpdate(nurseApp);
+        long id =nurseApp.getId();
+        int int_id= (Math.toIntExact(id))%144;
+        nurseApp.setAppNum(int_id);
+
+
+        List<NurseAppointment> NurseAppointments = new LinkedList<>();
+        NurseAppointments.add(nurseApp);
+        //connect app to clinic
+        if (clinic.getNurseAppointments().size() == 0)
+            clinic.setNurseAppointments(NurseAppointments);
+        else
+            clinic.getNurseAppointments().add(nurseApp);
+        //connect app to patient
+        if (patient.getNurseAppointments().size() == 0)
+            patient.setNurseAppointments(NurseAppointments);
+        else
+            patient.getNurseAppointments().add(nurseApp);
+
+
+        session.saveOrUpdate(nurseApp);
+        session.flush();
+        session.getTransaction().commit();
+        if (session != null)
+            session.close();
+        return int_id;
+    }
+
+    public static int NumAppAndSetLabAppointment(Patient patient , Clinic clinic) throws Exception {
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        LaboratoryFactsAppointment LabApp = new LaboratoryFactsAppointment();
+        LabApp.setClinic(clinic);
+        LabApp.setPatient(patient);
+        LabApp.setAppointmentType("LabApp");
+        LabApp.setDate(LocalDateTime.now());
+        LabApp.setDone(false);
+        session.saveOrUpdate(LabApp);
+        long id =LabApp.getId();
+        int int_id= (Math.toIntExact(id))%144;
+        LabApp.setAppNum(int_id);
+
+
+        List<LaboratoryFactsAppointment> LabAppointments = new LinkedList<>();
+        LabAppointments.add(LabApp);
+        //connect app to clinic
+        if (clinic.getLaboratoryFactsAppointments().size() == 0)
+            clinic.setLaboratoryFactsAppointments(LabAppointments);
+        else
+            clinic.getLaboratoryFactsAppointments().add(LabApp);
+
+        //connect app to patient
+        if (patient.getNurseAppointments().size() == 0)
+            patient.setLaboratoryFactsAppointments(LabAppointments);
+        else
+            patient.getLaboratoryFactsAppointments().add(LabApp);
+
+        session.saveOrUpdate(LabApp);
+        session.flush();
+        session.getTransaction().commit();
+        if (session != null)
+            session.close();
+        return int_id;
+    }
+
+
 
     }
 

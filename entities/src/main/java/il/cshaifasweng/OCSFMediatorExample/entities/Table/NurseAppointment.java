@@ -59,4 +59,8 @@ public class NurseAppointment extends Appointment {
     public void setClinic(Clinic clinic) {
         this.clinic = clinic;
     }
+
+    public Long getId() {
+        return Id;
+    }
 }

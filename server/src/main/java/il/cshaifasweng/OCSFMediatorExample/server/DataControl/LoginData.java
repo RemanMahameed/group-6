@@ -249,7 +249,8 @@ public class LoginData extends DataClass{
                     session.saveOrUpdate(patient);
                     session.flush();
                     session.getTransaction().commit();
-                    return  (new cardinfo(patient , clinic, ISPATIENT , det));
+                    cardinfo cardinfo=new cardinfo(patient , clinic, ISPATIENT , det);
+                    return cardinfo;
                 }
             }
         }
