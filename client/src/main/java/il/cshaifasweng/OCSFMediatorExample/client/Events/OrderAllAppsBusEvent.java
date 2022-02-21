@@ -5,7 +5,7 @@ import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.orderAllAppsBus;
 public class OrderAllAppsBusEvent {
     orderAllAppsBus orderAllAppsBus;
 
-    public OrderAllAppsBusEvent(il.cshaifasweng.OCSFMediatorExample.entities.EventBus.orderAllAppsBus orderAllAppsBus) {
+    public OrderAllAppsBusEvent(orderAllAppsBus orderAllAppsBus) {
         this.orderAllAppsBus = orderAllAppsBus;
     }
 

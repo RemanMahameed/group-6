@@ -1039,7 +1039,7 @@ public class AppointmentData extends DataClass{
             }
         }
         selectedApp.setDone(true);
-        selectedApp.setRealTime(LocalTime.now());
+        selectedApp.setRealTime(LocalDateTime.now());
         selectedApp.setNurse(nurse);
 
         List<NurseAppointment> nurseAppointments=new LinkedList<>();
@@ -1124,7 +1124,7 @@ public class AppointmentData extends DataClass{
             }
         }
         selectedApp.setDone(true);
-        selectedApp.setRealTime(LocalTime.now());
+        selectedApp.setRealTime(LocalDateTime.now());
         selectedApp.setLaboratoryFacts(labfact);
 
         List<LaboratoryFactsAppointment> laboratoryFactsAppointments=new LinkedList<>();

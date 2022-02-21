@@ -11,7 +11,7 @@ public abstract class Appointment implements Serializable {
     protected int AppNum;
     protected String AppointmentType;
     protected LocalDateTime Date;
-    protected LocalTime RealTime;
+    protected LocalDateTime RealTime;
     protected boolean Done;
     //private LocalDateTime ScheduledTime;
 
@@ -47,11 +47,11 @@ public abstract class Appointment implements Serializable {
         Date = date;
     }
 
-    public LocalTime getRealTime() {
+    public LocalDateTime getRealTime() {
         return RealTime;
     }
 
-    public void setRealTime(LocalTime realTime) {
+    public void setRealTime(LocalDateTime realTime) {
         RealTime = realTime;
     }
 
