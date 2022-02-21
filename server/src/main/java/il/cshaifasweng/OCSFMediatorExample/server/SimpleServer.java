@@ -1,7 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
 //import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.Login;
-import com.mysql.cj.util.DnsSrv;
 import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.*;
 import il.cshaifasweng.OCSFMediatorExample.entities.Table.*;
 import il.cshaifasweng.OCSFMediatorExample.server.DataControl.AppointmentData;
@@ -10,11 +9,11 @@ import il.cshaifasweng.OCSFMediatorExample.server.DataControl.LoginData;
 import il.cshaifasweng.OCSFMediatorExample.server.DataControl.WorkingHoursData;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.AbstractServer;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
-import org.hibernate.engine.internal.ImmutableEntityEntry;
 
 import java.io.IOException;
 import java.time.LocalTime;
 import java.util.LinkedList;
+import java.util.List;
 
 public class SimpleServer extends AbstractServer {
 
@@ -370,6 +369,7 @@ public class SimpleServer extends AbstractServer {
 		}else if (message.get(0).equals("#LabApp")) {
 			AppNum appNum = new AppNum();
 			appNum.setAppType("LabApp");
+			LaboratoryFactsAppointment laboratoryFactsAppointment= new LaboratoryFactsAppointment();
 			Patient patient = new Patient();
 			try {
 				patient = DataClass.getPatientById(Integer.valueOf((String)message.get(1)));
@@ -378,15 +378,17 @@ public class SimpleServer extends AbstractServer {
 			}
 			Clinic clinic = new Clinic();
 			try {
-				clinic = DataClass.getClinicById(Integer.valueOf((String)message.get(1)));
+				clinic = DataClass.getClinicById(Integer.valueOf((String)message.get(2)));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			int numOfapp=0;
 			try {
-				appNum.setAppnum(AppointmentData.NumAppAndSetLabAppointment(patient, clinic));
+				numOfapp=AppointmentData.NumAppAndSetLabAppointment(patient, clinic,laboratoryFactsAppointment);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			appNum.setAppnum(numOfapp);
 
 			try {
 				client.sendToClient(appNum);
@@ -394,6 +396,113 @@ public class SimpleServer extends AbstractServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}else if (message.get(0).equals("#SelectedNurseApp")){
+
+			String AppDetails = (String) message.get(1);
+			int indexOfP = AppDetails.indexOf("P");
+			int EndOrBagan;
+			EndOrBagan=indexOfP-1;
+			String AppIdStr = AppDetails.substring(8,EndOrBagan);
+			int AppId = Integer.parseInt(AppIdStr);
+			EndOrBagan=indexOfP+12;
+			String PatientIdStr = AppDetails.substring(EndOrBagan,(AppDetails.indexOf("\n")));
+			int PatientId = Integer.parseInt(PatientIdStr);
+			Patient patient=new Patient();
+			try {
+				 patient= DataClass.getPatientById(PatientId);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			Nurse nurse=new Nurse();
+			try {
+				 nurse=DataClass.getNurseById(Integer.valueOf((String)message.get(2)));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			Clinic clinic=new Clinic();
+			try {
+				 clinic=DataClass.getClinicById(Integer.valueOf((String)message.get(3)));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			DoneAppBus appIsDoneBus = AppointmentData.SetNurseAppAsDone(patient,nurse,clinic,AppId);
+			try {
+				client.sendToClient(appIsDoneBus);
+				System.out.format("Sent Done Nurse Appointment to client %s\n", client.getInetAddress().getHostAddress());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}else if (message.get(0).equals("#SelectedLabFactApp")){
+			String AppDetails = (String) message.get(1);
+			int indexOfP = AppDetails.indexOf("P");
+			int EndOrBagan;
+			EndOrBagan=indexOfP-1;
+			String AppIdStr = AppDetails.substring(8,EndOrBagan);
+			int AppId = Integer.parseInt(AppIdStr);
+			EndOrBagan=indexOfP+12;
+			String PatientIdStr = AppDetails.substring(EndOrBagan,(AppDetails.indexOf("\n")));
+			int PatientId = Integer.parseInt(PatientIdStr);
+			Patient patient=new Patient();
+			try {
+				patient= DataClass.getPatientById(PatientId);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			LaboratoryFacts labFact=new LaboratoryFacts();
+			try {
+				labFact=DataClass.getLabFactById(Integer.valueOf((String)message.get(2)));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			Clinic clinic=new Clinic();
+			try {
+				clinic=DataClass.getClinicById(Integer.valueOf((String)message.get(3)));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			DoneAppBus appIsDoneBus = AppointmentData.SetLabAppAsDone(patient,labFact,clinic,AppId);
+			try {
+				client.sendToClient(appIsDoneBus);
+				System.out.format("Sent Done Lab Fact Appointment to client %s\n", client.getInetAddress().getHostAddress());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+
+		}else if (message.get(0).equals("#oderAllLabApps")){
+			orderAllAppsBus orderAllAppsBus=new orderAllAppsBus();
+			List<Object> laboratoryFactsAppointments=new LinkedList<>();
+			try {
+				 laboratoryFactsAppointments=DataClass.getAllLaBAppointment();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			orderAllAppsBus.setType("LabApps");
+			orderAllAppsBus.setLabApp(laboratoryFactsAppointments);
+			try {
+				client.sendToClient(orderAllAppsBus);
+				System.out.format("Sent All Labs Appointments to client %s\n", client.getInetAddress().getHostAddress());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		}else if (message.get(0).equals("#oderAllNurseApps")){
+			orderAllAppsBus orderAllAppsBus=new orderAllAppsBus();
+			List<Object> nurseApointments=new LinkedList<>();
+			try {
+				nurseApointments=DataClass.getAllNurseAppointment();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			orderAllAppsBus.setType("NurseApps");
+			orderAllAppsBus.setNApp(nurseApointments);
+			try {
+				client.sendToClient(orderAllAppsBus);
+				System.out.format("Sent All Nurse Appointments to client %s\n", client.getInetAddress().getHostAddress());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
 		}
 
 	}

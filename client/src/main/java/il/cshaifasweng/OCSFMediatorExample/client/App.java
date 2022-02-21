@@ -1,11 +1,9 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
-import il.cshaifasweng.OCSFMediatorExample.client.Boundaries.Boundary;
 import il.cshaifasweng.OCSFMediatorExample.client.Boundaries.MessageBoundary;
 import il.cshaifasweng.OCSFMediatorExample.client.Boundaries.dispalyQueueBoundary;
 import il.cshaifasweng.OCSFMediatorExample.client.Events.*;
-import il.cshaifasweng.OCSFMediatorExample.entities.Table.Clinic;
-import il.cshaifasweng.OCSFMediatorExample.entities.Table.Patient;
+import il.cshaifasweng.OCSFMediatorExample.entities.Table.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -349,6 +347,54 @@ public class App extends Application {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        });
+
+    }
+
+    @Subscribe
+    public void onDoneAppEvent(DoneAppEvent event) throws IOException {
+        Platform.runLater(() -> {
+        LinkedList<Object> user = new LinkedList<>();
+        if(SimpleClient.getUser_Ob().get(0).getClass().equals(Doctor.class)){
+            user.add(event.getDoneAppBus().getDoctor());
+        }else if(SimpleClient.getUser_Ob().get(0).getClass().equals(Nurse.class)){
+            user.add(event.getDoneAppBus().getNurse());
+        }else if(SimpleClient.getUser_Ob().get(0).getClass().equals(LaboratoryFacts.class)){
+            user.add(event.getDoneAppBus().getLabFact());
+        }
+        SimpleClient.setUser_Ob(user);
+        MessageBoundary.displayInfo("the Appointment is called Successfully");
+            try {
+                setRoot("AppView");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });
+    }
+
+    @Subscribe
+    public void onDoneAppEvent(OrderAllAppsBusEvent event) throws IOException {
+        Platform.runLater(() -> {
+            if(event.getOrderAllAppsBus().getType().equalsIgnoreCase("NurseApps")){
+                List<Object> NurseApps = event.getOrderAllAppsBus().getNApp();
+                SimpleClient.setAppointmentTable(NurseApps);
+                try {
+                    App.setRoot("ViewPatientList");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }else if(event.getOrderAllAppsBus().getType().equalsIgnoreCase("LabApps")){
+                List<Object> LabApps = event.getOrderAllAppsBus().getLabApp();
+                SimpleClient.setAppointmentTable(LabApps);
+                try {
+                     setRoot("ViewPatientList");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
         });
 
     }

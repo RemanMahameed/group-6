@@ -2,7 +2,6 @@ package il.cshaifasweng.OCSFMediatorExample.server.DataControl;
 
 
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,8 +13,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
-
-import javax.swing.event.ListDataListener;
 
 public class DataClass {
 
@@ -132,6 +129,29 @@ public class DataClass {
         session.close();
         return result;
     }
+
+    public static List<Object> getAllNurseAppointment() throws Exception {
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        String query = "FROM NurseAppointment";
+        List<Object> result = session.createQuery(query).list();
+        session.getTransaction().commit(); // Save everything.
+        session.close();
+        return result;
+    }
+
+    public static List<Object> getAllLaBAppointment() throws Exception {
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        String query = "FROM LaboratoryFactsAppointment";
+        List<Object> result = session.createQuery(query).list();
+        session.getTransaction().commit(); // Save everything.
+        session.close();
+        return result;
+    }
+
     public static List<VaccineAppointment> getAllVaccineAppointment() throws Exception {
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
@@ -177,6 +197,24 @@ public class DataClass {
                 return doctor;
         }
         return new Doctor();
+    }
+    public static Nurse getNurseById(int Id) throws Exception {
+
+        List<Nurse> nurses=getAllNurse();
+        for (Nurse nurse:nurses){
+            if(nurse.getId()==Id)
+                return nurse;
+        }
+        return new Nurse();
+    }
+    public static LaboratoryFacts getLabFactById(int Id) throws Exception {
+
+        List<LaboratoryFacts> labFacts=getAllLaboratoryFacts();
+        for (LaboratoryFacts element:labFacts){
+            if(element.getId()==Id)
+                return element;
+        }
+        return new LaboratoryFacts();
     }
     public static List<CoronaTestAppointment> getCoronaTestPatientById(int Id) throws Exception {
 

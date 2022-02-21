@@ -2,16 +2,20 @@ package il.cshaifasweng.OCSFMediatorExample.client.Boundaries;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
+import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Table.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+
+import static il.cshaifasweng.OCSFMediatorExample.client.SimpleClient.AppointmentTable;
 
 public class ViewPatientListBoundary extends Boundary {
 
@@ -75,17 +79,39 @@ public class ViewPatientListBoundary extends Boundary {
         }
         if (user.getClass().equals(Nurse.class))
         {
-            System.out.println("I am a nurse");
+            System.out.println("I am a Nurse");
+            List<Object> AllApps = SimpleClient.getAppointmentTable();
+            List<NurseAppointment> AllNurseApss=new LinkedList<>();
+            for (int i=0;i<AllApps.size();i++){
+                AllNurseApss.add((NurseAppointment) AllApps.get(i));
+            }
             Nurse nurse = (Nurse) user_Ob.get(0);
-            List<Patient> patients = nurse.getPatients();
+            int nurseId=nurse.getId();
+            List<Patient> patients = new LinkedList<>();
+            for (NurseAppointment element : AllNurseApss){
+                if(element.isDone() && element.getNurse().getId()==nurseId && !patients.contains(element.getPatient()))
+                    patients.add(element.getPatient());
+            }
             for(Patient element : patients)
                 PatientList.getItems().add(element.getFirstName() + " " + element.getLastName());
+
         }
         if (user.getClass().equals(LaboratoryFacts.class))
         {
             System.out.println("I am a laboratory factor");
+            List<Object> AllApps = SimpleClient.getAppointmentTable();
+            List<LaboratoryFactsAppointment> AllLAbApps=new LinkedList<>();
+            for (int i=0;i<AllApps.size();i++){
+                AllLAbApps.add((LaboratoryFactsAppointment) AllApps.get(i));
+            }
             LaboratoryFacts lab = (LaboratoryFacts) user_Ob.get(0);
-            List<Patient> patients = lab.getPatients();
+            int labId=lab.getId();
+            List<Patient> patients = new LinkedList<>();
+            for (LaboratoryFactsAppointment element : AllLAbApps){
+                if(element.isDone() && element.getLaboratoryFacts().getId()==labId && !patients.contains(element.getPatient()))
+                    patients.add(element.getPatient());
+            }
+
             for(Patient element : patients)
                 PatientList.getItems().add(element.getFirstName() + " " + element.getLastName());
         }

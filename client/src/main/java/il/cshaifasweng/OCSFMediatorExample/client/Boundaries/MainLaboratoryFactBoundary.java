@@ -1,6 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.client.Boundaries;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
+import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Table.LaboratoryFacts;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,6 +10,8 @@ import javafx.scene.image.ImageView;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainLaboratoryFactBoundary extends Boundary{
@@ -45,8 +48,11 @@ public class MainLaboratoryFactBoundary extends Boundary{
     }
     @FXML
     void patientsListAction(ActionEvent event) {
+
+        List<String> orderAllApps = new LinkedList<>();
+        orderAllApps.add("#oderAllLabApps");
         try {
-            App.setRoot("ViewPatientList");
+            SimpleClient.getClient().sendToServer(orderAllApps);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -990,11 +990,10 @@ public class AppointmentData extends DataClass{
         return int_id;
     }
 
-    public static int NumAppAndSetLabAppointment(Patient patient , Clinic clinic) throws Exception {
+    public static int NumAppAndSetLabAppointment(Patient patient , Clinic clinic, LaboratoryFactsAppointment LabApp) throws Exception {
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
         session.beginTransaction();
-        LaboratoryFactsAppointment LabApp = new LaboratoryFactsAppointment();
         LabApp.setClinic(clinic);
         LabApp.setPatient(patient);
         LabApp.setAppointmentType("LabApp");
@@ -1027,8 +1026,235 @@ public class AppointmentData extends DataClass{
             session.close();
         return int_id;
     }
+    public static DoneAppBus SetNurseAppAsDone(Patient patient, Nurse nurse, Clinic clinic, int AppId){
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        DoneAppBus appIsDoneBus=new DoneAppBus();
+        NurseAppointment selectedApp=new NurseAppointment();
+        List<NurseAppointment> nurseApps = clinic.getNurseAppointments();
+        for (NurseAppointment element : nurseApps){
+            if (element.getId()==AppId){
+                selectedApp=element;
+            }
+        }
+        selectedApp.setDone(true);
+        selectedApp.setRealTime(LocalTime.now());
+        selectedApp.setNurse(nurse);
 
+        List<NurseAppointment> nurseAppointments=new LinkedList<>();
+        nurseAppointments.add(selectedApp);
+        //connect app to nurse
+        if (nurse.getAppointments().size() == 0) {
+            nurse.setAppointments(nurseAppointments);
+        } else {
+            nurse.getAppointments().add(selectedApp);
+        }
+        session.saveOrUpdate(selectedApp);
+//        List<Patient> firstPatient = new LinkedList<>();
+//        firstPatient.add(patient);
+//        List<Nurse> firstNurse = new LinkedList<>();
+//        firstNurse.add(nurse);
+//
+//
+//        //connect nurse to patient
+//        int exist = 0;
+//        if (patient.getNurses().size() == 0) {
+//            patient.setNurses(firstNurse);
+//            session.saveOrUpdate(nurse);
+//        }
+//        else
+//        {
+//            exist = 0;
+//            for (Nurse element : patient.getNurses())
+//                if(element.getId()==nurse.getId())
+//                {
+//                    exist=1;
+//                    System.out.println("is exist");
+//                }
+//            if (exist==0)
+//            {
+//                System.out.println("not exist");
+//                patient.getNurses().add(nurse);
+//                session.saveOrUpdate(nurse);
+//            }
+//        }
+//        //connect patient to nurse
+//        if(nurse.getPatients().size()==0) {
+//            nurse.setPatients(firstPatient);
+//            session.saveOrUpdate(patient);
+//        }
+//        else
+//        {
+//            exist=0;
+//            for (Patient element : nurse.getPatients())
+//                if (element.getId() == patient.getId())
+//                {
+//                    exist=1;
+//                    System.out.println("is exist");
+//                }
+//            if (exist==0){
+//                System.out.println("not exist");
+//                nurse.getPatients().add(patient);
+//                session.saveOrUpdate(patient);
+//            }
 
+//      }
+        session.saveOrUpdate(clinic);
+        List<Clinic> UpdatedClinic = new LinkedList<>();
+        UpdatedClinic.add(clinic);
+        nurse.setClinicList(UpdatedClinic);
+        session.flush();
+        session.getTransaction().commit();
+        if (session != null)
+            session.close();
+        appIsDoneBus.setNurse(nurse);
+        return appIsDoneBus;
+    }
+    public static DoneAppBus SetLabAppAsDone(Patient patient, LaboratoryFacts labfact, Clinic clinic, int AppId){
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        DoneAppBus appIsDoneBus=new DoneAppBus();
+        LaboratoryFactsAppointment selectedApp=new LaboratoryFactsAppointment();
+        List<LaboratoryFactsAppointment> LabApps = clinic.getLaboratoryFactsAppointments();
+        for (LaboratoryFactsAppointment element : LabApps){
+            if (element.getId()==AppId){
+                selectedApp=element;
+            }
+        }
+        selectedApp.setDone(true);
+        selectedApp.setRealTime(LocalTime.now());
+        selectedApp.setLaboratoryFacts(labfact);
+
+        List<LaboratoryFactsAppointment> laboratoryFactsAppointments=new LinkedList<>();
+        laboratoryFactsAppointments.add(selectedApp);
+        //connect app to Lab fact
+        if (labfact.getAppointments().size() == 0) {
+            labfact.setAppointments(laboratoryFactsAppointments);
+        } else {
+            labfact.getAppointments().add(selectedApp);
+        }
+        session.saveOrUpdate(selectedApp);
+//        List<Patient> firstPatient = new LinkedList<>();
+//        firstPatient.add(patient);
+//        List<LaboratoryFacts> firstlab = new LinkedList<>();
+//        firstlab.add(labfact);
+        //connect Lab fact to patient
+//        int exist = 0;
+//        if (patient.getLaboratoryFacts().size() == 0) {
+//            patient.setLaboratoryFacts(firstlab);
+//            session.saveOrUpdate(patient);
+//        }
+//        else
+//        {
+//            exist = 0;
+//            for (LaboratoryFacts element : patient.getLaboratoryFacts())
+//                if(element.getId()==labfact.getId())
+//                {
+//                    exist=1;
+//                    System.out.println("is exist");
+//                }
+//            if (exist==0)
+//            {
+//                System.out.println("not exist");
+//                patient.getLaboratoryFacts().add(labfact);
+//                session.saveOrUpdate(patient);
+//            }
+//        }
+        //connect patient to Lab fact
+//        if(labfact.getPatients().size()==0) {
+//            labfact.setPatients(firstPatient);
+//            session.saveOrUpdate(labfact);
+//        }
+//        else
+//        {
+//            exist=0;
+//            for (Patient element : labfact.getPatients())
+//                if (element.getId() == patient.getId())
+//                {
+//                    exist=1;
+//                    System.out.println("is exist");
+//                }
+//            if (exist==0){
+//                System.out.println("not exist");
+//                labfact.getPatients().add(patient);
+//                session.saveOrUpdate(labfact);
+//            }
+//
+//        }
+
+        session.saveOrUpdate(clinic);
+
+        List<Clinic> UpdatedClinic = new LinkedList<>();
+        UpdatedClinic.add(clinic);
+        labfact.setClinicList(UpdatedClinic);
+
+        session.flush();
+        session.getTransaction().commit();
+        if (session != null)
+            session.close();
+        appIsDoneBus.setLabFact(labfact);
+        return appIsDoneBus;
+    }
+
+    public static void connectFactPatient (Patient patient,LaboratoryFacts labfact){
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        int exist = 0;
+        List<Patient> firstPatient = new LinkedList<>();
+        firstPatient.add(patient);
+        List<LaboratoryFacts> firstlab = new LinkedList<>();
+        firstlab.add(labfact);
+        //connect Lab fact to patient
+        if (patient.getLaboratoryFacts().size() == 0) {
+            patient.setLaboratoryFacts(firstlab);
+            //session.saveOrUpdate(patient);
+        }
+        else
+        {
+            exist = 0;
+            for (LaboratoryFacts element : patient.getLaboratoryFacts())
+                if(element.getId()==labfact.getId())
+                {
+                    exist=1;
+                    System.out.println("is exist");
+                }
+            if (exist==0)
+            {
+                System.out.println("not exist");
+                patient.getLaboratoryFacts().add(labfact);
+                //session.saveOrUpdate(patient);
+            }
+        }
+        //connect patient to Lab fact
+        if(labfact.getPatients().size()==0) {
+            labfact.setPatients(firstPatient);
+            session.saveOrUpdate(labfact);
+        }
+        else
+        {
+            exist=0;
+            for (Patient element : labfact.getPatients())
+                if (element.getId() == patient.getId())
+                {
+                    exist=1;
+                    System.out.println("is exist");
+                }
+            if (exist==0){
+                System.out.println("not exist");
+                labfact.getPatients().add(patient);
+                session.saveOrUpdate(labfact);
+            }
+
+        }
+        session.flush();
+        session.getTransaction().commit();
+        if (session != null)
+            session.close();
+
+    }
 
     }
 

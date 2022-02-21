@@ -1,6 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.client.Boundaries;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
+import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.DoctorApp;
 import il.cshaifasweng.OCSFMediatorExample.entities.Table.*;
 import javafx.event.ActionEvent;
@@ -11,6 +12,7 @@ import javafx.scene.control.ListView;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
 import java.util.List;
 
 public class AppViewBoundary extends Boundary{
@@ -51,6 +53,38 @@ public class AppViewBoundary extends Boundary{
 
     @FXML
     void callAction(ActionEvent event) {
+        if(AppList.getSelectionModel().getSelectedItems().isEmpty()){
+            MessageBoundary.displayError("please choose an App");
+        }
+        else {
+            if (user.getClass().equals(Doctor.class)) {
+
+            } else if (user.getClass().equals(Nurse.class)) {
+                Nurse nurse = (Nurse) user_Ob.get(0);
+                LinkedList<String> choice = new LinkedList<String>();
+                choice.add("#SelectedNurseApp");
+                choice.add( AppList.getSelectionModel().getSelectedItem());
+                choice.add(String.valueOf(nurse.getId()));
+                choice.add(String.valueOf(nurse.getClinicList().get(0).getId()));
+                try {
+                    SimpleClient.getClient().sendToServer(choice);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else if (user.getClass().equals(LaboratoryFacts.class)) {
+                LaboratoryFacts labFact = (LaboratoryFacts) user_Ob.get(0);
+                LinkedList<String> choice = new LinkedList<String>();
+                choice.add("#SelectedLabFactApp");
+                choice.add( AppList.getSelectionModel().getSelectedItem());
+                choice.add(String.valueOf(labFact.getId()));
+                choice.add(String.valueOf(labFact.getClinicList().get(0).getId()));
+                try {
+                    SimpleClient.getClient().sendToServer(choice);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
     }
 
@@ -75,11 +109,12 @@ public class AppViewBoundary extends Boundary{
         if(user.getClass().equals(Nurse.class)) {
             System.out.println("I am a nurse");
             Nurse nurse = (Nurse) user_Ob.get(0);
-            List<NurseAppointment> appointments = nurse.getAppointments();
+            Clinic Nclinic = nurse.getClinicList().get(0);
+            List<NurseAppointment> appointments = Nclinic.getNurseAppointments();
             for (NurseAppointment element : appointments)
                 if(!element.isDone()) {
-                    AppList.getItems().add("Patient name is : " + element.getPatient().getFirstName() + " " + element.getPatient().getLastName() + "\n"
-                            + "Appointment Date is : " + dtf.format(element.getDate()) + "\n"
+                    AppList.getItems().add("App ID: " + element.getId() + " Patient ID: " + element.getPatient().getId() + "\nPatient name is : " + element.getPatient().getFirstName() + " " + element.getPatient().getLastName() + "\n"
+                            + "Appointment Date is : " + dtf.format(element.getDate()) + "\n" + "Number of App is: " + element.getAppNum()
                     );
 
         }
@@ -87,11 +122,12 @@ public class AppViewBoundary extends Boundary{
         if(user.getClass().equals(LaboratoryFacts.class)) {
             System.out.println("I am a laboratory factor");
             LaboratoryFacts laboratoryFact = (LaboratoryFacts) user_Ob.get(0);
-            List<LaboratoryFactsAppointment> appointments = laboratoryFact.getAppointments();
+            Clinic Lclinic = laboratoryFact.getClinicList().get(0);
+            List<LaboratoryFactsAppointment> appointments = Lclinic.getLaboratoryFactsAppointments();
             for (LaboratoryFactsAppointment element : appointments)
                 if(!element.isDone()) {
-                    AppList.getItems().add("Patient name is : " + element.getPatient().getFirstName() + " " + element.getPatient().getLastName() + "\n"
-                            + "Appointment Date is : " + dtf.format(element.getDate()) + "\n"
+                    AppList.getItems().add("App ID: " + element.getId() + " Patient ID: " + element.getPatient().getId() + "\nPatient name is : " + element.getPatient().getFirstName() + " " + element.getPatient().getLastName() + "\n"
+                            + "Appointment Date is : " + dtf.format(element.getDate()) + "\n" + "Number of App is: " + element.getAppNum()
                     );
 
                 }
