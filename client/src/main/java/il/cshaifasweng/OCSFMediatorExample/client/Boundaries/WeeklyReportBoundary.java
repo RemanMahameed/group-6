@@ -173,17 +173,21 @@ public class WeeklyReportBoundary extends Boundary{
 
     @FXML
     void Back(ActionEvent event) throws IOException {
+
         if(SimpleClient.getUser_Ob().get(0).getClass().equals(HmoManager.class))
             App.setRoot("MainHm");
         else
+        {
+            SimpleClient.getParams().remove(params.size()-1);
             App.setRoot("ReportsMain");
+        }
     }
 
 
     @FXML
     void initialize() {
 
-        Clinic my_clinic= (Clinic) SimpleClient.getParams().get(params.size()-1);
+        Clinic my_clinic= (Clinic) SimpleClient.getParams().get(params.size()-2);
         List<DoctorAppointment> DocApps=my_clinic.getDoctorAppointments();
         List<NurseAppointment> NurseApps= my_clinic.getNurseAppointments();
         List<LaboratoryFactsAppointment> LabApps = my_clinic.getLaboratoryFactsAppointments();
@@ -197,7 +201,7 @@ public class WeeklyReportBoundary extends Boundary{
         System.out.println(Sunday.getDayOfWeek().getValue());
         LocalDate SunDate = LocalDate.from(Sunday);
         LocalDate runDate;
-        if(SimpleClient.getParams().get(params.size()-2).toString().equals("WeaklyDoneApps"))
+        if(SimpleClient.getParams().get(params.size()-1).toString().equals("WeaklyDoneApps"))
         {
             for (NurseAppointment element:NurseApps)
             {

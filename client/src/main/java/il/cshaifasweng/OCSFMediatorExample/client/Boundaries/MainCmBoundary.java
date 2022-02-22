@@ -89,6 +89,7 @@ public class MainCmBoundary extends Boundary{
 
     @FXML
     void ViewReports(ActionEvent event) throws IOException {
+        SimpleClient.getParams().add(clinicManager.getClinic());
         App.setRoot("ReportsMain");
     }
 

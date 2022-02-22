@@ -305,8 +305,8 @@ public class App extends Application {
                 my_clinic=event.getReportBus().getClinic();
             else
                 my_clinic=event.getReportBus().getManager().getClinic();
-            SimpleClient.getParams().add(event.getReportBus().getReport_type());
             SimpleClient.getParams().add(my_clinic);
+            SimpleClient.getParams().add(event.getReportBus().getReport_type());
             if(event.getReportBus().getReport_type().equals("WeaklyDoneApps")||event.getReportBus().getReport_type().equals("WeaklyNOTDoneApps"))
             {
                 try {

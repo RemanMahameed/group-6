@@ -61,10 +61,15 @@ public class ReportsMainBoundary extends MainCmBoundary {
             MessageBoundary.displayError("Please chose a report to show!");
         else
         {
-            if (Optintion1.isSelected() || Optintion2.isSelected()) {
-                params.add("ClinicManager");
+            if (Optintion1.isSelected()) {
+                params.add("WeaklyDoneApps");
                 App.setRoot("WeeklyReport");
-            } else
+            } else if(Optintion2.isSelected())
+            {
+                params.add("WeaklyNotDoneApps");
+                App.setRoot("WeeklyReport");
+            }
+            else
                 App.setRoot("DailyReport");
         }
         // (report type,clinic id,Manager type )
