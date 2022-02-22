@@ -124,247 +124,247 @@
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label fx:id="Sun_FD" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Label fx:id="Sun_CD" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Label fx:id="Sun_PD" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="1" GridPane.rowIndex="6">
+            <Label fx:id="Sun_CT" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="1" GridPane.rowIndex="7">
+            <Label fx:id="Sun_NC" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="1" GridPane.rowIndex="7">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Label fx:id="Mon_FD" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <Label fx:id="Mon_CD" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <Label fx:id="Mon_PD" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <Label fx:id="Mon_V" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="2" GridPane.rowIndex="4">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="2" GridPane.rowIndex="5">
+            <Label fx:id="Mon_LT" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="2" GridPane.rowIndex="5">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="2" GridPane.rowIndex="6">
+            <Label fx:id="Mon_CT" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="2" GridPane.rowIndex="6">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="2" GridPane.rowIndex="7">
+            <Label fx:id="Mon_NC" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="2" GridPane.rowIndex="7">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <Label fx:id="Tue_FD" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="3" GridPane.rowIndex="2">
+            <Label fx:id="Tue_CD" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="3" GridPane.rowIndex="3">
+            <Label fx:id="Tue_PD" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="3" GridPane.rowIndex="3">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="3" GridPane.rowIndex="4">
+            <Label fx:id="Tue_V" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="3" GridPane.rowIndex="4">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="3" GridPane.rowIndex="5">
+            <Label fx:id="Tue_LT" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="3" GridPane.rowIndex="5">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="3" GridPane.rowIndex="6">
+            <Label fx:id="Tue_CT" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="3" GridPane.rowIndex="6">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="3" GridPane.rowIndex="7">
+            <Label fx:id="Tue_NC" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="3" GridPane.rowIndex="7">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="4" GridPane.rowIndex="1">
+            <Label fx:id="Wed_FD" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="4" GridPane.rowIndex="1">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="4" GridPane.rowIndex="2">
+            <Label fx:id="Wed_CD" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="4" GridPane.rowIndex="2">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="4" GridPane.rowIndex="3">
+            <Label fx:id="Wed_PD" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="4" GridPane.rowIndex="3">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="4" GridPane.rowIndex="4">
+            <Label fx:id="Wed_V" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="4" GridPane.rowIndex="4">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="4" GridPane.rowIndex="5">
+            <Label fx:id="Wed_LT" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="4" GridPane.rowIndex="5">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="4" GridPane.rowIndex="6">
+            <Label fx:id="Wed_CT" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="4" GridPane.rowIndex="6">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="4" GridPane.rowIndex="7">
+            <Label fx:id="Wed_NC" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="4" GridPane.rowIndex="7">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="5" GridPane.rowIndex="1">
+            <Label fx:id="Thur_FD" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="5" GridPane.rowIndex="1">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="5" GridPane.rowIndex="2">
+            <Label fx:id="Thur_CD" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="5" GridPane.rowIndex="2">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="5" GridPane.rowIndex="3">
+            <Label fx:id="Thue_PD" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="5" GridPane.rowIndex="3">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="5" GridPane.rowIndex="4">
+            <Label fx:id="Thur_V" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="5" GridPane.rowIndex="4">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="5" GridPane.rowIndex="5">
+            <Label fx:id="Thur_LT" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="5" GridPane.rowIndex="5">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="5" GridPane.rowIndex="6">
+            <Label fx:id="Thur_CT" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="5" GridPane.rowIndex="6">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="5" GridPane.rowIndex="7">
+            <Label fx:id="Thur_NC" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="5" GridPane.rowIndex="7">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="6" GridPane.rowIndex="1">
+            <Label fx:id="Fri_FD" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="6" GridPane.rowIndex="1">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="6" GridPane.rowIndex="2">
+            <Label fx:id="Fri_CD" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="6" GridPane.rowIndex="2">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="6" GridPane.rowIndex="3">
+            <Label fx:id="Fri_PD" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="6" GridPane.rowIndex="3">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="6" GridPane.rowIndex="4">
+            <Label fx:id="Fri_V" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="6" GridPane.rowIndex="4">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="6" GridPane.rowIndex="5">
+            <Label fx:id="Fri_LT" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="6" GridPane.rowIndex="5">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="6" GridPane.rowIndex="6">
+            <Label fx:id="Fri_CT" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="6" GridPane.rowIndex="6">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="6" GridPane.rowIndex="7">
+            <Label fx:id="Fri_NC" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="6" GridPane.rowIndex="7">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="7" GridPane.rowIndex="1">
+            <Label fx:id="Sat_FD" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="7" GridPane.rowIndex="1">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="7" GridPane.rowIndex="2">
+            <Label fx:id="Sat_CD" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="7" GridPane.rowIndex="2">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="7" GridPane.rowIndex="3">
+            <Label fx:id="Sat_PD" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="7" GridPane.rowIndex="3">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="7" GridPane.rowIndex="4">
+            <Label fx:id="Sat_V" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="7" GridPane.rowIndex="4">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="7" GridPane.rowIndex="5">
+            <Label fx:id="Sat_LT" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="7" GridPane.rowIndex="5">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="7" GridPane.rowIndex="6">
+            <Label fx:id="Sat_CT" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="7" GridPane.rowIndex="6">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="7" GridPane.rowIndex="7">
+            <Label fx:id="Sat_NC" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="7" GridPane.rowIndex="7">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <Label fx:id="Sun_LT" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <Label fx:id="Sun_V" prefHeight="23.0" prefWidth="87.0" textFill="#253f84" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
                   <Font name="Symbol" size="13.0" />
                </font>

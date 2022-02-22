@@ -460,7 +460,6 @@ public class AppointmentData extends DataClass{
             for (LaboratoryFactsAppointment laboratoryFactsAppointment : laboratoryFactsAppointments) {
                 newString="AppointmentType: "+laboratoryFactsAppointment.getAppointmentType()+"\n"
                          +"Date: "+ laboratoryFactsAppointment.getDate().toLocalDate()+"  Time: "+laboratoryFactsAppointment.getDate().toLocalTime().withSecond(0)+"\n"
-                         +"With doctor: "+laboratoryFactsAppointment.getLaboratoryFacts().getFirstName()+" "+laboratoryFactsAppointment.getLaboratoryFacts().getLastName()+"\n"
                          +"At clinic: "+laboratoryFactsAppointment.getClinic().getClinicType();
                 stringApp.add(newString);
             }
@@ -481,7 +480,6 @@ public class AppointmentData extends DataClass{
             for (NurseAppointment nurseAppointment : nurseAppointments) {
                 newString="AppointmentType: "+nurseAppointment.getAppointmentType()+"\n"
                          +"Date: "+ nurseAppointment.getDate().toLocalDate()+"  Time: "+nurseAppointment.getDate().toLocalTime().withSecond(0)+"\n"
-                         +"With doctor: "+nurseAppointment.getNurse().getFirstName()+" "+nurseAppointment.getNurse().getLastName()+"\n"
                          +"At clinic: "+nurseAppointment.getClinic().getClinicType();
                 stringApp.add(newString);
             }

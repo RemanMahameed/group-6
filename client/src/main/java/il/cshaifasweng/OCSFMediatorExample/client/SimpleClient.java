@@ -66,12 +66,14 @@ public class SimpleClient extends AbstractClient {
 			EventBus.getDefault().post(new DoneAppEvent((DoneAppBus) msg));
 		}else if (msg.getClass().equals(orderAllAppsBus.class)) {
 			EventBus.getDefault().post(new OrderAllAppsBusEvent((orderAllAppsBus) msg));
-		}
+		} else if (msg.getClass().equals(ReportBus.class)) {
+		EventBus.getDefault().post(new ReportEvent((ReportBus) msg));
+	}
 	}
 	
 	public static SimpleClient getClient() {
 		if (client == null) {
-			client = new SimpleClient("localhost", 3000);
+			client = new SimpleClient("localhost", 3001);
 		}
 		return client;
 	}

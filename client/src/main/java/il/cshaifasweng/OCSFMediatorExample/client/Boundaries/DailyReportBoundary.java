@@ -1,4 +1,5 @@
 package il.cshaifasweng.OCSFMediatorExample.client.Boundaries;
 
-public class DailyReportBoundary {
+public class DailyReportBoundary extends Boundary{
+
 }

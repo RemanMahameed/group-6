@@ -57,11 +57,16 @@ public class ReportsMainBoundary extends MainCmBoundary {
 
     @FXML
     void ShowReport(ActionEvent event) throws IOException {
-        if(Optintion1.isSelected() || Optintion2.isSelected()){
-            params.add("ClinicManager");
-            App.setRoot("WeeklyReport");
-        }else
-            App.setRoot("DailyReport");
+        if(!(Optintion1.isSelected()) &&!(Optintion2.isSelected()) &&!(Optintion3.isSelected() ))
+            MessageBoundary.displayError("Please chose a report to show!");
+        else
+        {
+            if (Optintion1.isSelected() || Optintion2.isSelected()) {
+                params.add("ClinicManager");
+                App.setRoot("WeeklyReport");
+            } else
+                App.setRoot("DailyReport");
+        }
         // (report type,clinic id,Manager type )
     }
 

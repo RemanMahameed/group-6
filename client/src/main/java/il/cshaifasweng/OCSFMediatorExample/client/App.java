@@ -29,7 +29,7 @@ public class App extends Application {
     private static Scene scene;
     private SimpleClient client;
     private List<Object> params=new LinkedList<>();
-
+    public Clinic  my_clinic=null;
     static List<Object> p;
 
     //static List<Show> shows;
@@ -296,6 +296,36 @@ public class App extends Application {
                 e.printStackTrace();
             }
         });
+    }
+    @Subscribe
+    public  void onReportEvent(ReportEvent event)throws IOException{
+        Platform.runLater(() -> {
+            System.out.println("i am is ReportBusEvent");
+            if(event.getReportBus().getUser_type().equals("HM"))
+                my_clinic=event.getReportBus().getClinic();
+            else
+                my_clinic=event.getReportBus().getManager().getClinic();
+            SimpleClient.getParams().add(event.getReportBus().getReport_type());
+            SimpleClient.getParams().add(my_clinic);
+            if(event.getReportBus().getReport_type().equals("WeaklyDoneApps")||event.getReportBus().getReport_type().equals("WeaklyNOTDoneApps"))
+            {
+                try {
+                    App.setRoot("WeeklyReport");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            else
+            {
+                try {
+                    App.setRoot("DailyReport");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        });
+
     }
     @Subscribe
     public  void onCardInfoEvent(CardInfoEvent event)throws IOException {

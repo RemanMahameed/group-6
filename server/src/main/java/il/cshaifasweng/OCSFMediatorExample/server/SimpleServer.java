@@ -314,6 +314,27 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 
+
+		}else if (message.get(0).equals("#HMClinicName")) {
+			ReportBus report = new ReportBus();
+			try {
+				System.out.println("my clinic is: " + (String) message.get(1));
+				Clinic clin = DataClass.getClinicByName((String) message.get(1));
+				System.out.println("my clinic is: " + clin.getClinicType());
+				report.setClinic(clin);
+				report.setReport_type((String) message.get(2));
+				report.setUser_type("HM");
+//				clinic.setFlag(0);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				client.sendToClient(report);
+				System.out.format("Sent report to client %s\n", client.getInetAddress().getHostAddress());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
 		}else if (message.get(0).equals("#CardNum")) {
 			System.out.println(" I am in card num");
 			String CardString = (String) message.get(1);

@@ -7,9 +7,9 @@ import java.io.Serializable;
 public class ClinicBus implements Serializable {
     Clinic clinic ;
 
-   public ClinicBus(){
+    public ClinicBus(){
 
-   }
+    }
 
     public ClinicBus(Clinic clinic) {
         this.clinic = clinic;
