@@ -111,6 +111,7 @@ public class WorkingHoursData extends DataClass {
                         receptionTime1.setActiveTime(newWorkingHours);
                         doctor.getReceptionTime().set(temp,receptionTime1);
                         SetWorkingHours(clinic, newWorkingHours,oldWorkingHours,type,doctor);
+                        session.saveOrUpdate(receptionTime1);
                         session.saveOrUpdate(doctor);
                     }
                     temp++;
@@ -290,6 +291,7 @@ public class WorkingHoursData extends DataClass {
                 receptionTime=doctor.getReceptionTime().get(temp-1);
                 receptionTime.setActiveTime(newServicesWorkingHours);
                 doctor.getReceptionTime().set(temp-1,receptionTime);
+                session.saveOrUpdate(receptionTime);
                 session.saveOrUpdate(doctor);
             }
 
