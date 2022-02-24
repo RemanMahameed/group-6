@@ -35,6 +35,10 @@ public class DoctorAppointment extends Appointment {
         super();
     }
 
+    public Long getId() {
+        return Id;
+    }
+
     public Doctor getDoctor() {
         return doctor;
     }

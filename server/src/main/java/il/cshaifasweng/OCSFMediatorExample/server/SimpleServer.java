@@ -417,6 +417,43 @@ public class SimpleServer extends AbstractServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}else if (message.get(0).equals("#SelectedDoctoreApp")){
+			String AppDetails = (String) message.get(1);
+			int indexOfP = AppDetails.indexOf("P");
+			int EndOrBagan;
+			EndOrBagan=indexOfP-1;
+			String AppIdStr = AppDetails.substring(8,EndOrBagan);
+			int AppId = Integer.parseInt(AppIdStr);
+			EndOrBagan=indexOfP+12;
+			String PatientIdStr = AppDetails.substring(EndOrBagan,(AppDetails.indexOf("\n")));
+			int PatientId = Integer.parseInt(PatientIdStr);
+			Patient patient=new Patient();
+			try {
+				patient= DataClass.getPatientById(PatientId);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			Doctor doctor=new Doctor();
+			try {
+				doctor=DataClass.getDoctorById(Integer.valueOf((String)message.get(2)));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			Clinic clinic=new Clinic();
+			try {
+				clinic=DataClass.getClinicById(Integer.valueOf((String)message.get(3)));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			DoneAppBus appIsDoneBus = AppointmentData.SetDoctorAppAsDone(patient,doctor,clinic,AppId);
+			try {
+				client.sendToClient(appIsDoneBus);
+				System.out.format("Sent Done Doctor Appointment to client %s\n", client.getInetAddress().getHostAddress());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+
 		}else if (message.get(0).equals("#SelectedNurseApp")){
 
 			String AppDetails = (String) message.get(1);

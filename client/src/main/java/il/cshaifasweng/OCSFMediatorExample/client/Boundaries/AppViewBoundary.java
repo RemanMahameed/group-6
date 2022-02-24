@@ -12,6 +12,7 @@ import javafx.scene.control.ListView;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -58,6 +59,17 @@ public class AppViewBoundary extends Boundary{
         }
         else {
             if (user.getClass().equals(Doctor.class)) {
+                Doctor doctor = (Doctor) user_Ob.get(0);
+                LinkedList<String> choice = new LinkedList<String>();
+                choice.add("#SelectedDoctoreApp");
+                choice.add( AppList.getSelectionModel().getSelectedItem());
+                choice.add(String.valueOf(doctor.getId()));
+                choice.add(String.valueOf(doctor.getClinicList().get(0).getId()));
+                try {
+                    SimpleClient.getClient().sendToServer(choice);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
             } else if (user.getClass().equals(Nurse.class)) {
                 Nurse nurse = (Nurse) user_Ob.get(0);
@@ -99,10 +111,13 @@ public class AppViewBoundary extends Boundary{
             System.out.println("I am a doctor");
             Doctor doctor = (Doctor) user_Ob.get(0);
             List<DoctorAppointment> appointments = doctor.getAppointments();
+            //appointments.sort(Comparator.comparing(DoctorAppointment :: getAppNum));
+            String IsHere ;
             for (DoctorAppointment element : appointments)
                 if(!element.isDone()) {
-                    AppList.getItems().add("Patient name is : " + element.getPatient().getFirstName() + " " + element.getPatient().getLastName() + "\n"
-                            + "Appointment Date is : " + dtf.format(element.getDate()) + "\n"
+                    IsHere= element.getAppNum()==null ? "the patient isn't here" : element.getAppNum();
+                    AppList.getItems().add("App ID: " + element.getId() + " Patient ID: " + element.getPatient().getId()+"\nPatient name is : " + element.getPatient().getFirstName() + " " + element.getPatient().getLastName() + "\n"
+                            + "Appointment Date is : " + dtf.format(element.getDate()) + "\n" +"Number of App is: " + IsHere
                     );
                 }
         }

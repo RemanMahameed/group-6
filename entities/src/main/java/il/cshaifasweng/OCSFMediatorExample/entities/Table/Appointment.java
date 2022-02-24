@@ -8,7 +8,7 @@ import java.time.LocalTime;
 @MappedSuperclass
 public abstract class Appointment implements Serializable {
 
-    protected int AppNum;
+    protected String AppNum;
     protected String AppointmentType;
     protected LocalDateTime Date;
     protected LocalDateTime RealTime;
@@ -23,11 +23,11 @@ public abstract class Appointment implements Serializable {
     public Appointment() {
     }
 
-    public int getAppNum() {
+    public String getAppNum() {
         return AppNum;
     }
 
-    public void setAppNum(int appNum) {
+    public void setAppNum(String appNum) {
         AppNum = appNum;
     }
 

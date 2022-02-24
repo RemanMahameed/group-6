@@ -771,276 +771,340 @@ public class AppointmentData extends DataClass{
         return (new DoctorApp(doctorAppString, doctorAppList,patient,doctor));
     }
     public static ProDoctorsList getdoctorsofsp (String major , String id_P) throws Exception {
-        // int id_patient = Integer.valueOf(id_P);
-        SessionFactory sessionFactory = getSessionFactory();
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        LinkedList<Doctor> doctors = new LinkedList<>();
-        System.out.println(major);
-        List<Doctor> doctorstable = getAllDoctor();
-        major="ProfessionalDoctor-"+ major;
-        System.out.println(major);
-        for (Doctor doctor : doctorstable) {
-            if (doctor.getRole().equals(major) ) {
-                doctors.add(doctor);
-            }
-        }
-        Patient patient = getPatientById(Integer.parseInt(id_P));
-        List<DoctorAppointment> docApp = patient.getDoctorAppointments();
-        for (DoctorAppointment element : docApp)
-        {
-            if (!(element.getAppointmentType().equalsIgnoreCase(major)))
-                docApp.remove(element);
-        }
-        docApp.sort(Comparator.comparing(DoctorAppointment :: getDate).reversed());
-        LinkedList<Doctor> finalDocList = new LinkedList<>();
-        int exist=0;
-        for (DoctorAppointment element : docApp)
-        {
-            exist=0;
-            for (Doctor docelement : finalDocList)
-            {
-                if (docelement.getId()==element.getDoctor().getId())
-                    exist=1;
-            }
-            if (exist==0)
-                finalDocList.add(element.getDoctor());
-        }
-        for (Doctor element : doctors)
-        {
-            exist=0;
-            for (Doctor docelement : finalDocList)
-            {
-                if (docelement.getId()==element.getId())
-                    exist=1;
-            }
-            if (exist==0)
-                finalDocList.add(element);
-        }
-
-
-        ProDoctorsList SortedDoctors = new ProDoctorsList(finalDocList);
-        if (session != null) {
-            session.close();
-
-        }
-        return SortedDoctors;
-    }
-    public static String getClosestApp(Patient p , Clinic c)
-    {
-        SessionFactory sessionFactory = getSessionFactory();
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        List<DoctorAppointment> docApps = p.getDoctorAppointments();
-        List<VaccineAppointment> vaccine = p.getVaccineAppointments();
-        List<CoronaTestAppointment> corona = p.getCoronaTestAppointments();
-        int Sdoc = docApps.size();
-        int Svaccine = vaccine.size();
-        int Scorona = corona.size();
-        String details = "$";
-        LocalDateTime date = LocalDateTime.now();
-        int i;
-        // removing the appointments of other clinics and other dates
-        for(i=0 ; i< Sdoc ; i++){
-            if(docApps.get(i).getClinic().getId() != c.getId() || docApps.get(i).getDate().getYear() != date.getYear() || docApps.get(i).getDate().getDayOfYear() != date.getDayOfYear()){
-                {
-                    docApps.remove(i);
-                    Sdoc--;
+            // int id_patient = Integer.valueOf(id_P);
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            LinkedList<Doctor> doctors = new LinkedList<>();
+            System.out.println(major);
+            List<Doctor> doctorstable = getAllDoctor();
+            major="ProfessionalDoctor-"+ major;
+            System.out.println(major);
+            for (Doctor doctor : doctorstable) {
+                if (doctor.getRole().equals(major) ) {
+                    doctors.add(doctor);
                 }
             }
-            }
-
-        for(i=0 ; i< Scorona ; i++){
-            if(corona.get(i).getClinic().getId() != c.getId() || corona.get(i).getDate().getYear() != date.getYear() || corona.get(i).getDate().getDayOfYear() != date.getDayOfYear()){
-                corona.remove(i);
-            }
-        }
-        if(Svaccine!=0){
-        for(i=0 ; i< Svaccine ; i++){
-
-            if(vaccine.get(i).getClinic().getId() != c.getId() || vaccine.get(i).getDate().getYear() != date.getYear() || vaccine.get(i).getDate().getDayOfYear() != date.getDayOfYear()){
-                vaccine.remove(i);
-            }
-        }}
-        docApps.sort(Comparator.comparing(DoctorAppointment :: getDate));
-        vaccine.sort(Comparator.comparing(VaccineAppointment :: getDate));
-        corona.sort(Comparator.comparing(CoronaTestAppointment :: getDate));
-//
-        ///// just one is not empty
-        if (Sdoc!=0 && Scorona==0 && Svaccine==0)
-        {
-            //the app is docApp
-            details = "the doctor name is : " + docApps.get(0).getDoctor().getFirstName()+"\n"
-                   + "the scheduled date is " + dtf.format(docApps.get(0).getDate());
-        }
-        else if(Sdoc==0 && Scorona!=0 && Svaccine==0)
-        {
-            //the app is corona
-            details = "the scheduled date is " + dtf.format(corona.get(0).getDate());
-        }
-        else if(Sdoc==0 && Scorona==0 && Svaccine!=0)
-        {
-            //the app is vaccine
-            details =  "the scheduled date is " + dtf.format(vaccine.get(0).getDate());
-        }
-
-
-        ///// just two is not empty
-        if(Sdoc==0 && Scorona!=0 && Svaccine!=0) {
-            if (corona.get(0).getDate().isBefore(vaccine.get(0).getDate()))
+            Patient patient = getPatientById(Integer.parseInt(id_P));
+            List<DoctorAppointment> docApp = patient.getDoctorAppointments();
+        int Sdoc = docApp.size();
+        for (int i=0 ; i<Sdoc; i++) {
+            if (!(docApp.get(i).getAppointmentType().equalsIgnoreCase(major)))
             {
-                //the App is corona
-                details = "the scheduled date is " + dtf.format(corona.get(0).getDate());
-            }
-            else if (vaccine.get(0).getDate().isBefore(corona.get(0).getDate()))
-            {
-                //the app is vaccine
-                details =  "the scheduled date is " + dtf.format(vaccine.get(0).getDate());
+                docApp.remove(i);
+                Sdoc--;
+                i--;
+
             }
         }
-        else if (Sdoc!=0 && Scorona==0 && Svaccine!=0)
-        {
-            if (docApps.get(0).getDate().isBefore(vaccine.get(0).getDate()))
+            docApp.sort(Comparator.comparing(DoctorAppointment :: getDate).reversed());
+            LinkedList<Doctor> finalDocList = new LinkedList<>();
+            int exist=0;
+            for (DoctorAppointment element : docApp)
             {
-                //the App is docApp
+                exist=0;
+                for (Doctor docelement : finalDocList)
+                {
+                    if (docelement.getId()==element.getDoctor().getId())
+                        exist=1;
+                }
+                if (exist==0)
+                    finalDocList.add(element.getDoctor());
+            }
+            for (Doctor element : doctors)
+            {
+                exist=0;
+                for (Doctor docelement : finalDocList)
+                {
+                    if (docelement.getId()==element.getId())
+                        exist=1;
+                }
+                if (exist==0)
+                    finalDocList.add(element);
+            }
+
+
+            ProDoctorsList SortedDoctors = new ProDoctorsList(finalDocList);
+            if (session != null) {
+                session.close();
+
+            }
+            return SortedDoctors;
+        }
+        public static String getClosestApp(Patient p , Clinic c)
+        {
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            List<DoctorAppointment> docApps = p.getDoctorAppointments();
+            List<VaccineAppointment> vaccine = p.getVaccineAppointments();
+            List<CoronaTestAppointment> corona = p.getCoronaTestAppointments();
+            int Sdoc = docApps.size();
+            int Svaccine = vaccine.size();
+            int Scorona = corona.size();
+            String details = "$";
+            LocalDateTime date = LocalDateTime.now();
+            int Qlength = 1 ;
+            String doc_num = "";
+            int i;
+            // removing the appointments of other clinics and other dates
+            for(i=0 ; i< Sdoc ; i++){
+                if(docApps.get(i).getClinic().getId() != c.getId() || docApps.get(i).getDate().getYear() != date.getYear() || docApps.get(i).getDate().getDayOfYear() != date.getDayOfYear()){
+                    {
+                        docApps.remove(i);
+                        Sdoc--;
+                        i--;
+                    }
+                }
+            }
+
+            for(i=0 ; i< Scorona ; i++){
+                if(corona.get(i).getClinic().getId() != c.getId() || corona.get(i).getDate().getYear() != date.getYear() || corona.get(i).getDate().getDayOfYear() != date.getDayOfYear()){
+                    corona.remove(i);
+                    Scorona--;
+                    i--;
+                }
+            }
+            if(Svaccine!=0){
+                for(i=0 ; i< Svaccine ; i++){
+
+                    if(vaccine.get(i).getClinic().getId() != c.getId() || vaccine.get(i).getDate().getYear() != date.getYear() || vaccine.get(i).getDate().getDayOfYear() != date.getDayOfYear()){
+                        vaccine.remove(i);
+                        Svaccine--;
+                        i--;
+                    }
+                }}
+            docApps.sort(Comparator.comparing(DoctorAppointment :: getDate));
+            vaccine.sort(Comparator.comparing(VaccineAppointment :: getDate));
+            corona.sort(Comparator.comparing(CoronaTestAppointment :: getDate));
+
+            if(Sdoc!=0){
+                if(docApps.get(0).getDoctor().getRole().startsWith("ProfessionalDoctor")){
+                    Qlength=20;
+                }else
+                    Qlength=15;
+                doc_num = getSAppnum(docApps.get(0) , Qlength);
+            }
+
+            ///// just one is not empty
+            if (Sdoc!=0 && Scorona==0 && Svaccine==0)
+            {
+                //the app is docApp
                 details = "the doctor name is : " + docApps.get(0).getDoctor().getFirstName()+"\n"
-                        + "the scheduled date is " + dtf.format(docApps.get(0).getDate());
+                        + "the scheduled date is " + dtf.format(docApps.get(0).getDate())+"\n"
+                        + "your number is :" + doc_num;
             }
-            else if (vaccine.get(0).getDate().isBefore(docApps.get(0).getDate()))
-            {
-                //the app is vaccine
-                details =  "the scheduled date is " + dtf.format(vaccine.get(0).getDate());
-            }
-        }
-        else if (Sdoc!=0 && Scorona!=0 && Svaccine==0)
-        {
-            if (docApps.get(0).getDate().isBefore(corona.get(0).getDate()))
-            {
-                //the App is docApp
-                details = "the doctor name is : " + docApps.get(0).getDoctor().getFirstName()+"\n"
-                        + "the scheduled date is " + dtf.format(docApps.get(0).getDate());
-            }
-            else if (corona.get(0).getDate().isBefore(docApps.get(0).getDate()))
+            else if(Sdoc==0 && Scorona!=0 && Svaccine==0)
             {
                 //the app is corona
                 details = "the scheduled date is " + dtf.format(corona.get(0).getDate());
             }
-        }
-        ////// all of them are not empty
-        else if (Sdoc!=0 && Scorona!=0 && Svaccine!=0) {
-            if (docApps.get(0).getDate().isBefore(corona.get(0).getDate()) && docApps.get(0).getDate().isBefore(vaccine.get(0).getDate())) {
-                /// the app is docApp
-                details = "the doctor name is : " + docApps.get(0).getDoctor().getFirstName()+"\n"
-                        + "the scheduled date is " + dtf.format(docApps.get(0).getDate());
-            }
-            if (corona.get(0).getDate().isBefore(docApps.get(0).getDate()) && corona.get(0).getDate().isBefore(vaccine.get(0).getDate())) {
-                /// the app is corona
-                details = "the scheduled date is " + dtf.format(corona.get(0).getDate());
-            }
-            if (vaccine.get(0).getDate().isBefore(corona.get(0).getDate()) && vaccine.get(0).getDate().isBefore(docApps.get(0).getDate())) {
-                /// the app is vaccine
+            else if(Sdoc==0 && Scorona==0 && Svaccine!=0)
+            {
+                //the app is vaccine
                 details =  "the scheduled date is " + dtf.format(vaccine.get(0).getDate());
             }
-        }
-        if (session != null) {
-            session.close();
-
-        }
-        System.out.println(details);
-        return details ;
-        }
-
-    public static int NumAppAndSetNurseAppointment(Patient patient , Clinic clinic,NurseAppointment nurseApp) throws Exception {
-        SessionFactory sessionFactory = getSessionFactory();
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        nurseApp.setClinic(clinic);
-        nurseApp.setPatient(patient);
-        nurseApp.setAppointmentType("NurseApp");
-        nurseApp.setDate(LocalDateTime.now());
-        nurseApp.setDone(false);
-        session.saveOrUpdate(nurseApp);
-        long id =nurseApp.getId();
-        int int_id= (Math.toIntExact(id))%144;
-        nurseApp.setAppNum(int_id);
 
 
-        List<NurseAppointment> NurseAppointments = new LinkedList<>();
-        NurseAppointments.add(nurseApp);
-        //connect app to clinic
-        if (clinic.getNurseAppointments().size() == 0)
-            clinic.setNurseAppointments(NurseAppointments);
-        else
-            clinic.getNurseAppointments().add(nurseApp);
-        //connect app to patient
-        if (patient.getNurseAppointments().size() == 0)
-            patient.setNurseAppointments(NurseAppointments);
-        else
-            patient.getNurseAppointments().add(nurseApp);
-
-
-        session.saveOrUpdate(nurseApp);
-        session.flush();
-        session.getTransaction().commit();
-        if (session != null)
-            session.close();
-        return int_id;
-    }
-
-    public static int NumAppAndSetLabAppointment(Patient patient , Clinic clinic, LaboratoryFactsAppointment LabApp) throws Exception {
-        SessionFactory sessionFactory = getSessionFactory();
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        LabApp.setClinic(clinic);
-        LabApp.setPatient(patient);
-        LabApp.setAppointmentType("LabApp");
-        LabApp.setDate(LocalDateTime.now());
-        LabApp.setDone(false);
-        session.saveOrUpdate(LabApp);
-        long id =LabApp.getId();
-        int int_id= (Math.toIntExact(id))%144;
-        LabApp.setAppNum(int_id);
-
-
-        List<LaboratoryFactsAppointment> LabAppointments = new LinkedList<>();
-        LabAppointments.add(LabApp);
-        //connect app to clinic
-        if (clinic.getLaboratoryFactsAppointments().size() == 0)
-            clinic.setLaboratoryFactsAppointments(LabAppointments);
-        else
-            clinic.getLaboratoryFactsAppointments().add(LabApp);
-
-        //connect app to patient
-        if (patient.getNurseAppointments().size() == 0)
-            patient.setLaboratoryFactsAppointments(LabAppointments);
-        else
-            patient.getLaboratoryFactsAppointments().add(LabApp);
-
-        session.saveOrUpdate(LabApp);
-        session.flush();
-        session.getTransaction().commit();
-        if (session != null)
-            session.close();
-        return int_id;
-    }
-    public static DoneAppBus SetNurseAppAsDone(Patient patient, Nurse nurse, Clinic clinic, int AppId){
-        SessionFactory sessionFactory = getSessionFactory();
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        DoneAppBus appIsDoneBus=new DoneAppBus();
-        NurseAppointment selectedApp=new NurseAppointment();
-        List<NurseAppointment> nurseApps = clinic.getNurseAppointments();
-        for (NurseAppointment element : nurseApps){
-            if (element.getId()==AppId){
-                selectedApp=element;
+            ///// just two is not empty
+            if(Sdoc==0 && Scorona!=0 && Svaccine!=0) {
+                if (corona.get(0).getDate().isBefore(vaccine.get(0).getDate()))
+                {
+                    //the App is corona
+                    details = "the scheduled date is " + dtf.format(corona.get(0).getDate());
+                }
+                else if (vaccine.get(0).getDate().isBefore(corona.get(0).getDate()))
+                {
+                    //the app is vaccine
+                    details =  "the scheduled date is " + dtf.format(vaccine.get(0).getDate());
+                }
             }
-        }
-        selectedApp.setDone(true);
-        selectedApp.setRealTime(LocalDateTime.now());
-        selectedApp.setNurse(nurse);
+            else if (Sdoc!=0 && Scorona==0 && Svaccine!=0)
+            {
+                if (docApps.get(0).getDate().isBefore(vaccine.get(0).getDate()))
+                {
+                    //the App is docApp
+                    details = "the doctor name is : " + docApps.get(0).getDoctor().getFirstName()+"\n"
+                            + "the scheduled date is " + dtf.format(docApps.get(0).getDate())+"\n"
+                            + "your number is :" + doc_num;
+                }
+                else if (vaccine.get(0).getDate().isBefore(docApps.get(0).getDate()))
+                {
+                    //the app is vaccine
+                    details =  "the scheduled date is " + dtf.format(vaccine.get(0).getDate());
+                }
+            }
+            else if (Sdoc!=0 && Scorona!=0 && Svaccine==0)
+            {
+                if (docApps.get(0).getDate().isBefore(corona.get(0).getDate()))
+                {
+                    //the App is docApp
+                    details = "the doctor name is : " + docApps.get(0).getDoctor().getFirstName()+"\n"
+                            + "the scheduled date is " + dtf.format(docApps.get(0).getDate())+"\n"
+                            + "your number is :" + doc_num;
+                }
+                else if (corona.get(0).getDate().isBefore(docApps.get(0).getDate()))
+                {
+                    //the app is corona
+                    details = "the scheduled date is " + dtf.format(corona.get(0).getDate());
+                }
+            }
+            ////// all of them are not empty
+            else if (Sdoc!=0 && Scorona!=0 && Svaccine!=0) {
+                if (docApps.get(0).getDate().isBefore(corona.get(0).getDate()) && docApps.get(0).getDate().isBefore(vaccine.get(0).getDate())) {
+                    /// the app is docApp
+                    details = "the doctor name is : " + docApps.get(0).getDoctor().getFirstName()+"\n"
+                            + "the scheduled date is " + dtf.format(docApps.get(0).getDate())+"\n"
+                            + "your number is :" + doc_num;
+                }
+                if (corona.get(0).getDate().isBefore(docApps.get(0).getDate()) && corona.get(0).getDate().isBefore(vaccine.get(0).getDate())) {
+                    /// the app is corona
+                    details = "the scheduled date is " + dtf.format(corona.get(0).getDate());
+                }
+                if (vaccine.get(0).getDate().isBefore(corona.get(0).getDate()) && vaccine.get(0).getDate().isBefore(docApps.get(0).getDate())) {
+                    /// the app is vaccine
+                    details =  "the scheduled date is " + dtf.format(vaccine.get(0).getDate());
+                }
+            }
+            if (session != null) {
+                session.close();
 
-        List<NurseAppointment> nurseAppointments=new LinkedList<>();
+            }
+            System.out.println(details);
+            return details ;
+        }
+        public static String getSAppnum (DoctorAppointment docApp , int Qlength )
+        {
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            LocalTime now = LocalTime.now();
+            int MOfApp = docApp.getDate().getMinute() + (60 * docApp.getDate().getHour());
+            System.out.println(MOfApp);
+            int nowM = now.getMinute() + (60 * now.getHour());
+            System.out.println(nowM);
+            System.out.println(now.getHour());
+            int day = docApp.getDate().getDayOfWeek().getValue();
+            int MOfAc = docApp.getClinic().getActivityTime()[0][day%7].getMinute() +(60* docApp.getClinic().getActivityTime()[0][day-1].getHour());
+            int Appnum = 0 ;
+            int dif =MOfApp - MOfAc ;
+            String num ="";
+
+            if(nowM > MOfApp){
+                dif= dif + nowM-MOfApp;
+                Appnum = dif/Qlength ;
+                Appnum+=3;
+                num = String.valueOf(Appnum) ;
+                num = num + "A";
+                docApp.setAppNum(num);
+            }else{
+                Appnum = dif / Qlength ;
+                Appnum++ ;
+                num = String.valueOf(Appnum) ;
+                num = num + "B";
+                docApp.setAppNum(num);
+            }
+            session.saveOrUpdate(docApp);
+            session.flush();
+            session.getTransaction().commit();
+            if (session != null) {
+                session.close();
+
+            }
+            System.out.println("the num is: " + num);
+            return num;
+        }
+        public static int NumAppAndSetNurseAppointment(Patient patient , Clinic clinic,NurseAppointment nurseApp) throws Exception {
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            nurseApp.setClinic(clinic);
+            nurseApp.setPatient(patient);
+            nurseApp.setAppointmentType("NurseApp");
+            nurseApp.setDate(LocalDateTime.now());
+            nurseApp.setDone(false);
+            session.saveOrUpdate(nurseApp);
+            long id =nurseApp.getId();
+            int int_id= (Math.toIntExact(id))%144;
+            nurseApp.setAppNum(String.valueOf(int_id));
+
+
+            List<NurseAppointment> NurseAppointments = new LinkedList<>();
+            NurseAppointments.add(nurseApp);
+            //connect app to clinic
+            if (clinic.getNurseAppointments().size() == 0)
+                clinic.setNurseAppointments(NurseAppointments);
+            else
+                clinic.getNurseAppointments().add(nurseApp);
+            //connect app to patient
+            if (patient.getNurseAppointments().size() == 0)
+                patient.setNurseAppointments(NurseAppointments);
+            else
+                patient.getNurseAppointments().add(nurseApp);
+
+
+            session.saveOrUpdate(nurseApp);
+            session.flush();
+            session.getTransaction().commit();
+            if (session != null)
+                session.close();
+            return int_id;
+        }
+
+        public static int NumAppAndSetLabAppointment(Patient patient , Clinic clinic, LaboratoryFactsAppointment LabApp) throws Exception {
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            LabApp.setClinic(clinic);
+            LabApp.setPatient(patient);
+            LabApp.setAppointmentType("LabApp");
+            LabApp.setDate(LocalDateTime.now());
+            LabApp.setDone(false);
+            session.saveOrUpdate(LabApp);
+            long id =LabApp.getId();
+            int int_id= (Math.toIntExact(id))%144;
+            LabApp.setAppNum(String.valueOf(int_id));
+
+
+            List<LaboratoryFactsAppointment> LabAppointments = new LinkedList<>();
+            LabAppointments.add(LabApp);
+            //connect app to clinic
+            if (clinic.getLaboratoryFactsAppointments().size() == 0)
+                clinic.setLaboratoryFactsAppointments(LabAppointments);
+            else
+                clinic.getLaboratoryFactsAppointments().add(LabApp);
+
+            //connect app to patient
+            if (patient.getNurseAppointments().size() == 0)
+                patient.setLaboratoryFactsAppointments(LabAppointments);
+            else
+                patient.getLaboratoryFactsAppointments().add(LabApp);
+
+            session.saveOrUpdate(LabApp);
+            session.flush();
+            session.getTransaction().commit();
+            if (session != null)
+                session.close();
+            return int_id;
+        }
+        public static DoneAppBus SetNurseAppAsDone(Patient patient, Nurse nurse, Clinic clinic, int AppId){
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            DoneAppBus appIsDoneBus=new DoneAppBus();
+            NurseAppointment selectedApp=new NurseAppointment();
+            List<NurseAppointment> nurseApps = clinic.getNurseAppointments();
+            for (NurseAppointment element : nurseApps){
+                if (element.getId()==AppId){
+                    selectedApp=element;
+                }
+            }
+            selectedApp.setDone(true);
+            selectedApp.setRealTime(LocalDateTime.now());
+            selectedApp.setNurse(nurse);
+
+            List<NurseAppointment> nurseAppointments=new LinkedList<>();
         nurseAppointments.add(selectedApp);
         //connect app to nurse
         if (nurse.getAppointments().size() == 0) {
@@ -1193,6 +1257,33 @@ public class AppointmentData extends DataClass{
         if (session != null)
             session.close();
         appIsDoneBus.setLabFact(labfact);
+        return appIsDoneBus;
+    }
+    public static DoneAppBus SetDoctorAppAsDone(Patient patient, Doctor doctor, Clinic clinic, int AppId){
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        DoneAppBus appIsDoneBus=new DoneAppBus();
+        DoctorAppointment selectedAppinDoc=new  DoctorAppointment();
+        List< DoctorAppointment> docAppsInDoc = doctor.getAppointments();
+        for ( DoctorAppointment element : docAppsInDoc){
+            if (element.getId()==AppId){
+                selectedAppinDoc=element;
+            }
+        }
+        selectedAppinDoc.setDone(true);
+        selectedAppinDoc.setRealTime(LocalDateTime.now());
+        session.saveOrUpdate(selectedAppinDoc);
+        session.saveOrUpdate(doctor);
+        // session.saveOrUpdate(clinic);
+//        List<Clinic> UpdatedClinic = new LinkedList<>();
+//        UpdatedClinic.add(clinic);
+//        doctor.setClinicList(UpdatedClinic);
+        session.flush();
+        session.getTransaction().commit();
+        if (session != null)
+            session.close();
+        appIsDoneBus.setDoctor(doctor);
         return appIsDoneBus;
     }
 
