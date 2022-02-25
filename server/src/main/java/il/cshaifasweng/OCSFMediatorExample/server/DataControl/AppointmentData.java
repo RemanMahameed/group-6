@@ -110,14 +110,14 @@ public class AppointmentData extends DataClass{
                         {
                             doctorAppointment1 = new DoctorAppointment(type, date, doctor, patient, patient.getClinic());
                             doctorAppList.add(doctorAppointment1);
-                            newDoctorAppointment2 = "Month: " + date.getMonth() + "   Day: " + date.getDayOfMonth() + "   hour: " + date.getHour() + "   minute: " + date.getMinute();
+                            newDoctorAppointment2 = "Date: " + date.getDayOfMonth() +"-" + date.getMonth()  + "   Time: " + date.getHour() + ":"+ (date.getMinute()<10?"0":"") + date.getMinute();
                             doctorAppString.add(newDoctorAppointment2);
                             //System.out.println("The string is: " + newDoctorAppointment2);
                         }
                     }else {
                         doctorAppointment1 = new DoctorAppointment(type, date, doctor, patient, patient.getClinic());
                         doctorAppList.add(doctorAppointment1);
-                        newDoctorAppointment2 = "Month: " + date.getMonth() + "   Day: " + date.getDayOfMonth() + "   hour: " + date.getHour() + "   minute: " + date.getMinute();
+                        newDoctorAppointment2 = "Date: " + date.getDayOfMonth() +"-" + date.getMonth()  + "   Time: " + date.getHour() + ":"+ (date.getMinute()<10?"0":"") + date.getMinute();
                         doctorAppString.add(newDoctorAppointment2);
                         //System.out.println("The string is: " + newDoctorAppointment2);
                     }
@@ -632,14 +632,14 @@ public class AppointmentData extends DataClass{
                         if (date.toLocalTime().isAfter(now.toLocalTime())) {
                             coronaTestAppointment = new CoronaTestAppointment("CoronaTest", date, patient, clinic);
                             newCoronaTestAppointments.add(coronaTestAppointment);
-                            newCoronaApp = "Month: " + date.getMonth() + "   Day: " + date.getDayOfMonth() + "   hour: " + date.getHour() + "   minute: " + date.getMinute();
+                            newCoronaApp = "Date: " + date.getDayOfMonth() +"-" + date.getMonth()  + "   Time: " + date.getHour() + ":"+ (date.getMinute()<10?"0":"") + date.getMinute();
                             AppString.add(newCoronaApp);
                             System.out.println("The string is: " + newCoronaApp);
                         }
                     } else {
                         coronaTestAppointment = new CoronaTestAppointment("CoronaTest", date, patient, clinic);
                         newCoronaTestAppointments.add(coronaTestAppointment);
-                        newCoronaApp = "Month: " + date.getMonth() + "   Day: " + date.getDayOfMonth() + "   hour: " + date.getHour() + "   minute: " + date.getMinute();
+                        newCoronaApp = "Date: " + date.getDayOfMonth() +"-" + date.getMonth()  + "   Time: " + date.getHour() + ":"+ (date.getMinute()<10?"0":"") + date.getMinute();
                         AppString.add(newCoronaApp);
                         System.out.println("The string is: " + newCoronaApp);
                     }
@@ -687,14 +687,14 @@ public class AppointmentData extends DataClass{
                         if (date.toLocalTime().isAfter(now.toLocalTime())) {
                             vaccineAppointment = new VaccineAppointment(AppType, date,patient,clinic);
                             vaccineAppointments.add(vaccineAppointment);
-                            newVaccineString = "Month: " + date.getMonth() + "   Day: " + date.getDayOfMonth() + "   hour: " + date.getHour() + "   minute: " + date.getMinute();
+                            newVaccineString =  "Date: " + date.getDayOfMonth() +"-" + date.getMonth()  + "   Time: " + date.getHour() + ":"+ (date.getMinute()<10?"0":"") +  date.getMinute();
                             AppString.add(newVaccineString);
                             System.out.println("The string is: " + newVaccineString);
                         }
                     }else {
                         vaccineAppointment = new VaccineAppointment(AppType, date,patient,clinic);
                         vaccineAppointments.add(vaccineAppointment);
-                        newVaccineString = "Month: " + date.getMonth() + "   Day: " + date.getDayOfMonth() + "   hour: " + date.getHour() + "   minute: " + date.getMinute();
+                        newVaccineString =  "Date: " + date.getDayOfMonth() +"-" + date.getMonth()  + "   Time: " + date.getHour() + ":"+ (date.getMinute()<10?"0":"") + date.getMinute();
                         AppString.add(newVaccineString);
                         System.out.println("The string is: " + newVaccineString);
                     }
@@ -751,14 +751,14 @@ public class AppointmentData extends DataClass{
                         {
                             doctorAppointment1 = new DoctorAppointment(type, date, doctor, patient, proClinic);
                             doctorAppList.add(doctorAppointment1);
-                            newDoctorAppointment2 = "Month: " + date.getMonth() + "   Day: " + date.getDayOfMonth() + "   hour: " + date.getHour() + "   minute: " + date.getMinute();
+                            newDoctorAppointment2 =  "Date: " + date.getDayOfMonth() +"-" + date.getMonth()  + "   Time: " + date.getHour() + ":" + (date.getMinute()<10?"0":"") + date.getMinute();
                             doctorAppString.add(newDoctorAppointment2);
                             //System.out.println("The string is: " + newDoctorAppointment2);
                         }
                     }else {
                         doctorAppointment1 = new DoctorAppointment(type, date, doctor, patient, proClinic);
                         doctorAppList.add(doctorAppointment1);
-                        newDoctorAppointment2 = "Month: " + date.getMonth() + "   Day: " + date.getDayOfMonth() + "   hour: " + date.getHour() + "   minute: " + date.getMinute();
+                        newDoctorAppointment2 =  "Date: " + date.getDayOfMonth() +"-" + date.getMonth()  + "   Time: " + date.getHour() + ":" + (date.getMinute()<10?"0":"") + date.getMinute();
                         doctorAppString.add(newDoctorAppointment2);
                         //System.out.println("The string is: " + newDoctorAppointment2);
                     }
@@ -1019,15 +1019,17 @@ public class AppointmentData extends DataClass{
             SessionFactory sessionFactory = getSessionFactory();
             session = sessionFactory.openSession();
             session.beginTransaction();
+            int AppNum=(clinic.getNurseAppointments().size()+1)%144;
             nurseApp.setClinic(clinic);
             nurseApp.setPatient(patient);
             nurseApp.setAppointmentType("NurseApp");
             nurseApp.setDate(LocalDateTime.now());
             nurseApp.setDone(false);
+            nurseApp.setAppNum(String.valueOf(AppNum));
             session.saveOrUpdate(nurseApp);
-            long id =nurseApp.getId();
-            int int_id= (Math.toIntExact(id))%144;
-            nurseApp.setAppNum(String.valueOf(int_id));
+//            long id =nurseApp.getId();
+//            int int_id= (Math.toIntExact(id))%144;
+//            nurseApp.setAppNum(String.valueOf(int_id));
 
 
             List<NurseAppointment> NurseAppointments = new LinkedList<>();
@@ -1049,22 +1051,24 @@ public class AppointmentData extends DataClass{
             session.getTransaction().commit();
             if (session != null)
                 session.close();
-            return int_id;
+            return AppNum;
         }
 
         public static int NumAppAndSetLabAppointment(Patient patient , Clinic clinic, LaboratoryFactsAppointment LabApp) throws Exception {
             SessionFactory sessionFactory = getSessionFactory();
             session = sessionFactory.openSession();
             session.beginTransaction();
+            int AppNum=(clinic.getNurseAppointments().size()+1)%144;
             LabApp.setClinic(clinic);
             LabApp.setPatient(patient);
             LabApp.setAppointmentType("LabApp");
             LabApp.setDate(LocalDateTime.now());
             LabApp.setDone(false);
+            LabApp.setAppNum(String.valueOf(AppNum));
             session.saveOrUpdate(LabApp);
-            long id =LabApp.getId();
-            int int_id= (Math.toIntExact(id))%144;
-            LabApp.setAppNum(String.valueOf(int_id));
+//            long id =LabApp.getId();
+//            int int_id= (Math.toIntExact(id))%144;
+//            LabApp.setAppNum(String.valueOf(int_id));
 
 
             List<LaboratoryFactsAppointment> LabAppointments = new LinkedList<>();
@@ -1086,7 +1090,7 @@ public class AppointmentData extends DataClass{
             session.getTransaction().commit();
             if (session != null)
                 session.close();
-            return int_id;
+            return AppNum;
         }
         public static DoneAppBus SetNurseAppAsDone(Patient patient, Nurse nurse, Clinic clinic, int AppId){
             SessionFactory sessionFactory = getSessionFactory();
