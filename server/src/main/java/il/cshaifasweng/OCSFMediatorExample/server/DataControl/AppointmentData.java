@@ -905,12 +905,14 @@ public class AppointmentData extends DataClass{
             }
             if(Scorona!=0 && returned==2) {
                 System.out.println("here i am at Scorona");
+                SetCoronaTestAppAsDone(corona.get(0));
                 corona_num = getSAppnum(corona.get(0) , 10 , corona.get(0).getDate() , corona.get(0).getClinic());
                 details = "the scheduled date is " + dtf.format(corona.get(0).getDate())
                         + "\n your number is :" + corona_num;
             }
             if(Svaccine!=0 && returned==3){
                 System.out.println("here i am at Scorona");
+                SetVaccineAppAsDone(p,vaccine.get(0));
                 vaccine_num = getSAppnum(vaccine.get(0) , 10 , vaccine.get(0).getDate() , vaccine.get(0).getClinic());
                 details =  "the scheduled date is " + dtf.format(vaccine.get(0).getDate())
                         + "\n your number is :" + vaccine_num;
@@ -1321,6 +1323,45 @@ public class AppointmentData extends DataClass{
             session.close();
         appIsDoneBus.setDoctor(doctor);
         return appIsDoneBus;
+    }
+    public static void SetCoronaTestAppAsDone(CoronaTestAppointment coronaTestAppointment){
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        coronaTestAppointment.setDone(true);
+        coronaTestAppointment.setRealTime(LocalDateTime.now());
+        session.saveOrUpdate(coronaTestAppointment);
+        // session.saveOrUpdate(clinic);
+//        List<Clinic> UpdatedClinic = new LinkedList<>();
+//        UpdatedClinic.add(clinic);
+//        doctor.setClinicList(UpdatedClinic);
+        session.flush();
+        session.getTransaction().commit();
+        if (session != null)
+            session.close();
+    }
+    public static void SetVaccineAppAsDone(Patient patient,VaccineAppointment vaccineAppointment){
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        vaccineAppointment.setDone(true);
+        vaccineAppointment.setRealTime(LocalDateTime.now());
+        session.saveOrUpdate(vaccineAppointment);
+        int numOfVaccine=0;
+        if (vaccineAppointment.getAppointmentType().equalsIgnoreCase("CoronaVaccine"))
+        {
+            numOfVaccine = (patient.getNumOfVaccine())+1;
+            patient.setNumOfVaccine(numOfVaccine);
+            session.saveOrUpdate(patient);
+        }
+        // session.saveOrUpdate(clinic);
+//        List<Clinic> UpdatedClinic = new LinkedList<>();
+//        UpdatedClinic.add(clinic);
+//        doctor.setClinicList(UpdatedClinic);
+        session.flush();
+        session.getTransaction().commit();
+        if (session != null)
+            session.close();
     }
 
     public static void connectFactPatient (Patient patient,LaboratoryFacts labfact){
