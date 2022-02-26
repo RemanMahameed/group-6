@@ -18,6 +18,7 @@ public abstract class Appointment implements Serializable {
     public Appointment(String appointmentType, LocalDateTime date) {
         AppointmentType = appointmentType;
         Date = date;
+        this.AppNum = "initial val";
     }
 
     public Appointment() {

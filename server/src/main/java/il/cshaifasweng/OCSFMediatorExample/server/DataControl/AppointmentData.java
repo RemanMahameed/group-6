@@ -838,8 +838,18 @@ public class AppointmentData extends DataClass{
             session.beginTransaction();
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
             List<DoctorAppointment> docApps = p.getDoctorAppointments();
-            List<VaccineAppointment> vaccine = p.getVaccineAppointments();
-            List<CoronaTestAppointment> corona = p.getCoronaTestAppointments();
+            List<VaccineAppointment> vaccine = null;
+            try {
+                vaccine = getVaccinePatientById(p.getId());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            List<CoronaTestAppointment> corona = null;
+            try {
+                corona = getCoronaTestPatientById(p.getId());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             int Sdoc = docApps.size();
             int Svaccine = vaccine.size();
             int Scorona = corona.size();
@@ -848,9 +858,11 @@ public class AppointmentData extends DataClass{
             int Qlength = 1 ;
             String doc_num = "";
             int i;
+            String corona_num = "";
+            String vaccine_num = "";
             // removing the appointments of other clinics and other dates
             for(i=0 ; i< Sdoc ; i++){
-                if(docApps.get(i).getClinic().getId() != c.getId() || docApps.get(i).getDate().getYear() != date.getYear() || docApps.get(i).getDate().getDayOfYear() != date.getDayOfYear()){
+                if(docApps.get(i).getClinic().getId() != c.getId() || docApps.get(i).getDate().getYear() != date.getYear() || docApps.get(i).getDate().getDayOfYear() != date.getDayOfYear() ||! docApps.get(i).getAppNum().equals("initial val")){
                     {
                         docApps.remove(i);
                         Sdoc--;
@@ -860,7 +872,7 @@ public class AppointmentData extends DataClass{
             }
 
             for(i=0 ; i< Scorona ; i++){
-                if(corona.get(i).getClinic().getId() != c.getId() || corona.get(i).getDate().getYear() != date.getYear() || corona.get(i).getDate().getDayOfYear() != date.getDayOfYear()){
+                if(corona.get(i).getClinic().getId() != c.getId() || corona.get(i).getDate().getYear() != date.getYear() || corona.get(i).getDate().getDayOfYear() != date.getDayOfYear()||! corona.get(i).getAppNum().equals("initial val")){
                     corona.remove(i);
                     Scorona--;
                     i--;
@@ -869,7 +881,7 @@ public class AppointmentData extends DataClass{
             if(Svaccine!=0){
                 for(i=0 ; i< Svaccine ; i++){
 
-                    if(vaccine.get(i).getClinic().getId() != c.getId() || vaccine.get(i).getDate().getYear() != date.getYear() || vaccine.get(i).getDate().getDayOfYear() != date.getDayOfYear()){
+                    if(vaccine.get(i).getClinic().getId() != c.getId() || vaccine.get(i).getDate().getYear() != date.getYear() || vaccine.get(i).getDate().getDayOfYear() != date.getDayOfYear() ||! vaccine.get(i).getAppNum().equals("initial val")){
                         vaccine.remove(i);
                         Svaccine--;
                         i--;
@@ -879,31 +891,60 @@ public class AppointmentData extends DataClass{
             vaccine.sort(Comparator.comparing(VaccineAppointment :: getDate));
             corona.sort(Comparator.comparing(CoronaTestAppointment :: getDate));
 
-            if(Sdoc!=0){
+            int returned = Checkmin(docApps , vaccine, corona );
+            System.out.println("the returned val from check min is :"+returned);
+            if(Sdoc!=0 && returned==1 ){
                 if(docApps.get(0).getDoctor().getRole().startsWith("ProfessionalDoctor")){
                     Qlength=20;
                 }else
                     Qlength=15;
-                doc_num = getSAppnum(docApps.get(0) , Qlength);
+                doc_num = getSAppnum(docApps.get(0) , Qlength , docApps.get(0).getDate() , docApps.get(0).getClinic());
+                details = "the doctor name is : " + docApps.get(0).getDoctor().getFirstName()+"\n"
+                        + "the scheduled date is " + dtf.format(docApps.get(0).getDate())+"\n"
+                        + "your number is :" + doc_num;
             }
+            if(Scorona!=0 && returned==2) {
+                System.out.println("here i am at Scorona");
+                corona_num = getSAppnum(corona.get(0) , 10 , corona.get(0).getDate() , corona.get(0).getClinic());
+                details = "the scheduled date is " + dtf.format(corona.get(0).getDate())
+                        + "\n your number is :" + corona_num;
+            }
+            if(Svaccine!=0 && returned==3){
+                System.out.println("here i am at Scorona");
+                vaccine_num = getSAppnum(vaccine.get(0) , 10 , vaccine.get(0).getDate() , vaccine.get(0).getClinic());
+                details =  "the scheduled date is " + dtf.format(vaccine.get(0).getDate())
+                        + "\n your number is :" + vaccine_num;
+            }
+
+            if (session != null) {
+                session.close();
+
+            }
+            System.out.println(details);
+            return details ;
+        }
+
+
+        public  static int Checkmin(List<DoctorAppointment> docApps, List<VaccineAppointment> vaccine,List<CoronaTestAppointment> corona){
+            int Sdoc = docApps.size();
+            int Svaccine = vaccine.size();
+            int Scorona = corona.size();
 
             ///// just one is not empty
             if (Sdoc!=0 && Scorona==0 && Svaccine==0)
             {
                 //the app is docApp
-                details = "the doctor name is : " + docApps.get(0).getDoctor().getFirstName()+"\n"
-                        + "the scheduled date is " + dtf.format(docApps.get(0).getDate())+"\n"
-                        + "your number is :" + doc_num;
+                return 1;
             }
             else if(Sdoc==0 && Scorona!=0 && Svaccine==0)
             {
                 //the app is corona
-                details = "the scheduled date is " + dtf.format(corona.get(0).getDate());
+                return 2;
             }
             else if(Sdoc==0 && Scorona==0 && Svaccine!=0)
             {
                 //the app is vaccine
-                details =  "the scheduled date is " + dtf.format(vaccine.get(0).getDate());
+               return 3;
             }
 
 
@@ -912,12 +953,12 @@ public class AppointmentData extends DataClass{
                 if (corona.get(0).getDate().isBefore(vaccine.get(0).getDate()))
                 {
                     //the App is corona
-                    details = "the scheduled date is " + dtf.format(corona.get(0).getDate());
+                    return 2;
                 }
                 else if (vaccine.get(0).getDate().isBefore(corona.get(0).getDate()))
                 {
                     //the app is vaccine
-                    details =  "the scheduled date is " + dtf.format(vaccine.get(0).getDate());
+                    return 3;
                 }
             }
             else if (Sdoc!=0 && Scorona==0 && Svaccine!=0)
@@ -925,14 +966,12 @@ public class AppointmentData extends DataClass{
                 if (docApps.get(0).getDate().isBefore(vaccine.get(0).getDate()))
                 {
                     //the App is docApp
-                    details = "the doctor name is : " + docApps.get(0).getDoctor().getFirstName()+"\n"
-                            + "the scheduled date is " + dtf.format(docApps.get(0).getDate())+"\n"
-                            + "your number is :" + doc_num;
+                    return 1;
                 }
                 else if (vaccine.get(0).getDate().isBefore(docApps.get(0).getDate()))
                 {
                     //the app is vaccine
-                    details =  "the scheduled date is " + dtf.format(vaccine.get(0).getDate());
+                    return 3;
                 }
             }
             else if (Sdoc!=0 && Scorona!=0 && Svaccine==0)
@@ -940,81 +979,74 @@ public class AppointmentData extends DataClass{
                 if (docApps.get(0).getDate().isBefore(corona.get(0).getDate()))
                 {
                     //the App is docApp
-                    details = "the doctor name is : " + docApps.get(0).getDoctor().getFirstName()+"\n"
-                            + "the scheduled date is " + dtf.format(docApps.get(0).getDate())+"\n"
-                            + "your number is :" + doc_num;
+                    return 1;
                 }
                 else if (corona.get(0).getDate().isBefore(docApps.get(0).getDate()))
                 {
                     //the app is corona
-                    details = "the scheduled date is " + dtf.format(corona.get(0).getDate());
+                    return 2;
                 }
             }
             ////// all of them are not empty
             else if (Sdoc!=0 && Scorona!=0 && Svaccine!=0) {
                 if (docApps.get(0).getDate().isBefore(corona.get(0).getDate()) && docApps.get(0).getDate().isBefore(vaccine.get(0).getDate())) {
                     /// the app is docApp
-                    details = "the doctor name is : " + docApps.get(0).getDoctor().getFirstName()+"\n"
-                            + "the scheduled date is " + dtf.format(docApps.get(0).getDate())+"\n"
-                            + "your number is :" + doc_num;
+                    return 1;
                 }
                 if (corona.get(0).getDate().isBefore(docApps.get(0).getDate()) && corona.get(0).getDate().isBefore(vaccine.get(0).getDate())) {
                     /// the app is corona
-                    details = "the scheduled date is " + dtf.format(corona.get(0).getDate());
+                    return 2;
                 }
                 if (vaccine.get(0).getDate().isBefore(corona.get(0).getDate()) && vaccine.get(0).getDate().isBefore(docApps.get(0).getDate())) {
                     /// the app is vaccine
-                    details =  "the scheduled date is " + dtf.format(vaccine.get(0).getDate());
+                    return 3;
                 }
             }
-            if (session != null) {
-                session.close();
-
-            }
-            System.out.println(details);
-            return details ;
+        return 0;
         }
-        public static String getSAppnum (DoctorAppointment docApp , int Qlength )
-        {
-            SessionFactory sessionFactory = getSessionFactory();
-            session = sessionFactory.openSession();
-            session.beginTransaction();
-            LocalTime now = LocalTime.now();
-            int MOfApp = docApp.getDate().getMinute() + (60 * docApp.getDate().getHour());
-            System.out.println(MOfApp);
-            int nowM = now.getMinute() + (60 * now.getHour());
-            System.out.println(nowM);
-            System.out.println(now.getHour());
-            int day = docApp.getDate().getDayOfWeek().getValue();
-            int MOfAc = docApp.getClinic().getActivityTime()[0][day%7].getMinute() +(60* docApp.getClinic().getActivityTime()[0][day-1].getHour());
-            int Appnum = 0 ;
-            int dif =MOfApp - MOfAc ;
-            String num ="";
 
-            if(nowM > MOfApp){
-                dif= dif + nowM-MOfApp;
-                Appnum = dif/Qlength ;
-                Appnum+=3;
-                num = String.valueOf(Appnum) ;
-                num = num + "A";
-                docApp.setAppNum(num);
-            }else{
-                Appnum = dif / Qlength ;
-                Appnum++ ;
-                num = String.valueOf(Appnum) ;
-                num = num + "B";
-                docApp.setAppNum(num);
-            }
-            session.saveOrUpdate(docApp);
-            session.flush();
-            session.getTransaction().commit();
-            if (session != null) {
-                session.close();
 
-            }
-            System.out.println("the num is: " + num);
-            return num;
+    public static String getSAppnum (Appointment App , int Qlength , LocalDateTime date , Clinic clinic)
+    {
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        LocalTime now = LocalTime.now();
+        int MOfApp = date.getMinute() + (60 * date.getHour());
+        System.out.println(MOfApp);
+        int nowM = now.getMinute() + (60 * now.getHour());
+        System.out.println(nowM);
+        System.out.println(now.getHour());
+        int day = date.getDayOfWeek().getValue();
+        int MOfAc = clinic.getActivityTime()[0][day%7].getMinute() +(60* clinic.getActivityTime()[0][day-1].getHour());
+        int Appnum = 0 ;
+        int dif =MOfApp - MOfAc ;
+        String num ="";
+
+        if(nowM > MOfApp){
+            dif= dif + nowM-MOfApp;
+            Appnum = dif/Qlength ;
+            Appnum+=3;
+            num = String.valueOf(Appnum) ;
+            num = num + "A";
+            App.setAppNum(num);
+        }else{
+            Appnum = dif / Qlength ;
+            Appnum++ ;
+            num = String.valueOf(Appnum) ;
+            num = num + "B";
+            App.setAppNum(num);
         }
+        session.saveOrUpdate(App);
+        session.flush();
+        session.getTransaction().commit();
+        if (session != null) {
+            session.close();
+
+        }
+        System.out.println("the num is: " + num);
+        return num;
+    }
         public static int NumAppAndSetNurseAppointment(Patient patient , Clinic clinic,NurseAppointment nurseApp) throws Exception {
             SessionFactory sessionFactory = getSessionFactory();
             session = sessionFactory.openSession();
