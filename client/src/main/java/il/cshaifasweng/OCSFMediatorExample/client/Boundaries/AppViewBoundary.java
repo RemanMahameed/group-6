@@ -12,6 +12,7 @@ import javafx.scene.control.ListView;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
@@ -111,11 +112,24 @@ public class AppViewBoundary extends Boundary{
             System.out.println("I am a doctor");
             Doctor doctor = (Doctor) user_Ob.get(0);
             List<DoctorAppointment> appointments = doctor.getAppointments();
-            //appointments.sort(Comparator.comparing(DoctorAppointment :: getAppNum));
+            List<String> App_nums = new LinkedList<>();
+            List<DoctorAppointment> SortedAppointments = new LinkedList<>();
+            for(DoctorAppointment element : appointments){
+                App_nums.add(element.getAppNum());
+            }
+
+            Collections.sort(App_nums);
+            for(String num : App_nums){
+                for(DoctorAppointment element : appointments){
+                    if(element.getAppNum().equals(num)){
+                        SortedAppointments.add(element);
+                    }
+                }
+            }
             String IsHere ;
-            for (DoctorAppointment element : appointments)
+            for (DoctorAppointment element : SortedAppointments)
                 if(!element.isDone()) {
-                    IsHere= element.getAppNum()==null ? "the patient isn't here" : element.getAppNum();
+                    IsHere= element.getAppNum().equals("initial val") ? "the patient isn't here" : element.getAppNum();
                     AppList.getItems().add("App ID: " + element.getId() + " Patient ID: " + element.getPatient().getId()+"\nPatient name is : " + element.getPatient().getFirstName() + " " + element.getPatient().getLastName() + "\n"
                             + "Appointment Date is : " + dtf.format(element.getDate()) + "\n" +"Number of App is: " + IsHere
                     );

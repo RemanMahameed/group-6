@@ -160,49 +160,49 @@ public class AppointmentData extends DataClass{
             patient.setDoctorAppointments(doctorAppointments);
         else
             patient.getDoctorAppointments().add(doctorAppointment);
-        //connect doctor to patient
-        int exist = 0;
-        if (patient.getDoctors().size() == 0) {
-            patient.setDoctors(firstDoctor);
-            session.saveOrUpdate(doctor);
-        }
-        else
-        {
-             exist = 0;
-            for (Doctor element : patient.getDoctors())
-                if(element.getId()==doctor.getId())
-            {
-                exist=1;
-                System.out.println("is exist");
-            }
-            if (exist==0)
-            {
-                System.out.println("not exist");
-                patient.getDoctors().add(doctor);
-                session.saveOrUpdate(doctor);
-            }
-             }
-        //connect patient to doctor
-        if(doctor.getPatients().size()==0) {
-            doctor.setPatients(firstPatient);
-            session.saveOrUpdate(patient);
-        }
-        else
-        {
-            exist=0;
-            for (Patient element : doctor.getPatients())
-                if (element.getId() == patient.getId())
-            {
-                exist=1;
-                System.out.println("is exist");
-            }
-            if (exist==0){
-                System.out.println("not exist");
-                doctor.getPatients().add(patient);
-                session.saveOrUpdate(patient);
-            }
-
-        }
+//        //connect doctor to patient
+//        int exist = 0;
+//        if (patient.getDoctors().size() == 0) {
+//            patient.setDoctors(firstDoctor);
+//            session.saveOrUpdate(doctor);
+//        }
+//        else
+//        {
+//             exist = 0;
+//            for (Doctor element : patient.getDoctors())
+//                if(element.getId()==doctor.getId())
+//            {
+//                exist=1;
+//                System.out.println("is exist");
+//            }
+//            if (exist==0)
+//            {
+//                System.out.println("not exist");
+//                patient.getDoctors().add(doctor);
+//                session.saveOrUpdate(doctor);
+//            }
+//             }
+//        //connect patient to doctor
+//        if(doctor.getPatients().size()==0) {
+//            doctor.setPatients(firstPatient);
+//            session.saveOrUpdate(patient);
+//        }
+//        else
+//        {
+//            exist=0;
+//            for (Patient element : doctor.getPatients())
+//                if (element.getId() == patient.getId())
+//            {
+//                exist=1;
+//                System.out.println("is exist");
+//            }
+//            if (exist==0){
+//                System.out.println("not exist");
+//                doctor.getPatients().add(patient);
+//                session.saveOrUpdate(patient);
+//            }
+//
+//        }
 
 
 
@@ -789,7 +789,7 @@ public class AppointmentData extends DataClass{
             List<DoctorAppointment> docApp = patient.getDoctorAppointments();
         int Sdoc = docApp.size();
         for (int i=0 ; i<Sdoc; i++) {
-            if (!(docApp.get(i).getAppointmentType().equalsIgnoreCase(major)))
+            if (!(docApp.get(i).getAppointmentType().equalsIgnoreCase(major)) || !docApp.get(i).isDone())
             {
                 docApp.remove(i);
                 Sdoc--;
@@ -1302,6 +1302,11 @@ public class AppointmentData extends DataClass{
         session = sessionFactory.openSession();
         session.beginTransaction();
         DoneAppBus appIsDoneBus=new DoneAppBus();
+        List<Patient> firstPatient = new LinkedList<>();
+        firstPatient.add(patient);
+        List<Doctor> firstDoctor = new LinkedList<>();
+        firstDoctor.add(doctor);
+        //int exist;
         DoctorAppointment selectedAppinDoc=new  DoctorAppointment();
         List< DoctorAppointment> docAppsInDoc = doctor.getAppointments();
         for ( DoctorAppointment element : docAppsInDoc){
@@ -1312,6 +1317,49 @@ public class AppointmentData extends DataClass{
         selectedAppinDoc.setDone(true);
         selectedAppinDoc.setRealTime(LocalDateTime.now());
         session.saveOrUpdate(selectedAppinDoc);
+        //connect doctor to patient
+        int exist = 0;
+        if (patient.getDoctors().size() == 0) {
+            patient.setDoctors(firstDoctor);
+            session.saveOrUpdate(doctor);
+        }
+        else
+        {
+            exist = 0;
+            for (Doctor element : patient.getDoctors())
+                if(element.getId()==doctor.getId())
+                {
+                    exist=1;
+                    System.out.println("is exist");
+                }
+            if (exist==0)
+            {
+                System.out.println("not exist");
+                patient.getDoctors().add(doctor);
+                session.saveOrUpdate(doctor);
+            }
+        }
+
+        if(doctor.getPatients().size()==0) {
+            doctor.setPatients(firstPatient);
+            session.saveOrUpdate(patient);
+        }
+        else
+        {
+            exist=0;
+            for (Patient element : doctor.getPatients())
+                if (element.getId() == patient.getId())
+                {
+                    exist=1;
+                    System.out.println("is exist");
+                }
+            if (exist==0){
+                System.out.println("not exist");
+                doctor.getPatients().add(patient);
+                session.saveOrUpdate(patient);
+            }
+
+        }
         session.saveOrUpdate(doctor);
         // session.saveOrUpdate(clinic);
 //        List<Clinic> UpdatedClinic = new LinkedList<>();
