@@ -445,6 +445,7 @@ public class SimpleServer extends AbstractServer {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+
 			DoneAppBus appIsDoneBus = AppointmentData.SetDoctorAppAsDone(patient,doctor,clinic,AppId);
 			try {
 				client.sendToClient(appIsDoneBus);

@@ -10,14 +10,16 @@ public class DoneAppBus implements Serializable {
     Doctor doctor;
     Nurse nurse;
     LaboratoryFacts labFact;
+    String patientISHere="";
 
     public DoneAppBus() {
     }
 
-    public DoneAppBus(Doctor doctor, Nurse nurse, LaboratoryFacts labFact) {
+    public DoneAppBus(Doctor doctor, Nurse nurse, LaboratoryFacts labFact, String patientISHere) {
         this.doctor = doctor;
         this.nurse = nurse;
         this.labFact = labFact;
+        this.patientISHere = patientISHere;
     }
 
     public Doctor getDoctor() {
@@ -42,5 +44,13 @@ public class DoneAppBus implements Serializable {
 
     public void setLabFact(LaboratoryFacts labFact) {
         this.labFact = labFact;
+    }
+
+    public String getPatientISHere() {
+        return patientISHere;
+    }
+
+    public void setPatientISHere(String patientISHere) {
+        this.patientISHere = patientISHere;
     }
 }

@@ -433,103 +433,127 @@ public class AppointmentData extends DataClass{
     }
     private static ScheduledApp getDoctorApp(Patient patient) throws Exception{
         List<DoctorAppointment> doctorAppointments =patient.getDoctorAppointments();
+        List<DoctorAppointment> NotDonedoctorAppointments=new LinkedList<>();
         List<String> stringApp=new LinkedList<>();
         String newString;
         if(doctorAppointments.size() != 0){
             for (DoctorAppointment doctorAppointment : doctorAppointments) {
-                newString="AppointmentType: "+doctorAppointment.getAppointmentType()+"\n"
+                if (!doctorAppointment.isDone())
+                {
+                    newString="AppointmentType: "+doctorAppointment.getAppointmentType()+"\n"
                          +"Date: "+ doctorAppointment.getDate().toLocalDate()+"  Time: "+doctorAppointment.getDate().toLocalTime().withSecond(0)+"\n"
                          +"With doctor: "+doctorAppointment.getDoctor().getFirstName()+" "+doctorAppointment.getDoctor().getLastName()+"\n"
                          +"At clinic: "+doctorAppointment.getClinic().getClinicType();
                 stringApp.add(newString);
+                NotDonedoctorAppointments.add(doctorAppointment);
+                }
             }
         }else {
             newString="There is not Scheduled Appointment!";
             stringApp.add(newString);
         }
         ScheduledApp scheduledApp=new ScheduledApp(stringApp,"Doctor");
-        scheduledApp.setDoctorAppointments(doctorAppointments);
+        scheduledApp.setDoctorAppointments(NotDonedoctorAppointments);
         return (scheduledApp);
     }
 
     private static ScheduledApp getLaboratoryFactsApp(Patient patient) throws Exception{
         List<LaboratoryFactsAppointment> laboratoryFactsAppointments=patient.getLaboratoryFactsAppointments();
+        List<LaboratoryFactsAppointment> NOTDONElaboratoryFactsAppointments=new LinkedList<>();
         List<String> stringApp=new LinkedList<>();
         String newString;
         if(laboratoryFactsAppointments.size() != 0){
             for (LaboratoryFactsAppointment laboratoryFactsAppointment : laboratoryFactsAppointments) {
-                newString="AppointmentType: "+laboratoryFactsAppointment.getAppointmentType()+"\n"
-                         +"Date: "+ laboratoryFactsAppointment.getDate().toLocalDate()+"  Time: "+laboratoryFactsAppointment.getDate().toLocalTime().withSecond(0)+"\n"
-                         +"At clinic: "+laboratoryFactsAppointment.getClinic().getClinicType();
-                stringApp.add(newString);
+                if(!laboratoryFactsAppointment.isDone()) {
+                    newString = "AppointmentType: " + laboratoryFactsAppointment.getAppointmentType() + "\n"
+                            + "Date: " + laboratoryFactsAppointment.getDate().toLocalDate() + "  Time: " + laboratoryFactsAppointment.getDate().toLocalTime().withSecond(0) + "\n"
+                            + "At clinic: " + laboratoryFactsAppointment.getClinic().getClinicType();
+                    stringApp.add(newString);
+                    NOTDONElaboratoryFactsAppointments.add(laboratoryFactsAppointment);
+                }
             }
         }else {
             newString="There is not Scheduled Appointment!";
             stringApp.add(newString);
         }
         ScheduledApp scheduledApp=new ScheduledApp(stringApp,"LaboratoryFacts");
-        scheduledApp.setLaboratoryFactsAppointments(laboratoryFactsAppointments);
+        scheduledApp.setLaboratoryFactsAppointments(NOTDONElaboratoryFactsAppointments);
         return (scheduledApp);
     }
 
     private static ScheduledApp getNurseApp(Patient patient) throws Exception{
         List<NurseAppointment> nurseAppointments=patient.getNurseAppointments();
+        List<NurseAppointment> NOTDONEnurseAppointments=new LinkedList<>();
         List<String> stringApp=new LinkedList<>();
         String newString;
         if(nurseAppointments.size() != 0){
             for (NurseAppointment nurseAppointment : nurseAppointments) {
+                if (!nurseAppointment.isDone())
+                {
                 newString="AppointmentType: "+nurseAppointment.getAppointmentType()+"\n"
                          +"Date: "+ nurseAppointment.getDate().toLocalDate()+"  Time: "+nurseAppointment.getDate().toLocalTime().withSecond(0)+"\n"
                          +"At clinic: "+nurseAppointment.getClinic().getClinicType();
                 stringApp.add(newString);
+                NOTDONEnurseAppointments.add(nurseAppointment);
+                }
             }
         }else {
             newString="There is not Scheduled Appointment!";
             stringApp.add(newString);
         }
         ScheduledApp scheduledApp=new ScheduledApp(stringApp,"Nurse");
-        scheduledApp.setNurseAppointments(nurseAppointments);
+        scheduledApp.setNurseAppointments(NOTDONEnurseAppointments);
         return (scheduledApp);
     }
 
     private static ScheduledApp getCoronaTestApp(int patientId) throws Exception{
         List<CoronaTestAppointment> coronaTestAppointments=getCoronaTestPatientById(patientId);
+        List<CoronaTestAppointment> NOTDONEcoronaTestAppointments=new LinkedList<>();
         List<String> stringApp=new LinkedList<>();
         String newString;
         if(coronaTestAppointments.size() != 0){
             for (CoronaTestAppointment coronaTestAppointment : coronaTestAppointments) {
+                if (!coronaTestAppointment.isDone())
+                {
                 newString="AppointmentType: "+coronaTestAppointment.getAppointmentType()+"\n"
                          +"Date: "+ coronaTestAppointment.getDate().toLocalDate()+"  Time: "+coronaTestAppointment.getDate().toLocalTime().withSecond(0)+"\n"
                          +"At clinic: "+coronaTestAppointment.getClinic().getClinicType();
                 stringApp.add(newString);
+                NOTDONEcoronaTestAppointments.add(coronaTestAppointment);
+                }
             }
         }else {
             newString="There is not Scheduled Appointment!";
             stringApp.add(newString);
         }
         ScheduledApp scheduledApp=new ScheduledApp(stringApp,"CoronaTest");
-        scheduledApp.setCoronaTestAppointments(coronaTestAppointments);
+        scheduledApp.setCoronaTestAppointments(NOTDONEcoronaTestAppointments);
 
         return (scheduledApp);
     }
 
     private static ScheduledApp getVaccineApp(int patientId) throws Exception{
         List<VaccineAppointment> vaccineAppointments=getVaccinePatientById(patientId);
+        List<VaccineAppointment> NOTDONEvaccineAppointments=new LinkedList<>();
         List<String> stringApp=new LinkedList<>();
         String newString;
         if(vaccineAppointments.size() != 0){
             for (VaccineAppointment vaccineAppointment : vaccineAppointments) {
+                if (!vaccineAppointment.isDone())
+                {
                 newString="AppointmentType: "+vaccineAppointment.getAppointmentType()+"\n"
                         +"Date: "+ vaccineAppointment.getDate().toLocalDate()+"  Time: "+vaccineAppointment.getDate().toLocalTime().withSecond(0)+"\n"
                         +"At clinic: "+vaccineAppointment.getClinic().getClinicType();
                 stringApp.add(newString);
+                NOTDONEvaccineAppointments.add(vaccineAppointment);
+                }
             }
         }else {
             newString="There is not Scheduled Appointment!";
             stringApp.add(newString);
         }
         ScheduledApp scheduledApp=new ScheduledApp(stringApp,"Vaccine");
-        scheduledApp.setVaccineAppointments(vaccineAppointments);
+        scheduledApp.setVaccineAppointments(NOTDONEvaccineAppointments);
         return (scheduledApp);
     }
     public static void cancelAppointment(Appointment appointment) throws IOException{
@@ -1314,59 +1338,58 @@ public class AppointmentData extends DataClass{
                 selectedAppinDoc=element;
             }
         }
-        selectedAppinDoc.setDone(true);
-        selectedAppinDoc.setRealTime(LocalDateTime.now());
-        session.saveOrUpdate(selectedAppinDoc);
-        //connect doctor to patient
-        int exist = 0;
-        if (patient.getDoctors().size() == 0) {
-            patient.setDoctors(firstDoctor);
-            session.saveOrUpdate(doctor);
-        }
-        else
+        if(selectedAppinDoc.getAppNum().equalsIgnoreCase("initial val"))
         {
-            exist = 0;
-            for (Doctor element : patient.getDoctors())
-                if(element.getId()==doctor.getId())
-                {
-                    exist=1;
-                    System.out.println("is exist");
-                }
-            if (exist==0)
-            {
-                System.out.println("not exist");
-                patient.getDoctors().add(doctor);
+            appIsDoneBus.setPatientISHere("NotHere");
+        }
+        else {
+            selectedAppinDoc.setDone(true);
+            selectedAppinDoc.setRealTime(LocalDateTime.now());
+            session.saveOrUpdate(selectedAppinDoc);
+            //connect doctor to patient
+            int exist = 0;
+            if (patient.getDoctors().size() == 0) {
+                patient.setDoctors(firstDoctor);
                 session.saveOrUpdate(doctor);
-            }
-        }
-
-        if(doctor.getPatients().size()==0) {
-            doctor.setPatients(firstPatient);
-            session.saveOrUpdate(patient);
-        }
-        else
-        {
-            exist=0;
-            for (Patient element : doctor.getPatients())
-                if (element.getId() == patient.getId())
-                {
-                    exist=1;
-                    System.out.println("is exist");
+            } else {
+                exist = 0;
+                for (Doctor element : patient.getDoctors())
+                    if (element.getId() == doctor.getId()) {
+                        exist = 1;
+                        System.out.println("is exist");
+                    }
+                if (exist == 0) {
+                    System.out.println("not exist");
+                    patient.getDoctors().add(doctor);
+                    session.saveOrUpdate(doctor);
                 }
-            if (exist==0){
-                System.out.println("not exist");
-                doctor.getPatients().add(patient);
-                session.saveOrUpdate(patient);
             }
 
-        }
-        session.saveOrUpdate(doctor);
-        // session.saveOrUpdate(clinic);
+            if (doctor.getPatients().size() == 0) {
+                doctor.setPatients(firstPatient);
+                session.saveOrUpdate(patient);
+            } else {
+                exist = 0;
+                for (Patient element : doctor.getPatients())
+                    if (element.getId() == patient.getId()) {
+                        exist = 1;
+                        System.out.println("is exist");
+                    }
+                if (exist == 0) {
+                    System.out.println("not exist");
+                    doctor.getPatients().add(patient);
+                    session.saveOrUpdate(patient);
+                }
+
+            }
+            session.saveOrUpdate(doctor);
+            // session.saveOrUpdate(clinic);
 //        List<Clinic> UpdatedClinic = new LinkedList<>();
 //        UpdatedClinic.add(clinic);
 //        doctor.setClinicList(UpdatedClinic);
-        session.flush();
-        session.getTransaction().commit();
+            session.flush();
+            session.getTransaction().commit();
+        }
         if (session != null)
             session.close();
         appIsDoneBus.setDoctor(doctor);

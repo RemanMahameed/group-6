@@ -384,16 +384,22 @@ public class App extends Application {
     @Subscribe
     public void onDoneAppEvent(DoneAppEvent event) throws IOException {
         Platform.runLater(() -> {
-        LinkedList<Object> user = new LinkedList<>();
-        if(SimpleClient.getUser_Ob().get(0).getClass().equals(Doctor.class)){
-            user.add(event.getDoneAppBus().getDoctor());
-        }else if(SimpleClient.getUser_Ob().get(0).getClass().equals(Nurse.class)){
-            user.add(event.getDoneAppBus().getNurse());
-        }else if(SimpleClient.getUser_Ob().get(0).getClass().equals(LaboratoryFacts.class)){
-            user.add(event.getDoneAppBus().getLabFact());
-        }
-        SimpleClient.setUser_Ob(user);
-        MessageBoundary.displayInfo("the Appointment is called Successfully");
+            if (event.getDoneAppBus().getPatientISHere().equalsIgnoreCase("NotHere"))
+            {
+                MessageBoundary.displayError("the patient is not here!");
+            }
+            else {
+                LinkedList<Object> user = new LinkedList<>();
+                if (SimpleClient.getUser_Ob().get(0).getClass().equals(Doctor.class)) {
+                    user.add(event.getDoneAppBus().getDoctor());
+                } else if (SimpleClient.getUser_Ob().get(0).getClass().equals(Nurse.class)) {
+                    user.add(event.getDoneAppBus().getNurse());
+                } else if (SimpleClient.getUser_Ob().get(0).getClass().equals(LaboratoryFacts.class)) {
+                    user.add(event.getDoneAppBus().getLabFact());
+                }
+                SimpleClient.setUser_Ob(user);
+                MessageBoundary.displayInfo("the Appointment is called Successfully");
+            }
             try {
                 setRoot("AppView");
             } catch (IOException e) {
