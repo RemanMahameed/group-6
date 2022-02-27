@@ -306,10 +306,10 @@ public class App extends Application {
             else
                 my_clinic=event.getReportBus().getManager().getClinic();
             SimpleClient.getParams().add(my_clinic);
-            SimpleClient.getParams().add(event.getReportBus().getReport_type());
             if(event.getReportBus().getReport_type().equals("WeaklyDoneApps")||event.getReportBus().getReport_type().equals("WeaklyNOTDoneApps"))
             {
                 try {
+                    SimpleClient.getParams().add(event.getReportBus().getReport_type());
                     App.setRoot("WeeklyReport");
                 } catch (IOException e) {
                     e.printStackTrace();

@@ -1,14 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Boundaries.DailyReportBoundary"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="488.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Boundaries.DailyReportBoundary">
+    <children>
+        <ImageView fitHeight="488.0" fitWidth="800.0" layoutX="-2.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@image-from-rawpixel-id-516093-jpeg.jpg" />
+            </image>
+        </ImageView>
+        <Button layoutX="554.0" layoutY="446.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#253f84">
+            <font>
+                <Font name="Script MT Bold" size="14.0" />
+            </font>
+        </Button>
+        <Label layoutX="280.0" layoutY="29.0" prefHeight="45.0" prefWidth="225.0" text="Daily report " textFill="#253f84">
+            <font>
+                <Font name="Script MT Bold" size="36.0" />
+            </font>
+        </Label>
+        <Label fx:id="Date" layoutX="50" layoutY="29.0" prefHeight="15.0" prefWidth="129.0" text="Daily report " textFill="#253f84">
+            <font>
+                <Font name="Script MT Bold" size="20.0" />
+            </font>
+        </Label>
+        <Button layoutX="554.0" layoutY="446.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#253f84">
+            <font>
+                <Font name="Script MT Bold" size="14.0" />
+            </font>
+        </Button>
+        <Button layoutX="483.0" layoutY="446.0" mnemonicParsing="false" onAction="#Back" text="Back" textFill="#253f84">
+            <font>
+                <Font name="Script MT Bold" size="14.0" />
+            </font>
+        </Button>
+        <TableView fx:id="TableView" layoutX="204.0" layoutY="121.0" prefHeight="230.0" prefWidth="303.0">
+            <columns>
+                <TableColumn fx:id="Doctor_name" prefWidth="149.5999755859375" text="Doctor_name" />
+                <TableColumn fx:id="waiting_time" prefWidth="136.0" text="waiting_time" />
+            </columns>
+        </TableView>
+    </children>
 
 </AnchorPane>
