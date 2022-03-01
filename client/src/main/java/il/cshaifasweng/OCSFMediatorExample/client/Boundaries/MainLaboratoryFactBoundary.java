@@ -14,6 +14,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * this page is open when the user is laboratory fact
+ * by this page the laboratory fact can do his action like viewing the appointments and the patients
+ */
+
 public class MainLaboratoryFactBoundary extends Boundary{
     LaboratoryFacts LaboratoryFact;
 

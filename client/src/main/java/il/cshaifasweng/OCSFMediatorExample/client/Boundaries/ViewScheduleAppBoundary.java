@@ -14,6 +14,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 
+/**
+ * this page show the booked appointment that belong to the type that th patient has chose
+ * by this page the patient can cancel an appointment
+ */
+
 public class ViewScheduleAppBoundary extends PatientMainBoundary {
     int index=params.size()-1;
     private ScheduledApp scheduledApp=(ScheduledApp) params.get(index);

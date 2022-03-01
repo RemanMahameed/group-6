@@ -10,6 +10,10 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Optional;
 
+/**
+ * show the note with details of the relevant appointment if it exist
+ */
+
 public class dispalyQueueBoundary {
     static public void displayQueue(String dialog , Patient patient) throws IOException {
         System.out.println("I am in display");

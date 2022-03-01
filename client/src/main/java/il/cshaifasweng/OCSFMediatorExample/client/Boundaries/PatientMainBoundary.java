@@ -12,6 +12,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
+/**
+ * this page is open when the user is a patient
+ * by this page the patient can do his action like book a appointment for a doctor,corona test,view the booked appointments...
+ */
+
 public class PatientMainBoundary extends Boundary {
 
     protected Patient patient= (Patient) user_Ob.get(0);

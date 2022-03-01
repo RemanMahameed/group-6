@@ -12,6 +12,7 @@ import javafx.scene.control.SelectionMode;
 import java.io.IOException;
 import java.util.List;
 
+
 public class QueueManagementBoundary extends Boundary {
     @FXML
     private ListView<String> ClinicList;

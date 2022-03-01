@@ -16,6 +16,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import net.bytebuddy.agent.builder.AgentBuilder;
 
+/**
+ * this page chose the weekly report for a specific clinic and specific type of report (done or not done appointment)
+ */
+
 public class WeeklyReportBoundary extends Boundary{
 
     @FXML

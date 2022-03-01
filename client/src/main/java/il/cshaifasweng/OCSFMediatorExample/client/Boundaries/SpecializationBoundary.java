@@ -14,6 +14,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.image.ImageView;
 
+/**
+ * by this page the patient can choose the type of the doctor the he want to book an appointment for
+ */
+
 public class SpecializationBoundary extends Boundary{
 
 

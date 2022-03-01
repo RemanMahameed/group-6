@@ -12,6 +12,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 
+/**
+ * this is the Questionnaire page the patient must full it when he want to book a corona test appointment
+ */
+
 public class QuestionnaireBoundary extends PatientMainBoundary{
 
     ObservableList<String> choices1= FXCollections.observableArrayList("Yes","NO");

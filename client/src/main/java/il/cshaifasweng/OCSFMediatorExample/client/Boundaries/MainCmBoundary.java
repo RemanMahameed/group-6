@@ -10,6 +10,11 @@ import il.cshaifasweng.OCSFMediatorExample.entities.Table.ClinicManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
+/**
+ * this is the page that will open for a clinic manager user
+ * by this pase the clinic manager can do her action like view report update working hour...
+ */
+
 public class MainCmBoundary extends Boundary{
     ClinicManager clinicManager=(ClinicManager) user_Ob.get(0);
     @FXML

@@ -10,6 +10,10 @@ import javafx.scene.control.PasswordField;
 import java.io.IOException;
 import java.util.LinkedList;
 
+/**
+ * in this boundary the user identifies in the clinic
+ */
+
 public class CardVerBoundary extends Boundary{
 
     String clinicName = (String) params.get(0);

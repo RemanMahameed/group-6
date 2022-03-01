@@ -12,6 +12,10 @@ import il.cshaifasweng.OCSFMediatorExample.entities.Table.Patient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
+/**
+ * by this page the patient can book an appointment for a nurse or a lab
+ */
+
 public class otherActionsBoundary extends Boundary {
 
     @FXML

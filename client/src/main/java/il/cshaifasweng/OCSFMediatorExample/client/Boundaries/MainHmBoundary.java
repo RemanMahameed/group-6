@@ -18,6 +18,11 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 
+/**
+ * this page is belong to the hmo manager
+ * by this page th hmo manager can choose the type of report and the clinic that she want
+ */
+
 public class MainHmBoundary extends Boundary {
 
     HmoManager hmoManager = (HmoManager) user_Ob.get(0);

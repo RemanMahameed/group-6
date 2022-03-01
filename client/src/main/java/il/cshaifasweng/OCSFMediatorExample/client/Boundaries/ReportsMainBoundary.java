@@ -9,6 +9,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 
+/**
+ * this page is belong to the clinic manager
+ * by this page the clinic manager can choose the report that he want to see
+ */
+
 public class ReportsMainBoundary extends MainCmBoundary {
 
     @FXML

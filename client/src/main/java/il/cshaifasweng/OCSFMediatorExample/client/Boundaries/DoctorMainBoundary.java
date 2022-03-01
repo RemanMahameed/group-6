@@ -19,6 +19,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.image.ImageView;
 
+/**
+ * in this page the doctor choose the clinic that he want to do action in it
+ * the showed clinics is the clinic that the doctor work in
+ */
+
 public class DoctorMainBoundary extends Boundary {
 //    Doctor doctor;
 //

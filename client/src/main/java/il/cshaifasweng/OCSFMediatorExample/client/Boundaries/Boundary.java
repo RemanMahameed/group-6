@@ -11,6 +11,11 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * this is the abstract boundary
+ * by this boundary we can inherit the common things of boundaries like the log out button
+ */
+
 public abstract class Boundary {
     protected String title = "";
     protected List<Object> params;

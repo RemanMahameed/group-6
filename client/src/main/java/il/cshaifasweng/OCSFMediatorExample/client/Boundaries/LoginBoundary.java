@@ -16,6 +16,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.image.ImageView;
 
+/**
+ * this is the log in boundary it let the user write the user name and the password and it
+ */
+
 
 public class LoginBoundary extends MessageBoundary{
 

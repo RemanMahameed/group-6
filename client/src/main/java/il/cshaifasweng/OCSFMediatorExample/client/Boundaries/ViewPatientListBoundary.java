@@ -17,6 +17,10 @@ import javafx.scene.control.ListView;
 
 import static il.cshaifasweng.OCSFMediatorExample.client.SimpleClient.AppointmentTable;
 
+/**
+ * this boundary shows the patients that belong to clinic staff user (doctor,nurse,laboratory fact)
+ */
+
 public class ViewPatientListBoundary extends Boundary {
 
 

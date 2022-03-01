@@ -17,6 +17,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.image.ImageView;
 
+/**
+ * this page shows the doctors that belongs to the chosen object
+ */
+
 public class ProDoctorsListBoundary extends Boundary{
     int index =params.size()-1;
     private ProDoctorsList shobdek= (ProDoctorsList) params.get(index);

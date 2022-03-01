@@ -12,6 +12,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 
+/**
+ * in this boundary the patient choose the clinic that he want to book an appointment in it
+ */
+
 public class ClinicBoundary extends PatientMainBoundary{
     int index= params.size()-1;
     ClinicName clinicName= (ClinicName) params.get(index);

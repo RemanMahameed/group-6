@@ -8,6 +8,10 @@ import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
+/**
+ * by tis page the patient can choose the type of the booked appointments the he want to see
+ */
+
 public class ScheduledAppMainBoundary extends PatientMainBoundary{
 
     @FXML

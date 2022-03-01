@@ -3,6 +3,10 @@ package il.cshaifasweng.OCSFMediatorExample.client.Boundaries;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
+/**
+ * this is the collection of alert that we used like information or error...
+ * we match each situation to the wanted alert
+ */
 
 public class MessageBoundary {
     static public void displayInfo(String dialouge) {

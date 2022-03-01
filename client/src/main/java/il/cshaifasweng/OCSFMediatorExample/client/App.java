@@ -23,7 +23,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 /**
- * JavaFX App
+ * JavaFX App.
  */
 public class App extends Application {
 

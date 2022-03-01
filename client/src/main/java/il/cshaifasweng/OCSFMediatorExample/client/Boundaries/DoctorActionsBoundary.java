@@ -12,6 +12,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
+/**
+ * this page is open when the user is doctor
+ * by this page the doctor can do his action like viewing the appointments and the patients
+ */
+
 public class DoctorActionsBoundary extends Boundary{
     Doctor doctor= (Doctor) user_Ob.get(0);
     int index =params.size()-1;

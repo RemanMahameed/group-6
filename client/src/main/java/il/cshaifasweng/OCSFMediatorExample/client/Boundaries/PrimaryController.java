@@ -11,6 +11,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.util.Pair;
 
+/**
+ * this is the main page
+ */
+
 public class PrimaryController {
 	/*synchronized void logIn(String username, String password) throws IOException {
 

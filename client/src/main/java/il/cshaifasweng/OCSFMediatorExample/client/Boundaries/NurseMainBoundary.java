@@ -14,6 +14,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * this page is open when the user is nurse
+ * by this page the nurse can do his action like viewing the appointments and the patients
+ */
+
 public class NurseMainBoundary extends Boundary {
     Nurse nurse = (Nurse) user_Ob.get(0);
 

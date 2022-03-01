@@ -23,6 +23,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * this boundary is for daily report
+ * it shows th average of waiting time for each doctor for the relevant clinic
+ */
+
 public class DailyReportBoundary extends Boundary{
     @FXML
     private ResourceBundle resources;

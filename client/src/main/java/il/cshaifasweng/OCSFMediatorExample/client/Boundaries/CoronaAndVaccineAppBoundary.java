@@ -13,6 +13,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 
+/**
+ * this boundary shows the free appointments for Corona or vaccine
+ * the patient can choose the wanted appointment
+ */
+
 public class CoronaAndVaccineAppBoundary extends PatientMainBoundary{
     FreeAppointment freeAppointment=(FreeAppointment) params.get(0);
     List<String> AppString=freeAppointment.getDetailsApp();

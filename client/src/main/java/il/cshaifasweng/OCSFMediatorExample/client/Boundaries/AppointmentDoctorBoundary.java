@@ -15,6 +15,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 
+/**
+ * this boundary shows the free appointment to the appropriate doctor
+ * the patient choose the wanted appointment
+ */
+
 public class AppointmentDoctorBoundary extends PatientMainBoundary{
     //protected Patient patient= (Patient) user_Ob.get(0);
     private int paramsSize= params.size()-1;

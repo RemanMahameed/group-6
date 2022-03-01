@@ -1608,6 +1608,13 @@ public class AppointmentData extends DataClass{
         appIsDoneBus.setDoctor(doctor);
         return appIsDoneBus;
     }
+
+    /**
+     *
+     * @param coronaTestAppointment
+     * in this function we update the vaccine appointment as done
+     * and this happened when the patient arrive to the clinic
+     */
     public static void SetCoronaTestAppAsDone(CoronaTestAppointment coronaTestAppointment){
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
@@ -1624,6 +1631,14 @@ public class AppointmentData extends DataClass{
         if (session != null)
             session.close();
     }
+
+    /**
+     *
+     * @param patient
+     * @param vaccineAppointment
+     * in this function we update the vaccine appointment as done
+     * and this happened when the patient arrive to the clinic
+     */
     public static void SetVaccineAppAsDone(Patient patient,VaccineAppointment vaccineAppointment){
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();

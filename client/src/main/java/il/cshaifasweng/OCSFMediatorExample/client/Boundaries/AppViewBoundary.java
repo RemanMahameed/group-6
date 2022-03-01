@@ -17,6 +17,11 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * this boundary shows the appointment that belong to clinic staff user (doctor,nurse,laboratory fact)
+ * the user can call the patient to get in (just when the patient come to the clinic) other wise the user can't call
+ */
+
 public class AppViewBoundary extends Boundary{
     Object user =  user_Ob.get(0);
     int index =params.size()-1;
