@@ -212,7 +212,7 @@ public class AppointmentData extends DataClass{
                              +"Date: "+ doctorAppointment.getDate().toLocalDate()+" Time: "+doctorAppointment.getDate().toLocalTime().withSecond(0)+"\n"
                              +"At clinic: "+clinic.getClinicType();
         String subject="Appointment Configuration";
-        //sendEmail(patient.getEmail(), messageContent,subject);
+        sendEmail(patient.getEmail(), messageContent,subject);
 
         session.saveOrUpdate(doctorAppointment);
         session.flush();
@@ -240,7 +240,7 @@ public class AppointmentData extends DataClass{
                              +"Date: "+ vaccineAppointment.getDate().toLocalDate()+" Time: "+vaccineAppointment.getDate().toLocalTime().withSecond(0)+"\n"
                              +"At clinic: "+clinic.getClinicType();
         String subject="Appointment Configuration";
-        //sendEmail(patient.getEmail(), messageContent,subject);
+        sendEmail(patient.getEmail(), messageContent,subject);
         //sendEmail("salehsalsabeel99@gamil.com", messageContent,subject);
         //
         session.saveOrUpdate(vaccineAppointment);
@@ -267,7 +267,7 @@ public class AppointmentData extends DataClass{
                              +"Date: "+ coronaTestAppointment.getDate().toLocalDate()+" Time: "+coronaTestAppointment.getDate().toLocalTime().withSecond(0)+"\n"
                              +"At clinic: "+clinic.getClinicType();
         String subject="Appointment Configuration";
-        //sendEmail(patient.getEmail(), messageContent,subject);
+        sendEmail(patient.getEmail(), messageContent,subject);
         //sendEmail("salehsalsabeel99@gamil.com", messageContent,subject);
         //
 
@@ -281,9 +281,9 @@ public class AppointmentData extends DataClass{
     public static void sendEmail(String patient ,String content,String subject){
 
         // Put sender’s address
-        String from = "salehsalsabeel99@gmail.com";
-        final String username = "salehsalsabeel99@gmail.com";
-        final String password = "hgpl]ggi";
+        String from = "clinicsystem02@gmail.com";
+        final String username = "clinicsystem02@gmail.com";
+        final String password = "ClinicSystem02";
 
         String host = "smtp.gmail.com";
         Properties props = new Properties();
@@ -388,8 +388,8 @@ public class AppointmentData extends DataClass{
                         +"At clinic: "+clinic.getClinicType();
                 //Email subject
                 String subject="Reminder Email";
-                //sendEmail(patientEmail, messageContent,subject);
-                sendEmail("salehsalsabeel99@gamil.com", messageContent,subject);
+                sendEmail(patientEmail, messageContent,subject);
+                //sendEmail("salehsalsabeel99@gamil.com", messageContent,subject);
             }
         }
     }
@@ -404,8 +404,8 @@ public class AppointmentData extends DataClass{
                         +"At clinic: "+clinic.getClinicType();
                 //Email subject
                 String subject="Reminder Email";
-                //sendEmail(patientEmail, messageContent,subject);
-                sendEmail("salehsalsabeel99@gamil.com", messageContent,subject);
+                sendEmail(patientEmail, messageContent,subject);
+                //sendEmail("salehsalsabeel99@gamil.com", messageContent,subject);
             }
         }
     }
@@ -420,8 +420,8 @@ public class AppointmentData extends DataClass{
                         +"At clinic: "+clinic.getClinicType();
                 //Email subject
                 String subject="Reminder Email";
-                //sendEmail(patientEmail, messageContent,subject);
-                sendEmail("salehsalsabeel99@gamil.com", messageContent,subject);
+                sendEmail(patientEmail, messageContent,subject);
+                //sendEmail("salehsalsabeel99@gamil.com", messageContent,subject);
             }
         }
     }
@@ -436,8 +436,8 @@ public class AppointmentData extends DataClass{
                         +"At clinic: "+clinic.getClinicType();
                 //Email subject
                 String subject="Reminder Email";
-                //sendEmail(patientEmail, messageContent,subject);
-                sendEmail("salehsalsabeel99@gamil.com", messageContent,subject);
+                sendEmail(patientEmail, messageContent,subject);
+                //sendEmail("salehsalsabeel99@gamil.com", messageContent,subject);
             }
         }
     }
@@ -452,8 +452,8 @@ public class AppointmentData extends DataClass{
                         +"At clinic: "+clinic.getClinicType();
                 //Email subject
                 String subject="Reminder Email";
-                //sendEmail(patientEmail, messageContent,subject);
-                sendEmail("salehsalsabeel99@gamil.com", messageContent,subject);
+                sendEmail(patientEmail, messageContent,subject);
+                //sendEmail("salehsalsabeel99@gamil.com", messageContent,subject);
             }
         }
     }
