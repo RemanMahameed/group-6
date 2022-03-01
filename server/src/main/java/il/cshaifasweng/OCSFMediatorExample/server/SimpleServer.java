@@ -276,14 +276,40 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 
+		}else if (message.get(0).equals("#checkClinicisOpen")) {
+			String clinicName=(String) message.get(1);
+			OpenOrCloseClinic openOrCloseClinic=new OpenOrCloseClinic();
+			try {
+				openOrCloseClinic=AppointmentData.checkIfCISOpen(clinicName);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				client.sendToClient(openOrCloseClinic);
+				System.out.format("Sent openOrclose to client %s\n", client.getInetAddress().getHostAddress());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
 		} else if (message.get(0).equals("#SendReminderEmail")) {
 			int clinicId=(int) message.get(1);
 			try {
-				AppointmentData.sendReminderEmail(clinicId);
+				AppointmentData.openClinic(clinicId);
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			System.out.format("Sent Reminder Email to patient %s\n", client.getInetAddress().getHostAddress());
+
+		}else if (message.get(0).equals("#CloseSystem")) {
+			int clinicId=(int) message.get(1);
+			try {
+				AppointmentData.CloseClinic(clinicId);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			System.out.format("Close system %s\n", client.getInetAddress().getHostAddress());
 
 		}else if (message.get(0).equals("#SetNewWorkingHours")) {
 			String type=(String) message.get(1);
@@ -452,8 +478,8 @@ public class SimpleServer extends AbstractServer {
 				System.out.format("Sent Done Doctor Appointment to client %s\n", client.getInetAddress().getHostAddress());
 			} catch (IOException e) {
 				e.printStackTrace();
-			}
 
+			}
 
 		}else if (message.get(0).equals("#SelectedNurseApp")){
 

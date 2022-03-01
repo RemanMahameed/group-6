@@ -318,9 +318,50 @@ public class AppointmentData extends DataClass{
             throw new RuntimeException(e);
         }
     }
-    public static void sendReminderEmail(int clinicId) throws Exception {
+
+    public static OpenOrCloseClinic checkIfCISOpen(String clinicName)throws Exception{
+        Clinic clinic=getClinicByName(clinicName);
+        OpenOrCloseClinic openOrCloseClinic=new OpenOrCloseClinic();
+        openOrCloseClinic.setClinicName(clinicName);
+        openOrCloseClinic.setOpenOrclose(clinic.getClinicManager().isOpenORclose());
+        return openOrCloseClinic;
+    }
+
+    public static void CloseClinic(int clinicId)throws Exception
+    {
+        Clinic clinic=getClinicById(clinicId);
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        clinic.getClinicManager().setOpenORclose(false);
+        session.saveOrUpdate(clinic.getClinicManager());
+        session.flush();
+        session.getTransaction().commit();
+        if (session != null)
+            session.close();
+
+    }
+    public static void openClinic(int clinicId)throws Exception
+    {
+        Clinic clinic=getClinicById(clinicId);
+        ClinicManager clinicManager=clinic.getClinicManager();
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        sendReminderEmail(clinic);
+        clinicManager.setOpenORclose(true);
+        session.saveOrUpdate(clinicManager);
+        session.saveOrUpdate(clinic);
+        session.flush();
+        session.getTransaction().commit();
+        if (session != null)
+            session.close();
+
+    }
+
+    public static void sendReminderEmail(Clinic clinic) throws Exception {
         LocalDate tomorrowDate = LocalDate.now().plusDays(1);
-        Clinic clinic = getClinicById(clinicId);
+        int clinicId=clinic.getId();
         assert clinic != null;
         //get clinic's appointment
         List<DoctorAppointment> doctorAppointments=clinic.getDoctorAppointments();

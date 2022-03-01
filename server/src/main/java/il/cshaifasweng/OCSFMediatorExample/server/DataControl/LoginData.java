@@ -167,34 +167,45 @@ public class LoginData extends DataClass{
            session.close();
         return login;
     }
-    public static void logOutUser(Object object){
+    public static void logOutUser(Object object) throws Exception{
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
         session.beginTransaction();
         if(object.getClass().equals(Doctor.class)){
             Doctor user=(Doctor) object;
-            user.setActive(false);
-            session.saveOrUpdate(user);
+            Doctor doctor=getDoctorById(user.getId());
+            doctor.setActive(false);
+            session.saveOrUpdate(doctor);
+
         }else if(object.getClass().equals(Nurse.class)) {
             Nurse user = (Nurse) object;
-            user.setActive(false);
-            session.saveOrUpdate(user);
+            Nurse nurse=getNurseById(user.getId());
+            nurse.setActive(false);
+            session.saveOrUpdate(nurse);
+
         }else if(object.getClass().equals(LaboratoryFacts.class)) {
             LaboratoryFacts user = (LaboratoryFacts) object;
-            user.setActive(false);
-            session.saveOrUpdate(user);
+            LaboratoryFacts laboratoryFacts=getLabFactById(user.getId());
+            laboratoryFacts.setActive(false);
+            session.saveOrUpdate(laboratoryFacts);
+
         }else if(object.getClass().equals(HmoManager.class)) {
             HmoManager user = (HmoManager) object;
-            user.setActive(false);
-            session.saveOrUpdate(user);
+            HmoManager hmoManager=getHMOManagerById(user.getId());
+            hmoManager.setActive(false);
+            session.saveOrUpdate(hmoManager);
+
         }else if(object.getClass().equals(ClinicManager.class)) {
             ClinicManager user = (ClinicManager) object;
-            user.setActive(false);
-            session.saveOrUpdate(user);
+            ClinicManager clinicManager=getClinicManagerById(user.getId());
+            clinicManager.setActive(false);
+            session.saveOrUpdate(clinicManager);
+
         }else if(object.getClass().equals(Patient.class)) {
             Patient user = (Patient) object;
-            user.setActive(false);
-            session.saveOrUpdate(user);
+            Patient patient=getPatientById(user.getId());
+            patient.setActive(false);
+            session.saveOrUpdate(patient);
         }
         session.flush();
         session.close();

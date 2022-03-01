@@ -3,6 +3,7 @@ package il.cshaifasweng.OCSFMediatorExample.client;
 import il.cshaifasweng.OCSFMediatorExample.client.Boundaries.MessageBoundary;
 import il.cshaifasweng.OCSFMediatorExample.client.Boundaries.dispalyQueueBoundary;
 import il.cshaifasweng.OCSFMediatorExample.client.Events.*;
+import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.OpenOrCloseClinic;
 import il.cshaifasweng.OCSFMediatorExample.entities.Table.*;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -433,6 +434,26 @@ public class App extends Application {
 
         });
 
+    }
+    @Subscribe
+    public void onOpenOrCloseEvent(OpenOrCloseEvent event) throws IOException {
+        Platform.runLater(() -> {
+            OpenOrCloseClinic openOrCloseClinic=event.getOpenOrCloseClinic();
+            if(openOrCloseClinic.isOpenOrclose()){
+                params.clear();
+                params.add(openOrCloseClinic.getClinicName());
+                SimpleClient.setParams(params);
+                try {
+                    App.setRoot("CardVer");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }else
+            {
+                MessageBoundary.displayWarning("The clinic is closed");
+            }
+
+        });
     }
 
 

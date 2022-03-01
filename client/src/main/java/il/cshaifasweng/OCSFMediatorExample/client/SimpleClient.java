@@ -67,8 +67,10 @@ public class SimpleClient extends AbstractClient {
 		}else if (msg.getClass().equals(orderAllAppsBus.class)) {
 			EventBus.getDefault().post(new OrderAllAppsBusEvent((orderAllAppsBus) msg));
 		} else if (msg.getClass().equals(ReportBus.class)) {
-		EventBus.getDefault().post(new ReportEvent((ReportBus) msg));
-	}
+			EventBus.getDefault().post(new ReportEvent((ReportBus) msg));
+		}else if (msg.getClass().equals(OpenOrCloseClinic.class)) {
+			EventBus.getDefault().post(new OpenOrCloseEvent((OpenOrCloseClinic) msg));
+		}
 	}
 	
 	public static SimpleClient getClient() {

@@ -162,6 +162,27 @@ public class DataClass {
         session.close();
         return result;
     }
+    public static ClinicManager getClinicManagerById(int Id) throws Exception {
+
+        List<ClinicManager> allClinicManager=getAllClinicManager();
+        for (ClinicManager clinicManager:allClinicManager){
+            if(clinicManager.getId()==Id)
+                return clinicManager;
+        }
+        return new ClinicManager();
+
+    }
+    public static HmoManager getHMOManagerById(int Id) throws Exception {
+
+        List<HmoManager> hmoManagers=getAllHmoManger();
+        for (HmoManager hmoManager:hmoManagers){
+            if(hmoManager.getId()==Id)
+                return hmoManager;
+        }
+        return new HmoManager();
+
+    }
+
     public static Clinic getClinicById(int Id) throws Exception {
 
         List<Clinic> clinics=getAllClinic();
@@ -291,9 +312,9 @@ public class DataClass {
         //manager of HMO
         HmoManager hmoManager=new HmoManager("hmoManager","hmoManager","0503104837","hmoManager@gmail.com","HM-hmoManager","1111");
         //manager of clinic
-        ClinicManager clinicManager1= new ClinicManager("Salsabeel","Saleh","0503104837","CLinicM11@gmail.com","CM-SalehSalsabeel","1111");
-        ClinicManager clinicManager2= new ClinicManager("Sara","Zreke","0526589829","CLinicM22@gmail.com","CM-ZrekeSara","2222");
-        ClinicManager clinicManager3= new ClinicManager("Marah","Bhoooty","0532252582","CLinicM33@gmail.com","CM-BhotyMarah","3333");
+        ClinicManager clinicManager1= new ClinicManager("Salsabeel","Saleh","0503104837","CLinicM11@gmail.com","CM-SalehSalsabeel","1111",false);
+        ClinicManager clinicManager2= new ClinicManager("Sara","Zreke","0526589829","CLinicM22@gmail.com","CM-ZrekeSara","2222",false);
+        ClinicManager clinicManager3= new ClinicManager("Marah","Bhoooty","0532252582","CLinicM33@gmail.com","CM-BhotyMarah","3333",false);
         //doctors
         Doctor doctor1=new Doctor("doctor1","doctor","0503104837","Doctor11@gmail.com","D-Doctor1","1111","FamilyDoctor");
         Doctor doctor2=new Doctor("doctor2","doctor","0503104837","Doctor22@gmail.com","D-Doctor2","2222","FamilyDoctor");

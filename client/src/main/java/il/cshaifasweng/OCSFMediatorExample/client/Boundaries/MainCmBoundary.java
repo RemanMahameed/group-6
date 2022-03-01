@@ -20,7 +20,12 @@ public class MainCmBoundary extends Boundary{
 
 
     @FXML
-    void CloseSystem(ActionEvent event) {
+    void CloseSystem(ActionEvent event) throws IOException {
+        message.clear();
+        message.add("#CloseSystem");
+        message.add(clinicManager.getClinic().getId()); //send the clinic id
+        SimpleClient.getClient().sendToServer(message);
+        MessageBoundary.displayInfo("Clinic is Closed");
 
     }
 
@@ -30,7 +35,7 @@ public class MainCmBoundary extends Boundary{
         message.add("#SendReminderEmail");
         message.add(clinicManager.getClinic().getId()); //send the clinic id
         SimpleClient.getClient().sendToServer(message);
-        MessageBoundary.displayInfo("Sent Reminder Email");
+        MessageBoundary.displayInfo("Open clinic and sent Reminder Email");
 
     }
     @FXML

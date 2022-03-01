@@ -36,7 +36,7 @@ public class SpecializationBoundary extends Boundary{
                 LinkedList<String> choice = new LinkedList<String>();
                 choice.add("#specilizationChoice " );
                 choice.add( splist.getSelectionModel().getSelectedItem());
-                String id = String.valueOf(((Patient) params.get(0)).getId());
+                String id = String.valueOf(((Patient) user_Ob.get(0)).getId());
                 //System.out.println(id);
                 //String id = "2";
                 //System.out.println(id);

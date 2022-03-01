@@ -1,6 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.client.Boundaries;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
+import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,6 +10,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 
 import java.io.IOException;
+import java.util.List;
 
 public class QueueManagementBoundary extends Boundary {
     @FXML
@@ -26,19 +28,26 @@ public class QueueManagementBoundary extends Boundary {
 
     @FXML
     void SubmitAction(ActionEvent event) {
-        params.clear();
         if (ClinicList.getSelectionModel().getSelectedItems().isEmpty()) {
             MessageBoundary.displayError("please choose a clinic");
         } else {
             if (!ClinicList.getSelectionModel().getSelectedItems().equals(null)) {
+                message.clear();
                 String choice = ClinicList.getSelectionModel().getSelectedItem();
                 System.out.println(choice);
-                params.add(choice);
+                message.add("#checkClinicisOpen");
+                message.add(choice); //clinic name
                 try {
-                    App.setRoot("CardVer");
+                    SimpleClient.getClient().sendToServer(message);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+//                params.add(choice);
+//                try {
+//                    App.setRoot("CardVer");
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
             }
 
 
