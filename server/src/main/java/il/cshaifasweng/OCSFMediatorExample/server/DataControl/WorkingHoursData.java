@@ -11,6 +11,16 @@ import java.util.List;
 
 public class WorkingHoursData extends DataClass {
     private static Session session;
+
+    /**
+     *
+     * @param workingHours is eventbus have activityTime,clinicActivityTime doctorId  String type;String clinicName;;
+     * @param Name clinic name
+     * @param type type of which working hours we want
+     * @param doctorId
+     * @throws Exception
+     * get the right working hours according to the the type and put it in workingHours by calling the right function
+     */
     public static void getWorkingHours(WorkingHours workingHours, String Name, String type,String doctorId) throws Exception {
         switch (type) {
             case ("Clinic"):
@@ -89,6 +99,17 @@ public class WorkingHoursData extends DataClass {
         doctorNames.setFlag(type);
         doctorNames.setClinicName(clinicName);
     }
+
+    /**
+     *
+     * @param clinicName
+     * @param type
+     * @param newWorkingHours
+     * @param doctorId
+     * @throws Exception
+     * we get new working hours and set a new one
+     * according to the type we deced which working hors to change by calling the right function
+     */
     public static void SetNewWorkingHours(String clinicName, String type, LocalTime[][] newWorkingHours,int doctorId) throws Exception {
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
@@ -129,6 +150,18 @@ public class WorkingHoursData extends DataClass {
         session.getTransaction().commit(); // Save everything.
         session.close();
     }
+
+    /**
+     *
+     * @param clinic
+     * @param newWorkingHours
+     * @param oldWorkingHours
+     * @param type
+     * @param doctor
+     * @throws Exception
+     * we set tne new working hours and check if there is appointment that we should to cancel
+     * we canceled appointment by calling the right function according to the type(Corona Test,Vaccine or Clinic's Doctor)
+     */
     public static void SetWorkingHours(Clinic clinic, LocalTime[][] newWorkingHours,LocalTime[][] oldWorkingHours,String type,Doctor doctor) throws Exception {
 
         //newStart
@@ -203,6 +236,7 @@ public class WorkingHoursData extends DataClass {
             checkDoctorAppointment(doctorAppointmentsList,"Saturday",oldSaturdayStart,newSaturdayStart,oldSaturdayFinish,newSaturdayFinish);;
         }
     }
+
     public static void checkCoronaTestAppointment(List<CoronaTestAppointment> coronaTestAppointments,String day,LocalTime oldStart, LocalTime newStart,LocalTime oldFinish,LocalTime newFinish) {
         if ((oldStart.isBefore(newStart)) || oldFinish.isAfter(newFinish)) {
             for (CoronaTestAppointment coronaTestAppointment : coronaTestAppointments) {
@@ -258,6 +292,14 @@ public class WorkingHoursData extends DataClass {
             }
         }
     }
+
+    /**
+     *
+     * @param clinic
+     * @param newClinicWorking
+     * @throws Exception
+     * In these function we update the clinic working hours
+     */
     public static void SetClinicWorkingHours(Clinic clinic,LocalTime[][] newClinicWorking) throws Exception {
         List<Doctor> doctors=clinic.getDoctors();
         LocalTime[][] coronaTestActivity=clinic.getCoronaTestTime();
@@ -299,9 +341,17 @@ public class WorkingHoursData extends DataClass {
         session.saveOrUpdate(clinic);
 
     }
-    //this function Checking if services working time is in clinic hours working time
-    //if services working hours  not good change (to be like clinicWorkingHours )
-    // if we change services working hours return false else return true
+
+    /**
+     *
+     * @param clinicWorkingHours
+     * @param servicesWorkingHours
+     * @param newServicesWorkingHours
+     * @return if we change services working hours return false else return true
+     * this function Checking if services working time is in clinic hours working time
+     * if services working hours  not good change (to be like clinicWorkingHours )
+     */
+
     public static boolean CheckServicesTime(LocalTime[][] clinicWorkingHours,LocalTime[][] servicesWorkingHours,LocalTime[][] newServicesWorkingHours){
         int flag=0;
         //clinicStart

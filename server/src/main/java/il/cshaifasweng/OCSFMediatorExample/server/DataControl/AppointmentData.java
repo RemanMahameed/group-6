@@ -29,6 +29,12 @@ public class AppointmentData extends DataClass{
     //**********************************************************************************************************
     //Salsabeeeeeeeel!!
 
+    /**
+     *
+     * @param clinic
+     * @return return the family doctor that working at clinic
+     * @throws Exception
+     */
     private static Doctor getClinicFamilyDoctor(Clinic clinic) throws Exception{
         Doctor Familydoctor=new Doctor();
         List<Doctor> doctors =clinic.getDoctors();
@@ -39,6 +45,12 @@ public class AppointmentData extends DataClass{
         return Familydoctor;
     }
 
+    /**
+     *
+     * @param clinic
+     * @return return the pediatrician doctor that working at clinic
+     * @throws Exception
+     */
     private static Doctor getClinicPediatricianDoctor(Clinic clinic) throws Exception {
         Doctor PediatricianDoctor=new Doctor();
         List<Doctor> doctors =clinic.getDoctors();
@@ -52,6 +64,13 @@ public class AppointmentData extends DataClass{
         return PediatricianDoctor;
     }
 
+    /**
+     *
+     * @param patientId
+     * @return the doctorApp (list of free doctor app ) in 4 week
+     * @throws Exception
+     * according to the age of the patient we get the free appointment of the right doctor and calling function with the correct doctor
+     */
     public static DoctorApp getFreeClinicDoctorApp(int patientId) throws Exception {
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
@@ -73,6 +92,15 @@ public class AppointmentData extends DataClass{
 
         return doctorAppointments;
     }
+
+    /**
+     *
+     * @param doctor
+     * @param patient
+     * @param type
+     * @return in these function we check in wich time there is free appointment ( at 4 week)
+     * @throws Exception
+     */
     public static DoctorApp getFreeDoctorApp(Doctor doctor,Patient patient,String type) throws Exception {
         List<DoctorAppointment> doctorAppointments = doctor.getAppointments();
         LocalTime[][] DoctorReceptionTime = doctor.getReceptionTime().get(0).getActiveTime();
@@ -129,6 +157,17 @@ public class AppointmentData extends DataClass{
         }
         return (new DoctorApp(doctorAppString, doctorAppList,patient,doctor));
     }
+
+    /**
+     *
+     * @param patientId
+     * @param doctor
+     * @param doctorAppointment
+     * @throws Exception
+     * we get the patient that have selected appointment and the details of the appointment
+     * we set the appointment and save it in the data
+     * the appointment we talk about is doctor app
+     */
     public static void SetSelectedDoctorAppointment(int patientId, Doctor doctor, DoctorAppointment doctorAppointment) throws Exception {
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
@@ -221,6 +260,16 @@ public class AppointmentData extends DataClass{
             session.close();
     }
 
+    /**
+     *
+     * @param vaccineAppointment
+     * @param clinicId
+     * @param patientId
+     * @throws Exception
+     * we get the patient that have selected appointment and the details of the appointment
+     * we set the appointment and save it in the data
+     * the appointment we talk about is Vaccine App
+     */
     public static void setSelectedVaccineApp(VaccineAppointment vaccineAppointment,int clinicId,int patientId) throws Exception {
         Clinic clinic=getClinicById(clinicId);
         Patient patient=getPatientById(patientId);
@@ -250,6 +299,16 @@ public class AppointmentData extends DataClass{
             session.close();
     }
 
+    /**
+     *
+     * @param coronaTestAppointment
+     * @param clinicId
+     * @param patientId
+     * @throws Exception
+     *  we get the patient that have selected appointment and the details of the appointment
+     *  we set the appointment and save it in the data
+     *  the appointment we talk about is CoronaTestApp
+     */
     public static void setSelectedCoronaTestApp(CoronaTestAppointment coronaTestAppointment,int clinicId,int patientId) throws Exception {
         Clinic clinic=getClinicById(clinicId);
         Patient patient=getPatientById(patientId);
@@ -278,6 +337,15 @@ public class AppointmentData extends DataClass{
             session.close();
 
     }
+
+    /**
+     *
+     * @param patient
+     * @param content
+     * @param subject
+     * these function get the patient email ,content and the subject
+     * and send email to patient
+     */
     public static void sendEmail(String patient ,String content,String subject){
 
         // Put sender’s address
@@ -320,6 +388,12 @@ public class AppointmentData extends DataClass{
         }
     }
 
+    /**
+     *
+     * @param clinicName
+     * @return true if clinic manager have open the clinic else false
+     * @throws Exception
+     */
     public static OpenOrCloseClinic checkIfCISOpen(String clinicName)throws Exception{
         Clinic clinic=getClinicByName(clinicName);
         OpenOrCloseClinic openOrCloseClinic=new OpenOrCloseClinic();
@@ -328,6 +402,12 @@ public class AppointmentData extends DataClass{
         return openOrCloseClinic;
     }
 
+    /**
+     *
+     * @param clinicId
+     * @throws Exception
+     * close the clinic
+     */
     public static void CloseClinic(int clinicId)throws Exception
     {
         Clinic clinic=getClinicById(clinicId);
@@ -342,6 +422,13 @@ public class AppointmentData extends DataClass{
             session.close();
 
     }
+
+    /**
+     *
+     * @param clinicId
+     * @throws Exception
+     * open the clinic and send reminder emails to the patient tha have appointment at these clinic in the next day
+     */
     public static void openClinic(int clinicId)throws Exception
     {
         Clinic clinic=getClinicById(clinicId);
@@ -359,6 +446,14 @@ public class AppointmentData extends DataClass{
             session.close();
 
     }
+
+    /**
+     *
+     * @param clinic
+     * @throws Exception
+     * these function get the clinic and send email to the patient tha have appointment at these clinic in the next day
+     * we decied what to send according to the type of the appointment so we call the right function
+     */
 
     public static void sendReminderEmail(Clinic clinic) throws Exception {
         LocalDate tomorrowDate = LocalDate.now().plusDays(1);
@@ -473,6 +568,13 @@ public class AppointmentData extends DataClass{
         }
         return new ScheduledApp();
     }
+
+    /**
+     *
+     * @param patient
+     * @return list of doctor appointment the patient already have ordered
+     * @throws Exception
+     */
     private static ScheduledApp getDoctorApp(Patient patient) throws Exception{
         List<DoctorAppointment> doctorAppointments =patient.getDoctorAppointments();
         List<DoctorAppointment> NotDonedoctorAppointments=new LinkedList<>();
@@ -498,7 +600,12 @@ public class AppointmentData extends DataClass{
         scheduledApp.setDoctorAppointments(NotDonedoctorAppointments);
         return (scheduledApp);
     }
-
+    /**
+     *
+     * @param patient
+     * @return list of LaboratoryFacts appointment the patient already have ordered
+     * @throws Exception
+     */
     private static ScheduledApp getLaboratoryFactsApp(Patient patient) throws Exception{
         List<LaboratoryFactsAppointment> laboratoryFactsAppointments=patient.getLaboratoryFactsAppointments();
         List<LaboratoryFactsAppointment> NOTDONElaboratoryFactsAppointments=new LinkedList<>();
@@ -522,7 +629,12 @@ public class AppointmentData extends DataClass{
         scheduledApp.setLaboratoryFactsAppointments(NOTDONElaboratoryFactsAppointments);
         return (scheduledApp);
     }
-
+    /**
+     *
+     * @param patient
+     * @return list of Nurse appointment the patient already have ordered
+     * @throws Exception
+     */
     private static ScheduledApp getNurseApp(Patient patient) throws Exception{
         List<NurseAppointment> nurseAppointments=patient.getNurseAppointments();
         List<NurseAppointment> NOTDONEnurseAppointments=new LinkedList<>();
@@ -547,7 +659,12 @@ public class AppointmentData extends DataClass{
         scheduledApp.setNurseAppointments(NOTDONEnurseAppointments);
         return (scheduledApp);
     }
-
+    /**
+     *
+     * @param patientId
+     * @return list of CoronaTest appointment the patient already have ordered
+     * @throws Exception
+     */
     private static ScheduledApp getCoronaTestApp(int patientId) throws Exception{
         List<CoronaTestAppointment> coronaTestAppointments=getCoronaTestPatientById(patientId);
         List<CoronaTestAppointment> NOTDONEcoronaTestAppointments=new LinkedList<>();
@@ -573,7 +690,12 @@ public class AppointmentData extends DataClass{
 
         return (scheduledApp);
     }
-
+    /**
+     *
+     * @param patientId
+     * @return list of Vaccine appointment the patient already have ordered
+     * @throws Exception
+     */
     private static ScheduledApp getVaccineApp(int patientId) throws Exception{
         List<VaccineAppointment> vaccineAppointments=getVaccinePatientById(patientId);
         List<VaccineAppointment> NOTDONEvaccineAppointments=new LinkedList<>();
@@ -598,6 +720,7 @@ public class AppointmentData extends DataClass{
         scheduledApp.setVaccineAppointments(NOTDONEvaccineAppointments);
         return (scheduledApp);
     }
+
     public static void cancelAppointment(Appointment appointment) throws IOException{
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();

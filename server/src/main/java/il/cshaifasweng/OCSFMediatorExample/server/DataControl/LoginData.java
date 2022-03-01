@@ -132,7 +132,15 @@ public class LoginData extends DataClass{
         return login = new Login(userName, passWord, NOTFOUND);
     }
 
-    // input : userName & PassWord and check if is already found in User table
+    /**
+     *
+     * @param userName
+     * @param passWord
+     * @return
+     * @throws Exception
+     * check if user found in User table ang the username & password is correct and the user not already loged by calling the right function
+     */
+
     public static Login CheckExcision(String userName, String passWord) throws Exception {
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
@@ -167,6 +175,7 @@ public class LoginData extends DataClass{
            session.close();
         return login;
     }
+
     public static void logOutUser(Object object) throws Exception{
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
