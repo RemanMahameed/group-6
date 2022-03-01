@@ -28,6 +28,7 @@ public class AppointmentData extends DataClass{
     //**********************************************************************************************************
     //**********************************************************************************************************
     //Salsabeeeeeeeel!!
+
     private static Doctor getClinicFamilyDoctor(Clinic clinic) throws Exception{
         Doctor Familydoctor=new Doctor();
         List<Doctor> doctors =clinic.getDoctors();
@@ -715,6 +716,7 @@ public class AppointmentData extends DataClass{
         }
         return (new FreeAppointment("CoronaTest",clinicId,AppString,newCoronaTestAppointments));
     }
+
     public static FreeAppointment getFreeVaccineApp(List<VaccineAppointment> vaccineAppointmentList,LocalTime[][] ActiveTime,Clinic clinic,int PatientId,String AppType) throws Exception {
         Patient patient =getPatientById(PatientId);
         int clinicId=clinic.getId();
@@ -775,6 +777,16 @@ public class AppointmentData extends DataClass{
     //**********************************************************************************************************
     //Srar namer reman
     // this func returns the pro doc by his name an clinic
+
+    /**
+     * this function returns the
+     * @param doctor  doctor
+     * @param patient patient - we need it in case the patient choose a free app in future
+     * @param type the type of the doctor appointment
+     * @param clinic clinic that the appointment scheduled at
+     * @return returns a DoctorApp object witch contains all free appointments of the doctor
+     * @throws Exception
+     */
     public static DoctorApp getFreeProDoctorApp(Doctor doctor,Patient patient,String type , String clinic) throws Exception {
 
         List<DoctorAppointment> doctorAppointments = doctor.getAppointments();
@@ -835,6 +847,14 @@ public class AppointmentData extends DataClass{
 
         return (new DoctorApp(doctorAppString, doctorAppList,patient,doctor));
     }
+
+    /**
+     *
+     * @param major a string of doctor major
+     * @param id_P string of patient id
+     * @return ProDoctorsList witch contains sorted professional doctors
+     * @throws Exception
+     */
     public static ProDoctorsList getdoctorsofsp (String major , String id_P) throws Exception {
             // int id_patient = Integer.valueOf(id_P);
             SessionFactory sessionFactory = getSessionFactory();
@@ -896,6 +916,13 @@ public class AppointmentData extends DataClass{
             }
             return SortedDoctors;
         }
+
+    /**
+     * this function used by the appointments
+     * @param p patient
+     * @param c clinic
+     * @return the closest appointments of today's appointments
+     */
         public static String getClosestApp(Patient p , Clinic c)
         {
             SessionFactory sessionFactory = getSessionFactory();
@@ -991,7 +1018,13 @@ public class AppointmentData extends DataClass{
             return details ;
         }
 
-
+    /**
+     * we needed this function because of the null cases
+     * @param docApps doctor appointments
+     * @param vaccine vaccine appointments
+     * @param corona corona appointments
+     * @return the min appointment from the three lists
+     */
         public  static int Checkmin(List<DoctorAppointment> docApps, List<VaccineAppointment> vaccine,List<CoronaTestAppointment> corona){
             int Sdoc = docApps.size();
             int Svaccine = vaccine.size();
@@ -1072,7 +1105,14 @@ public class AppointmentData extends DataClass{
         return 0;
         }
 
-
+    /**
+     * this function calculates the appointment number returns it and update it to the database
+     * @param App the scheduled app
+     * @param Qlength length of the appointment
+     * @param date
+     * @param clinic clinic that the appointment scheduled at
+     * @return the calculated appointment number
+     */
     public static String getSAppnum (Appointment App , int Qlength , LocalDateTime date , Clinic clinic)
     {
         SessionFactory sessionFactory = getSessionFactory();
@@ -1362,6 +1402,15 @@ public class AppointmentData extends DataClass{
         appIsDoneBus.setLabFact(labfact);
         return appIsDoneBus;
     }
+
+    /**
+     * this function sets the app as done when tha doctor calls a patient
+     * @param patient
+     * @param doctor
+     * @param clinic
+     * @param AppId
+     * @return event bus to update the current window of showed patient
+     */
     public static DoneAppBus SetDoctorAppAsDone(Patient patient, Doctor doctor, Clinic clinic, int AppId){
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
