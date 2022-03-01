@@ -588,6 +588,34 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 
+		}else if (message.get(0).equals("#Refresh")){
+			System.out.println("I am in the refresh");
+			UserBus user =new UserBus();
+			if(message.get(1).equals("doctor")){
+				try {
+					user.setPerson(DataClass.getDoctorById(Integer.parseInt((String) message.get(2))));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}else if(message.get(1).equals("nurse")){
+				try {
+					user.setPerson(DataClass.getNurseById(Integer.parseInt((String) message.get(2))));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}else{
+				try {
+					user.setPerson(DataClass.getLabFactById(Integer.parseInt((String) message.get(2))));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}try {
+				client.sendToClient(user);
+				System.out.format("Sent refreshed user to client %s\n", client.getInetAddress().getHostAddress());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
 		}
 
 	}

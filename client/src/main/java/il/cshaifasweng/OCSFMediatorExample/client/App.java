@@ -456,6 +456,20 @@ public class App extends Application {
         });
     }
 
+    @Subscribe
+    public  void onUSerBusEvent(UserBusEvent event) throws IOException{
+        Platform.runLater(() -> {
+            List<Object> user = new LinkedList<>();
+            user.add(event.getUserBus().getPerson());
+            SimpleClient.setUser_Ob(user);
+            try {
+                setRoot("AppView");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+    }
 
     public static void main(String[] args) {
         launch();

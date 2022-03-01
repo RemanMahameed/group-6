@@ -26,6 +26,30 @@ public class AppViewBoundary extends Boundary{
 
     @FXML
     private Label ClinicLabel;
+    @FXML
+    void RefreshAction(ActionEvent event){
+        LinkedList<String> ReMsg = new LinkedList<String>();
+        ReMsg.add("#Refresh" );
+        if (user.getClass().equals(Doctor.class)) {
+            Doctor doctor = (Doctor) user_Ob.get(0);
+            ReMsg.add("doctor");
+            ReMsg.add(String.valueOf(doctor.getId()));
+        }else if (user.getClass().equals(Nurse.class)) {
+            Nurse nurse = (Nurse) user_Ob.get(0);
+            ReMsg.add("nurse");
+            ReMsg.add(String.valueOf(nurse.getId()));
+        } else if (user.getClass().equals(LaboratoryFacts.class)) {
+            LaboratoryFacts labFact = (LaboratoryFacts) user_Ob.get(0);
+            ReMsg.add("lab");
+            ReMsg.add(String.valueOf(labFact.getId()));
+        }
+        try {
+            SimpleClient.getClient().sendToServer(ReMsg);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     void backAction(ActionEvent event) {

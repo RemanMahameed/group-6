@@ -70,6 +70,8 @@ public class SimpleClient extends AbstractClient {
 			EventBus.getDefault().post(new ReportEvent((ReportBus) msg));
 		}else if (msg.getClass().equals(OpenOrCloseClinic.class)) {
 			EventBus.getDefault().post(new OpenOrCloseEvent((OpenOrCloseClinic) msg));
+		}else if(msg.getClass().equals(UserBus.class)){
+			EventBus.getDefault().post(new UserBusEvent((UserBus) msg));
 		}
 	}
 	
