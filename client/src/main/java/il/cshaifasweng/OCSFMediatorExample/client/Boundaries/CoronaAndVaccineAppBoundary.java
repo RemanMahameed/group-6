@@ -44,9 +44,13 @@ public class CoronaAndVaccineAppBoundary extends PatientMainBoundary{
 
     @FXML
     void SaveAppointment(ActionEvent event) throws IOException {
-        int index=ListView.getSelectionModel().getSelectedIndex();
+        int index = ListView.getSelectionModel().getSelectedIndex();
         message.clear();
-        if(AppType.equals("CoronaTest")) {
+        if(ListView.getSelectionModel().getSelectedItems().isEmpty()){
+            MessageBoundary.displayError("You have to choose a date");
+        }
+        else{
+        if (AppType.equals("CoronaTest")) {
             message.add("#setSelectedCoronaTestApp");
             message.add(freeAppointment.getCoronaTestAppointments().get(index)); //add the selected App
         } else {
@@ -56,9 +60,10 @@ public class CoronaAndVaccineAppBoundary extends PatientMainBoundary{
         message.add(freeAppointment.getClinicId());
         message.add(patient.getId());
         SimpleClient.getClient().sendToServer(message);
-        MessageBoundary.displayInfo("You chose: "+"\n"+
+        MessageBoundary.displayInfo("You chose: " + "\n" +
                 ListView.getSelectionModel().getSelectedItems());
         App.setRoot("patientmain");
+        }
     }
 
     @FXML
