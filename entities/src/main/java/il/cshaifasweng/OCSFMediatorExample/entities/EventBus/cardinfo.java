@@ -5,6 +5,10 @@ import il.cshaifasweng.OCSFMediatorExample.entities.Table.Patient;
 
 import java.io.Serializable;
 
+/**
+ * in this class we have the patient the clinic , success = 1 in case the card number was correct, the details is a String contains the details of the closest appointment
+ */
+
 public class cardinfo implements Serializable {
     Patient p ;
     Clinic c ;

@@ -2,6 +2,10 @@ package il.cshaifasweng.OCSFMediatorExample.entities.EventBus;
 
 import java.io.Serializable;
 
+/**
+ * passing the appointment number
+ */
+
 public class AppNum implements Serializable {
     int Appnum;
     String AppType;

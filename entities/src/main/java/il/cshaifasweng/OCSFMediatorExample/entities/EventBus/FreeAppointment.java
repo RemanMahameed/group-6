@@ -6,6 +6,10 @@ import il.cshaifasweng.OCSFMediatorExample.entities.Table.VaccineAppointment;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * this class contains free appointments
+ */
+
 public class FreeAppointment implements Serializable {
     String type;
     int clinicId;

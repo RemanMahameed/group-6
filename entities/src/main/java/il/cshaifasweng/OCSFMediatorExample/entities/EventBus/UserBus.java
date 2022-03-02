@@ -4,6 +4,9 @@ import il.cshaifasweng.OCSFMediatorExample.entities.Table.Person;
 
 import java.io.Serializable;
 
+/**
+ * updating the user for the refresh
+ */
 public class UserBus implements Serializable {
     Person person ;
 

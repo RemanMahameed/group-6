@@ -4,6 +4,10 @@ import il.cshaifasweng.OCSFMediatorExample.entities.Table.Clinic;
 
 import java.io.Serializable;
 
+/**
+ * passing a clinic object
+ */
+
 public class ClinicBus implements Serializable {
     Clinic clinic ;
 
