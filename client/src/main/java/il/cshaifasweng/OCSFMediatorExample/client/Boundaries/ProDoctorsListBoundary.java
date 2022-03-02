@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.EventBus.ProDoctorsList;
 import il.cshaifasweng.OCSFMediatorExample.entities.Table.Doctor;
@@ -32,7 +33,15 @@ public class ProDoctorsListBoundary extends Boundary{
 
     @FXML
     private ListView<String> Proslist;
-
+    @FXML
+    void backAction(ActionEvent event){
+        params.remove(index);
+        try {
+            App.setRoot("specialization_list");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     void submitAction(ActionEvent event) {

@@ -3,6 +3,7 @@ package il.cshaifasweng.OCSFMediatorExample.client.Boundaries;
 import java.io.IOException;
 import java.util.LinkedList;
 
+import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Table.Patient;
 import javafx.collections.FXCollections;
@@ -27,7 +28,14 @@ public class SpecializationBoundary extends Boundary{
 
     @FXML
     private ListView<String> splist;
-
+    @FXML
+    void backAction(ActionEvent event){
+        try {
+            App.setRoot("PatientMain");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     void submitAction(ActionEvent event) {
